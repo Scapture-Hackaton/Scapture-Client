@@ -1,10 +1,10 @@
 import { test } from "../functions/function";
-
+import "../scss/scapture.scss";
 const Scapture = () => {
   return (
-    <div>
+    <div className="test">
       <div>{test()}</div>
-      <div>Main.tsx</div>
+      <div>Scapture.tsx</div>
     </div>
   );
 };
