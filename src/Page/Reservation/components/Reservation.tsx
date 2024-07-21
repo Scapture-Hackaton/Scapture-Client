@@ -1,10 +1,10 @@
 import { test } from "../functions/function";
-
+import styles from "../scss/reservation.module.scss";
 const Reservation = () => {
   return (
-    <div>
+    <div className={styles.test}>
       <div>{test()}</div>
-      <div>Main.tsx</div>
+      <div>Reservation.tsx</div>
     </div>
   );
 };

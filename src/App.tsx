@@ -15,13 +15,13 @@ function App() {
     <Router>
       <Routes>
         <Route path="/" element={<Main />} />
-        <Route path="/Scapture" element={<Scapture />} />
-        <Route path="/Stadium" element={<Stadium />} />
-        <Route path="/Reservation" element={<Reservation />} />
-        <Route path="/Video" element={<Video />} />
-        <Route path="/MyPage" element={<MyPage />} />
-        <Route path="/Header" element={<Header />} />
-        <Route path="/Footer" element={<Footer />} />
+        <Route path="/scapture" element={<Scapture />} />
+        <Route path="/stadium" element={<Stadium />} />
+        <Route path="/reservation" element={<Reservation />} />
+        <Route path="/video" element={<Video />} />
+        <Route path="/mypage" element={<MyPage />} />
+        <Route path="/header" element={<Header />} />
+        <Route path="/footer" element={<Footer />} />
       </Routes>
     </Router>
   );

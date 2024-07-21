@@ -1,10 +1,10 @@
 import { test } from "../functions/function";
-
+import styles from "../scss/my-page.module.scss";
 const MyPage = () => {
   return (
-    <div>
+    <div className={styles.test}>
       <div>{test()}</div>
-      <div>Main.tsx</div>
+      <div>MyPage.tsx</div>
     </div>
   );
 };

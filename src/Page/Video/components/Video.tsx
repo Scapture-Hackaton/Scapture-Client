@@ -1,10 +1,11 @@
 import { test } from "../functions/function";
+import styles from "../scss/video.module.scss";
 
 const Video = () => {
   return (
-    <div>
+    <div className={styles.test}>
       <div>{test()}</div>
-      <div>Main.tsx</div>
+      <div>Video.tsx</div>
     </div>
   );
 };

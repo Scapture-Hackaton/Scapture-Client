@@ -1,10 +1,11 @@
 import { test } from "../functions/function";
+import styles from "../scss/stadium.module.scss";
 
 const Stadium = () => {
   return (
-    <div>
+    <div className={styles.test}>
       <div>{test()}</div>
-      <div>Main.tsx</div>
+      <div>Stadium.tsx</div>
     </div>
   );
 };
