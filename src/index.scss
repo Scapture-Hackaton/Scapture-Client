@@ -8,15 +8,16 @@
   --primary-color: #010026;
   --editor-icon-bg: #252525;
   --editor-icon-bg: #000000;
+  --primary-btn-color: #0057FF;
 
   --guide-line-color: #44695d;
 
-  --font-size: 45px;
-  --font-size: 32px;
-  --font-size: 28px;
-  --font-size: 24px;
-  --font-size: 20px;
-  --font-size: 16px;
+  --font-size-xxxl: 45px;
+  --font-size-xxl: 32px;
+  --font-size-xl: 28px;
+  --font-size-l: 24px;
+  --font-size-m: 20px;
+  --font-size-s: 16px;
 }
 
 *,
@@ -48,7 +49,7 @@ a {
 body {
   display: flex;
   justify-content: center;
-  align-items: center;
+  // align-items: center;
   background-color: var(--primary-color);
   margin: 0;
   width: 100%;
