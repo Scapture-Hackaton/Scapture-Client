@@ -17,11 +17,18 @@ module.exports = {
     'import',
     'react',
   ],
+  
   settings: {
     react: {
       version: 'detect',
     },
+    'import/resolver': {
+      node: {
+        extensions: ['.js', '.jsx', '.ts', '.tsx'],
+      },
+    },
   },
+
   rules: {
     'react-refresh/only-export-components': [
       'warn',
@@ -35,14 +42,15 @@ module.exports = {
         tsx: 'never',
       },
     ],
-    '@typescript-eslint/explicit-function-return-type': [
-      'error',
-      {
-        allowExpressions: true,
-      },
-    ],
+    // React.FC 사용하지 않는게 좋기 때문에 함수형 컴포넌트의 리턴값 타입 지정을 막기
+    "@typescript-eslint/explicit-function-return-type": "off",
+
     camelcase: ['error', { properties: 'always' }],
-    'react/jsx-filename-extension': ['warn', { extensions: ['.tsx'] }],
+
+    // jsx 파일 확장자 .jx, .jsx, .ts, .tsx 허용
+    'react/jsx-filename-extension': [2, { extensions: ['.js', '.jsx', '.ts', '.tsx'] }],
+    "react/jsx-filename-extension":["warn",{"extensions":[".tsx"]}] ,
+
     'react/button-has-type': 'off',
     'jsx-a11y/anchor-has-content': 'off',
     'prefer-arrow/prefer-arrow-functions': [
