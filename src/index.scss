@@ -1,13 +1,22 @@
 :root {
-  --primary-bg: #FFFFFF;
-  --btn-main-bg: #29B8B5;
-  --btn-main-font: #FFFFFF;
-  --btn-sub-bg: #9A9DA0;
-  --btn-sub-font: #EBEDEF;
-  --editor-main-bg: #e9e9ea;
-  --editor-icon-bg: #D9F1F1;
+  --primary-bg: #FFED1D;
+  --btn-main-bg: #D6DF22;
+  --btn-main-font: #615B14;
+  --btn-sub-bg: #6788FD;
+  --btn-sub-font: #4285F4;
+  --editor-main-bg: #1A1A3C;
+  --primary-color: #010026;
+  --editor-icon-bg: #252525;
+  --editor-icon-bg: #000000;
 
-  --btn-font-size: 36px;
+  --guide-line-color: #44695d;
+
+  --font-size: 45px;
+  --font-size: 32px;
+  --font-size: 28px;
+  --font-size: 24px;
+  --font-size: 20px;
+  --font-size: 16px;
 }
 
 *,
@@ -40,14 +49,14 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: var(--primary-bg);
+  background-color: var(--primary-color);
   margin: 0;
   width: 100%;
   height: 100vh;
   min-height: auto;
 
   .gide-line {
-    background-color: gray;
+    background-color: var(--guide-line-color);
     display: flex;
     justify-content: center;
     align-items: center;

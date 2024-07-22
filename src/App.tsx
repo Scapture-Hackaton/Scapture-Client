@@ -7,6 +7,7 @@ import Video from "./Page/Video/components/Video";
 import MyPage from "./Page/MyPage/components/MyPage";
 import Header from "./Page/Header/components/Header";
 import Footer from "./Page/Footer/components/Footer";
+import DevTer from "./DevTerminal";
 
 import "./App.scss";
 
@@ -22,6 +23,7 @@ function App() {
         <Route path="/mypage" element={<MyPage />} />
         <Route path="/header" element={<Header />} />
         <Route path="/footer" element={<Footer />} />
+        <Route path="/dev-ter" element={<DevTer />} />
       </Routes>
     </Router>
   );
