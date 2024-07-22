@@ -1,5 +1,5 @@
-import { Link } from "react-router-dom";
-import "./dev-ter.module.scss";
+import { Link } from 'react-router-dom';
+import './dev-ter.module.scss';
 
 const DevTerminal = () => {
   return (

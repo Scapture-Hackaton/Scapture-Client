@@ -1,5 +1,5 @@
-import { test } from "../functions/function";
-import styles from "../scss/video.module.scss";
+import { test } from '../functions/function';
+import styles from '../scss/video.module.scss';
 
 const Video = () => {
   return (

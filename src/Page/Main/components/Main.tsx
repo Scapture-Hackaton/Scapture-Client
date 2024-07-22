@@ -1,5 +1,5 @@
-import { test } from "../functions/function";
-import styles from "../scss/main.module.scss";
+import { test } from '../functions/function';
+import styles from '../scss/main.module.scss';
 
 const Main = () => {
   return (

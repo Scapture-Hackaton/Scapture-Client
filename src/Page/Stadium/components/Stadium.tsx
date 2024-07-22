@@ -1,5 +1,5 @@
-import { test } from "../functions/function";
-import styles from "../scss/stadium.module.scss";
+import { test } from '../functions/function';
+import styles from '../scss/stadium.module.scss';
 
 const Stadium = () => {
   return (

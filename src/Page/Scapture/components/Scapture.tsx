@@ -1,6 +1,6 @@
-import { test } from "../functions/function";
-import "../scss/scapture.scss";
-import styles from "../scss/scapture.module.scss";
+import { test } from '../functions/function';
+import '../scss/scapture.scss';
+import styles from '../scss/scapture.module.scss';
 
 const Scapture = () => {
   return (
