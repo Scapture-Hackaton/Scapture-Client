@@ -6,6 +6,7 @@ module.exports = {
     'plugin:@typescript-eslint/recommended',
     'plugin:react-hooks/recommended',
     'plugin:prettier/recommended',
+
   ],
   ignorePatterns: ['dist', 'node_modules', '.eslintrc.cjs'],
   parser: '@typescript-eslint/parser',
@@ -17,7 +18,7 @@ module.exports = {
     'import',
     'react',
   ],
-  
+
   settings: {
     react: {
       version: 'detect',
@@ -49,7 +50,7 @@ module.exports = {
 
     // jsx 파일 확장자 .jx, .jsx, .ts, .tsx 허용
     'react/jsx-filename-extension': [2, { extensions: ['.js', '.jsx', '.ts', '.tsx'] }],
-    "react/jsx-filename-extension":["warn",{"extensions":[".tsx"]}] ,
+    "react/jsx-filename-extension": ["warn", { "extensions": [".tsx"] }],
 
     'react/button-has-type': 'off',
     'jsx-a11y/anchor-has-content': 'off',
@@ -75,6 +76,15 @@ module.exports = {
         vars: 'all',
         ignoreRestSiblings: false,
         varsIgnorePattern: '^(is|set)[A-Z].*$',
+      },
+    ],
+    'linebreak-style': 'off', // 줄 끝 문자 스타일 무시
+
+    //prettier eslint 통합 설정
+    'prettier/prettier': [
+      'error',
+      {
+        endOfLine: 'auto', // Prettier의 endOfLine 옵션을 LF로 설정
       },
     ],
   },
