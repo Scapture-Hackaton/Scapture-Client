@@ -18,5 +18,5 @@ module.exports = {
 
   bracketSpacing: true, // 기본값. true인 경우 {foo:bar}는 { foo: bar }로 변환됨
 
-  endOfLine: 'lf', // 줄 끝 문자를 LF로 강제 설정
+  endOfLine: 'auto' // 줄 끝 문자를 LF로 강제 설정
 };
