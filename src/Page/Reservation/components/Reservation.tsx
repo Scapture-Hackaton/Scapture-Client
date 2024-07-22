@@ -1,5 +1,6 @@
 import { test } from '../functions/function';
 import styles from '../scss/reservation.module.scss';
+        
 const Reservation = () => {
   return (
     <div className={styles.test}>
