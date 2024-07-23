@@ -52,7 +52,7 @@ const DevTerminal = () => {
           </li>
           <li>
             <a href="">
-              <Link to="/denav-ter">Dev Terminal</Link>
+              <Link to="/dev-ter">Dev Terminal</Link>
             </a>
           </li>
         </ul>
