@@ -8,5 +8,5 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
     <div className="gide-line">
       <App />
     </div>
-  </React.StrictMode>
+  </React.StrictMode>,
 );

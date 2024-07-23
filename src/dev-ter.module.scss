@@ -1,17 +1,36 @@
 /* src/Navbar.module.scss */
 .navbar {
   background-color: #333;
-  padding: 10px;
+  width: 100%;
+  height: 700px;
 }
 
-.nav-list {
+.navList {
   list-style-type: none;
   display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
   gap: 20px;
+
+  li {
+    a {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      color: white;
+      width: 200px;
+      height: 30px;
+    }
+  }
 }
 
 a:hover {
   color: white;
   background-color: var(--primary-color);
   text-decoration: underline;
+  // margin: 10px 100px 10px 100px;
+  width: 200px;
 }
