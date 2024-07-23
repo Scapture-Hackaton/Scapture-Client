@@ -1,4 +1,109 @@
-.test {
+.main {
   background-color: aquamarine;
-  width: 100%;
+  width: 760px;
+
+  .container {
+    width: 760px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+    background-color: brown;
+
+    .intro {
+      width: 100%;
+      background-color: #f0f8ff;
+
+      .intorText {
+        background-color: #702b2b;
+
+        span {
+          background-color: burlywood;
+        }
+      }
+
+      >.object {
+        background-color: teal;
+
+        img {
+          background-color: #3bacac;
+        }
+      }
+    }
+
+    .stadium {
+      background-color: #f1f96f;
+
+      .group {
+        background-color: #f2386f;
+
+        #checkbox {
+          background-color: #29138f;
+        }
+
+        span {
+          background-color: #85138f;
+        }
+      }
+
+      .images {
+        background-color: #ff138f;
+
+        img {
+          background-color: #f403ff;
+        }
+      }
+    }
+
+    .video {
+      background-color: #fe4f3f;
+
+      span {
+        background-color: #471ae9;
+      }
+
+      >.object {
+        background-color: #7e39f5;
+
+        img {
+          background-color: #4a1e19;
+        }
+      }
+
+      .stadiumName {
+        background-color: #34ff3f;
+
+        span {
+          background-color: #c526ab;
+        }
+      }
+
+      .stadiumDate {
+        background-color: #f48f3f;
+
+        span {}
+      }
+
+    }
+
+    .info {
+      background-color: #34ff3f;
+
+      .group {
+        background-color: #f4ff3f;
+
+        span {
+          background-color: #ff9f3f;
+        }
+
+        .images {
+          background-color: #3f2f39;
+
+          div {
+            background-color: #3433ff;
+          }
+        }
+      }
+    }
+  }
 }
