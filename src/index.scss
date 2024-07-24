@@ -1,16 +1,16 @@
-@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css");
+@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css');
 
 :root {
-  --primary-bg: #FFED1D;
-  --btn-main-bg: #D6DF22;
-  --btn-main-font: #615B14;
-  --btn-sub-bg: #6788FD;
-  --btn-sub-font: #4285F4;
-  --editor-main-bg: #1A1A3C;
+  --primary-bg: #ffed1d;
+  --btn-main-bg: #d6df22;
+  --btn-main-font: #615b14;
+  --btn-sub-bg: #6788fd;
+  --btn-sub-font: #4285f4;
+  --editor-main-bg: #1a1a3c;
   --primary-color: #010026;
   --editor-icon-bg: #252525;
   --editor-icon-bg: #000000;
-  --primary-btn-color: #0057FF;
+  --primary-btn-color: #0057ff;
 
   --guide-line-color: #44695d;
 
@@ -26,6 +26,14 @@
 ::before,
 ::after {
   box-sizing: border-box;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
 }
 
 body,
@@ -49,21 +57,33 @@ a {
 }
 
 body {
-  display: flex;
-  justify-content: center;
+  // display: flex;
+  // justify-content: center;
   // align-items: center;
   background-color: var(--primary-color);
-  font-family: "Pretendard Variable";
+  font-family: 'Pretendard Variable';
   margin: 0;
+  padding: 0;
   width: 100%;
   height: 100vh;
   min-height: auto;
 
+  // .gide-line {
+  //   background-color: var(--guide-line-color);
+  //   display: flex;
+  //   justify-content: center;
+  //   align-items: center;
+  //   // width: 760px;
+  //   width: 80%;
+  //   margin: 0 auto;
+  // }
+
   .gide-line {
-    background-color: var(--guide-line-color);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 760px;
+    // display: flex;
+    // justify-content: center;
+    // align-items: center;
+    width: 100%;
+
+    // margin: 0 auto;
   }
 }
