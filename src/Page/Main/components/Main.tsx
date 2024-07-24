@@ -1,7 +1,11 @@
 import Header from '../../Header/components/Header';
 import Footer from '../../Footer/components/Footer';
 
-// import { test } from '../functions/function';
+import IntroImage from '../image/intro-image.png';
+import CheckBox from '../image/checkbox.png';
+import StadiumImage from '../image/stadium-image.png';
+import VideoImageV from '../image/video-image-v.png';
+
 import styles from '../scss/main.module.scss';
 import banner from '../scss/banner.module.scss';
 
@@ -23,40 +27,47 @@ const Main = () => {
           <div className={styles.intro}>
             <div className={styles.introText}>
               <span>몸만 와서 운동만 하세요!</span>
-              <span>촬영, 편집, 업로드</span>
-              <span>는</span>
+              <div>
+                <span id={styles.yellow}> 촬영, 편집, 업로드</span>
+                <span>는</span>
+              </div>
               <span>SCAPTURE가 해드릴게요!</span>
             </div>
-            <div>
-              <img className={styles.object} />
+            <div className={styles.object}>
+              <img src={IntroImage} alt="introImage" />
             </div>
           </div>
           <div className={styles.stadium}>
             <div className={styles.group}>
-              <div>
-                <img id={styles.checkbox}></img>
+              <div id={styles.checkbox}>
+                <img src={CheckBox} alt="checkbox-image" />
               </div>
-              <span className={styles.about}>
-                내가 원하는 구장에서 운동하고 언제 어디서든 운동 영상을 손쉽게
-                확인해보고 다운로드하세요.
-              </span>
+              <div className={styles.about}>
+                <span>내가 원하는 구장에서 운동하고</span>
+                <span>언제 어디서든 운동 영상을 손쉽게 확인해보고</span>
+                <span>다운로드하세요.</span>
+              </div>
             </div>
             <div className={styles.images}>
-              <img src="" alt="" />
+              <img src={StadiumImage} alt="stadium-image" />
             </div>
           </div>
           <div className={styles.video}>
             <span>인기 동영상</span>
             <div className={styles.object}>
-              <img src="" alt="" />
+              <div id={styles.images}>
+                <img src={VideoImageV} alt="" />
+              </div>
             </div>
-            <div className={styles.stadiumName}>
-              <span>경기장 이름</span>
-              <span></span>
-            </div>
-            <div className={styles.stadiumDate}>
-              <span>경기 진행 일시</span>
-              <span></span>
+            <div className={styles.outObject}>
+              <div className={styles.stadiumName}>
+                <span id={styles.title}>경기장 이름</span>
+                <span></span>
+              </div>
+              <div className={styles.stadiumDate}>
+                <span id={styles.title}>경기 진행 일시</span>
+                <span></span>
+              </div>
             </div>
           </div>
           <div className={styles.info}>

@@ -12,17 +12,26 @@
 
     .intro {
       width: 100%;
-      background-color: #f0f8ff;
+      background-color: #33495c;
 
-      .intorText {
+      .introText {
         background-color: #702b2b;
+        font-size: var(--font-size-xl);
+        font-weight: 600px;
+
+        #yellow {
+          color: var(--primary-bg);
+        }
 
         span {
           background-color: burlywood;
+          color: white;
         }
       }
 
-      >.object {
+      .object {
+        display: flex;
+        justify-content: flex-end;
         background-color: teal;
 
         img {
@@ -33,21 +42,38 @@
 
     .stadium {
       background-color: #f1f96f;
+      margin-bottom: 205px;
 
       .group {
         background-color: #f2386f;
+        display: flex;
+        justify-content: center;
+        flex-direction: row;
+        font-family: var(--font-size-m);
+        margin-bottom: 77px;
 
         #checkbox {
           background-color: #29138f;
+          margin-right: 59px;
         }
 
-        span {
+        .about {
           background-color: #85138f;
+          display: flex;
+          flex-direction: column;
+          justify-content: flex-end;
+          color: white;
+
+          >span {
+            margin-bottom: 1.2px;
+          }
         }
       }
 
       .images {
         background-color: #ff138f;
+        display: flex;
+        justify-content: center;
 
         img {
           background-color: #f403ff;
@@ -57,31 +83,57 @@
 
     .video {
       background-color: #fe4f3f;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      font-size: var(--font-size-s);
 
       span {
         background-color: #471ae9;
       }
 
       >.object {
-        background-color: #7e39f5;
+        background-color: #0038FF;
+        display: flex;
+        justify-content: center;
+        width: 760px;
+        height: 427px;
 
-        img {
-          background-color: #4a1e19;
+        #images {
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+
+          img {
+            background-color: #4a1e19;
+          }
         }
+
       }
 
-      .stadiumName {
-        background-color: #34ff3f;
-
-        span {
-          background-color: #c526ab;
-        }
+      #title {
+        border: solid 2px white;
+        border-radius: 2px;
+        padding: 4px;
       }
 
-      .stadiumDate {
-        background-color: #f48f3f;
+      .outObject {
+        .stadiumName {
+          background-color: #34ff3f;
+          margin-bottom: 22px;
 
-        span {}
+          span {
+            background-color: #c526ab;
+          }
+        }
+
+        .stadiumDate {
+          background-color: #39291c;
+
+          span {}
+        }
       }
 
     }
