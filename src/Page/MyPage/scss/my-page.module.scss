@@ -2,7 +2,7 @@
   width: 90%;
   max-width: 47.5rem;
   margin: 0 auto;
-  background: green;
+  // background: green;
 
   .myPage {
     .profile {
@@ -280,6 +280,124 @@
       font-size: var(--font-size-l);
       font-weight: 600;
       color: white;
+    }
+  }
+
+  .stored {
+    margin: 3.5rem auto 0 auto;
+
+    width: 100%;
+    max-width: 690px;
+    // height: 100%;
+    height: 390px;
+    max-height: 390px;
+    // background-color: red;
+
+    .group {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 2rem;
+
+      .storedText {
+        color: white;
+        font-weight: 600;
+        // font-size: var(--font-size-xl);
+        font-size: 30px;
+
+        display: flex;
+        align-items: center;
+
+        // line-height: 45px;
+      }
+
+      .selectbox {
+        position: relative;
+        width: 100px;
+
+        button {
+          width: 100%;
+          max-width: 100px;
+          max-height: 40px;
+
+          padding: 0.5rem 0 0.5rem 0.8rem;
+          border: none;
+          border-radius: 5px;
+          background: rgba(37, 37, 37, 1);
+          color: white;
+
+          font-weight: 400;
+          font-size: var(--font-size-m);
+
+          text-align: left;
+          cursor: pointer;
+
+          display: flex;
+          align-items: center;
+        }
+
+        ul {
+          list-style: none;
+          margin: 0;
+          padding: 0;
+          position: absolute;
+          width: 100%;
+          background: rgba(37, 37, 37, 1);
+          border-radius: 5px;
+          display: none;
+          z-index: 1000;
+
+          li {
+            button {
+              width: 100%;
+              padding: 0.5rem;
+              border: none;
+              background: rgba(37, 37, 37, 1);
+              color: white;
+              text-align: left;
+              cursor: pointer;
+              &:hover {
+                background: rgba(57, 57, 57, 1);
+              }
+            }
+          }
+        }
+
+        &.open ul {
+          display: block;
+        }
+      }
+    }
+
+    .slider {
+      width: 100%;
+      height: 300px;
+      overflow: hidden;
+      position: relative; // Added to enable positioning of innerSlider
+      // background: blue;
+
+      .sliderInner {
+        position: absolute; // Changed to absolute for proper positioning
+        top: 0;
+        left: 0;
+        height: 100%;
+
+        width: 400%;
+        display: grid;
+        grid-template-columns: repeat(6, 1fr);
+        gap: 35px;
+        transition: left 0.3s ease; // Smooth transition for sliding
+
+        // background: gold;
+
+        .sliderItem {
+          height: 100%;
+          width: 100%;
+          background-color: black;
+          border-radius: 10px;
+          // margin: 0 1rem;
+        }
+      }
     }
   }
 

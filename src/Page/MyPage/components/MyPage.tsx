@@ -6,10 +6,101 @@ import styles from '../scss/my-page.module.scss';
 import pencil from '../image/pencil.png';
 import banana from '../image/banana.png';
 import rightArrow from '../image/right_arrow.png';
+import rightFrame from '../image/rightFrame.png';
+import leftFrame from '../image/leftFrame.png';
+import dropDown from '../image/dropDown.png';
+import { useEffect, useRef, useState } from 'react';
 
 // import profileImg from '../image/profile.webp';
 
 const MyPage = () => {
+  const sliderRef = useRef<HTMLDivElement>(null);
+  const innerSliderRef = useRef<HTMLDivElement>(null);
+  const [pressed, setPressed] = useState(false);
+  const [startX, setStartX] = useState(0);
+
+  useEffect(() => {
+    const slider = sliderRef.current;
+    const innerSlider = innerSliderRef.current;
+
+    if (!slider || !innerSlider) return;
+
+    const handleMouseDown = (e: MouseEvent) => {
+      setPressed(true);
+      setStartX(e.clientX - innerSlider.offsetLeft);
+      slider.style.cursor = 'grabbing';
+    };
+
+    const handleMouseEnter = () => {
+      slider.style.cursor = 'grab';
+    };
+
+    const handleMouseUp = () => {
+      setPressed(false);
+      slider.style.cursor = 'grab';
+    };
+
+    const handleMouseMove = (e: MouseEvent) => {
+      if (!pressed) return;
+      e.preventDefault();
+      const x = e.clientX;
+      innerSlider.style.left = `${x - startX}px`;
+      checkBoundary();
+    };
+
+    const checkBoundary = () => {
+      const outer = slider.getBoundingClientRect();
+      const inner = innerSlider.getBoundingClientRect();
+
+      if (parseInt(innerSlider.style.left) > 0) {
+        innerSlider.style.left = '0px';
+      } else if (inner.right < outer.right) {
+        innerSlider.style.left = `-${inner.width - outer.width}px`;
+      }
+    };
+
+    slider.addEventListener('mousedown', handleMouseDown);
+    slider.addEventListener('mouseenter', handleMouseEnter);
+    window.addEventListener('mouseup', handleMouseUp);
+    slider.addEventListener('mousemove', handleMouseMove);
+
+    return () => {
+      slider.removeEventListener('mousedown', handleMouseDown);
+      slider.removeEventListener('mouseenter', handleMouseEnter);
+      window.removeEventListener('mouseup', handleMouseUp);
+      slider.removeEventListener('mousemove', handleMouseMove);
+    };
+  }, [pressed, startX]);
+
+  const [open, setOpen] = useState(false);
+  const [selected, setSelected] = useState('최신순');
+  const selectRef = useRef<HTMLDivElement>(null);
+
+  const toggleDropdown = () => {
+    setOpen(!open);
+  };
+
+  const handleOptionClick = (option: string) => {
+    setSelected(option);
+    setOpen(false);
+  };
+
+  const handleClickOutside = (event: MouseEvent) => {
+    if (
+      selectRef.current &&
+      !selectRef.current.contains(event.target as Node)
+    ) {
+      setOpen(false);
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
+
   return (
     <div className={styles.test}>
       <div className={styles.myPage}>
@@ -68,6 +159,62 @@ const MyPage = () => {
       <div className={styles.reservation}>
         <p>예약 내역 확인하기</p>
         <img src={rightArrow} alt="" />
+      </div>
+
+      <div className={styles.stored}>
+        <div className={styles.group}>
+          <div className={styles.storedText}>
+            <img src={leftFrame} alt=""></img>
+            <span>저장된 영상</span>
+            <img src={rightFrame} alt=""></img>
+          </div>
+          <div
+            className={`${styles.selectbox} ${open ? styles.open : ''}`}
+            ref={selectRef}
+          >
+            <button type="button" onClick={toggleDropdown}>
+              <span>{selected}</span>
+              <img src={dropDown} alt=""></img>
+            </button>
+            <ul>
+              <li>
+                <button
+                  type="button"
+                  onClick={() => handleOptionClick('최신순')}
+                >
+                  최신순
+                </button>
+              </li>
+              <li>
+                <button
+                  type="button"
+                  onClick={() => handleOptionClick('인기순')}
+                >
+                  인기순
+                </button>
+              </li>
+              <li>
+                <button
+                  type="button"
+                  onClick={() => handleOptionClick('조회수')}
+                >
+                  조회수
+                </button>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div className={styles.slider} ref={sliderRef}>
+          <div className={styles.sliderInner} ref={innerSliderRef}>
+            <div className={styles.sliderItem}></div>
+            <div className={styles.sliderItem}></div>
+            <div className={styles.sliderItem}></div>
+            <div className={styles.sliderItem}></div>
+            <div className={styles.sliderItem}></div>
+            <div className={styles.sliderItem}></div>
+          </div>
+        </div>
       </div>
     </div>
   );

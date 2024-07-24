@@ -51,6 +51,28 @@ ul {
   font-weight: normal;
 }
 
+input {
+  outline: none;
+  border: none;
+}
+
+button {
+  outline: none;
+  border: none;
+  cursor: pointer;
+  background: none;
+}
+
+textarea {
+  resize: none;
+  outline: none;
+  border: none;
+}
+
+li {
+  list-style: none;
+}
+
 a {
   text-decoration: none;
   color: inherit;
