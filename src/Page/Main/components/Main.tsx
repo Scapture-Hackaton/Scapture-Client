@@ -5,6 +5,8 @@ import IntroImage from '../image/intro-image.png';
 import CheckBox from '../image/checkbox.png';
 import StadiumImage from '../image/stadium-image.png';
 import VideoImageV from '../image/video-image-v.png';
+import InfoImageA from '../image/info-image-a.png';
+import InfoImageB from '../image/info-image-b.png';
 
 import styles from '../scss/main.module.scss';
 import banner from '../scss/banner.module.scss';
@@ -54,19 +56,21 @@ const Main = () => {
           </div>
           <div className={styles.video}>
             <span>인기 동영상</span>
-            <div className={styles.object}>
-              <div id={styles.images}>
-                <img src={VideoImageV} alt="" />
+            <div className={styles.objectStroke}>
+              <div className={styles.object}>
+                <div id={styles.images}>
+                  <img src={VideoImageV} alt="" />
+                </div>
               </div>
             </div>
             <div className={styles.outObject}>
               <div className={styles.stadiumName}>
                 <span id={styles.title}>경기장 이름</span>
-                <span></span>
+                <span id={styles.info}>난지천공원인조잔디축구장</span>
               </div>
               <div className={styles.stadiumDate}>
                 <span id={styles.title}>경기 진행 일시</span>
-                <span></span>
+                <span id={styles.info}>07.10.수 / 10:00~12:00</span>
               </div>
             </div>
           </div>
@@ -75,12 +79,12 @@ const Main = () => {
               <span>제휴 구장</span>
               <div className={styles.images}>
                 <div>
-                  <img src="" alt="" />
-                  <span>장충테스장</span>
+                  <img src={InfoImageA} alt="" />
+                  <div>장충테스장</div>
                 </div>
                 <div>
-                  <img src="" alt="" />
-                  <span>수락산스포츠타운야구장</span>
+                  <img src={InfoImageB} alt="" />
+                  <div>수락산스포츠타운야구장</div>
                 </div>
               </div>
             </div>
