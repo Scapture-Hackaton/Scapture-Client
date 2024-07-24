@@ -9,9 +9,9 @@ import rightArrow from '../image/right_arrow.png';
 import rightFrame from '../image/rightFrame.png';
 import leftFrame from '../image/leftFrame.png';
 import dropDown from '../image/dropDown.png';
-import { useEffect, useRef, useState } from 'react';
-
 // import profileImg from '../image/profile.webp';
+
+import { useEffect, useRef, useState } from 'react';
 
 const MyPage = () => {
   const sliderRef = useRef<HTMLDivElement>(null);

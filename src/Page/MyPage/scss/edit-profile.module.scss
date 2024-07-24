@@ -1,0 +1,179 @@
+.test {
+  width: 90%;
+  max-width: 47.5rem;
+  margin: 0 auto;
+  // background: green;
+
+  .editProfile {
+    .profile {
+      background: rgba(26, 26, 60, 1);
+      height: 950px;
+      width: 100%;
+      max-width: 690px;
+      max-height: 950px;
+      margin: 0 auto;
+      border-radius: 30px;
+      border: 2px solid transparent;
+      border-image: linear-gradient(
+        270deg,
+        rgba(0, 87, 255, 0.1) 19.41%,
+        rgba(0, 87, 255, 0.4) 48.1%,
+        rgba(0, 87, 255, 0.1) 80.57%
+      );
+      border-image-slice: 1;
+
+      .container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        max-width: 627.5px;
+        margin: 4rem auto 0 auto;
+
+        .image_box {
+          width: 100%;
+          max-width: 293.42px;
+          height: 279.42px;
+          display: flex;
+          position: relative;
+
+          .box {
+            width: 100%;
+            max-width: 278.88px;
+            height: 278.88px;
+            border: 1px solid rgba(217, 217, 217, 1);
+            border-radius: 50%;
+            overflow: hidden;
+            background: rgba(1, 0, 38, 1);
+
+            .image {
+              width: 100%;
+              height: 100%;
+              object-fit: cover;
+            }
+          }
+
+          .modify {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 17%;
+            height: 49.42px;
+            border: 1px solid rgba(217, 217, 217, 1);
+            border-radius: 50%;
+            display: flex;
+            cursor: pointer;
+
+            .pencil {
+              margin: auto;
+              object-fit: cover;
+            }
+          }
+        }
+      }
+
+      .table {
+        background-color: #12163c;
+        border-radius: 20px;
+
+        width: 100%;
+        max-width: 618px;
+        margin: 6rem auto 0 auto;
+        color: #ffffff;
+
+        .header {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+
+          font-size: var(--font-size-xl);
+          font-weight: 600;
+
+          background: rgba(2, 0, 57, 1);
+          border-radius: 20px 20px 0 0;
+          height: 75px;
+        }
+
+        .info {
+          padding: 2rem 0;
+          background: rgba(1, 0, 38, 1);
+
+          .row {
+            display: flex;
+            align-items: center;
+
+            padding: 1rem 1rem;
+            //   border-bottom: 1px solid #2a2f55;
+
+            .label {
+              font-weight: 600;
+              font-size: var(--font-size-l);
+              max-width: 215px;
+              width: 100%;
+              text-align: center;
+            }
+
+            .input {
+              width: 100%;
+              display: flex;
+              align-items: center;
+              justify-content: space-between;
+
+              .value {
+                font-size: var(--font-size-m);
+                color: white;
+              }
+
+              .edit {
+                font-size: var(--font-size-m);
+                font-weight: 700;
+
+                cursor: pointer;
+                margin-right: 3rem;
+              }
+            }
+          }
+
+          hr {
+            margin: 0.5rem auto;
+            width: 100%;
+            max-width: 542.5px;
+
+            border: none;
+            border-top: 1px solid rgba(168, 189, 246, 1);
+          }
+        }
+
+        .actions {
+          display: flex;
+
+          .cancel,
+          .save {
+            text-align: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            height: 75px;
+            font-size: var(--font-size-xl);
+            font-weight: 600;
+
+            cursor: pointer;
+          }
+
+          .cancel {
+            background: rgba(2, 0, 57, 1);
+            border-bottom-left-radius: 20px;
+            width: 215px;
+          }
+
+          .save {
+            background-color: rgba(0, 87, 255, 1);
+            border-bottom-right-radius: 10px;
+            width: 401px;
+          }
+        }
+      }
+    }
+  }
+}
