@@ -1,75 +1,75 @@
-  .footer {
+.footer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  // align-items: center;
+  // background-color: var(--primary-color);
+  color: white;
+  font-size: var(--font-size-s);
+
+  width: 100%;
+  // margin: 0px 30px 0px 30px;
+
+  .container {
+    // background-color: aqua;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    // align-items: center;
-    // background-color: var(--primary-color);
-    color: white;
-    font-size: var(--font-size-s);
 
-    width: 100%;
-    margin: 0px 30px 0px 30px;
+    #image {
+      margin-bottom: 30px;
+    }
 
-    .container {
-      // background-color: aqua;
+    .contents {
+      // background-color: tomato;
       display: flex;
-      flex-direction: column;
-      justify-content: center;
+      flex-direction: row;
+      margin-bottom: 50px;
 
-      #image {
-        margin-bottom: 30px;
+      div {
+        margin-right: 20px;
+      }
+    }
+
+    .copyright {
+      // background-color: blueviolet;
+
+      #terms {
+        margin-left: 185px;
+        text-decoration: underline;
       }
 
-      .contents {
-        // background-color: tomato;
+      > #policy {
+        margin-left: 54px;
+        // background-color: crimson;
+        text-decoration: underline;
+      }
+    }
+
+    .group {
+      display: flex;
+      flex-direction: row;
+
+      .info {
+        // background-color: burlywood;
         display: flex;
-        flex-direction: row;
-        margin-bottom: 50px;
+        flex-direction: column;
+        width: 294px;
 
-        div {
-          margin-right: 20px;
+        span {
+          margin-top: 13px;
         }
       }
 
-      .copyright {
-        // background-color: blueviolet;
-
-        #terms {
-          margin-left: 185px;
-          text-decoration: underline;
-        }
-
-        >#policy {
-          margin-left: 54px;
-          // background-color: crimson;
-          text-decoration: underline;
-        }
-      }
-
-      .group {
+      .shortcut {
         display: flex;
-        flex-direction: row;
+        // background-color: rgb(255, 255, 255);
+        // margin: 130px 0px 0px 287px;
 
-        .info {
-          // background-color: burlywood;
-          display: flex;
-          flex-direction: column;
-          width: 294px;
-
-          span {
-            margin-top: 13px;
-          }
-        }
-
-        .shortcut {
-          display: flex;
-          // background-color: rgb(255, 255, 255);
-          margin: 130px 0px 0px 287px;
-
-          #kakao {
-            margin-left: 39px;
-          }
+        #kakao {
+          margin-left: 39px;
         }
       }
     }
   }
+}
