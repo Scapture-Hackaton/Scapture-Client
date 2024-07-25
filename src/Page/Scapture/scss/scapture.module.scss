@@ -2,3 +2,58 @@
   background-color: aquamarine;
   width: 100%;
 }
+
+.scapture {
+  color: white;
+
+  .banner {
+    background-color: antiquewhite;
+    position: relative;
+
+    .bannerText {
+      display: flex;
+      flex-direction: column;
+      position: absolute;
+
+      bottom: 10%;
+      left: 0%;
+    }
+  }
+
+  .option {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    .select {}
+
+    #search {
+      display: flex;
+      flex-direction: row;
+    }
+  }
+
+  .stadiumList {
+    .stadium {
+      display: flex;
+
+      .stadiumInfo {
+        .stadium {
+          display: flex;
+          flex-direction: column;
+
+          #name {}
+
+          .info {
+            display: flex;
+            flex-direction: column;
+
+            span {
+              border-right: 1px solid white;
+            }
+          }
+        }
+      }
+    }
+  }
+}
