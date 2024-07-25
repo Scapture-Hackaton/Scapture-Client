@@ -10,6 +10,7 @@ import Footer from './Page/Footer/components/Footer';
 import DevTer from './DevTerminal';
 
 import './App.scss';
+import Community from './Page/Community/components/Community';
 
 const App = () => {
   return (
@@ -21,6 +22,7 @@ const App = () => {
         <Route path="/reservation" element={<Reservation />} />
         <Route path="/video" element={<Video />} />
         <Route path="/mypage" element={<MyPage />} />
+        <Route path="/community" element={<Community />} />
         <Route path="/header" element={<Header />} />
         <Route path="/footer" element={<Footer />} />
         <Route path="/dev-ter" element={<DevTer />} />

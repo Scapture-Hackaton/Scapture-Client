@@ -1,0 +1,66 @@
+.test {
+  width: 90%;
+  max-width: 47.5rem;
+  margin: 0 auto;
+  // background: green;
+
+  .community {
+    .popularText {
+      color: white;
+      font-weight: 700;
+      font-size: var(--font-size-xl);
+
+      margin: 1rem 0 1rem 1rem;
+
+      width: 100%;
+      max-width: 690px;
+
+      display: flex;
+      align-items: center;
+    }
+
+    .videoContainer {
+      .video {
+        width: 100%;
+        height: 426px;
+        background: rgba(37, 37, 37, 1);
+        border-radius: 1px;
+      }
+
+      .title {
+        color: white;
+        font-weight: 700;
+        font-size: var(--font-size-xl);
+
+        margin-top: 1rem;
+        margin-left: 1rem;
+      }
+    }
+
+    .fieldText {
+      color: white;
+      font-weight: 700;
+      font-size: var(--font-size-m);
+
+      margin-top: 1rem;
+      margin-left: 1rem;
+    }
+
+    .heart {
+      display: flex;
+      align-items: center;
+      margin-top: 1rem;
+      margin-left: 1rem;
+
+      img {
+        margin-right: 0.5rem;
+      }
+
+      .cnt {
+        color: white;
+        font-weight: 700;
+        font-size: var(--font-size-m);
+      }
+    }
+  }
+}
