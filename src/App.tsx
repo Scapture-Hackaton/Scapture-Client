@@ -6,6 +6,7 @@ import Reservation from './Page/Reservation/components/Reservation';
 import Video from './Page/Video/components/Video';
 import MyPage from './Page/MyPage/components/MyPage';
 import EditProfile from './Page/MyPage/components/EditProfile';
+import MyReservaation from './Page/MyPage/components/MyReservaation';
 import Header from './Page/Header/components/Header';
 import Footer from './Page/Footer/components/Footer';
 import DevTer from './DevTerminal';
@@ -23,6 +24,7 @@ const App = () => {
         <Route path="/video" element={<Video />} />
         <Route path="/mypage" element={<MyPage />} />
         <Route path="/mypage/edit" element={<EditProfile />} />
+        <Route path="/mypage/reservation" element={<MyReservaation />} />
         <Route path="/header" element={<Header />} />
         <Route path="/footer" element={<Footer />} />
         <Route path="/dev-ter" element={<DevTer />} />
