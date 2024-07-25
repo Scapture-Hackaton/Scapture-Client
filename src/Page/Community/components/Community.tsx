@@ -25,6 +25,12 @@ const Community = () => {
           <img src={emptyHeart} alt="" />
           <div className={styles.cnt}>10</div>
         </div>
+        <div className={styles.commentContainer}>
+          <div className={styles.title}>
+            <p>댓글</p>
+            <span className={styles.cnt}>00</span>
+          </div>
+        </div>
       </div>
     </div>
   );
