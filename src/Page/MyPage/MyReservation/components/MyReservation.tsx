@@ -2,7 +2,7 @@ import React from 'react';
 import styles from '../scss/my-reservation.module.scss';
 import leftArrow from '../image/leftArrow.png';
 
-const MyReservaation = () => {
+const MyReservation = () => {
   return (
     <div className={styles.test}>
       <div className={styles.myReserve}>
@@ -36,4 +36,4 @@ const MyReservaation = () => {
   );
 };
 
-export default MyReservaation;
+export default MyReservation;
