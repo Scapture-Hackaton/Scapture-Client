@@ -1,4 +1,4 @@
-@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css");
+@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css');
 
 :root {
   // color design-system
@@ -41,6 +41,14 @@
   box-sizing: border-box;
 }
 
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
 body,
 h1,
 h2,
@@ -56,28 +64,56 @@ ul {
   font-weight: normal;
 }
 
+input {
+  outline: none;
+  border: none;
+  background: none;
+}
+
+button {
+  outline: none;
+  border: none;
+  cursor: pointer;
+  background: none;
+}
+
+textarea {
+  resize: none;
+  outline: none;
+  border: none;
+}
+
+li {
+  list-style: none;
+}
+
 a {
   text-decoration: none;
   color: inherit;
 }
 
 body {
-  display: flex;
-  justify-content: center;
+  // display: flex;
+  // justify-content: center;
   // align-items: center;
   background-color: var(--primary-color);
   font-family: var(--font-family-Regular);
   margin: 0;
+  padding: 0;
   width: 100%;
   height: 100vh;
   min-height: auto;
 
   .gide-line {
-    background-color: var(--guide-line-color);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 7600px;
-    // width: 450px;
+  //   background-color: var(--guide-line-color);
+  //   display: flex;
+  //   justify-content: center;
+  //   align-items: center;
+  //   width: 760px;
+  //   width: 80%;
+      width: 100%;
+  //    width: 7600px;
+  //   margin: 0 auto;
   }
+
 }
