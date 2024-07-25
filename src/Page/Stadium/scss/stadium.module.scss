@@ -6,12 +6,42 @@
 .stadium {
   color: white;
 
-  .banner {
-    background-color: antiquewhite;
-    position: relative;
+  >div {
+    background-color: #020039;
+
+    .banner {
+      background-color: antiquewhite;
+      position: relative;
+    }
+
+    .intro {
+      // background-color: tomato;
+
+      .title {
+        display: flex;
+        align-items: center;
+      }
+    }
+
+    .info {
+      background-color: yellowgreen;
+
+      #stadium {
+        background-color: #615B14;
+      }
+
+      >.title {
+        background-color: cadetblue;
+      }
+
+      #reservation {
+        background-color: aqua;
+      }
+    }
+
   }
 
-  .intro {}
+
 
   // .option {
   //   display: flex;
@@ -49,9 +79,12 @@
       background-color: #656565;
 
       .video {
+        background-color: blueviolet;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+
         .info {
-          display: flex;
-          flex-direction: column;
           background-color: bisque;
         }
       }
