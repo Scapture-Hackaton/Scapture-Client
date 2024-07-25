@@ -1,6 +1,6 @@
 import React from 'react';
 import styles from '../scss/edit-profile.module.scss';
-import pencil from '../image/pencil.png';
+import pencil from '../../image/pencil.png';
 // import profileImg from '../image/profile.webp';
 
 const EditProfile = () => {

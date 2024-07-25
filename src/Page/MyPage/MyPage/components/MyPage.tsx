@@ -3,7 +3,7 @@
 
 import styles from '../scss/my-page.module.scss';
 
-import pencil from '../image/pencil.png';
+import pencil from '../../image/pencil.png';
 import banana from '../image/banana.png';
 import rightArrow from '../image/right_arrow.png';
 import rightFrame from '../image/rightFrame.png';
