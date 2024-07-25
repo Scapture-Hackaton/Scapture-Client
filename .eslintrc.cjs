@@ -6,7 +6,6 @@ module.exports = {
     'plugin:@typescript-eslint/recommended',
     'plugin:react-hooks/recommended',
     'plugin:prettier/recommended',
-
   ],
   ignorePatterns: ['dist', 'node_modules', '.eslintrc.cjs'],
   parser: '@typescript-eslint/parser',
@@ -44,13 +43,16 @@ module.exports = {
       },
     ],
     // React.FC 사용하지 않는게 좋기 때문에 함수형 컴포넌트의 리턴값 타입 지정을 막기
-    "@typescript-eslint/explicit-function-return-type": "off",
+    '@typescript-eslint/explicit-function-return-type': 'off',
 
     camelcase: ['error', { properties: 'always' }],
 
     // jsx 파일 확장자 .jx, .jsx, .ts, .tsx 허용
-    'react/jsx-filename-extension': [2, { extensions: ['.js', '.jsx', '.ts', '.tsx'] }],
-    "react/jsx-filename-extension": ["warn", { "extensions": [".tsx"] }],
+    'react/jsx-filename-extension': [
+      2,
+      { extensions: ['.js', '.jsx', '.ts', '.tsx'] },
+    ],
+    'react/jsx-filename-extension': ['warn', { extensions: ['.tsx'] }],
 
     'react/button-has-type': 'off',
     'jsx-a11y/anchor-has-content': 'off',
@@ -78,6 +80,16 @@ module.exports = {
         varsIgnorePattern: '^(is|set)[A-Z].*$',
       },
     ],
+    '@typescript-eslint/no-unused-vars': [
+      'error',
+      {
+        vars: 'all',
+        args: 'after-used',
+        ignoreRestSiblings: true,
+        varsIgnorePattern: '^(is|set)[A-Z].*$', // 여기에서 변수 이름 패턴을 지정
+      },
+    ],
+
     'linebreak-style': 'off', // 줄 끝 문자 스타일 무시
 
     //prettier eslint 통합 설정
