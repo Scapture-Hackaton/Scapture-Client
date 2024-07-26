@@ -2,7 +2,7 @@ import Header from '../../Header/components/Header';
 import Footer from '../../Footer/components/Footer';
 
 import stadiumInfoImage from '../image/stadium-info-image.png';
-import elementImage from '../image/element.png';
+import elementImage from '../image/element-image.png';
 import stadiumVideoImage from '../image/stadium-video-image.png';
 
 import styles from '../scss/stadium.module.scss';

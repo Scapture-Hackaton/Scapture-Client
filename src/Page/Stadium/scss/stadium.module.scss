@@ -11,7 +11,10 @@
 
     .banner {
       background-color: antiquewhite;
-      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      // position: relative;
     }
 
     .intro {
@@ -40,8 +43,6 @@
     }
 
   }
-
-
 
   // .option {
   //   display: flex;
