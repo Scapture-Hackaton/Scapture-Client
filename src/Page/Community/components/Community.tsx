@@ -7,6 +7,9 @@ import dropDown from '../image/dropDown.png';
 import testCircle from '../image/testCircle.png';
 import sendImg from '../image/sendImg.png';
 
+import rightArrow from '../image/rightArrow.png';
+import leftArrow from '../image/leftArrow.png';
+
 import styles from '../scss/community.module.scss';
 
 const Community = () => {
@@ -107,6 +110,12 @@ const Community = () => {
             </div>
           </div>
         </div> */}
+
+        <div className={styles.paging}>
+          <img src={leftArrow} alt=""></img>
+          <div className={styles.pageNum}>1</div>
+          <img src={rightArrow} alt=""></img>
+        </div>
       </div>
     </div>
   );
