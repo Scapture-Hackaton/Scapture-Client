@@ -15,22 +15,29 @@
   --sub-color-yellow-02: #D6DF22;
   --sub-color-yellow-03: #615B14;
 
-  --grey-color-grey01: #252525;
-  --grey-color-grey02: #656565;
-  --grey-color-grey03: #D9D9D9;
+  --grey-color-grey-01: #252525;
+  --grey-color-grey-02: #656565;
+  --grey-color-grey-03: #D9D9D9;
 
   --white-color: #FFFFFF;
   --black-color: #000000;
+  --grey-color: #5E5E5E;
 
+  --gradient-color-blue-01: #0057FF;
+  --gradient-color-blue-02: #2F5CFB;
+  --gradient-color-blue-03: #BBC6EE;
+  --gradient-color-navy-03: #1A1A3C;
+  
+  //guide line
   --guide-line-color: #44695d;
 
   // font-size design-system
-  --font-size-xxl: 45px;
-  --font-size-xl: 32px;
-  --font-size-l: 28px;
-  --font-size-m: 24px;
-  --font-size-s: 20px;
-  --font-size-primary: 16px;
+  --font-size-xl: 24px;
+  --font-size-l: 20px;
+  --font-size-xm: 16px;
+  --font-size-m: 12px;
+  --font-size-xs: 11px;
+  --font-size-s: 10px;
 
   --font-family-Regular: "Pretendard Variable";
 }
@@ -93,27 +100,13 @@ a {
 }
 
 body {
-  // display: flex;
-  // justify-content: center;
-  // align-items: center;
   background-color: var(--primary-color);
-  font-family: var(--font-family-Regular);
+  font-family: 'Pretendard Variable';
   margin: 0;
   padding: 0;
   width: 100%;
   height: 100vh;
   min-height: auto;
-
-  .gide-line {
-  //   background-color: var(--guide-line-color);
-  //   display: flex;
-  //   justify-content: center;
-  //   align-items: center;
-  //   width: 760px;
-  //   width: 80%;
-      width: 100%;
-  //    width: 7600px;
-  //   margin: 0 auto;
-  }
-
+  max-width: 450px;
+  margin: 0 auto;
 }
