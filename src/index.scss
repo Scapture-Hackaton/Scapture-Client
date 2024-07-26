@@ -1,25 +1,45 @@
 @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css');
 
 :root {
-  --primary-bg: #ffed1d;
-  --btn-main-bg: #d6df22;
-  --btn-main-font: #615b14;
-  --btn-sub-bg: #6788fd;
-  --btn-sub-font: #4285f4;
-  --editor-main-bg: #1a1a3c;
-  --primary-color: #010026;
-  --editor-icon-bg: #252525;
-  --editor-icon-bg: #000000;
-  --primary-btn-color: #0057ff;
+  // color design-system
+  --main-color-navy-01: #010026;
+  --main-color-navy-02: #020039;
+  --main-color-navy-03: #1A1A3C;
 
+  --main-color-blue-01: #0038FF;
+  --main-color-blue-02: #2F5CFB;
+  --main-color-blue-03: #BBC6EE;
+  --main-color-blue-04: #4285F4;
+
+  --sub-color-yellow-01: #FFED1D;
+  --sub-color-yellow-02: #D6DF22;
+  --sub-color-yellow-03: #615B14;
+
+  --grey-color-grey-01: #252525;
+  --grey-color-grey-02: #656565;
+  --grey-color-grey-03: #D9D9D9;
+
+  --white-color: #FFFFFF;
+  --black-color: #000000;
+  --grey-color: #5E5E5E;
+
+  --gradient-color-blue-01: #0057FF;
+  --gradient-color-blue-02: #2F5CFB;
+  --gradient-color-blue-03: #BBC6EE;
+  --gradient-color-navy-03: #1A1A3C;
+  
+  //guide line
   --guide-line-color: #44695d;
 
-  --font-size-xxxl: 45px;
-  --font-size-xxl: 32px;
-  --font-size-xl: 28px;
-  --font-size-l: 24px;
-  --font-size-m: 20px;
-  --font-size-s: 16px;
+  // font-size design-system
+  --font-size-xl: 24px;
+  --font-size-l: 20px;
+  --font-size-xm: 16px;
+  --font-size-m: 12px;
+  --font-size-xs: 11px;
+  --font-size-s: 10px;
+
+  --font-family-Regular: "Pretendard Variable";
 }
 
 *,
@@ -80,18 +100,13 @@ a {
 }
 
 body {
-  // display: flex;
-  // justify-content: center;
-  // align-items: center;
   background-color: var(--primary-color);
   font-family: 'Pretendard Variable';
   margin: 0;
   padding: 0;
   width: 100%;
-  // width: 450px;
   height: 100vh;
   min-height: auto;
-
   max-width: 450px;
   margin: 0 auto;
 }
