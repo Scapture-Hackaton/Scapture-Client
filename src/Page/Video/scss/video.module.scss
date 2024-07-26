@@ -64,5 +64,80 @@
         }
       }
     }
+
+    .dayVideo {
+      margin: 1rem 1rem 0 1rem;
+      margin-bottom: 3rem;
+
+      .selectGroup {
+        display: flex;
+        align-items: center;
+
+        .selectBox {
+          height: 30px;
+
+          display: flex;
+          align-items: center;
+          justify-content: center;
+
+          border-radius: 4px;
+
+          margin-right: 1rem;
+          padding: 0.7rem;
+
+          background: #252525;
+
+          p {
+            color: white;
+            font-weight: 400;
+            font-size: 14px;
+          }
+
+          img {
+            margin-left: 0.5rem;
+          }
+        }
+      }
+
+      .dayGroup {
+        display: flex;
+        align-items: center;
+        margin-top: 2rem;
+
+        .box {
+          display: flex;
+          flex-direction: column;
+
+          width: 164px;
+          height: 122px;
+          padding: 1rem;
+
+          border-radius: 10px;
+          border: 1px solid #656565;
+
+          background: black;
+
+          margin-right: 1.5rem;
+
+          .date {
+            color: white;
+            font-weight: 400;
+            font-size: 14px;
+            margin-bottom: 0.5rem;
+          }
+
+          .cnt {
+            display: flex;
+            justify-content: end;
+
+            color: #cad539;
+            font-weight: 600;
+            font-size: 16px;
+
+            margin-top: auto;
+          }
+        }
+      }
+    }
   }
 }

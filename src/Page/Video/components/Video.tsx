@@ -9,6 +9,7 @@ import fullHeart from '../image/fullHeart.png';
 import download from '../image/download.png';
 import share from '../image/share.png';
 import bookMark from '../image/bookMark.png';
+import selectArrow from '../image/selectArrow.png';
 
 const Video = () => {
   return (
@@ -37,27 +38,37 @@ const Video = () => {
             <div className={styles.cnt}>10</div>
           </div>
         </div>
-
-        {/* <div className={styles.subVideoContainer}>
-          <div className={styles.video}></div>
-          <div className={styles.group}>
-            <div className={styles.title}>영상 제목</div>
-            <div className={styles.info}>
-              <div className={styles.cnt}>조회수 00회</div>
-              <p>2024.07.23</p>
+        <div className={styles.dayVideo}>
+          <div className={styles.selectGroup}>
+            <div className={styles.selectBox}>
+              <p>7월</p>
+              <img src={selectArrow} alt="" />
             </div>
-
-            <div className={styles.field}>
-              <div className={styles.profileImg}>
-                <img src={testCircle} alt=""></img>
-              </div>
-              <div className={styles.name}>구장명</div>
+            <div className={styles.selectBox}>
+              <p>20일</p>
+              <img src={selectArrow} alt="" />
+            </div>
+            <div className={styles.selectBox}>
+              <p>A구장</p>
+              <img src={selectArrow} alt="" />
             </div>
           </div>
-        </div> */}
 
-        <Footer />
+          <div className={styles.dayGroup}>
+            <div className={styles.box}>
+              <div className={styles.date}>Today</div>
+              <div className={styles.date}>10:00~12:00</div>
+              <div className={styles.cnt}>12개의 영상</div>
+            </div>
+            <div className={styles.box}>
+              <div className={styles.date}>Today</div>
+              <div className={styles.date}>10:00~12:00</div>
+              <div className={styles.cnt}>12개의 영상</div>
+            </div>
+          </div>
+        </div>
       </div>
+      <Footer />
     </div>
   );
 };
