@@ -2,3 +2,93 @@
   background-color: aquamarine;
   width: 100%;
 }
+
+.stadium {
+  color: white;
+
+  >div {
+    background-color: #020039;
+
+    .banner {
+      background-color: antiquewhite;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      // position: relative;
+    }
+
+    .intro {
+      // background-color: tomato;
+
+      .title {
+        display: flex;
+        align-items: center;
+      }
+    }
+
+    .info {
+      background-color: yellowgreen;
+
+      #stadium {
+        background-color: #615B14;
+      }
+
+      >.title {
+        background-color: cadetblue;
+      }
+
+      #reservation {
+        background-color: aqua;
+      }
+    }
+
+  }
+
+  // .option {
+  //   display: flex;
+  //   flex-direction: row;
+  //   justify-content: space-between;
+
+  //   .select {}
+
+  //   #search {
+  //     display: flex;
+  //     flex-direction: row;
+  //   }
+  // }
+
+  >.video {
+    .group {
+      background-color: black;
+      border: 1px solid #656565;
+      border-radius: 10px;
+      display: flex;
+      flex-direction: column;
+
+      span:last-child {
+        display: flex;
+        justify-content: flex-end;
+        color: yellow;
+      }
+    }
+  }
+
+  .videoList {
+    .stadium {
+      display: flex;
+      border-radius: 10px;
+      background-color: #656565;
+
+      .video {
+        background-color: blueviolet;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+
+        .info {
+          background-color: bisque;
+        }
+      }
+    }
+  }
+}
