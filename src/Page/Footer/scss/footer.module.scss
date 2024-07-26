@@ -1,8 +1,8 @@
 .footer {
-  background-color: var(--guide-line-color);
+  // background-color: var(--guide-line-color);
 
   .container {
-    background-color: var(--main-color-blue-01);
+    // background-color: var(--main-color-blue-01);
     // height: 18.0625rem;
     height: 20.9375rem;
     // margin: 1.875rem 1.11rem 2.875rem 1.11rem;
@@ -19,7 +19,7 @@
       }
 
       .contents {
-        background-color: tomato;
+        // background-color: tomato;
         display: flex;
         flex-direction: row;
         margin-bottom: 3.125rem;
@@ -30,17 +30,16 @@
       }
 
       .copyright {
-        background-color: blueviolet;
-        // max-width: 100%;
+        // background-color: blueviolet;
 
         #terms {
-          background-color: crimson;
+          // background-color: crimson;
           text-decoration: underline;
           margin: 0 1.445625rem 0 11.6%;
         }
 
         >#policy {
-          background-color: crimson;
+          // background-color: crimson;
           text-decoration: underline;
         }
       }
@@ -50,14 +49,11 @@
         flex-direction: row;
 
         >.info {
-          background-color: burlywood;
+          // background-color: burlywood;
           display: flex;
           flex-direction: column;
-          // justify-content: flex-end;
-          // width: 13.625rem;
           width: 23.015rem;
           height: 7.1875rem;
-          // margin-right: 9.39rem;
 
           span {
             margin-top: 0.6rem;
@@ -67,7 +63,7 @@
         .shortcut {
           display: flex;
           align-items: flex-end;
-          background-color: #ffffff;
+          // background-color: #ffffff;
 
           #kakao {
             margin-left: 0.625rem;
