@@ -9,14 +9,14 @@ import InfoImageA from '../image/info-image-a.png';
 import InfoImageB from '../image/info-image-b.png';
 
 import styles from '../scss/main.module.scss';
-import banner from '../scss/banner.module.scss';
+// import banner from '../scss/banner.module.scss';
 
 const Main = () => {
   return (
     <div>
       <Header />
       <div className={styles.main}>
-        <div className={banner.banner}>
+        {/* <div className={banner.banner}>
           <div className={banner.object}>
             <div id={banner.right}></div>
             <div id={banner.blank}>
@@ -24,7 +24,7 @@ const Main = () => {
             </div>
             <div id={banner.left}></div>
           </div>
-        </div>
+        </div> */}
         <div className={styles.container}>
           <div className={styles.intro}>
             <div className={styles.introText}>
