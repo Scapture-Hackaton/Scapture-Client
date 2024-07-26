@@ -71,6 +71,42 @@ const Community = () => {
             <img src={sendImg} alt=""></img>
           </div>
         </div>
+
+        <div className={styles.subVideoContainer}>
+          <div className={styles.video}></div>
+          <div className={styles.group}>
+            <div className={styles.title}>영상 제목</div>
+            <div className={styles.info}>
+              <div className={styles.cnt}>조회수 00회</div>
+              <p>2024.07.23</p>
+            </div>
+
+            <div className={styles.field}>
+              <div className={styles.profileImg}>
+                <img src={testCircle} alt=""></img>
+              </div>
+              <div className={styles.name}>구장명</div>
+            </div>
+          </div>
+        </div>
+
+        {/* <div className={styles.subVideoContainer}>
+          <div className={styles.video}></div>
+          <div className={styles.group}>
+            <div className={styles.title}>영상 제목</div>
+            <div className={styles.info}>
+              <div className={styles.cnt}>조회수 00회</div>
+              <p>2024.07.23</p>
+            </div>
+
+            <div className={styles.field}>
+              <div className={styles.profileImg}>
+                <img src={testCircle} alt=""></img>
+              </div>
+              <div className={styles.name}>구장명</div>
+            </div>
+          </div>
+        </div> */}
       </div>
     </div>
   );
