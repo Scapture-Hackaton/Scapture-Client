@@ -1,0 +1,38 @@
+.banner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+  // margin: 0 auto;
+  // position: relative;
+  /* 추가: 가로 중앙 정렬 */
+
+  .object {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #007bff;
+
+    #right {
+      background-color: aqua;
+      border-top: 678px solid transparent;
+      border-left: 575px solid yellow;
+      border-right: none;
+      border-bottom: 678px solid transparent;
+    }
+
+    #blank {
+      width: 764px;
+      background-color: whitesmoke;
+    }
+
+    #left {
+      background-color: tomato;
+      border-top: 678px solid transparent;
+      border-left: none;
+      border-right: 575px solid yellow;
+      border-bottom: 678px solid transparent;
+    }
+  }
+}

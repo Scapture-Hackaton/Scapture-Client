@@ -5,8 +5,6 @@ import './index.scss';
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
-    <div className="gide-line">
-      <App />
-    </div>
+    <App />
   </React.StrictMode>,
 );
