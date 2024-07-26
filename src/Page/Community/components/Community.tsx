@@ -3,6 +3,9 @@
 import leftFrame from '../image/leftFrame.png';
 import rightFrame from '../image/rightFrame.png';
 import emptyHeart from '../image/emptyHeart.png';
+import dropDown from '../image/dropDown.png';
+import testCircle from '../image/testCircle.png';
+import sendImg from '../image/sendImg.png';
 
 import styles from '../scss/community.module.scss';
 
@@ -27,8 +30,45 @@ const Community = () => {
         </div>
         <div className={styles.commentContainer}>
           <div className={styles.title}>
-            <p>댓글</p>
-            <span className={styles.cnt}>00</span>
+            <div>
+              <p>댓글</p>
+              <span className={styles.cnt}>00</span>
+            </div>
+            <div className={styles.moreComment}>
+              <span>댓글 더보기</span>
+              <img src={dropDown} alt=""></img>
+            </div>
+          </div>
+          <div className={styles.commentGroup}>
+            <div className={styles.profileImg}>
+              <img src={testCircle} alt=""></img>
+            </div>
+            <div className={styles.comment}>
+              <p>닉네임</p>
+              <div>댓글 내용이 너무 길어서 안 보이는 경우 ..</div>
+            </div>
+            <div className={styles.heartGroup}>
+              <img src={emptyHeart} alt="" />
+              <div className={styles.cnt}>10</div>
+            </div>
+          </div>
+          {/* <div className={styles.commentGroup}>
+            <div className={styles.profileImg}>
+              <img src={testCircle} alt=""></img>
+            </div>
+            <div className={styles.comment}>
+              <p>닉네임</p>
+              <div>댓글 내용이 너무 길어서 안 보이는 경우 ..</div>
+            </div>
+            <div className={styles.heartGroup}>
+              <img src={emptyHeart} alt="" />
+              <div className={styles.cnt}>10</div>
+            </div>
+          </div> */}
+
+          <div className={styles.inputGroup}>
+            <input type="text" placeholder="댓글 입력하기"></input>
+            <img src={sendImg} alt=""></img>
           </div>
         </div>
       </div>
