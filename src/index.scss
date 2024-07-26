@@ -27,7 +27,7 @@
   --gradient-color-blue-02: #2F5CFB;
   --gradient-color-blue-03: #BBC6EE;
   --gradient-color-navy-03: #1A1A3C;
-  
+
   //guide line
   --guide-line-color: #44695d;
 
@@ -36,8 +36,8 @@
   --font-size-l: 20px;
   --font-size-xm: 16px;
   --font-size-m: 12px;
-  --font-size-xs: 11px;
-  --font-size-s: 10px;
+  --font-size-s: 11px;
+  // --font-size-s: 10px;
 
   --font-family-Regular: "Pretendard Variable";
 }
@@ -100,7 +100,7 @@ a {
 }
 
 body {
-  background-color: var(--primary-color);
+  background-color: var(--main-color-navy-01);
   font-family: 'Pretendard Variable';
   margin: 0;
   padding: 0;
