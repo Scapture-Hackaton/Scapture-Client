@@ -2,29 +2,51 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: var(--font-size-s);
   width: 100%;
+  height: 5rem;
 
-  #image {
-    // margin-right: 50px;
-  }
+  background-color: var(--guide-line-color);
 
-  .option {
+  .container {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 128px;
-    height: 50px;
-    transform: skew(-40deg);
+    margin-top: 3.125rem;
+    font-size: var(--font-size-s);
 
-    div {
-      transform: skew(40deg);
+
+    #image {
+      margin: 0 1.8125rem 0.286rem 1.4375rem
+    }
+
+    .option {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 4.625rem;
+      // height: 1.9rem;
+      height: 1.9rem;
+      // margin-left: 1.0rem;
+      transform: skew(-40deg);
+
+      div {
+        transform: skew(40deg);
+      }
+    }
+
+    #BtnEffect:hover {
+      background-color: var(--main-color-blue-01);
+    }
+
+    #login {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: var(--main-color-blue-04);
+
+      width: 3.625rem;
+      height: 1.9rem;
+      margin-left: 3.5rem;
     }
   }
-
-  #BtnEffect:hover {
-    background-color: var(--main-color-blue-01);
-  }
-
-  #login {}
 }
