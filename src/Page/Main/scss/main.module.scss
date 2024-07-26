@@ -1,5 +1,6 @@
 .main {
   background-color: aquamarine;
+  width: 100%;
   // width: 760px;
   // margin-bottom: 146px;
 
@@ -105,10 +106,10 @@
           }
 
           #images {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
+            // display: flex;
+            // flex-direction: column;
+            // justify-content: center;
+            // align-items: center;
 
             img {
               background-color: #4a1e19;

@@ -9,7 +9,7 @@ import InfoImageA from '../image/info-image-a.png';
 import InfoImageB from '../image/info-image-b.png';
 
 import styles from '../scss/main.module.scss';
-import banner from '../scss/banner.module.scss';
+// import banner from '../scss/banner.module.scss';
 
 const Main = () => {
   return (
