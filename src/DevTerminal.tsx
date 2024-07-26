@@ -6,7 +6,7 @@ import styles from './dev-ter.module.scss';
 
 const DevTerminal = () => {
   return (
-    <div className={styles.navbar}>
+    <div>
       <Header />
       <nav className={styles.navbar}>
         <ul className={styles.navList}>
@@ -52,7 +52,7 @@ const DevTerminal = () => {
           </li>
           <li>
             <a href="">
-              <Link to="/denav-ter">Dev Terminal</Link>
+              <Link to="/dev-ter">Dev Terminal</Link>
             </a>
           </li>
         </ul>
