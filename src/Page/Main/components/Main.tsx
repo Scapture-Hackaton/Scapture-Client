@@ -1,42 +1,40 @@
 import Header from '../../Header/components/Header';
 import Footer from '../../Footer/components/Footer';
 
+import BannerImage from '../image/banner-image.png';
 import IntroImage from '../image/intro-image.png';
 import CheckBox from '../image/checkbox.png';
 import StadiumImage from '../image/stadium-image.png';
-import VideoImageV from '../image/video-image-v.png';
+import VideoImage from '../image/video-image.png';
 import InfoImageA from '../image/info-image-a.png';
 import InfoImageB from '../image/info-image-b.png';
-
+import EffectRight from '../image/effect-right.png';
+import EffectLeft from '../image/effect-left.png';
 import styles from '../scss/main.module.scss';
 // import banner from '../scss/banner.module.scss';
 
 const Main = () => {
   return (
-    <div>
+    <div className={styles.test}>
       <Header />
       <div className={styles.main}>
-        {/* <div className={banner.banner}>
-          <div className={banner.object}>
-            <div id={banner.right}></div>
-            <div id={banner.blank}>
-              <div>test</div>
-            </div>
-            <div id={banner.left}></div>
-          </div>
-        </div> */}
+        <div className={styles.banner}>
+          <img src={BannerImage} alt="" />
+        </div>
         <div className={styles.container}>
           <div className={styles.intro}>
-            <div className={styles.introText}>
-              <span>몸만 와서 운동만 하세요!</span>
-              <div>
-                <span id={styles.yellow}> 촬영, 편집, 업로드</span>
-                <span>는</span>
+            <div>
+              <div className={styles.introText}>
+                <span>몸만 와서 운동만 하세요!</span>
+                <div>
+                  <span id={styles.yellow}> 촬영, 편집, 업로드</span>
+                  <span>는</span>
+                </div>
+                <span>SCAPTURE가 해드릴게요!</span>
               </div>
-              <span>SCAPTURE가 해드릴게요!</span>
-            </div>
-            <div className={styles.object}>
-              <img src={IntroImage} alt="introImage" />
+              <div className={styles.object}>
+                <img src={IntroImage} alt="introImage" />
+              </div>
             </div>
           </div>
           <div className={styles.stadium}>
@@ -54,29 +52,32 @@ const Main = () => {
               <img src={StadiumImage} alt="stadium-image" />
             </div>
           </div>
+
           <div className={styles.video}>
-            <span>인기 동영상</span>
-            <div className={styles.objectStroke}>
-              <div className={styles.object}>
-                <div id={styles.images}>
-                  <img src={VideoImageV} alt="" />
-                </div>
-              </div>
-            </div>
-            <div className={styles.outObject}>
-              <div className={styles.stadiumName}>
+            <span id={styles.content}>인기 동영상</span>
+            <img src={VideoImage} alt="" />
+            <div id={styles.group}>
+              <div className={styles.name}>
                 <span id={styles.title}>경기장 이름</span>
-                <span id={styles.info}>난지천공원인조잔디축구장</span>
+                <span id={styles.date}>경기 진행 일시</span>
               </div>
-              <div className={styles.stadiumDate}>
-                <span id={styles.title}>경기 진행 일시</span>
-                <span id={styles.info}>07.10.수 / 10:00~12:00</span>
+              <div className={styles.detail}>
+                <span id={styles.title}>난지천공원인조잔디축구장</span>
+                <span id={styles.date}>07.10.수 / 10:00~12:00</span>
               </div>
             </div>
           </div>
           <div className={styles.info}>
             <div className={styles.group}>
-              <span>제휴 구장</span>
+              <div id={styles.effect}>
+                {/* <div>
+                  <img src={EffectLeft} alt="" />
+                </div> */}
+                <span>제휴 구장</span>
+                {/* <div>
+                  <img src={EffectRight} alt="" />
+                </div> */}
+              </div>
               <div className={styles.images}>
                 <div>
                   <img src={InfoImageA} alt="" />
