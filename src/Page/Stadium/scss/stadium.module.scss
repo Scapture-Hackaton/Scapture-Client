@@ -203,7 +203,8 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        margin: 0 auto;
+        // margin: 0 auto;
+        margin: 0 0.75rem 0 0.75rem;
 
         >.container {
           display: flex;
@@ -224,12 +225,13 @@
             flex-direction: column;
             justify-content: center;
 
-
             >.info {
               background-color: #500b82;
               font-size: var(--font-size-xs);
               display: flex;
               flex-direction: column;
+
+
 
               >.group {
                 background-color: #ff9101;
@@ -244,7 +246,7 @@
               }
 
               #name {
-                font-size: var(--font-size-m);
+                font-size: var(--font-size-xm);
               }
 
               #location {
