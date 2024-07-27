@@ -85,6 +85,21 @@ const Video = () => {
               </div>
             </div>
           </div>
+
+          <div className={styles.container}>
+            <div className={styles.video}></div>
+            <div className={styles.description}>
+              <div className={styles.titles}>
+                <div id={styles.first}>1번째</div>
+                <div id={styles.second}>골영상</div>
+              </div>
+
+              <div className={styles.info}>
+                <div>창골축구장(FC서울 축구교실)</div>
+                <div>07.10.수 / 10:00~12:00</div>
+              </div>
+            </div>
+          </div>
         </div>
 
         <div className={styles.paging}>
