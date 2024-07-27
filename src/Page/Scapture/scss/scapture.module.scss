@@ -61,6 +61,15 @@
           width: 12.5rem;
           height: 1.875rem;
           border-radius: 0.25rem;
+
+          >input {
+            color: var(--white-color);
+            margin-left: 0.625rem;
+          }
+
+          >input ::placeholder {
+            color: var(--white-color);
+          }
         }
 
         #searchImage {

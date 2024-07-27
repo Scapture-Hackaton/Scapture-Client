@@ -29,7 +29,7 @@ const Scapture = () => {
               </select>
             </div>
             <div id={styles.search}>
-              <input type="text" />
+              <input type="text" placeholder="구장명 검색" />
               <div id={styles.searchImage}>
                 <img src={searchImage} alt="" />
               </div>
