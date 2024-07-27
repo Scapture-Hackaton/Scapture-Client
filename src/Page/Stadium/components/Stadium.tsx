@@ -64,7 +64,21 @@ const Stadium = () => {
             </div>
           </div>
         </div>
-
+        <div className={styles.option}>
+          <div className={styles.container}>
+            <div className={styles.select}>
+              <select id={styles.month}>
+                <option value="">7월</option>
+              </select>
+              <select id={styles.day}>
+                <option value="">20일</option>
+              </select>
+              <select id={styles.stadium}>
+                <option value="">A구장</option>
+              </select>
+            </div>
+          </div>
+        </div>
         <div className={styles.video}>
           <div className={styles.container}>
             <div className={styles.group}>
