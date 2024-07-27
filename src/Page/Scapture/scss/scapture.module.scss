@@ -1,59 +1,132 @@
 .test {
-  background-color: aquamarine;
+  background-color: var(--guide-line-color);
   width: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
+  margin: 0 auto;
+  // display: flex;
+  // flex-direction: column;
+  // justify-content: center;
+  // align-items: center;
 
-.scapture {
-  color: white;
 
-  .banner {
-    background-color: antiquewhite;
-    position: relative;
+  .scapture {
+    color: white;
 
-    .bannerText {
+    .banner {
+      background-color: antiquewhite;
       display: flex;
       flex-direction: column;
-      position: absolute;
+      justify-content: center;
+      position: relative;
 
-      bottom: 10%;
-      left: 0%;
+      .bannerText {
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        font-size: var(--font-size-xl);
+        bottom: 10%;
+        left: 5%;
+      }
     }
-  }
 
-  .option {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-
-    .select {}
-
-    #search {
+    .option {
+      background-color: aqua;
       display: flex;
-      flex-direction: row;
-    }
-  }
+      // flex-direction: row;
+      // justify-content: space-between;
+      // margin-bottom: 30px;
+      width: 100%;
+      font-size: var(--font-size-m);
 
-  .stadiumList {
-    .stadium {
-      display: flex;
+      >.container {
+        width: 95.11%;
+        margin: 30px auto;
+        display: flex;
+        justify-content: space-between;
 
-      .stadiumInfo {
-        .stadium {
+        select {
+          width: 60px;
+          height: 30px;
+          background-color: var(--grey-color-grey-01);
+          color: var(--white-color);
+          font-size: var(--font-size-m);
+          border: none;
+          border-radius: 4px;
+          // text-align: center;
+        }
+
+        #city,
+        #local {
+          margin-right: 0.5rem;
+        }
+
+        #search {
+          background-color: var(--grey-color-grey-01);
+          color: var(--white-color);
           display: flex;
-          flex-direction: column;
+          flex-direction: row;
+          // justify-content: flex-end;
+          align-items: center;
+          width: 200px;
+          height: 30px;
+          border-radius: 4px;
+        }
 
-          #name {}
+        #searchImage {
+          display: flex;
+          justify-content: flex-end;
+          width: 40px;
+          // width: 20px;
+        }
+      }
+    }
 
-          .info {
+    .stadiumList {
+      background-color: var(--main-color-navy-02);
+      font-size: var(--font-size-xs);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 9.3125rem;
+      margin-bottom: 1.875rem;
+      border-radius: 10px;
+      border: 1px solid var(--grey-color-grey-02);
+
+      .stadium {
+        display: flex;
+
+        .stadiumInfo {
+          .stadium {
             display: flex;
             flex-direction: column;
 
-            span {
-              border-right: 1px solid white;
+            #name {
+              font-size: var(--font-size-xm);
+              margin-left: 0.6rem;
+              margin-bottom: 33px;
+            }
+
+            .info {
+              display: flex;
+              flex-direction: column;
+              background-color: #500b82;
+              height: 70px;
+
+              div {
+                display: flex;
+                margin-top: auto;
+
+                span {
+                  display: flex;
+                  align-items: flex-end;
+                  margin-left: 0.6rem;
+                }
+              }
+
+              .title {
+                border-right: 1px solid white;
+                width: 56px;
+              }
             }
           }
         }
