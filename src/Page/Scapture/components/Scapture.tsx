@@ -72,12 +72,10 @@ const Scapture = () => {
                     <span id={styles.info}>주차 가능(66면) 5분당 150원</span>
                   </div>
                 </div>
-                {/* css 적용 후 추가 예정 */}
               </div>
             </div>
           </div>
         </div>
-
         <div className={styles.stadiumList}>
           <div className={styles.stadium}>
             <div className={styles.stadiumImage}>

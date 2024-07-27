@@ -2,11 +2,6 @@
   background-color: var(--guide-line-color);
   width: 100%;
   margin: 0 auto;
-  // display: flex;
-  // flex-direction: column;
-  // justify-content: center;
-  // align-items: center;
-
 
   .scapture {
     color: white;
@@ -31,26 +26,23 @@
     .option {
       background-color: aqua;
       display: flex;
-      // flex-direction: row;
-      // justify-content: space-between;
-      // margin-bottom: 30px;
       width: 100%;
       font-size: var(--font-size-m);
 
       >.container {
         width: 95.11%;
-        margin: 30px auto;
+        margin: 1.875rem auto;
         display: flex;
         justify-content: space-between;
 
         select {
-          width: 60px;
-          height: 30px;
+          width: 3.75rem;
+          height: 1.875rem;
           background-color: var(--grey-color-grey-01);
           color: var(--white-color);
           font-size: var(--font-size-m);
           border: none;
-          border-radius: 4px;
+          border-radius: 0.25rem;
           // text-align: center;
         }
 
@@ -66,34 +58,38 @@
           flex-direction: row;
           // justify-content: flex-end;
           align-items: center;
-          width: 200px;
-          height: 30px;
-          border-radius: 4px;
+          width: 12.5rem;
+          height: 1.875rem;
+          border-radius: 0.25rem;
         }
 
         #searchImage {
           display: flex;
           justify-content: flex-end;
-          width: 40px;
+          width: 2.5rem;
           // width: 20px;
         }
       }
     }
 
+
+    // display: flex;
     .stadiumList {
       background-color: var(--main-color-navy-02);
       font-size: var(--font-size-xs);
       display: flex;
       flex-direction: column;
       justify-content: center;
-      align-items: center;
+      margin: 0 auto;
       height: 9.3125rem;
+      width: 95.11%;
       margin-bottom: 1.875rem;
-      border-radius: 10px;
-      border: 1px solid var(--grey-color-grey-02);
+      border-radius: 0.625rem;
+      border: 0.0625rem solid var(--grey-color-grey-02);
 
-      .stadium {
+      >.stadium {
         display: flex;
+        margin: 0 0.75rem 0 0.75rem;
 
         .stadiumInfo {
           .stadium {
@@ -103,14 +99,14 @@
             #name {
               font-size: var(--font-size-xm);
               margin-left: 0.6rem;
-              margin-bottom: 33px;
+              margin-bottom: 2.0625rem;
             }
 
             .info {
               display: flex;
               flex-direction: column;
               background-color: #500b82;
-              height: 70px;
+              height: 4.375rem;
 
               div {
                 display: flex;
@@ -124,8 +120,8 @@
               }
 
               .title {
-                border-right: 1px solid white;
-                width: 56px;
+                border-right: 0.0625rem solid white;
+                width: 3.5rem;
               }
             }
           }
