@@ -1,13 +1,13 @@
 import React from 'react';
 import styles from '../scss/my-reservation.module.scss';
-import leftArrow from '../image/leftArrow.png';
+import backArrow from '../image/backArrow.png';
 
 const MyReservation = () => {
   return (
     <div className={styles.test}>
       <div className={styles.myReserve}>
         <div className={styles.backBtn}>
-          <img src={leftArrow} alt=""></img>
+          <img src={backArrow} alt=""></img>
           <p>예약 내역 확인하기</p>
         </div>
 

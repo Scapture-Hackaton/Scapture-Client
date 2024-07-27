@@ -10,6 +10,8 @@ import download from '../image/download.png';
 import share from '../image/share.png';
 import bookMark from '../image/bookMark.png';
 import selectArrow from '../image/selectArrow.png';
+import leftArrow from '../image/leftArrow.png';
+import rightArrow from '../image/rightArrow.png';
 
 const Video = () => {
   return (
@@ -66,6 +68,29 @@ const Video = () => {
               <div className={styles.cnt}>12개의 영상</div>
             </div>
           </div>
+        </div>
+
+        <div className={styles.videoList}>
+          <div className={styles.container}>
+            <div className={styles.video}></div>
+            <div className={styles.description}>
+              <div className={styles.titles}>
+                <div id={styles.first}>1번째</div>
+                <div id={styles.second}>골영상</div>
+              </div>
+
+              <div className={styles.info}>
+                <div>창골축구장(FC서울 축구교실)</div>
+                <div>07.10.수 / 10:00~12:00</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div className={styles.paging}>
+          <img src={leftArrow} alt=""></img>
+          <div className={styles.pageNum}>1</div>
+          <img src={rightArrow} alt=""></img>
         </div>
       </div>
       <Footer />
