@@ -1,44 +1,112 @@
 .test {
-  background-color: aquamarine;
+  background-color: var(--guide-line-color);
   width: 100%;
+  // margin-top: 2.875rem;
 }
 
 .stadium {
   color: white;
+  margin-top: 2.875rem;
 
   >div {
-    background-color: #020039;
+    // background-color: blue;
 
     .banner {
       background-color: antiquewhite;
       display: flex;
       flex-direction: column;
       justify-content: center;
-      // position: relative;
     }
 
-    .intro {
-      // background-color: tomato;
+    >.container {
+      margin: 2.875rem auto 1.875rem auto;
+      background-color: var(--main-color-navy-02);
+      display: flex;
+      flex-direction: column;
+      width: 95.11%;
+      // height: 28.125rem;
 
-      .title {
-        display: flex;
-        align-items: center;
-      }
-    }
 
-    .info {
-      background-color: yellowgreen;
+      >.group {
+        margin: 0.75rem 0.3125rem 1rem 0.9375rem;
 
-      #stadium {
-        background-color: #615B14;
-      }
+        .intro {
+          .title {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1.9375rem;
 
-      >.title {
-        background-color: cadetblue;
-      }
+            img {
+              margin-right: 0.75rem;
+            }
 
-      #reservation {
-        background-color: aqua;
+            >span {
+              font-size: var(--font-size-l);
+            }
+          }
+
+          .introText {
+            font-size: var(--font-size-m);
+          }
+        }
+
+        .reservationBtn {
+          // background-color: #615B14;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          margin: 3.0625rem 0 3.0625rem 0;
+          height: 1.875rem;
+
+          #reservation {
+            background-color: var(--gradient-color-blue-01);
+            width: 6.875rem;
+            height: 100%;
+            color: var(--white-color);
+            font-size: var(--font-size-xm);
+            font-weight: 600;
+            border-radius: 0.25rem;
+
+          }
+
+          #stadium {
+            display: flex;
+            // justify-content: center;
+            align-items: center;
+            // background-color: #615B14;
+            height: 100%;
+            width: 100px;
+            background: linear-gradient(-60deg,
+                transparent 20px,
+                var(--sub-color-yellow-03) 0);
+          }
+        }
+
+        >.info {
+          background-color: yellowgreen;
+          display: flex;
+          flex-direction: row;
+
+          >.group {
+            >span {
+              margin: auto 0 0 0;
+            }
+          }
+
+          >.group:first-child {
+            background-color: teal;
+            display: flex;
+            flex-direction: column;
+            width: 7.1875rem;
+            height: 145px;
+          }
+
+          >.group:last-child {
+            display: flex;
+            flex-direction: column;
+          }
+
+        }
       }
     }
 
@@ -57,36 +125,114 @@
   //   }
   // }
 
-  >.video {
-    .group {
-      background-color: black;
-      border: 1px solid #656565;
-      border-radius: 10px;
-      display: flex;
-      flex-direction: column;
+  .video {
+    width: 100%;
+    margin-bottom: 0.6875rem;
 
-      span:last-child {
-        display: flex;
-        justify-content: flex-end;
-        color: yellow;
+    >.container {
+      display: flex;
+      flex-direction: row;
+      background-color: aqua;
+      margin: 0 0 0 0.6875rem;
+
+      >.group {
+        background-color: var(--black-color);
+        border: 1px solid var(--grey-color-grey-02);
+        border-radius: 10px;
+        width: 10.25rem;
+        margin: 0;
+        // height: 7.625rem;
+        margin-right: 1.25rem;
+
+        .contents {
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          margin: 1rem;
+          width: 8.25rem;
+          height: 5.625rem;
+
+          span:first-child {
+            padding: 0.0625rem;
+          }
+
+          span:last-child {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: flex-end;
+            align-content: flex-end;
+            width: 8.125rem;
+            height: 3rem;
+            color: yellow;
+          }
+        }
       }
     }
   }
 
   .videoList {
-    .stadium {
+    width: 95.11%;
+    height: 9.3125rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+    margin-bottom: 1.875rem;
+    background-color: var(--main-color-navy-02);
+
+    >.stadium {
       display: flex;
-      border-radius: 10px;
-      background-color: #656565;
+      justify-content: center;
+      align-items: center;
+      margin: 0;
 
-      .video {
-        background-color: blueviolet;
+
+      >.container {
         display: flex;
-        flex-direction: column;
-        justify-content: center;
+        // border-radius: 10px;
+        // background-color: #656565;
+        // margin: 0.6875rem;
 
-        .info {
-          background-color: bisque;
+        .videoImage {
+          // background-color: yellow;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
+
+        #video {
+          background-color: blueviolet;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+
+
+          >.info {
+            background-color: #500b82;
+            font-size: var(--font-size-xs);
+            display: flex;
+            flex-direction: column;
+
+            >.group {
+              background-color: #ff9101;
+              display: flex;
+              flex-direction: column;
+              margin-left: 1.25rem;
+            }
+
+            .group:last-child {
+              margin-top: 3.3125rem;
+              font-size: var(--font-size-xs);
+            }
+
+            #name {
+              font-size: var(--font-size-m);
+            }
+
+            #location {
+              margin: 0.0625rem;
+            }
+          }
         }
       }
     }
