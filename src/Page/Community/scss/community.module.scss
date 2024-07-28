@@ -62,6 +62,8 @@
 
       img {
         margin-right: 0.5rem;
+
+        cursor: pointer;
       }
 
       .cnt {
@@ -166,6 +168,10 @@
             font-size: var(--font-size-s);
 
             margin: 0 0.5rem;
+          }
+
+          img {
+            cursor: pointer;
           }
         }
       }

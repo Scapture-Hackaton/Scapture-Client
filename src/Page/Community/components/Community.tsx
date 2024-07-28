@@ -12,8 +12,24 @@ import rightArrow from '../image/rightArrow.png';
 import leftArrow from '../image/leftArrow.png';
 
 import styles from '../scss/community.module.scss';
+import { useState } from 'react';
+import { useQuery } from '@tanstack/react-query';
+import { getComments } from '../../../apis/api/comment.api';
 
 const Community = () => {
+  const [isComments, setComments] = useState(null);
+  // const data: CommonResponse = useQuery(['comment', 2], () => getComments(2));
+  const { isPending, error, data } = useQuery({
+    queryKey: ['comment', '2'],
+    queryFn: () => getComments('2'),
+  });
+
+  if (isPending) return 'Loading...';
+
+  if (error) return 'An error has occurred: ' + error.message;
+
+  console.log(data);
+
   return (
     <div className={styles.test}>
       <Header />
