@@ -1,8 +1,9 @@
-// import Header from '../../Header/components/Header';
-// import Footer from '../../Footer/components/Footer';
-import leftFrame from '../image/leftFrame.png';
-import rightFrame from '../image/rightFrame.png';
-import emptyHeart from '../image/emptyHeart.png';
+import Header from '../../Header/components/Header';
+import Footer from '../../Footer/components/Footer';
+// import leftFrame from '../image/leftFrame.png';
+// import rightFrame from '../image/rightFrame.png';
+// import emptyHeart from '../image/emptyHeart.png';
+import fullHeart from '../image/fullHeart.png';
 import dropDown from '../image/dropDown.png';
 import testCircle from '../image/testCircle.png';
 import sendImg from '../image/sendImg.png';
@@ -15,12 +16,13 @@ import styles from '../scss/community.module.scss';
 const Community = () => {
   return (
     <div className={styles.test}>
+      <Header />
       <div className={styles.community}>
-        <div className={styles.popularText}>
+        {/* <div className={styles.popularText}>
           <img src={leftFrame} alt=""></img>
           <span>이번주 인기있는 영상</span>
           <img src={rightFrame} alt=""></img>
-        </div>
+        </div> */}
 
         <div className={styles.videoContainer}>
           <div className={styles.video}></div>
@@ -28,7 +30,7 @@ const Community = () => {
         </div>
         <div className={styles.fieldText}>구장명</div>
         <div className={styles.heart}>
-          <img src={emptyHeart} alt="" />
+          <img src={fullHeart} alt="" />
           <div className={styles.cnt}>10</div>
         </div>
         <div className={styles.commentContainer}>
@@ -51,7 +53,7 @@ const Community = () => {
               <div>댓글 내용이 너무 길어서 안 보이는 경우 ..</div>
             </div>
             <div className={styles.heartGroup}>
-              <img src={emptyHeart} alt="" />
+              <img src={fullHeart} alt="" />
               <div className={styles.cnt}>10</div>
             </div>
           </div>
@@ -117,6 +119,7 @@ const Community = () => {
           <img src={rightArrow} alt=""></img>
         </div>
       </div>
+      <Footer />
     </div>
   );
 };
