@@ -2,46 +2,38 @@
   width: 100%;
 
   .main {
-    background-color: var(--guide-line-color);
+    // background-color: var(--guide-line-color);
     color: var(--white-color);
     margin: 0 auto;
-    // width: 760px;
-    // margin-bottom: 146px;
 
     .banner {
       display: flex;
       flex-direction: column;
       justify-content: center;
-      margin-bottom: 92px;
+      margin-bottom: 5.75rem;
     }
 
     .container {
       width: 95.11%;
       margin: 0 auto;
-      background-color: brown;
+      // background-color: brown;
 
       .intro {
-        background-color: #33495c;
+        // background-color: #33495c;
         margin: 0 auto;
-        margin-bottom: 312px;
-        // display: flex;
-        // flex-direction: row;
-        // flex-wrap: wrap;
-        // flex-direction: column;
-        // justify-content: center;
-        // align-content: center;
+        margin-bottom: 19.5rem;
 
         >div {
           display: flex;
           justify-content: space-between;
 
           .introText {
-            background-color: #702b2b;
+            // background-color: #702b2b;
             display: flex;
             flex-direction: column;
             justify-content: flex-end;
             font-size: var(--font-size-xm);
-            margin-bottom: 141px;
+            margin-bottom: 8.8125rem;
 
             #yellow {
               color: var(--sub-color-yellow-01);
@@ -49,43 +41,42 @@
 
             >span,
             >div {
-              // background-color: burlywood;
-              margin-bottom: 5px;
+              margin-bottom: 0.3125rem;
             }
           }
 
           .object {
             display: flex;
             justify-content: flex-end;
-            background-color: teal;
+            // background-color: teal;
 
             img {
-              background-color: #3bacac;
+              // background-color: #3bacac;
             }
           }
         }
       }
 
       .stadium {
-        background-color: #f1f96f;
+        // background-color: #f1f96f;
         // margin-bottom: 205px;
 
         >.group {
-          background-color: #f2386f;
+          // background-color: #f2386f;
           display: flex;
           flex-direction: column;
           justify-content: center;
           font-family: var(--font-size-m);
-          margin-bottom: 36px;
-          margin-left: 47px;
+          margin-bottom: 2.25rem;
+          margin-left: 2.9375rem;
 
           #checkbox {
-            background-color: #29138f;
-            margin-bottom: 32px;
+            // background-color: #29138f;
+            margin-bottom: 2rem;
           }
 
           .about {
-            background-color: #85138f;
+            // background-color: #85138f;
             display: flex;
             flex-direction: column;
             justify-content: flex-end;
@@ -97,13 +88,13 @@
         }
 
         .images {
-          background-color: #ff138f;
+          // background-color: #ff138f;
           display: flex;
           justify-content: center;
-          margin-bottom: 71px;
+          margin-bottom: 4.4375rem;
 
           img {
-            background-color: #f403ff;
+            // background-color: #f403ff;
           }
         }
       }
@@ -113,7 +104,7 @@
         flex-direction: column;
         justify-content: center;
         font-size: var(--font-size-s);
-        margin-bottom: 80px;
+        margin-bottom: 5rem;
 
         #content {
           margin: 0 auto;
@@ -136,7 +127,7 @@
             justify-content: center;
 
             >span {
-              margin: 10px 0 10px 0;
+              margin: 0.625rem 0 0.625rem 0;
             }
           }
 
@@ -145,10 +136,10 @@
               display: flex;
               justify-content: center;
               align-items: center;
-              border: 1px solid var(--white-color);
-              margin-right: 15px;
-              width: 90px;
-              height: 30px;
+              border: 0.0625rem solid var(--white-color);
+              margin-right: 0.9375rem;
+              width: 5.625rem;
+              height: 1.875rem;
             }
           }
 
@@ -160,45 +151,45 @@
         }
 
         >img {
-          margin-top: 20px;
-          margin-bottom: 20px;
+          margin-top: 1.25rem;
+          margin-bottom: 1.25rem;
         }
       }
 
       .info {
-        background-color: #34ff3f;
+        // background-color: #34ff3f;
 
         .group {
-          background-color: #f4ff3f;
+          // background-color: #f4ff3f;
 
           #effect {
-            margin-bottom: 38px;
+            margin-bottom: 2.375rem;
             flex-direction: row;
 
             >span {
               display: flex;
-              background-color: #ff9f3f;
+              // background-color: #ff9f3f;
               font-size: var(--font-size-xm);
             }
           }
 
           .images {
-            background-color: #3f2f39;
+            // background-color: #3f2f39;
             display: flex;
             flex-direction: row;
 
             >div {
-              background-color: #3433ff;
+              // background-color: #3433ff;
               display: flex;
               flex-direction: column;
-              margin: 0px 25px 20px 0px;
+              margin: 0 1.5625rem 1.25rem 0;
 
               >div {
-                background-color: black;
+                // background-color: black;
                 font-size: var(--font-size-s);
                 display: flex;
                 justify-content: flex-end;
-                margin-top: 15px;
+                margin-top: 0.9375rem;
               }
             }
           }
