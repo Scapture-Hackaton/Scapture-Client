@@ -12,6 +12,7 @@ import Footer from './Page/Footer/components/Footer';
 import DevTer from './DevTerminal';
 
 import './App.scss';
+import Community from './Page/Community/components/Community';
 
 const App = () => {
   return (
@@ -25,6 +26,7 @@ const App = () => {
         <Route path="/mypage" element={<MyPage />} />
         <Route path="/mypage/edit" element={<EditProfile />} />
         <Route path="/mypage/reservation" element={<MyReservation />} />
+        <Route path="/community" element={<Community />} />
         <Route path="/header" element={<Header />} />
         <Route path="/footer" element={<Footer />} />
         <Route path="/dev-ter" element={<DevTer />} />

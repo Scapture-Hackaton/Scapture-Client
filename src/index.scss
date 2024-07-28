@@ -23,11 +23,11 @@
   --black-color: #000000;
   --grey-color: #5e5e5e;
 
-  --gradient-color-blue-01: #0057ff;
-  --gradient-color-blue-02: #2f5cfb;
-  --gradient-color-blue-03: #bbc6ee;
-  --gradient-color-navy-03: #1a1a3c;
-
+  --gradient-color-blue-01: #0057FF;
+  --gradient-color-blue-02: #2F5CFB;
+  --gradient-color-blue-03: #BBC6EE;
+  --gradient-color-navy-03: #1A1A3C;
+  
   //guide line
   --guide-line-color: #44695d;
 
@@ -35,9 +35,9 @@
   --font-size-xl: 24px;
   --font-size-l: 20px;
   --font-size-xm: 16px;
-  --font-size-m: 12px;
-  --font-size-s: 11px;
-  // --font-size-s: 10px;
+  --font-size-m: 14px;
+  --font-size-s: 12px;
+  --font-size-xs: 11px;
 
   --font-family-Regular: 'Pretendard Variable';
 }
@@ -108,6 +108,7 @@ body {
   width: 100%;
   height: 100vh;
   min-height: auto;
+
   max-width: 450px;
   margin: 0 auto;
 }

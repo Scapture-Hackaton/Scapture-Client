@@ -1,0 +1,275 @@
+.test {
+  width: 100%;
+  max-width: 47.5rem;
+  margin: 0 auto;
+  padding-bottom: 3rem;
+  // background: green;
+
+  .community {
+    .popularText {
+      color: white;
+      font-weight: 700;
+      font-size: var(--font-size-xl);
+
+      margin: 1rem 0 1rem 1rem;
+
+      width: 100%;
+      max-width: 690px;
+
+      display: flex;
+      align-items: center;
+    }
+
+    .videoContainer {
+      .video {
+        width: 100%;
+        height: 426px;
+        background: rgba(37, 37, 37, 1);
+        border-radius: 1px;
+      }
+
+      .title {
+        color: white;
+        font-weight: 700;
+        font-size: var(--font-size-xl);
+
+        margin-top: 1rem;
+        margin-left: 1rem;
+      }
+    }
+
+    .fieldText {
+      color: white;
+      font-weight: 700;
+      font-size: var(--font-size-m);
+
+      margin-top: 1rem;
+      margin-left: 1rem;
+    }
+
+    .heart {
+      display: flex;
+      align-items: center;
+      margin-top: 2rem;
+      margin-left: 1rem;
+
+      img {
+        margin-right: 0.5rem;
+      }
+
+      .cnt {
+        color: white;
+        font-weight: 700;
+        font-size: var(--font-size-m);
+      }
+    }
+
+    .commentContainer {
+      width: 100%;
+      // height: 165px;
+      max-width: 729px;
+
+      background: rgba(2, 0, 57, 1);
+
+      margin: 2rem auto 4rem auto;
+      padding-bottom: 1rem;
+
+      .title {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 1rem 1rem 0 1rem;
+
+        div {
+          display: flex;
+          align-items: center;
+
+          p {
+            color: white;
+            font-weight: 700;
+            font-size: var(--font-size-m);
+
+            margin-right: 0.7rem;
+          }
+
+          .cnt {
+            color: rgba(101, 101, 101, 1);
+            font-weight: 700;
+            font-size: var(--font-size-m);
+          }
+        }
+
+        .moreComment {
+          display: flex;
+          align-items: center;
+          justify-content: end;
+          cursor: pointer;
+
+          span {
+            font-weight: 400;
+            font-size: var(--font-size-m);
+            color: white;
+          }
+        }
+      }
+
+      .commentGroup {
+        display: flex;
+        align-items: center;
+
+        padding: 1.5rem 1rem 1.5rem 1rem;
+        // margin: 1.2rem 0;
+
+        .profileImg {
+          border-radius: 50%;
+          max-width: 40px;
+          max-height: 40px;
+
+          margin-right: 1rem;
+
+          img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+          }
+        }
+
+        .comment {
+          p {
+            color: white;
+            font-weight: 600;
+            font-size: var(--font-size-m);
+            margin-bottom: 0.2rem;
+          }
+
+          div {
+            color: white;
+            font-weight: 400;
+            font-size: var(--font-size-s);
+          }
+        }
+
+        .heartGroup {
+          display: flex;
+          align-items: center;
+          margin-left: auto;
+
+          .cnt {
+            color: white;
+            font-weight: 400;
+            font-size: var(--font-size-s);
+
+            margin: 0 0.5rem;
+          }
+        }
+      }
+      .inputGroup {
+        height: 52px;
+        margin: 0 1rem;
+        padding: 0 1rem;
+        background: #010026;
+        border-radius: 10px;
+
+        display: flex;
+        align-items: center;
+
+        input {
+          width: 100%;
+          font-weight: 400;
+          font-size: var(--font-size-m);
+          color: white;
+        }
+      }
+    }
+
+    .subVideoContainer {
+      .video {
+        width: 100%;
+        height: 426px;
+        background: rgba(37, 37, 37, 1);
+        border-radius: 1px;
+      }
+
+      .group {
+        margin: 2rem 1rem;
+
+        .title {
+          color: white;
+          font-weight: 600;
+          font-size: var(--font-size-xl);
+
+          margin-bottom: 1rem;
+        }
+
+        .info {
+          display: flex;
+          align-items: center;
+
+          color: white;
+          font-weight: 400;
+          font-size: var(--font-size-m);
+
+          .cnt {
+            margin-right: 1rem;
+          }
+        }
+
+        .field {
+          display: flex;
+          align-items: center;
+
+          margin: 1.5rem 0;
+
+          .profileImg {
+            border-radius: 50%;
+            max-width: 40px;
+            max-height: 40px;
+
+            margin-right: 1rem;
+
+            img {
+              width: 100%;
+              height: 100%;
+              object-fit: cover;
+            }
+          }
+
+          .name {
+            color: white;
+            font-weight: 400;
+            font-size: var(--font-size-m);
+          }
+        }
+      }
+    }
+
+    .paging {
+      width: 100%;
+      max-width: 105px;
+      margin: 0 auto;
+
+      display: flex;
+      align-items: center;
+
+      .pageNum {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        background: #1a1a3c;
+        width: 41px;
+        height: 41px;
+
+        color: white;
+        font-weight: 700;
+        font-size: var(--font-size-m);
+
+        cursor: pointer;
+      }
+
+      img {
+        cursor: pointer;
+      }
+    }
+  }
+}
