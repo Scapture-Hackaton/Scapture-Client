@@ -34,6 +34,10 @@ module.exports = {
       'warn',
       { allowConstantExport: true },
     ],
+
+    // catch 문에서 any 타입을 사용할 수 있도록 설정
+    '@typescript-eslint/no-explicit-any': 'off',
+
     'import/extensions': [
       'error',
       'ignorePackages',
