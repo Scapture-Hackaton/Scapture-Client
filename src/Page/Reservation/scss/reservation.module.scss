@@ -1,4 +1,296 @@
 .test {
-  background-color: aquamarine;
   width: 100%;
+  height: 100vh;
+
+  .reservation {
+    width: 100%;
+    max-width: 450px;
+
+    // 1
+    .slider {
+      width: 100%;
+      height: 338px;
+      background: black;
+
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+    }
+
+    // 2
+    .container {
+      margin: 3rem 1rem 3rem 1rem;
+      // margin: 1rem auto 3rem auto;
+
+      // width: 100%;
+      // max-width: 428px;
+
+      // margin: 2rem 1rem 3rem 1rem;
+
+      background: #020039;
+
+      .description {
+        padding: 1rem;
+
+        .title {
+          display: flex;
+          align-items: center;
+          margin-bottom: 1.7rem;
+
+          .box {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            margin-right: 1rem;
+
+            img {
+              width: 100%;
+              height: 100%;
+              object-fit: cover;
+            }
+          }
+
+          p {
+            font-weight: 600;
+            font-size: var(--font-size-l);
+          }
+        }
+
+        .introduce {
+          font-weight: 400;
+          font-size: 14px;
+          // font-size: var(--font-size-l);
+          margin-right: 4rem;
+        }
+      }
+
+      .info {
+        .header {
+          height: 30px;
+          margin: 1.3rem 0.5rem 1rem 0.5rem;
+
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+
+          .title {
+            font-size: var(--font-size-xm);
+            font-weight: 600;
+
+            width: 100px;
+            height: 100%;
+
+            background: linear-gradient(
+              -60deg,
+              transparent 20px,
+              rgba(97, 91, 20, 1) 0
+            );
+
+            display: flex;
+            align-items: center;
+            padding-left: 0.7rem;
+            margin-right: 1rem;
+          }
+
+          .reserve {
+            height: 100%;
+
+            font-size: var(--font-size-xm);
+            font-weight: 600;
+            color: var(--white-color);
+
+            background: #0057ff;
+
+            border-radius: 5px;
+            padding: 0 1rem;
+
+            line-height: 30px;
+          }
+        }
+
+        .contents {
+          font-weight: 400;
+          font-size: var(--font-size-xm);
+          padding: 1rem;
+
+          .row {
+            margin-top: 1rem;
+
+            display: flex;
+            align-items: center;
+
+            .th {
+              margin-right: 2rem;
+            }
+          }
+        }
+      }
+    }
+
+    // 3
+    .dayVideo {
+      margin: 1rem 1rem 0 1rem;
+      margin-bottom: 3rem;
+
+      .selectGroup {
+        display: flex;
+        align-items: center;
+
+        .selectBox {
+          height: 30px;
+
+          display: flex;
+          align-items: center;
+          justify-content: center;
+
+          border-radius: 4px;
+
+          margin-right: 1rem;
+          padding: 0.7rem;
+
+          background: #252525;
+
+          p {
+            color: white;
+            font-weight: 400;
+            font-size: 14px;
+          }
+
+          img {
+            margin-left: 0.5rem;
+          }
+        }
+      }
+
+      .dayGroup {
+        display: flex;
+        align-items: center;
+        margin-top: 2rem;
+
+        .box {
+          display: flex;
+          flex-direction: column;
+
+          width: 164px;
+          height: 122px;
+          padding: 1rem;
+
+          border-radius: 10px;
+          border: 1px solid #656565;
+
+          background: black;
+
+          margin-right: 1.5rem;
+
+          .date {
+            color: white;
+            font-weight: 400;
+            font-size: 14px;
+            margin-bottom: 0.5rem;
+          }
+
+          .cnt {
+            display: flex;
+            justify-content: end;
+
+            color: #cad539;
+            font-weight: 600;
+            font-size: var(--font-size-xm);
+
+            margin-top: auto;
+          }
+        }
+      }
+    }
+
+    // 4
+    .reserveList {
+      margin: 1rem 1rem 7rem 1rem;
+
+      .group {
+        margin-bottom: 2rem;
+
+        .compontent {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+
+          background: #020039;
+
+          padding: 0.35rem 1.5rem;
+          // height: 40px;
+          margin-bottom: 0.7rem;
+
+          border-radius: 5px;
+
+          font-weight: 400;
+          font-size: 14px;
+
+          .info {
+            display: flex;
+            align-items: center;
+            .field {
+              margin-right: 1rem;
+            }
+          }
+
+          .date {
+          }
+
+          button {
+            background: #ffed1d;
+            font-weight: 400;
+            font-size: 14px;
+            border-radius: 5px;
+
+            // padding: 0 0.6rem;
+            width: 68px;
+            line-height: 30px;
+          }
+
+          .booked {
+            border: 1px solid #ebebff;
+            border-radius: 5px;
+            font-size: 14px;
+
+            // padding: 0 0.6rem;
+            width: 68px;
+            line-height: 30px;
+            text-align: center;
+          }
+        }
+      }
+    }
+
+    .paging {
+      width: 100%;
+      max-width: 105px;
+      margin: 0 auto 3rem auto;
+
+      display: flex;
+      align-items: center;
+
+      .pageNum {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        background: #1a1a3c;
+        width: 41px;
+        height: 41px;
+
+        color: white;
+        font-weight: 700;
+        font-size: var(--font-size-m);
+
+        cursor: pointer;
+      }
+
+      img {
+        cursor: pointer;
+      }
+    }
+  }
 }
