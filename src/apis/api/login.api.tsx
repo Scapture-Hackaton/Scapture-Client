@@ -1,3 +1,3 @@
 /**
- * Stadium 관련 API
+ * login 관련 API
  */
