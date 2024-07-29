@@ -1,6 +1,4 @@
 import styles from '../scss/header.module.scss';
-
-// import { loginData } from '../../../apis/api/login.api';
 import { KAKAO_AUTH_URL } from '../../../apis/config/login.config';
 
 import { LoginModal } from './LoginModal';

@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import Header from '../../Header/components/Header';
 import Footer from '../../Footer/components/Footer';
 
@@ -11,9 +12,19 @@ import InfoImageB from '../image/info-image-b.png';
 import EffectRight from '../image/effect-right.png';
 import EffectLeft from '../image/effect-left.png';
 import styles from '../scss/main.module.scss';
-// import banner from '../scss/banner.module.scss';
+import { useLocation } from 'react-router-dom';
 
 const Main = () => {
+  const location = useLocation();
+
+  useEffect(() => {
+    const queryParams = new URLSearchParams(location.search);
+    const code = queryParams.get('code');
+    if (code) {
+      console.log('Authorization code:', code);
+    }
+  }, [location]);
+
   return (
     <div className={styles.test}>
       <Header />
