@@ -1,5 +1,5 @@
 export interface CommentData {
-  id: number;
+  commentId: number;
   name: string;
   image: string;
   content: string;

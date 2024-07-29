@@ -13,9 +13,9 @@ import leftArrow from '../image/leftArrow.png';
 
 import styles from '../scss/community.module.scss';
 import { useState } from 'react';
-import { useQuery } from '@tanstack/react-query';
+// import { useQuery } from '@tanstack/react-query';
 
-import { getComments } from '../../../apis/api/comment.api';
+// import { getComments } from '../../../apis/api/community.api';
 import Comment from './Comment';
 import Heart from './Heart';
 // import { CommonResponse } from '../../../apis/dto/common.response';
@@ -23,14 +23,18 @@ import Heart from './Heart';
 const Community = () => {
   const [isComments, setComments] = useState(false);
   // const data: CommonResponse = useQuery(['comment', 2], () => getComments(2));
-  const { isPending, error, data } = useQuery({
-    queryKey: ['comment', '2'],
-    queryFn: () => getComments('2'),
-  });
+  // const { isPending, error, data } = useQuery({
+  //   queryKey: ['comment', 1],
+  //   queryFn: () => getComments(1),
+  // });
 
-  if (isPending) return 'Loading...';
+  // if (isPending) return 'Loading...';
 
-  if (error) return 'An error has occurred: ' + error.message;
+  // if (error) return 'An error has occurred: ' + error.message;
+
+  // getPopularVideos
+
+  // console.log(data);
 
   const handleToggleComments = () => {
     setComments(!isComments);
@@ -81,7 +85,7 @@ const Community = () => {
           <div
             className={`${styles.commentList} ${isComments ? styles.show : ''}`}
           >
-            <Comment datas={data.data} isShow={isComments}></Comment>
+            <Comment isShow={isComments}></Comment>
           </div>
           {/* <div className={styles.commentGroup}>
             <div className={styles.profileImg}>
