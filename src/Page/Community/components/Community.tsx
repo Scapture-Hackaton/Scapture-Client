@@ -6,35 +6,29 @@ import Footer from '../../Footer/components/Footer';
 // import fullHeart from '../image/fullHeart.png';
 import dropDown from '../image/dropDown.png';
 import upBtn from '../image/upBtn.png';
-import testCircle from '../image/testCircle.png';
+// import testCircle from '../image/testCircle.png';
 
 import rightArrow from '../image/rightArrow.png';
 import leftArrow from '../image/leftArrow.png';
 
 import styles from '../scss/community.module.scss';
 import { useState } from 'react';
-// import { useQuery } from '@tanstack/react-query';
+import { useQuery } from '@tanstack/react-query';
 
-// import { getComments } from '../../../apis/api/community.api';
 import Comment from './Comment';
 import Heart from './Heart';
-// import { CommonResponse } from '../../../apis/dto/common.response';
+import { getPopularVideos } from '../../../apis/api/community.api';
+import { PopularVideos } from '../../../apis/dto/community.dto';
+import PopularVideoList from './PopularVideoList';
 
 const Community = () => {
   const [isComments, setComments] = useState(false);
-  // const data: CommonResponse = useQuery(['comment', 2], () => getComments(2));
-  // const { isPending, error, data } = useQuery({
-  //   queryKey: ['comment', 1],
-  //   queryFn: () => getComments(1),
-  // });
 
-  // if (isPending) return 'Loading...';
-
-  // if (error) return 'An error has occurred: ' + error.message;
-
-  // getPopularVideos
-
-  // console.log(data);
+  const { data: popularVideoData } = useQuery({
+    queryKey: ['popular_videos'],
+    queryFn: () => getPopularVideos(),
+    initialData: [] as PopularVideos[],
+  });
 
   const handleToggleComments = () => {
     setComments(!isComments);
@@ -50,16 +44,32 @@ const Community = () => {
           <img src={rightFrame} alt=""></img>
         </div> */}
 
-        <div className={styles.videoContainer}>
-          <div className={styles.video}></div>
-          <div className={styles.title}>영상 제목</div>
-        </div>
-        <div className={styles.fieldText}>구장명</div>
-        <div className={styles.heart}>
-          {/* <img src={fullHeart} alt="" />
+        {popularVideoData?.data && popularVideoData.data.length > 0 ? (
+          <>
+            <div className={styles.videoContainer}>
+              <div className={styles.video}>
+                <img src={popularVideoData.data[0].image} alt="" />
+              </div>
+              <div className={styles.title}>
+                {popularVideoData.data[0].name}
+              </div>
+            </div>
+            <div className={styles.fieldText}>
+              {popularVideoData.data[0].stadiumName}
+            </div>
+            <div className={styles.heart}>
+              {/* <img src={fullHeart} alt="" />
           <div className={styles.cnt}>10</div> */}
-          <Heart isLiked={true} likeCount={10}></Heart>
-        </div>
+              <Heart
+                isLiked={true}
+                likeCount={popularVideoData.data[0].likeCount}
+              ></Heart>
+            </div>
+          </>
+        ) : (
+          <></>
+        )}
+
         <div className={styles.commentContainer}>
           <div className={styles.title}>
             <div>
@@ -115,7 +125,7 @@ const Community = () => {
           </div> */}
         </div>
 
-        <div className={styles.subVideoContainer}>
+        {/* <div className={styles.subVideoContainer}>
           <div className={styles.video}></div>
           <div className={styles.group}>
             <div className={styles.title}>영상 제목</div>
@@ -131,7 +141,9 @@ const Community = () => {
               <div className={styles.name}>구장명</div>
             </div>
           </div>
-        </div>
+        </div> */}
+
+        <PopularVideoList videos={popularVideoData.data}></PopularVideoList>
 
         {/* <div className={styles.subVideoContainer}>
           <div className={styles.video}></div>

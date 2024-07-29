@@ -8,7 +8,7 @@ import sendImg from '../image/sendImg.png';
 import upBtn from '../image/upBtn.png';
 
 // import { CommonResponse } from '../../../apis/dto/common.response';
-import { CommentData } from '../../../apis/dto/comments.dto';
+import { CommentData } from '../../../apis/dto/community.dto';
 import Heart from './Heart';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { getComments, writeComment } from '../../../apis/api/community.api';
@@ -17,18 +17,17 @@ interface CommentProps {
   isShow: boolean;
 }
 
-// const Comment: React.FC<CommentProps> = ({ data }) => {
 const Comment: React.FC<CommentProps> = ({ isShow }) => {
-  //   console.log(data);
-
   localStorage.setItem(
     'token',
     'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIzNjM0ODk4NTUxIiwicHJvdmlkZXIiOiJrYWthbyIsInByb3ZpZGVySWQiOiIzNjM0ODk4NTUxIiwiaWF0IjoxNzIyMjUwNDY3LCJleHAiOjE3MjIzMzY4Njd9.tQi9KozWFLsGalCAkaXiT_cIA4ur0dB1xgY17KFoYec',
   );
 
   const videoId = 1;
+
+  // 첫 화면에서 댓글을 가져옴
   const queryClient = useQueryClient();
-  const { data: commentsData, refetch } = useQuery({
+  const { data: commentsData } = useQuery({
     queryKey: ['comments', videoId],
     queryFn: () => getComments(videoId),
     initialData: [] as CommentData[], // 초기 데이터를 빈 배열로 설정
@@ -37,52 +36,37 @@ const Comment: React.FC<CommentProps> = ({ isShow }) => {
   const [isData, setData] = useState<CommentData[]>(commentsData.data);
   //   const commentsToShow = showAll ? data : data.slice(0, 1);
 
+  // 댓글 창의 입력 감지
   const [isInput, setInput] = useState('');
+  const changeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setInput(e.target.value);
+  };
 
+  // 맨위로 올라가는 버튼의 상태
   const [isShowScrollButton, setShowScrollButton] = useState(false);
+  // commentBox의 Ref
   const commentBoxRef = useRef<HTMLDivElement>(null);
 
+  // 댓글이 추가되면 감지하여 요청을 다시 보내 데이터 최신화
   const addCommentMutation = useMutation({
     mutationFn: (newComment: { videoId: number; content: string }) =>
       writeComment(newComment.videoId, newComment.content),
     onSuccess: () => {
-      // 댓글 작성 후 댓글 목록을 다시 가져옵니다.
+      // 댓글 작성 후 댓글 목록을 다시 가져옴
       queryClient.invalidateQueries(['comments', videoId]);
       setInput('');
     },
   });
 
-  const changeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
-    console.log(e.target.value);
-    setInput(e.target.value);
-  };
-
+  // 댓글 작성을 하면 요청을 다시 보냄
   const sendComment = () => {
+    // 공백인 댓글은 요청을 보내지 않음
     if (isInput.trim().length > 0) {
       addCommentMutation.mutate({ videoId, content: isInput });
     }
   };
 
-  //   const sendComment = () => {
-  //     if (isInput != null || isInput != '') {
-  //       if (isInput.length != 0) {
-  //         setData([
-  //           ...isData,
-  //           {
-  //             id: isData[isData.length - 1].id + 1,
-  //             name: '이현승',
-  //             image:
-  //               'http://t1.kakaocdn.net/account_images/default_profile.jpeg.twg.thumb.R640x640',
-  //             content: isInput,
-  //             isLiked: false,
-  //             likeCount: 9,
-  //           },
-  //         ]);
-  //         setInput('');
-  //       }
-  //     }
-  //   };
-
+  // 엔터를 눌렀을 경우에도 댓글 작성이 가능하도록
   const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
       sendComment();
@@ -92,12 +76,13 @@ const Comment: React.FC<CommentProps> = ({ isShow }) => {
     }
   };
 
-  useEffect(() => {
-    if (commentBoxRef.current) {
-      commentBoxRef.current.scrollTop = commentBoxRef.current.scrollHeight;
-    }
-  }, [isData]);
+  //   useEffect(() => {
+  //     if (commentBoxRef.current) {
+  //       commentBoxRef.current.scrollTop = commentBoxRef.current.scrollHeight;
+  //     }
+  //   }, [isData]);
 
+  // 일정 위치로 스크롤을 내렸을 경우 맨위로 이동하는 버튼 생성
   const handleScroll = () => {
     if (commentBoxRef.current) {
       const scrollTop = commentBoxRef.current.scrollTop;
@@ -110,15 +95,7 @@ const Comment: React.FC<CommentProps> = ({ isShow }) => {
     }
   };
 
-  const scrollToTop = () => {
-    if (commentBoxRef.current) {
-      commentBoxRef.current.scrollTo({
-        top: 0,
-        behavior: 'smooth',
-      });
-    }
-  };
-
+  // 스크롤의 변화를 감지
   useEffect(() => {
     const currentRef = commentBoxRef.current;
     if (currentRef) {
@@ -131,6 +108,17 @@ const Comment: React.FC<CommentProps> = ({ isShow }) => {
     };
   }, []);
 
+  // 맨위로 이동
+  const scrollToTop = () => {
+    if (commentBoxRef.current) {
+      commentBoxRef.current.scrollTo({
+        top: 0,
+        behavior: 'smooth',
+      });
+    }
+  };
+
+  // 댓글 닫기를 눌렀을 경우 댓글의 맨위로 이동
   useEffect(() => {
     if (!isShow && commentBoxRef.current) {
       scrollToTop();

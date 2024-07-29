@@ -16,10 +16,8 @@ const Heart: React.FC<HeartProps> = ({ isLiked, likeCount }) => {
   const toggleHeart = () => {
     // 좋아요가 눌러진 상태
     if (isHeart) {
-      console.log('좋아요 해제');
       setCnt(isCnt - 1);
     } else {
-      console.log('좋아요 추가');
       setCnt(isCnt + 1);
     }
 
