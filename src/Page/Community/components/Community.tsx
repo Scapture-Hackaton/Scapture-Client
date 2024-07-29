@@ -3,10 +3,10 @@ import Footer from '../../Footer/components/Footer';
 // import leftFrame from '../image/leftFrame.png';
 // import rightFrame from '../image/rightFrame.png';
 // import emptyHeart from '../image/emptyHeart.png';
-import fullHeart from '../image/fullHeart.png';
+// import fullHeart from '../image/fullHeart.png';
 import dropDown from '../image/dropDown.png';
+import upBtn from '../image/upBtn.png';
 import testCircle from '../image/testCircle.png';
-import sendImg from '../image/sendImg.png';
 
 import rightArrow from '../image/rightArrow.png';
 import leftArrow from '../image/leftArrow.png';
@@ -14,10 +14,14 @@ import leftArrow from '../image/leftArrow.png';
 import styles from '../scss/community.module.scss';
 import { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
+
 import { getComments } from '../../../apis/api/comment.api';
+import Comment from './Comment';
+import Heart from './Heart';
+// import { CommonResponse } from '../../../apis/dto/common.response';
 
 const Community = () => {
-  const [isComments, setComments] = useState(null);
+  const [isComments, setComments] = useState(false);
   // const data: CommonResponse = useQuery(['comment', 2], () => getComments(2));
   const { isPending, error, data } = useQuery({
     queryKey: ['comment', '2'],
@@ -28,7 +32,9 @@ const Community = () => {
 
   if (error) return 'An error has occurred: ' + error.message;
 
-  console.log(data);
+  const handleToggleComments = () => {
+    setComments(!isComments);
+  };
 
   return (
     <div className={styles.test}>
@@ -46,8 +52,9 @@ const Community = () => {
         </div>
         <div className={styles.fieldText}>구장명</div>
         <div className={styles.heart}>
-          <img src={fullHeart} alt="" />
-          <div className={styles.cnt}>10</div>
+          {/* <img src={fullHeart} alt="" />
+          <div className={styles.cnt}>10</div> */}
+          <Heart isLiked={true} likeCount={10}></Heart>
         </div>
         <div className={styles.commentContainer}>
           <div className={styles.title}>
@@ -55,12 +62,28 @@ const Community = () => {
               <p>댓글</p>
               <span className={styles.cnt}>00</span>
             </div>
-            <div className={styles.moreComment}>
-              <span>댓글 더보기</span>
-              <img src={dropDown} alt=""></img>
+            <div className={styles.moreComment} onClick={handleToggleComments}>
+              {isComments ? (
+                <>
+                  <span>댓글 닫기</span>
+                  <img src={upBtn} alt=""></img>
+                </>
+              ) : (
+                <>
+                  <span>댓글 더보기</span>
+                  <img src={dropDown} alt=""></img>
+                </>
+              )}
             </div>
           </div>
-          <div className={styles.commentGroup}>
+
+          {/* <Comment data={data.data}></Comment> */}
+          <div
+            className={`${styles.commentList} ${isComments ? styles.show : ''}`}
+          >
+            <Comment datas={data.data} isShow={isComments}></Comment>
+          </div>
+          {/* <div className={styles.commentGroup}>
             <div className={styles.profileImg}>
               <img src={testCircle} alt=""></img>
             </div>
@@ -72,7 +95,7 @@ const Community = () => {
               <img src={fullHeart} alt="" />
               <div className={styles.cnt}>10</div>
             </div>
-          </div>
+          </div> */}
           {/* <div className={styles.commentGroup}>
             <div className={styles.profileImg}>
               <img src={testCircle} alt=""></img>
@@ -86,11 +109,6 @@ const Community = () => {
               <div className={styles.cnt}>10</div>
             </div>
           </div> */}
-
-          <div className={styles.inputGroup}>
-            <input type="text" placeholder="댓글 입력하기"></input>
-            <img src={sendImg} alt=""></img>
-          </div>
         </div>
 
         <div className={styles.subVideoContainer}>

@@ -10,7 +10,7 @@ export const getComments = async (videoId: string) => {
     const res: CommonResponse = await defaultInstance.get(
       `api/comments/${videoId}`,
     );
-    return res;
+    return res.data;
   } catch (e: any) {
     return {
       status: e.response.status,
