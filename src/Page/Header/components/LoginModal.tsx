@@ -1,19 +1,23 @@
-import { forwardRef } from 'react';
 import GoogleIcon from '../image/google-img.png';
 import KakaoIcon from '../image/kakao-img.png';
 import NaverIcon from '../image/naver-img.png';
 
-export const LoginModal = forwardRef<
-  HTMLDialogElement,
-  { styles: any; AUTH_URL: string }
->(({ styles, AUTH_URL }, ref) => {
+interface LoginModalProps {
+  styles: { [key: string]: string };
+  AUTH_URL: string;
+  modalRef: React.RefObject<HTMLDialogElement>;
+}
+
+export const LoginModal: React.FC<LoginModalProps> = ({
+  styles,
+  AUTH_URL,
+  modalRef,
+}) => {
   const closeLoginModal = () => {
-    if (ref && 'current' in ref && ref.current) {
-      ref.current?.close();
-    }
+    modalRef.current?.close();
   };
   return (
-    <dialog ref={ref}>
+    <dialog ref={modalRef}>
       <div className={styles.contents}>
         <button onClick={closeLoginModal}>
           <img src={GoogleIcon} alt="" />
@@ -35,4 +39,4 @@ export const LoginModal = forwardRef<
       </div>
     </dialog>
   );
-});
+};
