@@ -43,7 +43,8 @@ export const LoginModal: React.FC<LoginModalProps> = ({
         <button
           onClick={() => {
             closeLoginModal();
-            // window.location.href = AUTH_URLS.kakao;
+            window.location.href = AUTH_URLS.kakao;
+            // console.log(AUTH_URLS.kakao);
           }}
         >
           <img src={KakaoIcon} alt="" />

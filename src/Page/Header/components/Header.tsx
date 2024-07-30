@@ -8,12 +8,28 @@ import {
 import { LoginModal } from './LoginModal';
 
 import ScaptureLogo from '../image/scapture-logo.png';
-import { useRef } from 'react';
+import { useEffect, useRef } from 'react';
 // import { useLocation } from 'react-router-dom';
-import useAuth from '../Hook/useAuth';
+// import useAuth from '../Hook/useAuth';
 import { LoginKAKAOToken } from '../../../apis/api/login.api';
+import { useLocation } from 'react-router-dom';
 const Header = () => {
-  useAuth(LoginKAKAOToken);
+  const location = useLocation();
+
+  useEffect(() => {
+    const queryParams = new URLSearchParams(location.search);
+    const code = queryParams.get('code');
+    if (code) {
+      console.log('Authorization code:', code);
+      LoginKAKAOToken(code);
+    } else {
+      console.error(
+        'Error: In this WEB drop the Code from this social Login.please, retry to Login.',
+      );
+    }
+  }, [location]);
+
+  // useAuth(LoginKAKAOToken);
 
   const modalRef = useRef<HTMLDialogElement>(null);
 
