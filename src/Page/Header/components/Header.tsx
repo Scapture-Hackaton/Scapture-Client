@@ -1,5 +1,9 @@
 import styles from '../scss/header.module.scss';
-import { KAKAO_AUTH_URL } from '../../../apis/config/login.config';
+import {
+  KAKAO_AUTH_URL,
+  GOOGLE_AUTH_URL,
+  NAVER_AUTH_URL,
+} from '../../../apis/config/login.config';
 
 import { LoginModal } from './LoginModal';
 
@@ -10,6 +14,12 @@ const Header = () => {
 
   const openLoginModal = () => {
     modalRef.current?.showModal();
+  };
+
+  const AUTH_URLS = {
+    kakao: KAKAO_AUTH_URL,
+    google: GOOGLE_AUTH_URL,
+    naver: NAVER_AUTH_URL,
   };
 
   return (
@@ -32,7 +42,7 @@ const Header = () => {
         </div>
         <LoginModal
           styles={styles}
-          AUTH_URL={KAKAO_AUTH_URL}
+          AUTH_URLS={AUTH_URLS}
           modalRef={modalRef}
         ></LoginModal>
       </div>

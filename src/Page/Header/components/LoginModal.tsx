@@ -4,13 +4,13 @@ import NaverIcon from '../image/naver-img.png';
 
 interface LoginModalProps {
   styles: { [key: string]: string };
-  AUTH_URL: string;
+  AUTH_URLS: { kakao: string; google: string; naver: string };
   modalRef: React.RefObject<HTMLDialogElement>;
 }
 
 export const LoginModal: React.FC<LoginModalProps> = ({
   styles,
-  AUTH_URL,
+  AUTH_URLS,
   modalRef,
 }) => {
   const closeLoginModal = () => {
@@ -19,18 +19,29 @@ export const LoginModal: React.FC<LoginModalProps> = ({
   return (
     <dialog ref={modalRef}>
       <div className={styles.contents}>
-        <button onClick={closeLoginModal}>
+        <button
+          onClick={() => {
+            closeLoginModal();
+            window.location.href = AUTH_URLS.google;
+          }}
+        >
           <img src={GoogleIcon} alt="" />
           구글로 로그인하기
         </button>
-        <button onClick={closeLoginModal}>
+        <button
+          onClick={() => {
+            closeLoginModal();
+            window.location.href = AUTH_URLS.naver;
+            console.log('NAVER 로그인은 상태값이 필요합니다.');
+          }}
+        >
           <img src={NaverIcon} alt="" />
           네이버로 로그인하기
         </button>
         <button
           onClick={() => {
             closeLoginModal();
-            window.location.href = AUTH_URL;
+            window.location.href = AUTH_URLS.kakao;
           }}
         >
           <img src={KakaoIcon} alt="" />
