@@ -70,17 +70,8 @@ const Comment: React.FC<CommentProps> = ({ isShow }) => {
   const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
       sendComment();
-      if (commentBoxRef.current) {
-        commentBoxRef.current.scrollTop = commentBoxRef.current.scrollHeight;
-      }
     }
   };
-
-  //   useEffect(() => {
-  //     if (commentBoxRef.current) {
-  //       commentBoxRef.current.scrollTop = commentBoxRef.current.scrollHeight;
-  //     }
-  //   }, [isData]);
 
   // 일정 위치로 스크롤을 내렸을 경우 맨위로 이동하는 버튼 생성
   const handleScroll = () => {
@@ -95,7 +86,7 @@ const Comment: React.FC<CommentProps> = ({ isShow }) => {
     }
   };
 
-  // 스크롤의 변화를 감지
+  // 스크롤의 변화를 감지하여 맨 위로 올라가는 버튼 생성
   useEffect(() => {
     const currentRef = commentBoxRef.current;
     if (currentRef) {
@@ -125,6 +116,7 @@ const Comment: React.FC<CommentProps> = ({ isShow }) => {
     }
   }, [isShow]);
 
+  // 좋아요를 눌렀을 때 갱신
   const handleToggleLike = (commentId: number, isLiked: boolean) => {
     const updatedComments = commentsData.data.map((comment: CommentData) =>
       comment.commentId === commentId
@@ -137,6 +129,13 @@ const Comment: React.FC<CommentProps> = ({ isShow }) => {
     );
     queryClient.setQueryData(['comments', videoId], { data: updatedComments });
   };
+
+  // 댓글이 업데이트되었을 때 스크롤을 맨 아래로 이동
+  useEffect(() => {
+    if (commentBoxRef.current) {
+      commentBoxRef.current.scrollTop = commentBoxRef.current.scrollHeight;
+    }
+  }, [commentsData.data]);
 
   return (
     <>
