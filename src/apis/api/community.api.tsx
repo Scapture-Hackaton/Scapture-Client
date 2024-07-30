@@ -8,7 +8,25 @@ import { authInstance, defaultInstance } from '../utils/instance';
 export const getPopularVideos = async () => {
   try {
     const res: CommonResponse = await defaultInstance.get(`api/videos/popular`);
-    return res.data;
+
+    return res.data.data;
+  } catch (e: any) {
+    return {
+      status: e.response.status,
+    };
+  }
+};
+
+// 영상 세부 조회
+export const getVideoDetail = async (videoId: number) => {
+  try {
+    const res: CommonResponse = await defaultInstance.get(
+      `api/videos/${videoId}/details`,
+    );
+
+    console.log(res);
+
+    return res.data.data;
   } catch (e: any) {
     return {
       status: e.response.status,
@@ -66,6 +84,38 @@ export const unLikeComment = async (commentId: number) => {
   try {
     const res: CommonResponse = await authInstance.delete(
       `api/comments/${commentId}/likes`,
+    );
+
+    return res.data;
+  } catch (e: any) {
+    console.log(e);
+    return {
+      status: e.response.status,
+    };
+  }
+};
+
+// 영상 좋아요 추가
+export const likesVideo = async (videoId: number) => {
+  try {
+    const res: CommonResponse = await authInstance.post(
+      `api/comments/${videoId}/likes`,
+    );
+
+    return res.data;
+  } catch (e: any) {
+    console.log(e);
+    return {
+      status: e.response.status,
+    };
+  }
+};
+
+// 영상 좋아요 해제
+export const unLikeVideo = async (videoId: number) => {
+  try {
+    const res: CommonResponse = await authInstance.delete(
+      `api/comments/${videoId}/likes`,
     );
 
     return res.data;

@@ -2,19 +2,26 @@ import React, { useState } from 'react';
 import styles from '../scss/community.module.scss';
 import fullHeart from '../image/fullHeart.png';
 import emptyHeart from '../image/emptyHeart.png';
-import { likesComment, unLikeComment } from '../../../apis/api/community.api';
+import {
+  likesComment,
+  unLikeComment,
+  likesVideo,
+  unLikeVideo,
+} from '../../../apis/api/community.api';
 
 interface HeartProps {
-  commentId: number;
+  id: number;
   isLiked: boolean;
   likeCount: number;
-  onToggleLike: (commentId: number, isLiked: boolean) => void;
+  type: 'comment' | 'video';
+  onToggleLike: (id: number, isLiked: boolean) => void;
 }
 
 const Heart: React.FC<HeartProps> = ({
-  commentId,
+  id,
   isLiked,
   likeCount,
+  type,
   onToggleLike,
 }) => {
   const [isHeart, setHeart] = useState<boolean>(isLiked);
@@ -24,19 +31,23 @@ const Heart: React.FC<HeartProps> = ({
     try {
       // 좋아요 상태 변경
       if (isHeart) {
-        await unLikeComment(commentId);
+        if (type === 'comment') {
+          await unLikeComment(id);
+        } else {
+          await unLikeVideo(id);
+        }
         setCnt(isCnt - 1);
-        setHeart(false);
-        onToggleLike(commentId, false);
+        onToggleLike(id, false);
       } else {
-        await likesComment(commentId);
+        if (type === 'comment') {
+          await likesComment(id);
+        } else {
+          await likesVideo(id);
+        }
         setCnt(isCnt + 1);
-        setHeart(true);
-        onToggleLike(commentId, true);
+        onToggleLike(id, true);
       }
       setHeart(!isHeart);
-      // 부모 컴포넌트에 좋아요 상태 변경 알림
-      onToggleLike(commentId, !isHeart);
     } catch (e) {
       console.log(e);
     }

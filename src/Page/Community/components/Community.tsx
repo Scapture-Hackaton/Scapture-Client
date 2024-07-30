@@ -1,34 +1,55 @@
 import Header from '../../Header/components/Header';
 import Footer from '../../Footer/components/Footer';
-// import leftFrame from '../image/leftFrame.png';
-// import rightFrame from '../image/rightFrame.png';
-// import emptyHeart from '../image/emptyHeart.png';
-// import fullHeart from '../image/fullHeart.png';
 import dropDown from '../image/dropDown.png';
 import upBtn from '../image/upBtn.png';
-// import testCircle from '../image/testCircle.png';
-
 import rightArrow from '../image/rightArrow.png';
 import leftArrow from '../image/leftArrow.png';
 
 import styles from '../scss/community.module.scss';
 import { useState } from 'react';
-import { useQuery } from '@tanstack/react-query';
+import { useQuery, useQueryClient } from '@tanstack/react-query';
 
 import Comment from './Comment';
-// import Heart from './Heart';
-import { getPopularVideos } from '../../../apis/api/community.api';
-import { PopularVideos } from '../../../apis/dto/community.dto';
+import Heart from './Heart';
+import {
+  getPopularVideos,
+  getVideoDetail,
+} from '../../../apis/api/community.api';
 import PopularVideoList from './PopularVideoList';
 
 const Community = () => {
   const [isComments, setComments] = useState(false);
+  const queryClient = useQueryClient();
 
-  const { data: popularVideoData } = useQuery({
+  const {
+    data: popularVideoData = { data: [] },
+    isSuccess: isPopularVideoDataSuccess,
+  } = useQuery({
     queryKey: ['popular_videos'],
-    queryFn: () => getPopularVideos(),
-    initialData: [] as PopularVideos[],
+    queryFn: getPopularVideos,
+    initialData: { data: [] },
   });
+
+  const firstVideoId =
+    isPopularVideoDataSuccess && popularVideoData.length > 0
+      ? popularVideoData[0].videoId
+      : null;
+
+  const { data: videoDetailData, isSuccess: isVideoDetailDataSuccess } =
+    useQuery({
+      queryKey: ['video_detail', firstVideoId],
+      queryFn: () =>
+        firstVideoId ? getVideoDetail(firstVideoId) : Promise.resolve(null),
+      enabled: !!firstVideoId, // firstVideoId가 존재할 때만 쿼리 실행
+      initialData: null,
+    });
+
+  // onToggleLike 함수 정의
+  const handleToggleLike = (videoId: number) => {
+    // 성공적으로 API 호출 후 데이터 갱신
+    queryClient.invalidateQueries(['popular_videos']);
+    queryClient.invalidateQueries(['video_detail', videoId]);
+  };
 
   const handleToggleComments = () => {
     setComments(!isComments);
@@ -38,32 +59,28 @@ const Community = () => {
     <div className={styles.test}>
       <Header />
       <div className={styles.community}>
-        {/* <div className={styles.popularText}>
-          <img src={leftFrame} alt=""></img>
-          <span>이번주 인기있는 영상</span>
-          <img src={rightFrame} alt=""></img>
-        </div> */}
-
-        {popularVideoData?.data && popularVideoData.data.length > 0 ? (
+        {isVideoDetailDataSuccess && videoDetailData ? (
           <>
             <div className={styles.videoContainer}>
               <div className={styles.video}>
-                <img src={popularVideoData.data[0].image} alt="" />
+                {/* <img src={videoDetailData.image} alt="" /> */}
+                <video controls>
+                  <source src={videoDetailData.video}></source>
+                </video>
               </div>
-              <div className={styles.title}>
-                {popularVideoData.data[0].name}
-              </div>
+              <div className={styles.title}>{videoDetailData.name}</div>
             </div>
             <div className={styles.fieldText}>
-              {popularVideoData.data[0].stadiumName}
+              {videoDetailData.stadium.name}
             </div>
             <div className={styles.heart}>
-              {/* <img src={fullHeart} alt="" />
-          <div className={styles.cnt}>10</div> */}
-              {/* <Heart
-                isLiked={true}
-                likeCount={popularVideoData.data[0].likeCount}
-              ></Heart> */}
+              <Heart
+                id={firstVideoId}
+                isLiked={videoDetailData.isLiked}
+                likeCount={videoDetailData.likeCount}
+                type="video"
+                onToggleLike={() => handleToggleLike(firstVideoId)}
+              />
             </div>
           </>
         ) : (
@@ -91,77 +108,14 @@ const Community = () => {
             </div>
           </div>
 
-          {/* <Comment data={data.data}></Comment> */}
           <div
             className={`${styles.commentList} ${isComments ? styles.show : ''}`}
           >
             <Comment isShow={isComments}></Comment>
           </div>
-          {/* <div className={styles.commentGroup}>
-            <div className={styles.profileImg}>
-              <img src={testCircle} alt=""></img>
-            </div>
-            <div className={styles.comment}>
-              <p>닉네임</p>
-              <div>댓글 내용이 너무 길어서 안 보이는 경우 ..</div>
-            </div>
-            <div className={styles.heartGroup}>
-              <img src={fullHeart} alt="" />
-              <div className={styles.cnt}>10</div>
-            </div>
-          </div> */}
-          {/* <div className={styles.commentGroup}>
-            <div className={styles.profileImg}>
-              <img src={testCircle} alt=""></img>
-            </div>
-            <div className={styles.comment}>
-              <p>닉네임</p>
-              <div>댓글 내용이 너무 길어서 안 보이는 경우 ..</div>
-            </div>
-            <div className={styles.heartGroup}>
-              <img src={emptyHeart} alt="" />
-              <div className={styles.cnt}>10</div>
-            </div>
-          </div> */}
         </div>
 
-        {/* <div className={styles.subVideoContainer}>
-          <div className={styles.video}></div>
-          <div className={styles.group}>
-            <div className={styles.title}>영상 제목</div>
-            <div className={styles.info}>
-              <div className={styles.cnt}>조회수 00회</div>
-              <p>2024.07.23</p>
-            </div>
-
-            <div className={styles.field}>
-              <div className={styles.profileImg}>
-                <img src={testCircle} alt=""></img>
-              </div>
-              <div className={styles.name}>구장명</div>
-            </div>
-          </div>
-        </div> */}
-
-        <PopularVideoList videos={popularVideoData.data}></PopularVideoList>
-
-        {/* <div className={styles.subVideoContainer}>
-          <div className={styles.video}></div>
-          <div className={styles.group}>
-            <div className={styles.title}>영상 제목</div>
-            <div className={styles.info}>
-              <div className={styles.cnt}>조회수 00회</div>
-              <p>2024.07.23</p>
-            </div>
-
-            <div className={styles.field}>
-              <div className={styles.profileImg}>
-                <img src={testCircle} alt=""></img>
-              </div>
-              <div className={styles.name}>구장명</div>
-            </div>
-          </div>
-        </div> */}
+        <PopularVideoList videos={popularVideoData}></PopularVideoList>
 
         <div className={styles.paging}>
           <img src={leftArrow} alt=""></img>

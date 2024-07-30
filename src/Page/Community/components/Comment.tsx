@@ -138,8 +138,6 @@ const Comment: React.FC<CommentProps> = ({ isShow }) => {
     queryClient.setQueryData(['comments', videoId], { data: updatedComments });
   };
 
-  console.log(commentsData.data);
-
   return (
     <>
       <div ref={commentBoxRef} className={`${styles.commentBox} test`}>
@@ -154,9 +152,10 @@ const Comment: React.FC<CommentProps> = ({ isShow }) => {
             </div>
             <div className={styles.heartGroup}>
               <Heart
-                commentId={comment.commentId}
+                id={comment.commentId}
                 isLiked={comment.isLiked}
                 likeCount={comment.likeCount}
+                type="comment"
                 onToggleLike={handleToggleLike}
               />
             </div>
