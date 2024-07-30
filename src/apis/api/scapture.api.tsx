@@ -18,3 +18,18 @@ export const getStadiumList = async (city: string, state: string) => {
     };
   }
 };
+
+// Stadium 검색으로 리스트 조회
+export const searchStadiumList = async (keyword: string) => {
+  try {
+    const res: CommonResponse = await defaultInstance.get(
+      `api/stadiums/search?keyword=${keyword}`,
+    );
+
+    return res.data.data;
+  } catch (e: any) {
+    return {
+      status: e.response.status,
+    };
+  }
+};

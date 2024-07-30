@@ -166,8 +166,28 @@
           justify-content: flex-end;
           width: 2.5rem;
           // width: 20px;
+
+          cursor: pointer;
         }
       }
+    }
+
+    .noData {
+      background-color: var(--main-color-navy-02);
+      color: var(--grey-color-grey-03);
+      text-align: center;
+      font-size: var(--font-size-xm);
+
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+
+      margin: 0 auto;
+      min-height: 9.3125rem;
+      width: 95.11%;
+      margin-bottom: 1.875rem;
+      border-radius: 0.625rem;
+      border: 0.0625rem solid var(--grey-color-grey-02);
     }
 
     // display: flex;

@@ -5,8 +5,11 @@ import bannerImage from '../image/banner-image.png';
 import searchImage from '../image/search-image.png';
 import styles from '../scss/scapture.module.scss';
 import SelectBtn from './SelectBtn';
-import { useState } from 'react';
-import { getStadiumList } from '../../../apis/api/scapture.api';
+import { useEffect, useState } from 'react';
+import {
+  getStadiumList,
+  searchStadiumList,
+} from '../../../apis/api/scapture.api';
 import { useQuery } from '@tanstack/react-query';
 import { Stadium } from '../../../apis/dto/scapture.dto';
 import Stadiums from './Stadiums';
@@ -79,21 +82,60 @@ const Scapture = () => {
   // 선택된 도시에 따라 리스트 변경
   const [isCity, setCity] = useState(selectCity[0]);
   const [isState, setState] = useState(selectState[isCity][0]);
+  // 리스트로 보여줄 데이터
+  const [stadiumData, setStadiumData] = useState<Stadium[]>([]);
 
+  // 도시 선택시
   const handleCityChange = (city: string) => {
     setCity(city);
     setState(selectState[city][0]); // City 변경 시 state 리스트 초기화
   };
 
+  // 지역 선택시
   const handleStateChange = (state: string) => {
     setState(state);
   };
 
-  const { data: stadiums } = useQuery({
-    queryKey: ['stadiums', isCity, isState],
-    queryFn: () => getStadiumList(isCity, isState),
-    initialData: [] as Stadium[],
-  });
+  // 첫 화면 로드 및 city나 state가 변경되었을 때 리스트 가져오기
+  useEffect(() => {
+    const fetchInitialData = async () => {
+      const data = await getStadiumList(isCity, isState);
+      setStadiumData(data);
+    };
+
+    fetchInitialData();
+  }, [isCity, isState]);
+
+  // 리스트 가져오기
+  // const { data: stadiums } = useQuery({
+  //   queryKey: ['stadiums', isCity, isState],
+  //   queryFn: () => getStadiumList(isCity, isState),
+  //   onSuccess: (data: Stadium[]) => {
+  //     setStadiumData(data);
+  //   },
+  //   initialData: [] as Stadium[],
+  // });
+
+  // 댓글 창의 입력 감지
+  const [isInput, setInput] = useState('');
+  const changeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setInput(e.target.value);
+  };
+
+  // 엔터를 눌렀을 경우에도 댓글 작성이 가능하도록
+  const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') {
+      fetchSearchResults();
+      setInput('');
+    }
+  };
+
+  const fetchSearchResults = async () => {
+    const data = await searchStadiumList(isInput);
+    // console.log(data);
+
+    setStadiumData(data);
+  };
 
   return (
     <div className={styles.test}>
@@ -121,15 +163,21 @@ const Scapture = () => {
               ></SelectBtn>
             </div>
             <div id={styles.search}>
-              <input type="text" placeholder="구장명 검색" />
+              <input
+                type="text"
+                placeholder="구장명 검색"
+                onChange={changeInput}
+                onKeyPress={handleKeyPress}
+                value={isInput}
+              />
               <div id={styles.searchImage}>
-                <img src={searchImage} alt="" />
+                <img src={searchImage} alt="" onClick={fetchSearchResults} />
               </div>
             </div>
           </div>
         </div>
 
-        <Stadiums stadiumData={stadiums}></Stadiums>
+        <Stadiums stadiumData={stadiumData}></Stadiums>
 
         {/* <div className={styles.stadiumList}>
           <div className={styles.stadium}>
