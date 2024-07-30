@@ -6,6 +6,7 @@ import { defaultInstance } from '../utils/instance';
 
 //로그인 코큰
 export const LoginKAKAOToken = async (code: string) => {
+  console.log(code);
   try {
     const res: CommonResponse = await defaultInstance.post(
       `api/oauth/social/kakao?code=${code}`,
