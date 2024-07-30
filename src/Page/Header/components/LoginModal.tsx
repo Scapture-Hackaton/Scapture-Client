@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import GoogleIcon from '../image/google-img.png';
 import KakaoIcon from '../image/kakao-img.png';
 import NaverIcon from '../image/naver-img.png';
@@ -16,13 +17,14 @@ export const LoginModal: React.FC<LoginModalProps> = ({
   const closeLoginModal = () => {
     modalRef.current?.close();
   };
+  const [isLoginState, setLoginState] = useState('');
   return (
     <dialog ref={modalRef}>
       <div className={styles.contents}>
         <button
           onClick={() => {
             closeLoginModal();
-            window.location.href = AUTH_URLS.google;
+            // window.location.href = AUTH_URLS.google;
           }}
         >
           <img src={GoogleIcon} alt="" />
@@ -31,7 +33,7 @@ export const LoginModal: React.FC<LoginModalProps> = ({
         <button
           onClick={() => {
             closeLoginModal();
-            window.location.href = AUTH_URLS.naver;
+            // window.location.href = AUTH_URLS.naver;
             console.log('NAVER 로그인은 상태값이 필요합니다.');
           }}
         >
@@ -41,7 +43,7 @@ export const LoginModal: React.FC<LoginModalProps> = ({
         <button
           onClick={() => {
             closeLoginModal();
-            window.location.href = AUTH_URLS.kakao;
+            // window.location.href = AUTH_URLS.kakao;
           }}
         >
           <img src={KakaoIcon} alt="" />

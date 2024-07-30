@@ -9,7 +9,12 @@ import { LoginModal } from './LoginModal';
 
 import ScaptureLogo from '../image/scapture-logo.png';
 import { useRef } from 'react';
+// import { useLocation } from 'react-router-dom';
+import useAuth from '../Hook/useAuth';
+import { LoginKAKAOToken } from '../../../apis/api/login.api';
 const Header = () => {
+  useAuth(LoginKAKAOToken);
+
   const modalRef = useRef<HTMLDialogElement>(null);
 
   const openLoginModal = () => {
@@ -20,6 +25,7 @@ const Header = () => {
     kakao: KAKAO_AUTH_URL,
     google: GOOGLE_AUTH_URL,
     naver: NAVER_AUTH_URL,
+    // 여기에 API를 객체로 전달 할 수 있게
   };
 
   return (
