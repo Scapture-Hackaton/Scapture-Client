@@ -172,12 +172,15 @@
     // display: flex;
     .stadiumList {
       background-color: var(--main-color-navy-02);
+
       font-size: var(--font-size-xs);
+
       display: flex;
       flex-direction: column;
       justify-content: center;
+
       margin: 0 auto;
-      height: 9.3125rem;
+      min-height: 9.3125rem;
       width: 95.11%;
       margin-bottom: 1.875rem;
       border-radius: 0.625rem;
@@ -185,7 +188,31 @@
 
       > .stadium {
         display: flex;
-        margin: 0 0.75rem 0 0.75rem;
+        // margin: 0 0.75rem 0 0.75rem;
+        margin: 0.75rem;
+
+        .stadiumImage {
+          width: 164px;
+          height: 122px;
+
+          min-width: 164px;
+          min-height: 122px;
+
+          max-width: 164px;
+          max-height: 122px;
+
+          border-radius: 10px;
+
+          margin: auto 0;
+
+          img {
+            width: 164px;
+            height: 122px;
+            object-fit: cover;
+
+            border-radius: 10px;
+          }
+        }
 
         .stadiumInfo {
           .stadium {
@@ -202,22 +229,30 @@
               display: flex;
               flex-direction: column;
               // background-color: #500b82;
-              height: 4.375rem;
+              min-height: 4.375rem;
 
               div {
                 display: flex;
-                margin-top: auto;
+                margin-top: 0.2rem;
+
+                padding-left: 0.6rem;
 
                 span {
-                  display: flex;
-                  align-items: flex-end;
+                  // display: flex;
+                  // align-items: flex-start;
+                  // justify-content: space-between;
+                  // margin: 0 0.6rem;
+                }
+
+                #info {
                   margin-left: 0.6rem;
                 }
               }
 
               .title {
+                color: #bbbbbb;
                 border-right: 0.0625rem solid white;
-                width: 3.5rem;
+                min-width: 3.5rem;
               }
             }
           }

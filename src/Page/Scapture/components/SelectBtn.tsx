@@ -66,17 +66,19 @@ const SelectBtn: React.FC<SelectProps> = ({
         <img src={dropDown} alt=""></img>
       </button>
       <ul>
-        {selectList.map((option, idx) => (
-          <li key={idx}>
-            <button
-              type="button"
-              onClick={() => handleOptionClick(`${option}`)}
-              className={selectedOption === option ? styles.selected : ''}
-            >
-              {option}
-            </button>
-          </li>
-        ))}
+        {selectList.length <= 0
+          ? null
+          : selectList.map((option, idx) => (
+              <li key={idx}>
+                <button
+                  type="button"
+                  onClick={() => handleOptionClick(`${option}`)}
+                  className={selectedOption === option ? styles.selected : ''}
+                >
+                  {option}
+                </button>
+              </li>
+            ))}
       </ul>
     </div>
   );

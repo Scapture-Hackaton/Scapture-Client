@@ -2,7 +2,6 @@ import Header from '../../Header/components/Header';
 import Footer from '../../Footer/components/Footer';
 
 import bannerImage from '../image/banner-image.png';
-import stadiumImage from '../image/stadium-image.png';
 import searchImage from '../image/search-image.png';
 import styles from '../scss/scapture.module.scss';
 import SelectBtn from './SelectBtn';
@@ -10,6 +9,7 @@ import { useState } from 'react';
 import { getStadiumList } from '../../../apis/api/scapture.api';
 import { useQuery } from '@tanstack/react-query';
 import { Stadium } from '../../../apis/dto/scapture.dto';
+import Stadiums from './Stadiums';
 
 const Scapture = () => {
   const selectCity = ['서울시', '인천', '경기도'];
@@ -95,8 +95,6 @@ const Scapture = () => {
     initialData: [] as Stadium[],
   });
 
-  console.log(stadiums);
-
   return (
     <div className={styles.test}>
       <Header />
@@ -121,12 +119,6 @@ const Scapture = () => {
                 selectedOption={isState}
                 onOptionChange={handleStateChange}
               ></SelectBtn>
-              {/* <select id={styles.city}>
-                <option value="">도시</option>
-              </select>
-              <select id={styles.local}>
-                <option value="">지역</option>
-              </select> */}
             </div>
             <div id={styles.search}>
               <input type="text" placeholder="구장명 검색" />
@@ -136,7 +128,10 @@ const Scapture = () => {
             </div>
           </div>
         </div>
-        <div className={styles.stadiumList}>
+
+        <Stadiums stadiumData={stadiums}></Stadiums>
+
+        {/* <div className={styles.stadiumList}>
           <div className={styles.stadium}>
             <div className={styles.stadiumImage}>
               <img src={stadiumImage} alt="" />
@@ -175,48 +170,7 @@ const Scapture = () => {
               </div>
             </div>
           </div>
-        </div>
-        <div className={styles.stadiumList}>
-          <div className={styles.stadium}>
-            <div className={styles.stadiumImage}>
-              <img src={stadiumImage} alt="" />
-            </div>
-            <div className={styles.stadiumInfo}>
-              <div className={styles.stadium}>
-                <span id={styles.name}>장충테니스장</span>
-                <div className={styles.info}>
-                  <div>
-                    <span className={styles.title} id={styles.location}>
-                      구장 위치
-                    </span>
-                    <span id={styles.info}>
-                      서울특별시 중구 장충동2가 산14-103번지
-                    </span>
-                  </div>
-                  <div>
-                    <span className={styles.title} id={styles.location}>
-                      운영 시간
-                    </span>
-                    <span id={styles.info}>7:00 ~ 19:00</span>
-                  </div>
-                  <div>
-                    <span className={styles.title} id={styles.location}>
-                      실내/실외
-                    </span>
-                    <span id={styles.info}>실외</span>
-                  </div>
-                  <div>
-                    <span className={styles.title} id={styles.location}>
-                      주차 공간
-                    </span>
-                    <span id={styles.info}>주차 가능(66면) 5분당 150원</span>
-                  </div>
-                </div>
-                {/* css 적용 후 추가 예정 */}
-              </div>
-            </div>
-          </div>
-        </div>
+        </div> */}
       </div>
       <Footer />
     </div>
