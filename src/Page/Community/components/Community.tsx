@@ -16,7 +16,7 @@ import { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 
 import Comment from './Comment';
-import Heart from './Heart';
+// import Heart from './Heart';
 import { getPopularVideos } from '../../../apis/api/community.api';
 import { PopularVideos } from '../../../apis/dto/community.dto';
 import PopularVideoList from './PopularVideoList';
@@ -60,10 +60,10 @@ const Community = () => {
             <div className={styles.heart}>
               {/* <img src={fullHeart} alt="" />
           <div className={styles.cnt}>10</div> */}
-              <Heart
+              {/* <Heart
                 isLiked={true}
                 likeCount={popularVideoData.data[0].likeCount}
-              ></Heart>
+              ></Heart> */}
             </div>
           </>
         ) : (

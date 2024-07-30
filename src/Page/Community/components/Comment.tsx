@@ -20,7 +20,7 @@ interface CommentProps {
 const Comment: React.FC<CommentProps> = ({ isShow }) => {
   localStorage.setItem(
     'token',
-    'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIzNjM0ODk4NTUxIiwicHJvdmlkZXIiOiJrYWthbyIsInByb3ZpZGVySWQiOiIzNjM0ODk4NTUxIiwiaWF0IjoxNzIyMjUwNDY3LCJleHAiOjE3MjIzMzY4Njd9.tQi9KozWFLsGalCAkaXiT_cIA4ur0dB1xgY17KFoYec',
+    'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIzNjM0ODk4NTUxIiwicHJvdmlkZXIiOiJrYWthbyIsInByb3ZpZGVySWQiOiIzNjM0ODk4NTUxIiwiaWF0IjoxNzIyMzI3MjQ2LCJleHAiOjE3MjI0MTM2NDZ9.O8h_RJzHl0yr3F4i6QOL_SYt1g-FDLTLcZc2i4e-VxU',
   );
 
   const videoId = 1;
@@ -125,6 +125,21 @@ const Comment: React.FC<CommentProps> = ({ isShow }) => {
     }
   }, [isShow]);
 
+  const handleToggleLike = (commentId: number, isLiked: boolean) => {
+    const updatedComments = commentsData.data.map((comment: CommentData) =>
+      comment.commentId === commentId
+        ? {
+            ...comment,
+            isLiked,
+            likeCount: isLiked ? comment.likeCount + 1 : comment.likeCount - 1,
+          }
+        : comment,
+    );
+    queryClient.setQueryData(['comments', videoId], { data: updatedComments });
+  };
+
+  console.log(commentsData.data);
+
   return (
     <>
       <div ref={commentBoxRef} className={`${styles.commentBox} test`}>
@@ -138,7 +153,12 @@ const Comment: React.FC<CommentProps> = ({ isShow }) => {
               <div>{comment.content}</div>
             </div>
             <div className={styles.heartGroup}>
-              <Heart isLiked={comment.isLiked} likeCount={comment.likeCount} />
+              <Heart
+                commentId={comment.commentId}
+                isLiked={comment.isLiked}
+                likeCount={comment.likeCount}
+                onToggleLike={handleToggleLike}
+              />
             </div>
           </div>
         ))}
