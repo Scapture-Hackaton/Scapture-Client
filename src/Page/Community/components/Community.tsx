@@ -26,7 +26,7 @@ const Community = () => {
     isSuccess: isPopularVideoDataSuccess,
   } = useQuery({
     queryKey: ['popular_videos'],
-    queryFn: getPopularVideos,
+    queryFn: () => getPopularVideos,
     initialData: { data: [] },
   });
 
