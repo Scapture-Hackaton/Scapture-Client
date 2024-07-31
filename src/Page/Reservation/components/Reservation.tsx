@@ -3,14 +3,21 @@ import Footer from '../../Footer/components/Footer';
 
 // import { test } from '../functions/function';
 import styles from '../scss/reservation.module.scss';
+import modal from '../scss/reservation-modal.module.scss';
 
 import testImg from '../image/testImg.png';
 import circle from '../image/circle.png';
 import selectArrow from '../image/selectArrow.png';
 import leftArrow from '../image/leftArrow.png';
 import rightArrow from '../image/rightArrow.png';
+import modalBg from '../image/modal-bg.png';
+import { useRef } from 'react';
 
 const Reservation = () => {
+  const modalRef = useRef<HTMLDialogElement>(null);
+  const modalLogin = () => {
+    modalRef.current?.showModal();
+  };
   return (
     <div className={styles.test}>
       <Header />
@@ -37,7 +44,9 @@ const Reservation = () => {
           <div className={styles.info}>
             <div className={styles.header}>
               <div className={styles.title}>구장 정보</div>
-              <button className={styles.reserve}>구장 예약하기</button>
+              <button className={styles.reserve} onClick={modalLogin}>
+                구장 예약하기
+              </button>
             </div>
 
             <div className={styles.contents}>
@@ -103,7 +112,7 @@ const Reservation = () => {
 
               <div className={styles.date}>10:00 ~ 12:00</div>
 
-              <button>예약하기</button>
+              <button onClick={modalLogin}>예약하기</button>
             </div>
 
             <div className={styles.compontent}>
@@ -148,6 +157,35 @@ const Reservation = () => {
           <div className={styles.pageNum}>1</div>
           <img src={rightArrow} alt=""></img>
         </div>
+
+        <dialog ref={modalRef}>
+          <div className={modal.contents}>
+            <div className={modal.notice}>
+              <span>구장명</span>
+              <span>을 예약하시겠어요?</span>
+            </div>
+            <div className={modal.info}>
+              <span>예약정보</span>
+              <div className={modal.group}>
+                <span>예약 날짜</span>
+                <span>2024.08.03.토</span>
+              </div>
+              <div className={modal.group}>
+                <span>구장명</span>
+                <span>A구장</span>
+              </div>
+              <div className={modal.group}>
+                <span>사용 시간</span>
+                <span>20:00 ~ 22:00</span>
+              </div>
+              <div className={modal.group}>
+                <span>금액</span>
+                <span>120,000원</span>
+              </div>
+            </div>
+            <button onClick={() => modalRef.current?.close()}>예약하기</button>
+          </div>
+        </dialog>
       </div>
       <Footer />
     </div>
