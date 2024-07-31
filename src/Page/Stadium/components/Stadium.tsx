@@ -1,7 +1,7 @@
 import Header from '../../Header/components/Header';
 import Footer from '../../Footer/components/Footer';
 
-import stadiumInfoImage from '../image/stadium-info-image.png';
+// import stadiumInfoImage from '../image/stadium-info-image.png';
 import elementImage from '../image/element-image.png';
 import stadiumVideoImage from '../image/stadium-video-image.png';
 
@@ -10,7 +10,8 @@ import { useLocation } from 'react-router-dom';
 import { StadiumDetail } from '../../../apis/dto/scapture.dto';
 import { useQuery } from '@tanstack/react-query';
 import { getStadiumDetail } from '../../../apis/api/stadium.api';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
+import SelectBtn from './SelectBtn';
 
 const Stadium = () => {
   const location = useLocation();
@@ -25,6 +26,27 @@ const Stadium = () => {
     queryFn: () => getStadiumDetail(stadiumId),
     initialData: {} as StadiumDetail,
   });
+
+  const today = new Date();
+  const weekAgo = new Date(today);
+  weekAgo.setDate(today.getDate() - 7);
+
+  const monthList = [`${today.getMonth() + 1}월`];
+  const dayList = [];
+  for (let d = weekAgo.getDate(); d <= today.getDate(); d++) {
+    dayList.push(`${d}일`);
+  }
+
+  const [isMonth, setMonth] = useState(monthList[0]);
+  const [isDay, setDay] = useState(dayList[dayList.length - 1]);
+
+  const handleMonthChange = (month: string) => {
+    setMonth(month);
+  };
+
+  const handleDayChange = (day: string) => {
+    setDay(day);
+  };
 
   return (
     <div className={styles.test}>
@@ -85,7 +107,23 @@ const Stadium = () => {
         <div className={styles.option}>
           <div className={styles.container}>
             <div className={styles.select}>
-              <select id={styles.month}>
+              <SelectBtn
+                selectList={monthList}
+                selectedOption={isMonth}
+                onOptionChange={handleMonthChange}
+              ></SelectBtn>
+              <SelectBtn
+                selectList={dayList}
+                selectedOption={isDay}
+                onOptionChange={handleDayChange}
+              ></SelectBtn>
+
+              {/* <SelectBtn
+                selectList={dayList}
+                selectedOption={isMonth}
+                onOptionChange={handleCityChange}
+              ></SelectBtn> */}
+              {/* <select id={styles.month}>
                 <option value="">7월</option>
               </select>
               <select id={styles.day}>
@@ -93,7 +131,7 @@ const Stadium = () => {
               </select>
               <select id={styles.stadium}>
                 <option value="">A구장</option>
-              </select>
+              </select> */}
             </div>
           </div>
         </div>
