@@ -3,6 +3,7 @@ import styles from '../scss/stadium.module.scss';
 import { useQuery } from '@tanstack/react-query';
 import { getVideoScheduled } from '../../../apis/api/stadium.api';
 import { ScheduleVideo } from '../../../apis/dto/scapture.dto';
+import { useNavigate } from 'react-router-dom';
 
 interface VideoListProps {
   scheduleId: number | undefined;
@@ -21,11 +22,21 @@ const VideoList: React.FC<VideoListProps> = ({ scheduleId }) => {
     enabled: scheduleId !== null,
   });
 
+  const navigate = useNavigate();
+
+  const toVideo = (videoId: number) => {
+    navigate('/video', { state: { videoId } });
+  };
+
   return (
     <>
       {videos && videos.length > 0
         ? videos.map((video: ScheduleVideo) => (
-            <div className={styles.videoList} key={video.videoId}>
+            <div
+              className={styles.videoList}
+              key={video.videoId}
+              onClick={() => toVideo(video.videoId)}
+            >
               <div className={styles.stadium}>
                 <div className={styles.container}>
                   <div className={styles.videoImage}>

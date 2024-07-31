@@ -32,8 +32,6 @@ const StadiumHours: React.FC<StadiumHoursProps> = ({
   //     centerPadding: '20px', // 슬라이드 간의 간격 설정
   //   };
 
-  console.log(stadiumHourList);
-
   return (
     <>
       {stadiumHourList && stadiumHourList.length > 0 ? (

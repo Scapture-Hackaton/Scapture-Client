@@ -67,7 +67,8 @@
 
             #reservation {
               background-color: var(--gradient-color-blue-01);
-              width: 6.875rem;
+              // width: 6.875rem;
+              width: 110px;
               height: 100%;
               color: var(--white-color);
               font-size: var(--font-size-xm);
@@ -76,15 +77,22 @@
             }
 
             #stadium {
-              display: flex;
-              align-items: center;
-              height: 100%;
+              font-size: var(--font-size-xm);
+              font-weight: 600;
+
               width: 100px;
+              height: 100%;
+
               background: linear-gradient(
                 -60deg,
                 transparent 20px,
-                var(--sub-color-yellow-03) 0
+                rgba(97, 91, 20, 1) 0
               );
+
+              display: flex;
+              align-items: center;
+              padding-left: 0.7rem;
+              margin-right: 1rem;
             }
           }
 
@@ -240,7 +248,7 @@
 
     .hours {
       width: 100%;
-      margin-bottom: 0.6875rem;
+      margin-bottom: 2rem;
 
       .housrsList {
         width: 80%;
@@ -257,6 +265,7 @@
           border-radius: 10px;
           margin-right: 1.25rem;
 
+          cursor: pointer;
           // margin-right: 5rem;
 
           .contents {

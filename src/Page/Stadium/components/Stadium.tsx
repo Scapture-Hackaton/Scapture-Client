@@ -3,7 +3,7 @@ import Footer from '../../Footer/components/Footer';
 import elementImage from '../image/element-image.png';
 
 import styles from '../scss/stadium.module.scss';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import {
   StadiumDetail,
   StadiumFileds,
@@ -35,18 +35,40 @@ const Stadium = () => {
   weekAgo.setDate(today.getDate() - 7);
 
   // 추출한 날짜를 기반으로 월/일 리스트 생성
-  const monthList = [`${today.getMonth() + 1}월`];
-  const dayList = [];
-  for (let d = weekAgo.getDate(); d <= today.getDate(); d++) {
-    dayList.push(`${d}일`);
-  }
+  const generateDateLists = (startDate: Date, endDate: Date) => {
+    const monthList = new Set<string>();
+    const dayMap = new Map<string, string[]>();
+
+    const currentDate = new Date(startDate);
+    while (currentDate <= endDate) {
+      const month = `${currentDate.getMonth() + 1}월`;
+      const day = `${currentDate.getDate()}일`;
+
+      monthList.add(month);
+
+      if (!dayMap.has(month)) {
+        dayMap.set(month, []);
+      }
+      dayMap.get(month)?.push(day);
+
+      currentDate.setDate(currentDate.getDate() + 1);
+    }
+
+    return { monthList: Array.from(monthList), dayMap };
+  };
+
+  const { monthList, dayMap } = generateDateLists(weekAgo, today);
 
   // 기본 날짜 값 설정
   const [isMonth, setMonth] = useState(monthList[0]);
-  const [isDay, setDay] = useState(dayList[dayList.length - 1]);
+  const [isDay, setDay] = useState(dayMap.get(isMonth)?.[0] || '');
 
   const handleMonthChange = (month: string) => {
     setMonth(month);
+    const days = dayMap.get(month);
+    if (days && days.length > 0) {
+      setDay(days[0]);
+    }
   };
 
   const handleDayChange = (day: string) => {
@@ -85,7 +107,7 @@ const Stadium = () => {
   const selectedDate = new Date(
     today.getFullYear(),
     selectedMonth - 1,
-    selectedDay + 1,
+    selectedDay,
   );
   const formattedDate = selectedDate.toISOString().split('T')[0];
 
@@ -103,8 +125,6 @@ const Stadium = () => {
         setStadiumHourList(data);
 
         if (data && data.length >= 1) {
-          console.log(data[0].scheduleId);
-
           setScheduleId(data[0].scheduleId);
         }
       };
@@ -116,6 +136,12 @@ const Stadium = () => {
   const [isScheduleId, setScheduleId] = useState<number>();
   const chooseSchedule = (scheduleId: number) => {
     setScheduleId(scheduleId);
+  };
+
+  const navigate = useNavigate();
+
+  const toReservation = (stadiumId: number) => {
+    navigate('/reservation', { state: { stadiumId } });
   };
 
   return (
@@ -143,7 +169,12 @@ const Stadium = () => {
 
                 <div className={styles.reservationBtn}>
                   <div id={styles.stadium}>구장정보</div>
-                  <button id={styles.reservation}>구장 예약</button>
+                  <button
+                    onClick={() => toReservation(stadiumId)}
+                    id={styles.reservation}
+                  >
+                    구장 예약하기
+                  </button>
                 </div>
 
                 <div className={styles.info}>
@@ -183,7 +214,7 @@ const Stadium = () => {
                 onOptionChange={handleMonthChange}
               />
               <SelectBtn
-                selectList={dayList}
+                selectList={dayMap.get(isMonth) || []}
                 selectedOption={isDay}
                 onOptionChange={handleDayChange}
               />
