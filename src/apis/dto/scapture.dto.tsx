@@ -13,7 +13,7 @@ interface StadiumImage {
   image: string;
 }
 
-interface StadiumFileds {
+export interface StadiumFileds {
   fieldId: number;
   name: string;
 }
@@ -27,4 +27,20 @@ export interface StadiumDetail {
   hours: string;
   images: StadiumImage[];
   fields: StadiumFileds[];
+}
+
+export interface StadiumHoursData {
+  scheduleId: number;
+  hours: string;
+  videoCount: number;
+}
+
+export interface ScheduleVideo {
+  videoId: number;
+  name: string;
+  image: string;
+  stadiumName: string;
+  views: number;
+  date: string;
+  hours: string;
 }

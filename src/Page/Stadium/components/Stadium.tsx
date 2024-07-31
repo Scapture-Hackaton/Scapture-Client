@@ -1,42 +1,47 @@
 import Header from '../../Header/components/Header';
 import Footer from '../../Footer/components/Footer';
-
-// import stadiumInfoImage from '../image/stadium-info-image.png';
 import elementImage from '../image/element-image.png';
-import stadiumVideoImage from '../image/stadium-video-image.png';
 
 import styles from '../scss/stadium.module.scss';
 import { useLocation } from 'react-router-dom';
-import { StadiumDetail } from '../../../apis/dto/scapture.dto';
+import {
+  StadiumDetail,
+  StadiumFileds,
+  StadiumHoursData,
+} from '../../../apis/dto/scapture.dto';
 import { useQuery } from '@tanstack/react-query';
-import { getStadiumDetail } from '../../../apis/api/stadium.api';
-import { useState } from 'react';
+import {
+  getStadiumDetail,
+  getStadiumDHours,
+} from '../../../apis/api/stadium.api';
+import { useEffect, useState } from 'react';
 import SelectBtn from './SelectBtn';
+import StadiumHours from './StadiumHours';
+import VideoList from './VideoList';
 
 const Stadium = () => {
   const location = useLocation();
-
   const stadiumId = location.state.stadiumId;
 
-  // console.log(stadiumId); // 8
-
-  // 리스트 가져오기
   const { data: stadiumDetail } = useQuery({
     queryKey: ['stadiumDetail', stadiumId],
     queryFn: () => getStadiumDetail(stadiumId),
     initialData: {} as StadiumDetail,
   });
 
+  // 현재 날짜 추출
   const today = new Date();
   const weekAgo = new Date(today);
   weekAgo.setDate(today.getDate() - 7);
 
+  // 추출한 날짜를 기반으로 월/일 리스트 생성
   const monthList = [`${today.getMonth() + 1}월`];
   const dayList = [];
   for (let d = weekAgo.getDate(); d <= today.getDate(); d++) {
     dayList.push(`${d}일`);
   }
 
+  // 기본 날짜 값 설정
   const [isMonth, setMonth] = useState(monthList[0]);
   const [isDay, setDay] = useState(dayList[dayList.length - 1]);
 
@@ -46,6 +51,71 @@ const Stadium = () => {
 
   const handleDayChange = (day: string) => {
     setDay(day);
+  };
+
+  // 기본 구장 설정
+  const [fieldList, setFieldList] = useState<string[]>([]);
+  const [isField, setField] = useState<string | undefined>(undefined);
+
+  // stadiumDetail 값을 가져오면 기본 구장 설정
+  useEffect(() => {
+    if (stadiumDetail.fields) {
+      const fields = stadiumDetail.fields.map(
+        (field: StadiumFileds) => field.name,
+      );
+      setFieldList(fields);
+      setField(fields[0]); // 기본값 설정
+    }
+  }, [stadiumDetail]);
+
+  const handleFieldChange = (field: string) => {
+    setField(field);
+  };
+
+  // 선택된 구장 id 추출
+  const selectedField = stadiumDetail.fields?.find(
+    (field: StadiumFileds) => field.name === isField,
+  );
+  const selectedFieldId = selectedField?.fieldId;
+
+  // 날짜 포맷팅
+  const selectedMonth = parseInt(isMonth.replace('월', ''));
+  const selectedDay = parseInt(isDay.replace('일', ''));
+
+  const selectedDate = new Date(
+    today.getFullYear(),
+    selectedMonth - 1,
+    selectedDay + 1,
+  );
+  const formattedDate = selectedDate.toISOString().split('T')[0];
+
+  // 운영시간 리스트
+  const [isStadiumHourList, setStadiumHourList] = useState<StadiumHoursData[]>(
+    [],
+  );
+
+  // 운영 시간 리스트 가져오기
+  useEffect(() => {
+    if (selectedFieldId && formattedDate) {
+      const fetchData = async () => {
+        const data = await getStadiumDHours(selectedFieldId, formattedDate);
+
+        setStadiumHourList(data);
+
+        if (data && data.length >= 1) {
+          console.log(data[0].scheduleId);
+
+          setScheduleId(data[0].scheduleId);
+        }
+      };
+      fetchData();
+    }
+  }, [selectedFieldId, formattedDate]);
+
+  // 운영 시간 아이디
+  const [isScheduleId, setScheduleId] = useState<number>();
+  const chooseSchedule = (scheduleId: number) => {
+    setScheduleId(scheduleId);
   };
 
   return (
@@ -111,80 +181,28 @@ const Stadium = () => {
                 selectList={monthList}
                 selectedOption={isMonth}
                 onOptionChange={handleMonthChange}
-              ></SelectBtn>
+              />
               <SelectBtn
                 selectList={dayList}
                 selectedOption={isDay}
                 onOptionChange={handleDayChange}
-              ></SelectBtn>
-
-              {/* <SelectBtn
-                selectList={dayList}
-                selectedOption={isMonth}
-                onOptionChange={handleCityChange}
-              ></SelectBtn> */}
-              {/* <select id={styles.month}>
-                <option value="">7월</option>
-              </select>
-              <select id={styles.day}>
-                <option value="">20일</option>
-              </select>
-              <select id={styles.stadium}>
-                <option value="">A구장</option>
-              </select> */}
+              />
+              <SelectBtn
+                selectList={fieldList}
+                selectedOption={isField || ''}
+                onOptionChange={handleFieldChange}
+              />
             </div>
           </div>
         </div>
-        <div className={styles.video}>
-          <div className={styles.container}>
-            <div className={styles.group}>
-              <div className={styles.contents}>
-                <span>Today</span>
-                <span>10:00~12:00</span>
-                <span>12개의 영상</span>
-              </div>
-            </div>
-
-            <div className={styles.group}>
-              <div className={styles.contents}>
-                <span>Today</span>
-                <span>10:00~12:00</span>
-                <span>12개의 영상</span>
-              </div>
-            </div>
-          </div>
+        <div className={styles.hours}>
+          <StadiumHours
+            stadiumHourList={isStadiumHourList}
+            chooseSchedule={chooseSchedule}
+          />
         </div>
 
-        <div className={styles.videoList}>
-          <div className={styles.stadium}>
-            <div className={styles.container}>
-              <div className={styles.videoImage}>
-                <img src={stadiumVideoImage} alt="" />
-              </div>
-              <div id={styles.video}>
-                <div className={styles.info}>
-                  <div className={styles.group}>
-                    <span id={styles.name}>
-                      <b>1번째</b>
-                    </span>
-                    <span className={styles.title} id={styles.video}>
-                      골 영상
-                    </span>
-                  </div>
-                  <div className={styles.group}>
-                    <span className={styles.title} id={styles.location}>
-                      장골축구장(FC서울 축구교실)
-                    </span>
-                    <span className={styles.title} id={styles.date}>
-                      07.10.수 / 10:00~12:00
-                    </span>
-                  </div>
-                </div>
-                {/* css 적용 후 추가 예정 */}
-              </div>
-            </div>
-          </div>
-        </div>
+        <VideoList scheduleId={isScheduleId}></VideoList>
       </div>
       <Footer />
     </div>
