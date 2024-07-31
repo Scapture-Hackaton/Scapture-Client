@@ -7,24 +7,27 @@ interface LoginModalProps {
   styles: { [key: string]: string };
   AUTH_URLS: { kakao: string; google: string; naver: string };
   modalRef: React.RefObject<HTMLDialogElement>;
+  loginType: (type: string) => void;
 }
 
 export const LoginModal: React.FC<LoginModalProps> = ({
   styles,
   AUTH_URLS,
   modalRef,
+  loginType,
 }) => {
   const closeLoginModal = () => {
     modalRef.current?.close();
   };
-  const [isLoginState, setLoginState] = useState('');
+  // const [isLoginState, setLoginState] = useState('');
   return (
     <dialog ref={modalRef}>
       <div className={styles.contents}>
         <button
           onClick={() => {
+            loginType('google');
             closeLoginModal();
-            // window.location.href = AUTH_URLS.google;
+            window.location.href = AUTH_URLS.google;
           }}
         >
           <img src={GoogleIcon} alt="" />
@@ -32,8 +35,9 @@ export const LoginModal: React.FC<LoginModalProps> = ({
         </button>
         <button
           onClick={() => {
+            loginType('naver');
             closeLoginModal();
-            // window.location.href = AUTH_URLS.naver;
+            window.location.href = AUTH_URLS.naver;
             console.log('NAVER 로그인은 상태값이 필요합니다.');
           }}
         >
@@ -42,6 +46,7 @@ export const LoginModal: React.FC<LoginModalProps> = ({
         </button>
         <button
           onClick={() => {
+            loginType('kakao');
             closeLoginModal();
             window.location.href = AUTH_URLS.kakao;
             // console.log(AUTH_URLS.kakao);

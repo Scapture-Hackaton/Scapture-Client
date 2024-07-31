@@ -8,12 +8,25 @@ import {
 import { LoginModal } from './LoginModal';
 
 import ScaptureLogo from '../image/scapture-logo.png';
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import useAuth from '../Hook/useAuth';
-import { LoginKAKAOToken } from '../../../apis/api/login.api';
-import { useLocation } from 'react-router-dom';
+import {
+  LoginKAKAOToken,
+  LoginNAVERToken,
+  LoginGOOGLEToken,
+} from '../../../apis/api/login.api';
 
 const Header = () => {
+  const [isLoginType, setLoginType] = useState<string>('');
+
+  useEffect(() => {
+    if (isLoginType) {
+      console.log('loginType', isLoginType);
+    } else {
+      console.log('Not Type');
+    }
+  });
+
   useAuth(LoginKAKAOToken);
 
   const modalRef = useRef<HTMLDialogElement>(null);
@@ -51,6 +64,7 @@ const Header = () => {
           styles={styles}
           AUTH_URLS={AUTH_URLS}
           modalRef={modalRef}
+          loginType={setLoginType}
         ></LoginModal>
       </div>
     </div>
