@@ -3,22 +3,28 @@
   width: 100%;
   // margin-top: 2.875rem;
 
-
   .stadium {
     color: white;
     margin-top: 2.875rem;
 
-    >div {
+    > div {
       // background-color: blue;
 
       .banner {
         // background-color: antiquewhite;
+        height: 338px;
         display: flex;
         flex-direction: column;
         justify-content: center;
+
+        img {
+          height: 100%;
+
+          object-fit: cover;
+        }
       }
 
-      >.container {
+      > .container {
         margin: 2.875rem auto 1.875rem auto;
         background-color: var(--main-color-navy-02);
         display: flex;
@@ -26,9 +32,8 @@
         width: 95.11%;
         // height: 28.125rem;
 
-
-        >.group {
-          margin: 0.75rem 0.3125rem 1rem 0.9375rem;
+        > .group {
+          margin: 0.75rem 0.9375rem 1rem 0.9375rem;
 
           .intro {
             .title {
@@ -40,13 +45,15 @@
                 margin-right: 0.75rem;
               }
 
-              >span {
+              > span {
                 font-size: var(--font-size-l);
               }
             }
 
             .introText {
               font-size: var(--font-size-m);
+
+              margin-right: 1rem;
             }
           }
 
@@ -66,7 +73,6 @@
               font-size: var(--font-size-xm);
               font-weight: 600;
               border-radius: 0.25rem;
-
             }
 
             #stadium {
@@ -74,25 +80,27 @@
               align-items: center;
               height: 100%;
               width: 100px;
-              background: linear-gradient(-60deg,
-                  transparent 20px,
-                  var(--sub-color-yellow-03) 0);
+              background: linear-gradient(
+                -60deg,
+                transparent 20px,
+                var(--sub-color-yellow-03) 0
+              );
             }
           }
 
-          >.info {
+          > .info {
             // background-color: yellowgreen;
             display: flex;
             flex-direction: row;
             font-size: var(--font-size-xm);
 
-            >.group {
-              >span {
+            > .group {
+              > span {
                 margin: auto 0 0 0;
               }
             }
 
-            >.group:first-child {
+            > .group:first-child {
               // background-color: teal;
               display: flex;
               flex-direction: column;
@@ -100,15 +108,13 @@
               height: 145px;
             }
 
-            >.group:last-child {
+            > .group:last-child {
               display: flex;
               flex-direction: column;
             }
-
           }
         }
       }
-
     }
 
     .option {
@@ -119,7 +125,7 @@
       width: 100%;
       font-size: var(--font-size-m);
 
-      >.container {
+      > .container {
         margin: 0 auto;
         background-color: var(--main-color-navy-01);
 
@@ -146,13 +152,13 @@
       width: 100%;
       margin-bottom: 0.6875rem;
 
-      >.container {
+      > .container {
         display: flex;
         flex-direction: row;
         // background-color: aqua;
         margin: 0 0 0 0.6875rem;
 
-        >.group {
+        > .group {
           background-color: var(--black-color);
           border: 1px solid var(--grey-color-grey-02);
           border-radius: 10px;
@@ -199,14 +205,14 @@
       border-radius: 10px;
       border: 1px solid var(--grey-color-grey-02);
 
-      >.stadium {
+      > .stadium {
         display: flex;
         justify-content: center;
         align-items: center;
         // margin: 0 auto;
         margin: 0 0.75rem 0 0.75rem;
 
-        >.container {
+        > .container {
           display: flex;
           // border-radius: 10px;
           // background-color: #656565;
@@ -225,15 +231,13 @@
             flex-direction: column;
             justify-content: center;
 
-            >.info {
+            > .info {
               // background-color: #500b82;
               font-size: var(--font-size-xs);
               display: flex;
               flex-direction: column;
 
-
-
-              >.group {
+              > .group {
                 // background-color: #ff9101;
                 display: flex;
                 flex-direction: column;

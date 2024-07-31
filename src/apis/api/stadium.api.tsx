@@ -21,3 +21,17 @@ export const getStadiums = async (city: string, state: string) => {
     };
   }
 };
+
+// 경기장 세부 조회
+export const getStadiumDetail = async (stadiumId: number) => {
+  try {
+    const res: CommonResponse = await defaultInstance.get(
+      `api/stadiums/${stadiumId}/detail`,
+    );
+    return res.data.data;
+  } catch (e: any) {
+    return {
+      status: e.response.status,
+    };
+  }
+};

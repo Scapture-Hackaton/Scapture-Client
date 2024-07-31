@@ -6,64 +6,82 @@ import elementImage from '../image/element-image.png';
 import stadiumVideoImage from '../image/stadium-video-image.png';
 
 import styles from '../scss/stadium.module.scss';
+import { useLocation } from 'react-router-dom';
+import { StadiumDetail } from '../../../apis/dto/scapture.dto';
+import { useQuery } from '@tanstack/react-query';
+import { getStadiumDetail } from '../../../apis/api/stadium.api';
+import { useEffect, useState } from 'react';
 
 const Stadium = () => {
+  const location = useLocation();
+
+  const stadiumId = location.state.stadiumId;
+
+  // console.log(stadiumId); // 8
+
+  // 리스트 가져오기
+  const { data: stadiumDetail } = useQuery({
+    queryKey: ['stadiumDetail', stadiumId],
+    queryFn: () => getStadiumDetail(stadiumId),
+    initialData: {} as StadiumDetail,
+  });
+
   return (
     <div className={styles.test}>
       <Header />
       <div className={styles.stadium}>
-        <div>
-          <div className={styles.banner}>
-            <img src={stadiumInfoImage} alt="" />
-          </div>
-          <div className={styles.container}>
-            <div className={styles.group}>
-              <div className={styles.intro}>
-                <div className={styles.title}>
-                  <img src={elementImage} alt="" />
-                  <span>창골축구장 (FC서울 축구교실)</span>
+        {stadiumDetail &&
+        stadiumDetail.images &&
+        stadiumDetail.images.length > 0 ? (
+          <div>
+            <div className={styles.banner}>
+              <img src={stadiumDetail.images[0].image} alt="" />
+            </div>
+            <div className={styles.container}>
+              <div className={styles.group}>
+                <div className={styles.intro}>
+                  <div className={styles.title}>
+                    <img src={elementImage} alt="" />
+                    <span>{stadiumDetail.name}</span>
+                  </div>
+                  <div className={styles.introText}>
+                    <span>{stadiumDetail.description}</span>
+                  </div>
                 </div>
-                <div className={styles.introText}>
-                  <span>
-                    간단한 소개글 들어갈 영역 입니다. 해당 구장은 00소재
-                    인조잔디로 평탄화 정도가 좋으며 우천시에도 미끄럽지 않고
-                    여름날씨에도 화상걱정 없이 즐겨 볼 수 있는 잔디입니다.
-                  </span>
-                </div>
-              </div>
 
-              <div className={styles.reservationBtn}>
-                <div id={styles.stadium}>구장정보</div>
-                <button id={styles.reservation}>구장 예약</button>
-              </div>
-
-              <div className={styles.info}>
-                <div className={styles.group}>
-                  <span className={styles.title} id={styles.location}>
-                    구장 위치
-                  </span>
-                  <span className={styles.title} id={styles.location}>
-                    운영 시간
-                  </span>
-                  <span className={styles.title} id={styles.location}>
-                    실내/실외
-                  </span>
-                  <span className={styles.title} id={styles.location}>
-                    주차 공간
-                  </span>
+                <div className={styles.reservationBtn}>
+                  <div id={styles.stadium}>구장정보</div>
+                  <button id={styles.reservation}>구장 예약</button>
                 </div>
-                <div className={styles.group}>
-                  <span id={styles.info}>
-                    서울특별시 중구 장충동2가 산14-103번지
-                  </span>
-                  <span id={styles.info}>7:00 ~ 19:00</span>
-                  <span id={styles.info}>실외</span>
-                  <span id={styles.info}>주차 가능(66면) 5분당 150원</span>
+
+                <div className={styles.info}>
+                  <div className={styles.group}>
+                    <span className={styles.title} id={styles.location}>
+                      구장 위치
+                    </span>
+                    <span className={styles.title} id={styles.location}>
+                      운영 시간
+                    </span>
+                    <span className={styles.title} id={styles.location}>
+                      실내/실외
+                    </span>
+                    <span className={styles.title} id={styles.location}>
+                      주차 공간
+                    </span>
+                  </div>
+                  <div className={styles.group}>
+                    <span id={styles.info}>{stadiumDetail.location}</span>
+                    <span id={styles.info}>{stadiumDetail.hours}</span>
+                    <span id={styles.info}>
+                      {stadiumDetail.isOutside ? '실외' : '실내'}
+                    </span>
+                    <span id={styles.info}>{stadiumDetail.parking}</span>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
+        ) : null}
         <div className={styles.option}>
           <div className={styles.container}>
             <div className={styles.select}>
