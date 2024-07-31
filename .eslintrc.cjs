@@ -17,7 +17,6 @@ module.exports = {
     'import',
     'react',
   ],
-
   settings: {
     react: {
       version: 'detect',
@@ -28,7 +27,6 @@ module.exports = {
       },
     },
   },
-
   rules: {
     'react-refresh/only-export-components': [
       'warn',
@@ -76,14 +74,10 @@ module.exports = {
       },
     ],
     'no-console': 'off',
-    'no-unused-vars': [
-      'error',
-      {
-        vars: 'all',
-        ignoreRestSiblings: false,
-        varsIgnorePattern: '^(is|set)[A-Z].*$',
-      },
-    ],
+
+    // 비활성화된 'no-unused-vars' 규칙
+    'no-unused-vars': 'off',
+
     '@typescript-eslint/no-unused-vars': [
       'error',
       {
