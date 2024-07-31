@@ -33,7 +33,7 @@ const VideoList: React.FC<VideoListProps> = ({ scheduleId }) => {
       {videos && videos.length > 0
         ? videos.map((video: ScheduleVideo) => (
             <div
-              className={styles.container}
+              className={styles.videoContainer}
               key={video.videoId}
               onClick={() => toVideo(video.videoId)}
             >

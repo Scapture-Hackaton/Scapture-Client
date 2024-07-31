@@ -300,7 +300,7 @@
 
       margin: 1rem 1rem 0 1rem;
 
-      .container {
+      .videoContainer {
         width: 100%;
         background: #020039;
         height: 146px;
@@ -322,7 +322,9 @@
         flex-direction: row;
         align-items: center;
 
-        margin-bottom: 2rem;
+        margin-bottom: 1rem;
+
+        cursor: pointer;
 
         .video {
           width: 222px;
