@@ -1,12 +1,19 @@
 import React from 'react';
 import styles from '../scss/scapture.module.scss';
 import { Stadium } from '../../../apis/dto/scapture.dto';
+import { useNavigate } from 'react-router-dom';
 
 interface StadiumsProps {
   stadiumData: Stadium[];
 }
 
 const Stadiums: React.FC<StadiumsProps> = ({ stadiumData }) => {
+  const navigate = useNavigate();
+
+  const toStadiumPage = (stadiumId: number) => {
+    navigate('/stadium', { state: { stadiumId } });
+  };
+
   return (
     <>
       {stadiumData == null ||
@@ -15,7 +22,11 @@ const Stadiums: React.FC<StadiumsProps> = ({ stadiumData }) => {
         <div className={styles.noData}>조회된 데이터가 없습니다.</div>
       ) : (
         stadiumData.map(stadium => (
-          <div className={styles.stadiumList} key={stadium.stadiumId}>
+          <div
+            className={styles.stadiumList}
+            key={stadium.stadiumId}
+            onClick={() => toStadiumPage(stadium.stadiumId)}
+          >
             <div className={styles.stadium}>
               <div className={styles.stadiumImage}>
                 <img src={stadium.image} alt="" />
