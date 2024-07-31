@@ -29,46 +29,34 @@ const VideoList: React.FC<VideoListProps> = ({ scheduleId }) => {
   };
 
   return (
-    <>
+    <div className={styles.videoList}>
       {videos && videos.length > 0
         ? videos.map((video: ScheduleVideo) => (
             <div
-              className={styles.videoList}
+              className={styles.container}
               key={video.videoId}
               onClick={() => toVideo(video.videoId)}
             >
-              <div className={styles.stadium}>
-                <div className={styles.container}>
-                  <div className={styles.videoImage}>
-                    <img src={video.image} alt={video.name} />
-                  </div>
-                  <div id={styles.video}>
-                    <div className={styles.info}>
-                      <div className={styles.group}>
-                        <span id={styles.name}>
-                          <b>{video.name}</b>
-                        </span>
-                        <span className={styles.title} id={styles.video}>
-                          골 영상
-                        </span>
-                      </div>
-                      <div className={styles.group}>
-                        <span className={styles.title} id={styles.location}>
-                          {video.stadiumName}
-                        </span>
-                        <span className={styles.title} id={styles.date}>
-                          {video.date} / {video.hours}
-                        </span>
-                      </div>
-                    </div>
-                    {/* css 적용 후 추가 예정 */}
+              <div className={styles.video}>
+                <img src={video.image} alt={video.name} />
+              </div>
+              <div className={styles.description}>
+                <div className={styles.titles}>
+                  <div id={styles.first}>{video.name}</div>
+                  <div id={styles.second}>골영상</div>
+                </div>
+
+                <div className={styles.info}>
+                  <div> {video.stadiumName}</div>
+                  <div>
+                    {video.date} / {video.hours}
                   </div>
                 </div>
               </div>
             </div>
           ))
         : null}
-    </>
+    </div>
   );
 };
 
