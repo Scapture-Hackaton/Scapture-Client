@@ -5,22 +5,22 @@ import Footer from '../../Footer/components/Footer';
 import styles from '../scss/reservation.module.scss';
 import modal from '../scss/reservation-modal.module.scss';
 import check from '../scss/reservation-check-modal.module.scss';
+import { modalNotice } from '../functions/ModalFunction';
+import {
+  ReservationModal,
+  ReservationCheckModal,
+} from '../components/ReservationModal';
 
 import testImg from '../image/testImg.png';
 import circle from '../image/circle.png';
 import selectArrow from '../image/selectArrow.png';
 import leftArrow from '../image/leftArrow.png';
 import rightArrow from '../image/rightArrow.png';
-import { RefObject, useRef } from 'react';
+import { useRef } from 'react';
 
 const Reservation = () => {
   const modalRef = useRef<HTMLDialogElement>(null);
   const modalCheckRef = useRef<HTMLDialogElement>(null);
-
-  const modalNotice = (ref: RefObject<HTMLDialogElement>) => {
-    ref.current?.showModal();
-  };
-
   return (
     <div className={styles.test}>
       <Header />
@@ -28,7 +28,6 @@ const Reservation = () => {
         <div className={styles.slider}>
           <img src={testImg} alt="" />
         </div>
-
         <div className={styles.container}>
           <div className={styles.description}>
             <div className={styles.title}>
@@ -80,7 +79,6 @@ const Reservation = () => {
             </div>
           </div>
         </div>
-
         <div className={styles.dayVideo}>
           <div className={styles.selectGroup}>
             <div className={styles.selectBox}>
@@ -140,7 +138,6 @@ const Reservation = () => {
               <div className={styles.booked}>예약마감</div>
             </div>
           </div>
-
           {/* <div className={styles.group}>
             <div className={styles.compontent}>
               <div className={styles.info}>
@@ -165,79 +162,19 @@ const Reservation = () => {
             </div>
           </div> */}
         </div>
-
         <div className={styles.paging}>
           <img src={leftArrow} alt=""></img>
           <div className={styles.pageNum}>1</div>
           <img src={rightArrow} alt=""></img>
         </div>
         {/* modalRef */}
-        <dialog ref={modalRef}>
-          <div className={modal.contents}>
-            <div className={modal.notice}>
-              <span>구장명</span>
-              <span>을 예약하시겠어요?</span>
-            </div>
-            <div className={modal.info}>
-              <span>예약정보</span>
-              <div className={modal.group}>
-                <span>예약 날짜</span>
-                <span>2024.08.03.토</span>
-              </div>
-              <div className={modal.group}>
-                <span>구장명</span>
-                <span>A구장</span>
-              </div>
-              <div className={modal.group}>
-                <span>사용 시간</span>
-                <span>20:00 ~ 22:00</span>
-              </div>
-              <div className={modal.group}>
-                <span>금액</span>
-                <span>120,000원</span>
-              </div>
-            </div>
-            <button
-              onClick={() => {
-                modalRef.current?.close();
-                modalNotice(modalCheckRef);
-              }}
-            >
-              예약하기
-            </button>
-          </div>
-        </dialog>
+        <ReservationModal
+          styles={modal}
+          ref={modalRef}
+          extendRef={modalCheckRef}
+        />
         {/* modalCheckRef */}
-        <dialog ref={modalCheckRef}>
-          <div className={check.contents}>
-            <div className={check.notice}>
-              <span>구장명</span>
-              <span>예약완료!</span>
-            </div>
-            <div className={check.info}>
-              <span>예약정보</span>
-              <div className={check.group}>
-                <span>예약 날짜</span>
-                <span>2024.08.03.토</span>
-              </div>
-              <div className={check.group}>
-                <span>구장명</span>
-                <span>A구장</span>
-              </div>
-              <div className={check.group}>
-                <span>사용 시간</span>
-                <span>20:00 ~ 22:00</span>
-              </div>
-              <div className={check.group}>
-                <span>금액</span>
-                <span>120,000원</span>
-              </div>
-            </div>
-            <button onClick={() => modalCheckRef.current?.close()}>
-              예약확인
-            </button>
-          </div>
-        </dialog>
+        <ReservationCheckModal styles={check} ref={modalCheckRef} />
       </div>
       <Footer />
     </div>
