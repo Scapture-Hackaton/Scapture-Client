@@ -11,9 +11,10 @@ export const LoginKAKAOToken = async (code: string) => {
     const res: CommonResponse = await defaultInstance.post(
       `api/oauth/social/kakao?code=${code}`,
     );
-    const TOKEN = res.data.token;
+    const TOKEN = res.data.data.token;
     localStorage.setItem('TOKEN', TOKEN);
     console.log('Response:', res);
+    console.log('TOKEN:', TOKEN);
     return res;
   } catch (error) {
     // console.error('Error : Failed to fetch token:');
