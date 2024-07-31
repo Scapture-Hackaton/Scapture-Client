@@ -1,5 +1,5 @@
-import { forwardRef } from 'react';
-import { modalNotice } from '../functions/ModalFunction';
+import { forwardRef, RefObject } from 'react';
+// import { modalNotice } from '../functions/ModalFunction';
 interface ModalProps {
   styles: { [key: string]: string };
   ref: React.RefObject<HTMLDialogElement>;
@@ -8,6 +8,10 @@ interface ModalProps {
 interface ModalCheckProps extends ModalProps {
   extendRef: React.RefObject<HTMLDialogElement>;
 }
+
+const modalNotice = (ref: RefObject<HTMLDialogElement>): void => {
+  ref.current?.showModal();
+};
 
 export const ReservationModal = forwardRef<HTMLDialogElement, ModalCheckProps>(
   ({ styles, extendRef }, ref) => {
