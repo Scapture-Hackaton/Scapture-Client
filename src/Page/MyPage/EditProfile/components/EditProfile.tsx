@@ -1,9 +1,22 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styles from '../scss/edit-profile.module.scss';
 import pencil from '../../image/pencil.png';
+import { putProfile } from '../../../../apis/api/mypage.api';
 // import profileImg from '../image/profile.webp';
 
 const EditProfile = () => {
+  const profileData = {
+    name: '김동우',
+    team: 'test',
+    location: 'where',
+  };
+  const imageFile = new File(
+    [
+      'http://t1.kakaocdn.net/account_images/default_profile.jpeg.twg.thumb.R640x640',
+    ],
+    'filename.png',
+    { type: 'image/png' },
+  );
   return (
     <div className={styles.test}>
       <div className={styles.editProfile}>
@@ -71,7 +84,14 @@ const EditProfile = () => {
 
             <div className={styles.actions}>
               <div className={styles.cancel}>취소</div>
-              <div className={styles.save}>저장하기</div>
+              <div
+                className={styles.save}
+                onClick={() => {
+                  putProfile(profileData, imageFile);
+                }}
+              >
+                저장하기
+              </div>
             </div>
           </div>
         </div>

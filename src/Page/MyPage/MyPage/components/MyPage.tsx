@@ -15,6 +15,7 @@ import dropDown from '../image/dropDown.png';
 import { useEffect, useRef, useState } from 'react';
 import { modalNotice } from '../functions/ModalFunction';
 import { BananaModal, SubscribeModal } from './MyPageModal';
+import { getProfile } from '../../../../apis/api/mypage.api';
 
 const MyPage = () => {
   const modalRef = useRef<HTMLDialogElement>(null);
@@ -24,6 +25,14 @@ const MyPage = () => {
   const [pressed, setPressed] = useState(false);
   const [startX, setStartX] = useState(0);
 
+  // mypage api
+
+  useEffect(() => {
+    const res = getProfile();
+    console.log(res);
+  });
+
+  // mypage api
   useEffect(() => {
     const slider = sliderRef.current;
     const innerSlider = innerSliderRef.current;
