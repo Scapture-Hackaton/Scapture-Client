@@ -3,14 +3,24 @@ import Footer from '../../Footer/components/Footer';
 
 // import { test } from '../functions/function';
 import styles from '../scss/reservation.module.scss';
+import modal from '../scss/reservation-modal.module.scss';
+import check from '../scss/reservation-check-modal.module.scss';
+import { modalNotice } from '../functions/ModalFunction';
+import {
+  ReservationModal,
+  ReservationCheckModal,
+} from '../components/ReservationModal';
 
 import testImg from '../image/testImg.png';
 import circle from '../image/circle.png';
 import selectArrow from '../image/selectArrow.png';
 import leftArrow from '../image/leftArrow.png';
 import rightArrow from '../image/rightArrow.png';
+import { useRef } from 'react';
 
 const Reservation = () => {
+  const modalRef = useRef<HTMLDialogElement>(null);
+  const modalCheckRef = useRef<HTMLDialogElement>(null);
   return (
     <div className={styles.test}>
       <Header />
@@ -18,7 +28,6 @@ const Reservation = () => {
         <div className={styles.slider}>
           <img src={testImg} alt="" />
         </div>
-
         <div className={styles.container}>
           <div className={styles.description}>
             <div className={styles.title}>
@@ -37,7 +46,14 @@ const Reservation = () => {
           <div className={styles.info}>
             <div className={styles.header}>
               <div className={styles.title}>구장 정보</div>
-              <button className={styles.reserve}>구장 예약하기</button>
+              <button
+                className={styles.reserve}
+                onClick={() => {
+                  modalNotice(modalRef);
+                }}
+              >
+                구장 예약하기
+              </button>
             </div>
 
             <div className={styles.contents}>
@@ -63,7 +79,6 @@ const Reservation = () => {
             </div>
           </div>
         </div>
-
         <div className={styles.dayVideo}>
           <div className={styles.selectGroup}>
             <div className={styles.selectBox}>
@@ -103,7 +118,13 @@ const Reservation = () => {
 
               <div className={styles.date}>10:00 ~ 12:00</div>
 
-              <button>예약하기</button>
+              <button
+                onClick={() => {
+                  modalNotice(modalRef);
+                }}
+              >
+                예약하기
+              </button>
             </div>
 
             <div className={styles.compontent}>
@@ -117,7 +138,6 @@ const Reservation = () => {
               <div className={styles.booked}>예약마감</div>
             </div>
           </div>
-
           {/* <div className={styles.group}>
             <div className={styles.compontent}>
               <div className={styles.info}>
@@ -142,12 +162,19 @@ const Reservation = () => {
             </div>
           </div> */}
         </div>
-
         <div className={styles.paging}>
           <img src={leftArrow} alt=""></img>
           <div className={styles.pageNum}>1</div>
           <img src={rightArrow} alt=""></img>
         </div>
+        {/* modalRef */}
+        <ReservationModal
+          styles={modal}
+          ref={modalRef}
+          extendRef={modalCheckRef}
+        />
+        {/* modalCheckRef */}
+        <ReservationCheckModal styles={check} ref={modalCheckRef} />
       </div>
       <Footer />
     </div>

@@ -1,8 +1,9 @@
-// import Header from '../../Header/components/Header';
+import Header from '../../../Header/components/Header';
 // import Footer from '../../Footer/components/Footer';
 
 import styles from '../scss/my-page.module.scss';
-
+import modal from '../scss/my-page-modal.module.scss';
+import sub from '../scss/my-page-sub-modal.module.scss';
 import pencil from '../../image/pencil.png';
 import banana from '../image/banana.png';
 import rightArrow from '../image/right_arrow.png';
@@ -12,8 +13,12 @@ import dropDown from '../image/dropDown.png';
 // import profileImg from '../image/profile.webp';
 
 import { useEffect, useRef, useState } from 'react';
+import { modalNotice } from '../functions/ModalFunction';
+import { BananaModal, SubscribeModal } from './MyPageModal';
 
 const MyPage = () => {
+  const modalRef = useRef<HTMLDialogElement>(null);
+  const modalSubRef = useRef<HTMLDialogElement>(null);
   const sliderRef = useRef<HTMLDivElement>(null);
   const innerSliderRef = useRef<HTMLDivElement>(null);
   const [pressed, setPressed] = useState(false);
@@ -104,7 +109,7 @@ const MyPage = () => {
   return (
     <div className={styles.test}>
       <div className={styles.myPage}>
-        {/* <Header /> */}
+        <Header />
         <div className={styles.profile}>
           <div className={styles.bar}></div>
           <div className={styles.container}>
@@ -118,7 +123,12 @@ const MyPage = () => {
             </div>
             <div className={styles.userInfo}>
               <div className={styles.name}>스캡쳐 님</div>
-              <div className={styles.subscribe}>
+              <div
+                className={styles.subscribe}
+                onClick={() => {
+                  modalNotice(modalSubRef);
+                }}
+              >
                 <div className={styles.who}>구독자</div>
                 <div className={styles.when}>2024.08.12 까지 이용</div>
               </div>
@@ -150,7 +160,14 @@ const MyPage = () => {
 
           <div className={styles.chargeContainer}>
             <div className={styles.invite}>친구 초대하고 '버내너 3개' 받기</div>
-            <div className={styles.charge}>버내너 충전하기</div>
+            <div
+              className={styles.charge}
+              onClick={() => {
+                modalNotice(modalRef);
+              }}
+            >
+              버내너 충전하기
+            </div>
           </div>
         </div>
         {/* <Footer /> */}
@@ -216,6 +233,8 @@ const MyPage = () => {
           </div>
         </div>
       </div>
+      <BananaModal styles={modal} ref={modalRef} />
+      <SubscribeModal styles={sub} ref={modalSubRef} />
     </div>
   );
 };
