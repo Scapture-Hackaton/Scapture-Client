@@ -51,8 +51,8 @@ export const postBanana = async () // banana: number,
     const res = await authInstance.post(`api/user/bananas`, 5);
     console.log('Response:', res);
     return res.data;
-  } catch (error) {
-    console.error('Error: ', error);
+  } catch (error: any) {
+    if (error) console.error('Error: ', error.message);
   }
 };
 
