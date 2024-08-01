@@ -2,8 +2,6 @@ import React, { useEffect, useState } from 'react';
 import styles from '../scss/video.module.scss';
 import fullHeart from '../image/fullHeart.png';
 import emptyHeart from '../image/emptyHeart.png';
-// import { likesVideo, unLikeVideo } from '../../../apis/api/stadium.api';
-// import { likesVideo, unLikeVideo } from '../../../apis/api/community.api';
 
 interface HeartProps {
   id: number;

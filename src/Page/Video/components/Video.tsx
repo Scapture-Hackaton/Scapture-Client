@@ -1,15 +1,8 @@
 import Header from '../../Header/components/Header';
 import Footer from '../../Footer/components/Footer';
-
-// import { test } from '../functions/function';
 import styles from '../scss/video.module.scss';
-
-// import emptyHeart from '../image/emptyHeart.png';
-// import fullHeart from '../image/fullHeart.png';
 import download from '../image/download.png';
 import share from '../image/share.png';
-import bookMark from '../image/bookMark.png';
-// import selectArrow from '../image/selectArrow.png';
 
 import { useLocation } from 'react-router-dom';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
@@ -34,7 +27,10 @@ import Heart from './Heart';
 import {
   checkAuthDownloadVideo,
   downloadVideo,
+  storeVideo,
+  unStoreVideo,
 } from '../../../apis/api/video.api';
+import BookMark from './BookMark';
 
 const Video = () => {
   const queryClient = useQueryClient();
@@ -163,11 +159,6 @@ const Video = () => {
     setScheduleId(scheduleId);
   };
 
-  localStorage.setItem(
-    'token',
-    'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIzNjM0ODk4NTUxIiwicHJvdmlkZXIiOiJrYWthbyIsInByb3ZpZGVySWQiOiIzNjM0ODk4NTUxIiwiaWF0IjoxNzIyNDkyOTg1LCJleHAiOjE3MjI1NzkzODV9.NCWzGJ634TxFHwTNij87GhSlJwqIKJu7XJ0VmAbVDvs',
-  );
-
   // 다운로드 기능
   const handleDownloadClick = async () => {
     try {
@@ -247,6 +238,46 @@ const Video = () => {
     }
   };
 
+  // useMutation 훅을 사용하여 영상 저장/해제 처리
+  const { mutate: toggleStore } = useMutation({
+    mutationFn: async (videoId: number) => {
+      return await storeVideo(videoId);
+    },
+    onSuccess: () => {
+      // 비디오 상세 정보 갱신
+      queryClient.invalidateQueries({
+        queryKey: ['videoDetail', videoId],
+      });
+    },
+    onError: error => {
+      console.error('영상 저장 중 오류가 발생했습니다.', error);
+    },
+  });
+
+  const { mutate: toggleUnStore } = useMutation({
+    mutationFn: async (videoId: number) => {
+      return await unStoreVideo(videoId);
+    },
+    onSuccess: () => {
+      // 비디오 상세 정보 갱신
+      queryClient.invalidateQueries({
+        queryKey: ['videoDetail', videoId],
+      });
+    },
+    onError: error => {
+      console.error('영상 저장 해제 중 오류가 발생했습니다.', error);
+    },
+  });
+
+  // 북마크를 눌렀을 때 처리
+  const handleToggleStore = (isStore: boolean) => {
+    if (videoDetail && !isStore) {
+      toggleStore(videoId);
+    } else if (videoDetail && isStore) {
+      toggleUnStore(videoId);
+    }
+  };
+
   return (
     <div className={styles.test}>
       <Header />
@@ -270,7 +301,11 @@ const Video = () => {
                     <img src={share} alt=""></img>
                   </li>
                   <li>
-                    <img src={bookMark} alt=""></img>
+                    {/* <img src={bookMark} alt=""></img> */}
+                    <BookMark
+                      stored={videoDetail.isStored}
+                      onToggleStore={handleToggleStore}
+                    ></BookMark>
                   </li>
                 </ul>
               </div>

@@ -35,3 +35,35 @@ export const downloadVideo = async (videoId: number) => {
     };
   }
 };
+
+// 영상 저장하기
+export const storeVideo = async (videoId: number) => {
+  try {
+    const res: CommonResponse = await authInstance.post(
+      `api/videos/${videoId}/store`,
+    );
+
+    return res.data;
+  } catch (e: any) {
+    console.log(e);
+    return {
+      status: e.response.status,
+    };
+  }
+};
+
+// 영상 저장 해제
+export const unStoreVideo = async (videoId: number) => {
+  try {
+    const res: CommonResponse = await authInstance.delete(
+      `api/videos/${videoId}/store`,
+    );
+
+    return res.data;
+  } catch (e: any) {
+    console.log(e);
+    return {
+      status: e.response.status,
+    };
+  }
+};
