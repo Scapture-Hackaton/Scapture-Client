@@ -1,5 +1,5 @@
 import { CommonResponse } from '../dto/common.response';
-import { defaultInstance, authInstance } from '../utils/instance';
+import { authInstance } from '../utils/instance';
 
 export const getProfile = async (): Promise<CommonResponse | undefined> => {
   try {
@@ -28,6 +28,16 @@ export const putProfile = async (
         'Content-Type': 'multipart/form-data',
       },
     });
+    console.log('Response:', res);
+    return res.data;
+  } catch (error) {
+    console.error('Error: ', error);
+  }
+};
+
+export const getBanana = async (): Promise<CommonResponse | undefined> => {
+  try {
+    const res = await authInstance.get(`api/user/bananas`);
     console.log('Response:', res);
     return res.data;
   } catch (error) {
