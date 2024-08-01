@@ -6,8 +6,8 @@ import styles from '../scss/reservation.module.scss';
 
 // import testImg from '../image/testImg.png';
 import circle from '../image/circle.png';
-import leftArrow from '../image/leftArrow.png';
-import rightArrow from '../image/rightArrow.png';
+// import leftArrow from '../image/leftArrow.png';
+// import rightArrow from '../image/rightArrow.png';
 import { useLocation } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import { getStadiumDetail } from '../../../apis/api/stadium.api';
@@ -110,43 +110,22 @@ const Reservation = () => {
   );
   const formattedDate = selectedDate.toISOString().split('T')[0];
 
-  // console.log(formattedDate);// console.log(formattedDate);// console.log(formattedDate);// console.log(formattedDate);// console.log(formattedDate);
-
   // 예약시간 리스트
   const [isReservationList, setReservationList] = useState<ReservationDto[][]>(
     [],
   );
 
-  // 운영 시간 리스트 가져오기
+  // 예략 내역 리스트 가져오기
   useEffect(() => {
     if (selectedFieldId && formattedDate) {
       const fetchData = async () => {
         const data = await getReservationList(stadiumId, formattedDate);
-        console.log(data);
 
         setReservationList(data);
-
-        // if (data && data.length >= 1) {
-        //   setScheduleId(data[0].scheduleId);
-        // }
       };
       fetchData();
     }
   }, [selectedFieldId, formattedDate]);
-
-  // 운영 시간 아이디
-  // const [isScheduleId, setScheduleId] = useState<number>();
-  // const chooseSchedule = (scheduleId: number) => {
-  //   setScheduleId(scheduleId);
-  // };
-
-  // const navigate = useNavigate();
-
-  // const toReservation = (stadiumId: number) => {
-  //   navigate('/reservation', { state: { stadiumId } });
-  // };
-
-  // console.log(stadiumId);
 
   return (
     <div className={styles.test}>
@@ -239,7 +218,7 @@ const Reservation = () => {
         </div>
         <div className={styles.reserveList}>
           <ReservationList reserveList={isReservationList}></ReservationList>
-          <div className={styles.group}>
+          {/* <div className={styles.group}>
             <div className={styles.compontent}>
               <div className={styles.info}>
                 <div className={styles.field}>A구장</div>
@@ -261,7 +240,7 @@ const Reservation = () => {
 
               <div className={styles.booked}>예약마감</div>
             </div>
-          </div>
+          </div> */}
 
           {/* <div className={styles.group}>
             <div className={styles.compontent}>
@@ -288,11 +267,11 @@ const Reservation = () => {
           </div> */}
         </div>
 
-        <div className={styles.paging}>
+        {/* <div className={styles.paging}>
           <img src={leftArrow} alt=""></img>
           <div className={styles.pageNum}>1</div>
           <img src={rightArrow} alt=""></img>
-        </div>
+        </div> */}
       </div>
       <Footer />
     </div>
