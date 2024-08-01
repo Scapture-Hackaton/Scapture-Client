@@ -54,3 +54,25 @@ export const getReservation = async (): Promise<CommonResponse | undefined> => {
     console.error('Error: ', error);
   }
 };
+
+export const postSubscribe = async (subscribeData: {
+  [key: string]: any;
+}): Promise<CommonResponse | undefined> => {
+  try {
+    const res = await authInstance.post(`api/user/subscribe`, subscribeData);
+    console.log('Response:', res);
+    return res.data;
+  } catch (error) {
+    console.error('Error: ', error);
+  }
+};
+
+export const putSubscribe = async (): Promise<CommonResponse | undefined> => {
+  try {
+    const res = await authInstance.put(`api/user/subscribe`);
+    console.log('Response:', res);
+    return res.data;
+  } catch (error) {
+    console.error('Error: ', error);
+  }
+};

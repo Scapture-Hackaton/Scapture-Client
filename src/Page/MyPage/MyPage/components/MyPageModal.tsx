@@ -3,6 +3,7 @@ import { modalNotice } from '../functions/ModalFunction';
 import cancel from '../image/cancel.png';
 import checkbox from '../image/checkbox.png';
 import checkBanana from '../image/check-banana.png';
+import { postSubscribe, putSubscribe } from '../../../../apis/api/mypage.api';
 interface ModalProps {
   styles: { [key: string]: string };
   ref: React.RefObject<HTMLDialogElement>;
@@ -11,6 +12,11 @@ interface ModalProps {
 interface ModalCheckProps extends ModalProps {
   extendRef: React.RefObject<HTMLDialogElement>;
 }
+
+const subscribeData = {
+  startDate: '2024-07-22 00:00',
+  endDate: '2024-08-22 00:00',
+};
 
 export const BananaModal = forwardRef<HTMLDialogElement, ModalProps>(
   ({ styles }, ref) => {
@@ -70,9 +76,9 @@ export const BananaModal = forwardRef<HTMLDialogElement, ModalProps>(
           </div>
           <button
             id={styles.checkBoxButton}
-            onClick={() =>
-              (ref as React.RefObject<HTMLDialogElement>).current?.close()
-            }
+            onClick={() => {
+              (ref as React.RefObject<HTMLDialogElement>).current?.close();
+            }}
           >
             결제하기
           </button>
@@ -98,9 +104,11 @@ export const SubscribeModal = forwardRef<HTMLDialogElement, ModalProps>(
           <div className={styles.container}>
             <button
               id={styles.checkBoxButton}
-              onClick={() =>
-                (ref as React.RefObject<HTMLDialogElement>).current?.close()
-              }
+              onClick={() => {
+                (ref as React.RefObject<HTMLDialogElement>).current?.close();
+                // postSubscribe(subscribeData);
+                putSubscribe();
+              }}
             >
               구독하러 가기
             </button>
