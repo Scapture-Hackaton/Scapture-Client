@@ -15,18 +15,13 @@ import {
   LoginNAVERToken,
   LoginGOOGLEToken,
 } from '../../../apis/api/login.api';
+import { useRecoilState } from 'recoil';
+import { LoginResponse } from '../Atom/atom';
 
 const Header = () => {
-  const [isLoginType, setLoginType] = useState<string>('');
-
-  useEffect(() => {
-    if (isLoginType) {
-      console.log('loginType', isLoginType);
-    } else {
-      console.log('Not Type');
-    }
-  });
-
+  // const [isLoginType, setLoginType] = useState<string>('');
+  const [isLoginType, setLoginType] = useRecoilState(LoginResponse);
+  const [isResult, setResult] = useState(LoginResponse);
   useAuth(LoginKAKAOToken);
 
   const modalRef = useRef<HTMLDialogElement>(null);
@@ -34,6 +29,15 @@ const Header = () => {
   const openLoginModal = () => {
     modalRef.current?.showModal();
   };
+
+  useEffect(() => {
+    console.log('check', isResult);
+    if (isLoginType === 'kakao') {
+      console.log('kakao', isLoginType);
+    } else {
+      console.log('nothing');
+    }
+  }, [isLoginType]);
 
   const AUTH_URLS = {
     kakao: KAKAO_AUTH_URL,
@@ -58,13 +62,12 @@ const Header = () => {
           <div>커뮤니티</div>
         </div>
         <div id={styles.login}>
-          <button onClick={openLoginModal}>로그인</button>
+          <button onClick={openLoginModal}>로그인{isLoginType}</button>
         </div>
         <LoginModal
           styles={styles}
           AUTH_URLS={AUTH_URLS}
           modalRef={modalRef}
-          loginType={setLoginType}
         ></LoginModal>
       </div>
     </div>
