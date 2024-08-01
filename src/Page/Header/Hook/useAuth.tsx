@@ -12,7 +12,6 @@ const useAuth = (
     const code = queryParams.get('code');
     if (code && type) {
       console.log('Authorization code:', code);
-      alert(type);
       resToken(code, type);
     } else {
       console.error(
