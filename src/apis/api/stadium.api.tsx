@@ -2,11 +2,7 @@
  * Stadium 관련 API
  */
 import { CommonResponse } from '../dto/common.response';
-import {
-  defaultInstance,
-  authFileInstance,
-  authInstance,
-} from '../utils/instance';
+import { defaultInstance, authInstance } from '../utils/instance';
 
 // 경기장 전체 조회
 export const getStadiums = async (city: string, state: string) => {
@@ -68,7 +64,7 @@ export const getVideoScheduled = async (scheduleId: number) => {
 // 영상 세부 조회
 export const getVideoDetail = async (videoId: number) => {
   try {
-    const res: CommonResponse = await defaultInstance.get(
+    const res: CommonResponse = await authInstance.get(
       `api/videos/${videoId}/details`,
     );
     return res.data.data;
@@ -83,7 +79,7 @@ export const getVideoDetail = async (videoId: number) => {
 export const likesVideo = async (videoId: number) => {
   try {
     const res: CommonResponse = await authInstance.post(
-      `api/comments/${videoId}/likes`,
+      `api/videos/${videoId}/likes`,
     );
 
     return res.data;
@@ -99,7 +95,7 @@ export const likesVideo = async (videoId: number) => {
 export const unLikeVideo = async (videoId: number) => {
   try {
     const res: CommonResponse = await authInstance.delete(
-      `api/comments/${videoId}/likes`,
+      `api/videos/${videoId}/likes`,
     );
 
     return res.data;

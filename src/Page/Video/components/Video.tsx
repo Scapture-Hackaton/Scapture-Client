@@ -12,11 +12,13 @@ import bookMark from '../image/bookMark.png';
 // import selectArrow from '../image/selectArrow.png';
 
 import { useLocation } from 'react-router-dom';
-import { useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import {
   getStadiumDetail,
   getStadiumDHours,
   getVideoDetail,
+  likesVideo,
+  unLikeVideo,
 } from '../../../apis/api/stadium.api';
 import {
   StadiumDetail,
@@ -29,14 +31,16 @@ import SelectBtn from './SelectBtn';
 import StadiumHours from './StadiumHours';
 import VideoList from './VideoList';
 import Heart from './Heart';
+import {
+  checkAuthDownloadVideo,
+  downloadVideo,
+} from '../../../apis/api/video.api';
 
 const Video = () => {
-  // const queryClient = useQueryClient();
+  const queryClient = useQueryClient();
   const location = useLocation();
   const stadiumId = location.state.stadiumId;
   const videoId = location.state.videoId;
-
-  console.log(videoId);
 
   const { data: stadiumDetail } = useQuery({
     queryKey: ['stadiumDetail', stadiumId],
@@ -132,8 +136,6 @@ const Video = () => {
   );
   const formattedDate = selectedDate.toISOString().split('T')[0];
 
-  // console.log(formattedDate);
-
   // 운영시간 리스트
   const [isStadiumHourList, setStadiumHourList] = useState<StadiumHoursData[]>(
     [],
@@ -161,17 +163,95 @@ const Video = () => {
     setScheduleId(scheduleId);
   };
 
-  // onToggleLike 함수 정의
-  // const handleToggleLike = (videoId: number) => {
-  //   // 성공적으로 API 호출 후 데이터 갱신
-  //   queryClient.invalidateQueries(['videoDetail', videoId]);
-  // };
+  localStorage.setItem(
+    'token',
+    'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIzNjM0ODk4NTUxIiwicHJvdmlkZXIiOiJrYWthbyIsInByb3ZpZGVySWQiOiIzNjM0ODk4NTUxIiwiaWF0IjoxNzIyNDkyOTg1LCJleHAiOjE3MjI1NzkzODV9.NCWzGJ634TxFHwTNij87GhSlJwqIKJu7XJ0VmAbVDvs',
+  );
+
+  // 다운로드 기능
+  const handleDownloadClick = async () => {
+    try {
+      const authResponse = await checkAuthDownloadVideo(videoId);
+
+      if (authResponse.status === 200 || authResponse.status === 409) {
+        const downloadResponse = await downloadVideo(videoId);
+        if (downloadResponse.status === 200) {
+          fetch(`${videoDetail.video}`, {
+            method: 'GET',
+            // content-type은 따로 지정하지 않았습니다.
+          })
+            .then(response => response.blob())
+            .then(blob => {
+              const url = window.URL.createObjectURL(blob);
+              const link = document.createElement('a');
+
+              link.setAttribute('href', url);
+              link.setAttribute('download', `${videoDetail.name}.mp4`);
+
+              document.body.appendChild(link);
+
+              link.click();
+
+              link.parentNode?.removeChild(link);
+
+              window.URL.revokeObjectURL(url);
+            });
+        } else {
+          alert('로그인이 필요합니다.');
+        }
+      } else {
+        alert('다운로드 권한 부여에 실패했습니다.');
+      }
+    } catch (error) {
+      console.error('비디오 다운로드 중 오류가 발생했습니다.', error);
+    }
+  };
+
+  // useMutation 훅을 사용하여 좋아요/좋아요 취소 처리
+  const { mutate: toggleLike } = useMutation({
+    mutationFn: async (videoId: number) => {
+      return await likesVideo(videoId);
+    },
+    onSuccess: () => {
+      // 비디오 상세 정보 갱신
+      queryClient.invalidateQueries({
+        queryKey: ['videoDetail', videoId],
+      });
+    },
+    onError: error => {
+      console.error('좋아요 처리 중 오류가 발생했습니다.', error);
+    },
+  });
+
+  const { mutate: toggleUnLike } = useMutation({
+    mutationFn: async (videoId: number) => {
+      return await unLikeVideo(videoId);
+    },
+    onSuccess: () => {
+      // 비디오 상세 정보 갱신
+      queryClient.invalidateQueries({
+        queryKey: ['videoDetail', videoId],
+      });
+    },
+    onError: error => {
+      console.error('좋아요 처리 중 오류가 발생했습니다.', error);
+    },
+  });
+
+  // 좋아요를 눌렀을 때 처리
+  const handleToggleLike = (isLiked: boolean) => {
+    if (videoDetail && !isLiked) {
+      toggleLike(videoId);
+    } else if (videoDetail && isLiked) {
+      toggleUnLike(videoId);
+    }
+  };
 
   return (
     <div className={styles.test}>
       <Header />
       <div className={styles.community}>
-        {isVideoDetailSuccess && videoDetail ? (
+        {isVideoDetailSuccess && videoDetail && videoDetail.video ? (
           <>
             <div className={styles.videoContainer}>
               <div className={styles.video}>
@@ -182,7 +262,7 @@ const Video = () => {
               <div className={styles.group}>
                 <div className={styles.title}>{videoDetail.name}</div>
                 <ul className={styles.icons}>
-                  <li>
+                  <li onClick={handleDownloadClick}>
                     <p>다운로드</p>
                     <img src={download} alt=""></img>
                   </li>
@@ -199,7 +279,7 @@ const Video = () => {
                   id={videoId}
                   isLiked={videoDetail.isLiked}
                   likeCount={videoDetail.likeCount}
-                  // onToggleLike={() => handleToggleLike(videoId)}
+                  onToggleLike={handleToggleLike}
                 />
                 {/* <img src={fullHeart} alt="" />
                 <div className={styles.cnt}>10</div> */}
