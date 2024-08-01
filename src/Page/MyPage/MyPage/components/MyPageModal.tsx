@@ -3,7 +3,11 @@ import { modalNotice } from '../functions/ModalFunction';
 import cancel from '../image/cancel.png';
 import checkbox from '../image/checkbox.png';
 import checkBanana from '../image/check-banana.png';
-import { postSubscribe, putSubscribe } from '../../../../apis/api/mypage.api';
+import {
+  postBanana,
+  postSubscribe,
+  putSubscribe,
+} from '../../../../apis/api/mypage.api';
 interface ModalProps {
   styles: { [key: string]: string };
   ref: React.RefObject<HTMLDialogElement>;
@@ -17,6 +21,7 @@ const subscribeData = {
   startDate: '2024-07-22 00:00',
   endDate: '2024-08-22 00:00',
 };
+const banana = { amount: 5 };
 
 export const BananaModal = forwardRef<HTMLDialogElement, ModalProps>(
   ({ styles }, ref) => {
@@ -78,6 +83,7 @@ export const BananaModal = forwardRef<HTMLDialogElement, ModalProps>(
             id={styles.checkBoxButton}
             onClick={() => {
               (ref as React.RefObject<HTMLDialogElement>).current?.close();
+              postBanana();
             }}
           >
             결제하기

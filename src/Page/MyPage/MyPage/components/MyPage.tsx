@@ -15,7 +15,11 @@ import dropDown from '../image/dropDown.png';
 import { useEffect, useRef, useState } from 'react';
 import { modalNotice } from '../functions/ModalFunction';
 import { BananaModal, SubscribeModal } from './MyPageModal';
-import { getBanana, getProfile } from '../../../../apis/api/mypage.api';
+import {
+  getBanana,
+  getProfile,
+  postBanana,
+} from '../../../../apis/api/mypage.api';
 
 const MyPage = () => {
   const modalRef = useRef<HTMLDialogElement>(null);
@@ -175,6 +179,7 @@ const MyPage = () => {
               className={styles.charge}
               onClick={() => {
                 modalNotice(modalRef);
+                // postBanana(5);
               }}
             >
               버내너 충전하기
