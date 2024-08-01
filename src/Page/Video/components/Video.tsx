@@ -3,7 +3,7 @@ import Footer from '../../Footer/components/Footer';
 
 // import { test } from '../functions/function';
 import styles from '../scss/video.module.scss';
-
+import modal from '../scss/video-modal.module.scss';
 // import emptyHeart from '../image/emptyHeart.png';
 import fullHeart from '../image/fullHeart.png';
 import download from '../image/download.png';
@@ -12,8 +12,12 @@ import bookMark from '../image/bookMark.png';
 import selectArrow from '../image/selectArrow.png';
 import leftArrow from '../image/leftArrow.png';
 import rightArrow from '../image/rightArrow.png';
+import { useRef } from 'react';
+import { modalNotice } from '../functions/ModalFunction';
+import { VideoModal } from './VideoModal';
 
 const Video = () => {
+  const modalRef = useRef<HTMLDialogElement>(null);
   return (
     <div className={styles.test}>
       <Header />
@@ -23,7 +27,12 @@ const Video = () => {
           <div className={styles.group}>
             <div className={styles.title}>BLUE TEAM 1번째 골 영상</div>
             <ul className={styles.icons}>
-              <li>
+              <li
+                onClick={() => {
+                  modalNotice(modalRef);
+                  console.log('test');
+                }}
+              >
                 <p>다운로드</p>
                 <img src={download} alt=""></img>
               </li>
@@ -107,6 +116,7 @@ const Video = () => {
           <div className={styles.pageNum}>1</div>
           <img src={rightArrow} alt=""></img>
         </div>
+        <VideoModal styles={modal} ref={modalRef} />
       </div>
       <Footer />
     </div>
