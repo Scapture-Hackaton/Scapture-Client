@@ -1,0 +1,62 @@
+dialog {
+  color: var(--black-color);
+  background: var(--white-color);
+  width: 360px;
+  height: 250px;
+  border: 0;
+  border-radius: 20px;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  .contents {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-content: center;
+
+    .video {
+      background-color: var(--black-color);
+      border-radius: 10px;
+      width: 340px;
+      height: 190px;
+    }
+
+    .group {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+      width: 338px;
+      margin-bottom: 10px;
+      margin-top: 10px;
+
+      .banana {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        >img {
+          margin-right: 8px;
+        }
+      }
+
+      button {
+        background-color: var(--gradient-color-blue-01);
+        color: var(--white-color);
+        font-weight: 600px;
+        width: 110px;
+        height: 30px;
+        border-radius: 4px;
+      }
+    }
+  }
+}
+
+dialog::backdrop {
+  background-color: rgba(0, 0, 0, 0.5);
+}
