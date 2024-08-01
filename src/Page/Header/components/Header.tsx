@@ -4,25 +4,15 @@ import {
   GOOGLE_AUTH_URL,
   NAVER_AUTH_URL,
 } from '../../../apis/config/login.config';
-
 import { LoginModal } from './LoginModal';
-
 import ScaptureLogo from '../image/scapture-logo.png';
-import { useEffect, useRef, useState } from 'react';
+import { useRef } from 'react';
 import useAuth from '../Hook/useAuth';
-import {
-  LoginKAKAOToken,
-  LoginNAVERToken,
-  LoginGOOGLEToken,
-} from '../../../apis/api/login.api';
-import { useRecoilState } from 'recoil';
-import { LoginResponse } from '../Atom/atom';
+import { LoginToken } from '../../../apis/api/login.api';
 
 const Header = () => {
-  // const [isLoginType, setLoginType] = useState<string>('');
-  const [isLoginType, setLoginType] = useRecoilState(LoginResponse);
-  const [isResult, setResult] = useState(LoginResponse);
-  useAuth(LoginKAKAOToken);
+  const loginType = localStorage.getItem('LoginType');
+  useAuth(LoginToken, loginType);
 
   const modalRef = useRef<HTMLDialogElement>(null);
 
@@ -30,20 +20,10 @@ const Header = () => {
     modalRef.current?.showModal();
   };
 
-  useEffect(() => {
-    console.log('check', isResult);
-    if (isLoginType === 'kakao') {
-      console.log('kakao', isLoginType);
-    } else {
-      console.log('nothing');
-    }
-  }, [isLoginType]);
-
   const AUTH_URLS = {
     kakao: KAKAO_AUTH_URL,
     google: GOOGLE_AUTH_URL,
     naver: NAVER_AUTH_URL,
-    // 여기에 API를 객체로 전달 할 수 있게
   };
 
   return (
@@ -62,7 +42,7 @@ const Header = () => {
           <div>커뮤니티</div>
         </div>
         <div id={styles.login}>
-          <button onClick={openLoginModal}>로그인{isLoginType}</button>
+          <button onClick={openLoginModal}>로그인{loginType}</button>
         </div>
         <LoginModal
           styles={styles}

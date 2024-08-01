@@ -23,13 +23,13 @@ export const LoginModal: React.FC<LoginModalProps> = ({
   };
   const [isLoginType, setLoginType] = useRecoilState(LoginResponse);
   // const [isLoginState, setLoginState] = useRecoilState('');
-  // useAuth(LoginKAKAOToken(loginType));
-  useEffect(() => {
-    if (isLoginType) {
-      console.log('Updated login type:', isLoginType);
-      alert(isLoginType); // 상태가 업데이트된 후의 값 확인
-    }
-  }, [isLoginType]);
+
+  // useEffect(() => {
+  //   if (isLoginType) {
+  //     console.log('Updated login type:', isLoginType);
+  //     alert(isLoginType); // 상태가 업데이트된 후의 값 확인
+  //   }
+  // }, [isLoginType]);
 
   return (
     <dialog ref={modalRef}>
