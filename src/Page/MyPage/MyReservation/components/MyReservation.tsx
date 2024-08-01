@@ -1,8 +1,13 @@
-import React from 'react';
+import { useEffect } from 'react';
 import styles from '../scss/my-reservation.module.scss';
 import backArrow from '../image/backArrow.png';
+import { getReservation } from '../../../../apis/api/mypage.api';
 
 const MyReservation = () => {
+  useEffect(() => {
+    const res = getReservation();
+    console.log(res);
+  });
   return (
     <div className={styles.test}>
       <div className={styles.myReserve}>

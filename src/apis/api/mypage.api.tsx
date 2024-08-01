@@ -44,3 +44,13 @@ export const getBanana = async (): Promise<CommonResponse | undefined> => {
     console.error('Error: ', error);
   }
 };
+
+export const getReservation = async (): Promise<CommonResponse | undefined> => {
+  try {
+    const res = await authInstance.get(`api/user/reservations`);
+    console.log('Response:', res);
+    return res.data;
+  } catch (error) {
+    console.error('Error: ', error);
+  }
+};
