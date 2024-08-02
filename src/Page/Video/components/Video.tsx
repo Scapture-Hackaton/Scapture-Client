@@ -163,9 +163,11 @@ const Video = () => {
   const handleDownloadClick = async () => {
     try {
       const authResponse = await checkAuthDownloadVideo(videoId);
+      // console.log(authResponse.status);
 
       if (authResponse.status === 200 || authResponse.status === 409) {
         const downloadResponse = await downloadVideo(videoId);
+
         if (downloadResponse.status === 200) {
           fetch(`${videoDetail.video}`, {
             method: 'GET',

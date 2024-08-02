@@ -1,9 +1,5 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import {
-  QueryClient,
-  QueryClientProvider,
-  useQuery,
-} from '@tanstack/react-query';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
 import Main from './Page/Main/components/Main';
 import Scapture from './Page/Scapture/components/Scapture';
@@ -19,6 +15,7 @@ import DevTer from './DevTerminal';
 
 import './App.scss';
 import Community from './Page/Community/components/Community';
+import ScrollToTop from './utils/ScrollToTop';
 
 const queryClient = new QueryClient();
 
@@ -26,6 +23,7 @@ const App = () => {
   return (
     <QueryClientProvider client={queryClient}>
       <Router>
+        <ScrollToTop />
         <Routes>
           <Route path="/" element={<Main />} />
           <Route path="/scapture" element={<Scapture />} />

@@ -119,7 +119,11 @@ const Reservation = () => {
   useEffect(() => {
     if (selectedFieldId && formattedDate) {
       const fetchData = async () => {
-        const data = await getReservationList(stadiumId, formattedDate);
+        const data = await getReservationList(
+          stadiumId,
+          selectedFieldId,
+          formattedDate,
+        );
 
         setReservationList(data);
       };
@@ -145,7 +149,7 @@ const Reservation = () => {
                   <div className={styles.box}>
                     <img src={circle} alt="" />
                   </div>
-                  <p>{stadiumDetail.name}</p>
+                  <span>{stadiumDetail.name}</span>
                 </div>
                 <div className={styles.introduce}>
                   {stadiumDetail.description}
