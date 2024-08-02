@@ -1,4 +1,5 @@
 import React, { forwardRef, useState } from 'react';
+import { userDataAtom, bananaDataAtom } from '../../Atom/atom';
 import { modalNotice } from '../functions/ModalFunction';
 import cancel from '../image/cancel.png';
 import checkbox from '../image/checkbox.png';

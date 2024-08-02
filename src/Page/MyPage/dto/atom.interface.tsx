@@ -1,10 +1,10 @@
 export interface userData {
   endDate: string | null;
   image: string | null;
-  location: string | null;
+  location: string;
   name: string;
   role: string;
-  team: string | null;
+  team: string;
 }
 
 export interface bananaData {

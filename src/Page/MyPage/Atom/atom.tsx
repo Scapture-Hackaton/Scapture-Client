@@ -1,32 +1,19 @@
 import { atom } from 'recoil';
+import { userData, bananaData } from '../../MyPage/dto/atom.interface';
 
-interface userData {
-  endDate: string | null;
-  image: string | null;
-  location: string | null;
-  name: string;
-  role: string;
-  team: string | null;
-}
-
-interface bananaData {
-  balance: number;
-  subscribed: boolean;
-}
-
-export const userData = atom<userData>({
+export const userDataAtom = atom<userData>({
   key: 'userData',
   default: {
     endDate: null,
-    image: 'undefined',
-    location: null,
+    image: null,
+    location: 'KOREA',
     name: 'undefined',
     role: 'undefined',
-    team: null,
+    team: 'SCAPTURE',
   },
 });
 
-export const bananaData = atom<bananaData>({
+export const bananaDataAtom = atom<bananaData>({
   key: 'bananaData',
   default: {
     balance: 0,

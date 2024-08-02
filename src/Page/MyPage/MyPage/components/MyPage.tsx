@@ -1,6 +1,6 @@
 import Header from '../../../Header/components/Header';
-// import Footer from '../../Footer/components/Footer';
-
+import Footer from '../../../Footer/components/Footer';
+import { userData, bananaData } from '../../dto/atom.interface';
 import styles from '../scss/my-page.module.scss';
 import modal from '../scss/my-page-modal.module.scss';
 import sub from '../scss/my-page-sub-modal.module.scss';
@@ -10,6 +10,7 @@ import rightArrow from '../image/right_arrow.png';
 import rightFrame from '../image/rightFrame.png';
 import leftFrame from '../image/leftFrame.png';
 import dropDown from '../image/dropDown.png';
+import profileImgDefault from '../../image/scapture-logo.png';
 // import profileImg from '../image/profile.webp';
 
 import { useEffect, useRef, useState } from 'react';
@@ -17,7 +18,8 @@ import { modalNotice } from '../functions/ModalFunction';
 import { BananaModal, SubscribeModal } from './MyPageModal';
 import { getBanana, getProfile } from '../../../../apis/api/mypage.api';
 import { useRecoilState } from 'recoil';
-import { bananaData, userData } from '../../Atom/atom';
+import { userDataAtom, bananaDataAtom } from '../../Atom/atom';
+import { Link } from 'react-router-dom';
 
 const MyPage = () => {
   const modalRef = useRef<HTMLDialogElement>(null);
@@ -27,24 +29,8 @@ const MyPage = () => {
   const [pressed, setPressed] = useState(false);
   const [startX, setStartX] = useState(0);
 
-  // mypage api
-
-  interface userData {
-    endDate: string | null;
-    image: string | null;
-    location: string | null;
-    name: string;
-    role: string;
-    team: string | null;
-  }
-
-  interface bananaData {
-    balance: number;
-    subscribed: boolean;
-  }
-
-  const [isProfile, setProfile] = useRecoilState<userData>(userData);
-  const [isBanana, setBanana] = useRecoilState<bananaData>(bananaData);
+  const [isProfile, setProfile] = useRecoilState<userData>(userDataAtom);
+  const [isBanana, setBanana] = useRecoilState<bananaData>(bananaDataAtom);
   useEffect(() => {
     const fetchProfileInfo = async () => {
       const res = await getProfile();
@@ -62,11 +48,16 @@ const MyPage = () => {
           role: res.data.role,
           team: res.data.team,
         }));
+        setBanana(prev => ({
+          ...prev,
+          balance: banana.data.balance,
+          subscribed: banana.data.subscribed,
+        }));
       }
     };
 
     fetchProfileInfo();
-  }, [setProfile]);
+  }, [setProfile, setBanana]);
 
   // mypage api
 
@@ -161,10 +152,16 @@ const MyPage = () => {
           <div className={styles.container}>
             <div className={styles.image_box}>
               <div className={styles.box}>
-                {/* <img className={styles.image} src={profileImg} alt=""></img> */}
+                <img
+                  className={styles.image}
+                  src={isProfile.image ?? profileImgDefault}
+                  alt="SCAPTURE"
+                />
               </div>
               <div className={styles.modify}>
-                <img className={styles.pencil} src={pencil} alt="" />
+                <Link to="/mypage/edit" style={{ textDecoration: 'none' }}>
+                  <img className={styles.pencil} src={pencil} alt="" />
+                </Link>
               </div>
             </div>
             <div className={styles.userInfo}>
@@ -200,7 +197,7 @@ const MyPage = () => {
             </div>
             <div className={styles.group}>
               <p>보유 갯수</p>
-              <p>5</p>
+              <p>{isBanana.balance}</p>
             </div>
           </div>
 
@@ -281,6 +278,7 @@ const MyPage = () => {
       </div>
       <BananaModal styles={modal} ref={modalRef} />
       <SubscribeModal styles={sub} ref={modalSubRef} />
+      <Footer />
     </div>
   );
 };
