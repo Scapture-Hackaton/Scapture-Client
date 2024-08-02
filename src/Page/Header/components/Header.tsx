@@ -11,6 +11,7 @@ import { useRef } from 'react';
 import useAuth from '../Hook/useAuth';
 import { LoginToken } from '../../../apis/api/login.api';
 
+import { Link } from 'react-router-dom';
 const Header = () => {
   const loginType = localStorage.getItem('LoginType');
   useAuth(LoginToken, loginType);
@@ -20,7 +21,6 @@ const Header = () => {
   const openLoginModal = () => {
     modalRef.current?.showModal();
   };
-
   const AUTH_URLS = {
     kakao: KAKAO_AUTH_URL,
     google: GOOGLE_AUTH_URL,
@@ -31,16 +31,30 @@ const Header = () => {
     <div className={styles.header}>
       <div className={styles.container}>
         <div id={styles.image}>
-          <img src={ScaptureLogo} alt="" />
+          <Link to="/" style={{ textDecoration: 'none' }}>
+            <img src={ScaptureLogo} alt="" />
+          </Link>
         </div>
         <div className={styles.option} id={styles.BtnEffect}>
-          <div>서비스 소개</div>
+          <div>
+            <Link to="/" style={{ textDecoration: 'none' }}>
+              서비스 소개
+            </Link>
+          </div>
         </div>
         <div className={styles.option} id={styles.BtnEffect}>
-          <div>SCAPTURE</div>
+          <div>
+            <Link to="/scapture" style={{ textDecoration: 'none' }}>
+              SCAPTURE
+            </Link>
+          </div>
         </div>
         <div className={styles.option} id={styles.BtnEffect}>
-          <div>커뮤니티</div>
+          <div>
+            <Link to="/community" style={{ textDecoration: 'none' }}>
+              커뮤니티
+            </Link>
+          </div>
         </div>
         <div id={styles.login}>
           <button onClick={openLoginModal}>로그인{loginType}</button>
