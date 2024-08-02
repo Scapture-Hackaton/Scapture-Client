@@ -1,4 +1,5 @@
 import styles from '../scss/header.module.scss';
+import modal from '../scss/login-modal.module.scss';
 import {
   KAKAO_AUTH_URL,
   GOOGLE_AUTH_URL,
@@ -45,7 +46,7 @@ const Header = () => {
           <button onClick={openLoginModal}>로그인{loginType}</button>
         </div>
         <LoginModal
-          styles={styles}
+          styles={modal}
           AUTH_URLS={AUTH_URLS}
           modalRef={modalRef}
         ></LoginModal>
