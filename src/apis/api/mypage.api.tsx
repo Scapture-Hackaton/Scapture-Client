@@ -45,10 +45,11 @@ export const getBanana = async (): Promise<CommonResponse | undefined> => {
   }
 };
 
-export const postBanana = async () // banana: number,
-: Promise<CommonResponse | undefined> => {
+export const postBanana = async (
+  banana: number, // banana: number,
+): Promise<CommonResponse | undefined> => {
   try {
-    const res = await authInstance.post(`api/user/bananas`, 5);
+    const res = await authInstance.post(`api/user/bananas`, banana);
     console.log('Response:', res);
     return res.data;
   } catch (error: any) {

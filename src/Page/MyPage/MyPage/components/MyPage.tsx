@@ -15,11 +15,7 @@ import dropDown from '../image/dropDown.png';
 import { useEffect, useRef, useState } from 'react';
 import { modalNotice } from '../functions/ModalFunction';
 import { BananaModal, SubscribeModal } from './MyPageModal';
-import {
-  getBanana,
-  getProfile,
-  postBanana,
-} from '../../../../apis/api/mypage.api';
+import { getBanana, getProfile } from '../../../../apis/api/mypage.api';
 
 const MyPage = () => {
   const modalRef = useRef<HTMLDialogElement>(null);
@@ -32,10 +28,15 @@ const MyPage = () => {
   // mypage api
 
   useEffect(() => {
-    const res = getProfile();
-    const banana = getBanana();
-    console.log('res', res);
-    console.log('banana', banana);
+    const fetchProfileInfo = async () => {
+      const res = await getProfile();
+      const banana = await getBanana();
+
+      console.log('res', res?.data);
+      console.log('banana', banana?.data);
+    };
+
+    fetchProfileInfo();
   });
 
   // mypage api
@@ -137,7 +138,7 @@ const MyPage = () => {
               </div>
             </div>
             <div className={styles.userInfo}>
-              <div className={styles.name}>스캡쳐 님</div>
+              <div className={styles.name}>{`스캡쳐 님`}</div>
               <div
                 className={styles.subscribe}
                 onClick={() => {
@@ -149,12 +150,12 @@ const MyPage = () => {
               </div>
               <div className={styles.group}>
                 <div className={styles.title}>소속팀</div>
-                <div className={styles.descrip}>스캡쳐</div>
+                <div className={styles.descrip}>{`스캡쳐`}</div>
               </div>
 
               <div className={styles.group}>
                 <div className={styles.title}>활동지역</div>
-                <div className={styles.descrip}>서울 마포구</div>
+                <div className={styles.descrip}>{`서울 마포구`}</div>
               </div>
             </div>
           </div>
@@ -179,7 +180,6 @@ const MyPage = () => {
               className={styles.charge}
               onClick={() => {
                 modalNotice(modalRef);
-                // postBanana(5);
               }}
             >
               버내너 충전하기

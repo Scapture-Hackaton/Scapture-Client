@@ -1,4 +1,4 @@
-import React, { forwardRef } from 'react';
+import React, { forwardRef, useState } from 'react';
 import { modalNotice } from '../functions/ModalFunction';
 import cancel from '../image/cancel.png';
 import checkbox from '../image/checkbox.png';
@@ -21,10 +21,12 @@ const subscribeData = {
   startDate: '2024-07-22 00:00',
   endDate: '2024-08-22 00:00',
 };
-const banana = { amount: 5 };
+// const banana = 5;
 
 export const BananaModal = forwardRef<HTMLDialogElement, ModalProps>(
   ({ styles }, ref) => {
+    const [isBanana, setBanana] = useState<number>(1);
+    const banana = isBanana;
     return (
       <dialog ref={ref}>
         <div className={styles.contents}>
@@ -43,6 +45,10 @@ export const BananaModal = forwardRef<HTMLDialogElement, ModalProps>(
                     type="radio"
                     id="check-a"
                     name="banana-options"
+                    onClick={() => {
+                      setBanana(1);
+                      return console.log('1');
+                    }}
                   ></input>
                 </label>
                 <img src={checkBanana} alt="버내너" />
@@ -57,6 +63,10 @@ export const BananaModal = forwardRef<HTMLDialogElement, ModalProps>(
                     type="radio"
                     id="check-b"
                     name="banana-options"
+                    onClick={() => {
+                      setBanana(5);
+                      return console.log('5');
+                    }}
                   ></input>
                 </label>
                 <img src={checkBanana} alt="버내너" />
@@ -71,6 +81,10 @@ export const BananaModal = forwardRef<HTMLDialogElement, ModalProps>(
                     type="radio"
                     id="check-c"
                     name="banana-options"
+                    onClick={() => {
+                      setBanana(10);
+                      return console.log('10');
+                    }}
                   ></input>
                 </label>
                 <img src={checkBanana} alt="버내너" />
@@ -83,7 +97,7 @@ export const BananaModal = forwardRef<HTMLDialogElement, ModalProps>(
             id={styles.checkBoxButton}
             onClick={() => {
               (ref as React.RefObject<HTMLDialogElement>).current?.close();
-              postBanana();
+              postBanana(banana);
             }}
           >
             결제하기
