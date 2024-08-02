@@ -7,22 +7,14 @@ import styles from '../scss/edit-profile.module.scss';
 import profileImgDefault from '../../image/scapture-logo.png';
 import pencil from '../../image/pencil.png';
 import { putProfile } from '../../../../apis/api/mypage.api';
+import { Link } from 'react-router-dom';
 
 // import profileImg from '../image/profile.webp';
 
 const EditProfile = () => {
-  const profileData = {
-    name: '김동우',
-    team: 'test',
-    location: 'where',
-  };
-  const imageFile = new File(
-    [
-      'http://t1.kakaocdn.net/account_images/default_profile.jpeg.twg.thumb.R640x640',
-    ],
-    'filename.png',
-    { type: 'image/png' },
-  );
+  const imageFile = new File(['../../image/profile.webp'], 'filename.png', {
+    type: 'image/png/',
+  });
 
   const [isProfile, setProfile] = useRecoilState<userData>(userDataAtom);
   // setProfile(prev => ({
@@ -47,9 +39,18 @@ const EditProfile = () => {
                   alt="SCAPTURE"
                 />
               </div>
-              <div className={styles.modify}>
-                <img className={styles.pencil} src={pencil} alt=""></img>
-              </div>
+              <label htmlFor="file-input">
+                <div className={styles.modify}>
+                  <img className={styles.pencil} src={pencil} alt="" />
+                  <input
+                    id="file-input"
+                    type="file"
+                    accept="image/*"
+                    style={{ display: 'none' }}
+                    // onChange={}
+                  />
+                </div>
+              </label>
             </div>
           </div>
           <div className={styles.table}>
@@ -128,11 +129,20 @@ const EditProfile = () => {
             </div>
 
             <div className={styles.actions}>
-              <div className={styles.cancel}>취소</div>
+              <div className={styles.cancel}>
+                <Link to="/mypage">취소</Link>
+              </div>
               <div
                 className={styles.save}
                 onClick={() => {
                   putProfile(isProfile, imageFile);
+                  // const fetchProfileInfo = async () => {
+                  //   const res = await putProfile(isProfile, imageFile);
+                  //200일시 리다이렉트
+                  //   return res?.data;
+                  // };
+                  // const status = fetchProfileInfo();
+                  // console.log(status);
                 }}
               >
                 저장하기
