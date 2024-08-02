@@ -7,7 +7,6 @@ import { useRef } from 'react';
 import { Link } from 'react-router-dom';
 const Header = () => {
   const modalRef = useRef<HTMLDialogElement>(null);
-
   const modalLogin = () => {
     modalRef.current?.showModal();
   };
@@ -16,7 +15,9 @@ const Header = () => {
     <div className={styles.header}>
       <div className={styles.container}>
         <div id={styles.image}>
-          <img src={ScaptureLogo} alt="" />
+          <Link to="/" style={{ textDecoration: 'none' }}>
+            <img src={ScaptureLogo} alt="" />
+          </Link>
         </div>
         <div className={styles.option} id={styles.BtnEffect}>
           <div>

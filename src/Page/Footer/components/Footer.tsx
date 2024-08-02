@@ -10,7 +10,9 @@ const Footer = () => {
       <div className={styles.container}>
         <div className={styles.group}>
           <div id={styles.image}>
-            <img src={ScaptureLogo}></img>
+            <Link to="/" style={{ textDecoration: 'none' }}>
+              <img src={ScaptureLogo}></img>
+            </Link>
           </div>
           <div className={styles.contents}>
             <div>
