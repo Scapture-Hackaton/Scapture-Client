@@ -1,7 +1,6 @@
 import GoogleIcon from '../image/google-img.png';
 import KakaoIcon from '../image/kakao-img.png';
 import NaverIcon from '../image/naver-img.png';
-
 interface LoginModalProps {
   styles: { [key: string]: string };
   AUTH_URLS: { kakao: string; google: string; naver: string };
@@ -18,7 +17,7 @@ export const LoginModal: React.FC<LoginModalProps> = ({
   };
 
   return (
-    <dialog ref={modalRef}>
+    <dialog ref={modalRef} id={styles.loginModal}>
       <div className={styles.contents}>
         <button
           onClick={() => {
