@@ -42,7 +42,7 @@ const DevTerminal = () => {
           </li>
           <li>
             <a href="">
-              <Link to="/community">My Page</Link>
+              <Link to="/community">community</Link>
             </a>
           </li>
           <li>

@@ -4,6 +4,7 @@ import GoogleIcon from '../image/google-img.png';
 import KakaoIcon from '../image/kakao-img.png';
 import NaverIcon from '../image/naver-img.png';
 import { useRef } from 'react';
+import { Link } from 'react-router-dom';
 const Header = () => {
   const modalRef = useRef<HTMLDialogElement>(null);
 
@@ -18,13 +19,25 @@ const Header = () => {
           <img src={ScaptureLogo} alt="" />
         </div>
         <div className={styles.option} id={styles.BtnEffect}>
-          <div>서비스 소개</div>
+          <div>
+            <Link to="/" style={{ textDecoration: 'none' }}>
+              서비스 소개
+            </Link>
+          </div>
         </div>
         <div className={styles.option} id={styles.BtnEffect}>
-          <div>SCAPTURE</div>
+          <div>
+            <Link to="/scapture" style={{ textDecoration: 'none' }}>
+              SCAPTURE
+            </Link>
+          </div>
         </div>
         <div className={styles.option} id={styles.BtnEffect}>
-          <div>커뮤니티</div>
+          <div>
+            <Link to="/community" style={{ textDecoration: 'none' }}>
+              커뮤니티
+            </Link>
+          </div>
         </div>
         <div id={styles.login}>
           <button onClick={modalLogin}>로그인</button>
