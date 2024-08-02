@@ -11,7 +11,7 @@ const useAuth = (
     const queryParams = new URLSearchParams(location.search);
     const code = queryParams.get('code');
     if (code && type) {
-      console.log('Authorization code:', code);
+      // console.log('Authorization code:', code);
       resToken(code, type);
     } else {
       // console.error(
