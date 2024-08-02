@@ -16,6 +16,8 @@ import { useEffect, useRef, useState } from 'react';
 import { modalNotice } from '../functions/ModalFunction';
 import { BananaModal, SubscribeModal } from './MyPageModal';
 import { getBanana, getProfile } from '../../../../apis/api/mypage.api';
+import { useRecoilState } from 'recoil';
+import { bananaData, userData } from '../../Atom/atom';
 
 const MyPage = () => {
   const modalRef = useRef<HTMLDialogElement>(null);
@@ -27,19 +29,47 @@ const MyPage = () => {
 
   // mypage api
 
+  interface userData {
+    endDate: string | null;
+    image: string | null;
+    location: string | null;
+    name: string;
+    role: string;
+    team: string | null;
+  }
+
+  interface bananaData {
+    balance: number;
+    subscribed: boolean;
+  }
+
+  const [isProfile, setProfile] = useRecoilState<userData>(userData);
+  const [isBanana, setBanana] = useRecoilState<bananaData>(bananaData);
   useEffect(() => {
     const fetchProfileInfo = async () => {
       const res = await getProfile();
       const banana = await getBanana();
-
       console.log('res', res?.data);
       console.log('banana', banana?.data);
+
+      if (res?.data && banana?.data) {
+        setProfile(prev => ({
+          ...prev,
+          endDate: res.data.endDate,
+          image: res.data.image,
+          location: res.data.location,
+          name: res.data.name,
+          role: res.data.role,
+          team: res.data.team,
+        }));
+      }
     };
 
     fetchProfileInfo();
-  });
+  }, [setProfile]);
 
   // mypage api
+
   useEffect(() => {
     const slider = sliderRef.current;
     const innerSlider = innerSliderRef.current;
@@ -138,7 +168,7 @@ const MyPage = () => {
               </div>
             </div>
             <div className={styles.userInfo}>
-              <div className={styles.name}>{`스캡쳐 님`}</div>
+              <div className={styles.name}>{isProfile.name} 님</div>
               <div
                 className={styles.subscribe}
                 onClick={() => {
@@ -146,16 +176,16 @@ const MyPage = () => {
                 }}
               >
                 <div className={styles.who}>구독자</div>
-                <div className={styles.when}>2024.08.12 까지 이용</div>
+                <div className={styles.when}>{isProfile.endDate}까지 이용</div>
               </div>
               <div className={styles.group}>
                 <div className={styles.title}>소속팀</div>
-                <div className={styles.descrip}>{`스캡쳐`}</div>
+                <div className={styles.descrip}>{isProfile.team}</div>
               </div>
 
               <div className={styles.group}>
                 <div className={styles.title}>활동지역</div>
-                <div className={styles.descrip}>{`서울 마포구`}</div>
+                <div className={styles.descrip}>{isProfile.location}</div>
               </div>
             </div>
           </div>
