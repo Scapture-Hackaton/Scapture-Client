@@ -5,15 +5,31 @@ import BannerImage from '../image/banner-image.png';
 import IntroImage from '../image/intro-image.png';
 import CheckBox from '../image/checkbox.png';
 import StadiumImage from '../image/stadium-image.png';
-import VideoImage from '../image/video-image.png';
+import popularVideoBack from '../image/popularVideoBack.png';
 import InfoImageA from '../image/info-image-a.png';
 import InfoImageB from '../image/info-image-b.png';
 import EffectRight from '../image/effect-right.png';
 import EffectLeft from '../image/effect-left.png';
 import styles from '../scss/main.module.scss';
+import { useQuery } from '@tanstack/react-query';
+import { getPopularVideosInMain } from '../../../apis/api/main.api';
+import { useNavigate } from 'react-router-dom';
+// import { PopularVideos } from '../../../apis/dto/main.dto';
 // import banner from '../scss/banner.module.scss';
 
 const Main = () => {
+  const { data: popularVideoData, isSuccess: isPopularVideoDataSuccess } =
+    useQuery({
+      queryKey: ['popular_videos'],
+      queryFn: () => getPopularVideosInMain(),
+    });
+
+  const navigate = useNavigate();
+
+  const toStadiumPage = () => {
+    navigate('/community');
+  };
+
   return (
     <div className={styles.test}>
       <Header />
@@ -53,30 +69,48 @@ const Main = () => {
             </div>
           </div>
 
-          <div className={styles.video}>
-            <span id={styles.content}>인기 동영상</span>
-            <img src={VideoImage} alt="" />
-            <div id={styles.group}>
-              <div className={styles.name}>
-                <span id={styles.title}>경기장 이름</span>
-                <span id={styles.date}>경기 진행 일시</span>
+          {popularVideoData && isPopularVideoDataSuccess ? (
+            <div className={styles.video} onClick={toStadiumPage}>
+              <span id={styles.content}>인기 동영상</span>
+              <div className={styles.imageContainer}>
+                <img
+                  src={popularVideoBack}
+                  alt=""
+                  className={styles.backgroundImage}
+                />
+                <img
+                  src={popularVideoData[0].image}
+                  alt=""
+                  className={styles.overlayImage}
+                />
               </div>
-              <div className={styles.detail}>
-                <span id={styles.title}>난지천공원인조잔디축구장</span>
-                <span id={styles.date}>07.10.수 / 10:00~12:00</span>
+              <div id={styles.group}>
+                <div className={styles.name}>
+                  <span id={styles.title}>경기장 이름</span>
+                  <span id={styles.date}>경기 진행 일시</span>
+                </div>
+                <div className={styles.detail}>
+                  <span id={styles.title}>
+                    {popularVideoData[0].stadium.name}
+                  </span>
+                  <span id={styles.date}>
+                    {popularVideoData[0].date} / 10:00~12:00
+                  </span>
+                </div>
               </div>
             </div>
-          </div>
+          ) : null}
+
           <div className={styles.info}>
             <div className={styles.group}>
               <div id={styles.effect}>
-                {/* <div>
+                <div>
                   <img src={EffectLeft} alt="" />
-                </div> */}
+                </div>
                 <span>제휴 구장</span>
-                {/* <div>
+                <div>
                   <img src={EffectRight} alt="" />
-                </div> */}
+                </div>
               </div>
               <div className={styles.images}>
                 <div>

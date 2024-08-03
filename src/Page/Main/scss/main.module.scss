@@ -18,12 +18,24 @@
       margin: 0 auto;
       // background-color: brown;
 
+      @keyframes float {
+        0% {
+          transform: translateY(0);
+        }
+        50% {
+          transform: translateY(-10px); /* 떠다니는 높이 조정 */
+        }
+        100% {
+          transform: translateY(0);
+        }
+      }
+
       .intro {
         // background-color: #33495c;
         margin: 0 auto;
-        margin-bottom: 19.5rem;
+        margin-bottom: 4rem;
 
-        >div {
+        > div {
           display: flex;
           justify-content: space-between;
 
@@ -39,8 +51,8 @@
               color: var(--sub-color-yellow-01);
             }
 
-            >span,
-            >div {
+            > span,
+            > div {
               margin-bottom: 0.3125rem;
             }
           }
@@ -51,7 +63,7 @@
             // background-color: teal;
 
             img {
-              // background-color: #3bacac;
+              animation: float 3s ease-in-out infinite;
             }
           }
         }
@@ -61,7 +73,7 @@
         // background-color: #f1f96f;
         // margin-bottom: 205px;
 
-        >.group {
+        > .group {
           // background-color: #f2386f;
           display: flex;
           flex-direction: column;
@@ -73,6 +85,10 @@
           #checkbox {
             // background-color: #29138f;
             margin-bottom: 2rem;
+
+            img {
+              animation: float 3s ease-in-out infinite; /* 애니메이션 적용 */
+            }
           }
 
           .about {
@@ -81,7 +97,7 @@
             flex-direction: column;
             justify-content: flex-end;
 
-            >span {
+            > span {
               // margin-bottom: 1.2px;
             }
           }
@@ -106,7 +122,35 @@
         font-size: var(--font-size-s);
         margin-bottom: 5rem;
 
+        cursor: pointer;
+
+        .imageContainer {
+          position: relative;
+          display: inline-block; /* 필요한 경우 이 속성을 추가 */
+
+          .backgroundImage {
+            width: 100%; /* 필요한 경우 크기를 설정 */
+            height: auto; /* 필요한 경우 크기를 설정 */
+          }
+
+          .overlayImage {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 298px; /* 오버레이 이미지의 크기를 적절히 조정 */
+            height: 168px; /* 오버레이 이미지의 크기를 적절히 조정 */
+          }
+        }
+
+        &:hover {
+          // background-color: #020039;
+          // padding: 1rem;
+        }
+
         #content {
+          font-weight: 600;
+          font-size: var(--font-size-l);
           margin: 0 auto;
         }
 
@@ -126,13 +170,13 @@
             flex-direction: column;
             justify-content: center;
 
-            >span {
+            > span {
               margin: 0.625rem 0 0.625rem 0;
             }
           }
 
           .name {
-            >span {
+            > span {
               display: flex;
               justify-content: center;
               align-items: center;
@@ -144,13 +188,13 @@
           }
 
           .detail {
-            >span {
-              margin: auto
+            > span {
+              margin: auto;
             }
           }
         }
 
-        >img {
+        > img {
           margin-top: 1.25rem;
           margin-bottom: 1.25rem;
         }
@@ -163,13 +207,16 @@
           // background-color: #f4ff3f;
 
           #effect {
+            display: flex;
+            align-items: center;
             margin-bottom: 2.375rem;
-            flex-direction: row;
+            // flex-direction: row;
 
-            >span {
+            > span {
               display: flex;
               // background-color: #ff9f3f;
               font-size: var(--font-size-xm);
+              margin: 0 0.5rem;
             }
           }
 
@@ -178,13 +225,13 @@
             display: flex;
             flex-direction: row;
 
-            >div {
+            > div {
               // background-color: #3433ff;
               display: flex;
               flex-direction: column;
               margin: 0 1.5625rem 1.25rem 0;
 
-              >div {
+              > div {
                 // background-color: black;
                 font-size: var(--font-size-s);
                 display: flex;
