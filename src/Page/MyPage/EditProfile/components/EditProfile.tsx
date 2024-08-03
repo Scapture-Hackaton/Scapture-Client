@@ -129,9 +129,9 @@ const EditProfile = () => {
             </div>
 
             <div className={styles.actions}>
-              <div className={styles.cancel}>
-                <Link to="/mypage">취소</Link>
-              </div>
+              <Link to="/mypage">
+                <div className={styles.cancel}>취소</div>
+              </Link>
               <div
                 className={styles.save}
                 onClick={() => {

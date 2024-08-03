@@ -1,6 +1,6 @@
 import Header from '../../../Header/components/Header';
 import Footer from '../../../Footer/components/Footer';
-import { userData, bananaData } from '../../dto/atom.interface';
+import { userData, bananaData, subscribedData } from '../../dto/atom.interface';
 import styles from '../scss/my-page.module.scss';
 import modal from '../scss/my-page-modal.module.scss';
 import sub from '../scss/my-page-sub-modal.module.scss';
@@ -10,6 +10,7 @@ import rightArrow from '../image/right_arrow.png';
 import rightFrame from '../image/rightFrame.png';
 import leftFrame from '../image/leftFrame.png';
 import dropDown from '../image/dropDown.png';
+import subscribe from '../image/subscribe.png';
 import profileImgDefault from '../../image/scapture-logo.png';
 // import profileImg from '../image/profile.webp';
 
@@ -17,8 +18,8 @@ import { useEffect, useRef, useState } from 'react';
 import { modalNotice } from '../functions/ModalFunction';
 import { BananaModal, SubscribeModal } from './MyPageModal';
 import { getBanana, getProfile } from '../../../../apis/api/mypage.api';
-import { useRecoilState } from 'recoil';
-import { userDataAtom, bananaDataAtom } from '../../Atom/atom';
+import { useRecoilState, useRecoilValue } from 'recoil';
+import { userDataAtom, bananaDataAtom, subscribedAtom } from '../../Atom/atom';
 import { Link } from 'react-router-dom';
 
 const MyPage = () => {
@@ -29,8 +30,12 @@ const MyPage = () => {
   const [pressed, setPressed] = useState(false);
   const [startX, setStartX] = useState(0);
 
+  //Recoil
   const [isProfile, setProfile] = useRecoilState<userData>(userDataAtom);
   const [isBanana, setBanana] = useRecoilState<bananaData>(bananaDataAtom);
+  const isSubscribed = useRecoilValue<subscribedData>(subscribedAtom);
+  // useState
+  const [isSubscribeState, setSubscribeState] = useState<boolean>();
   useEffect(() => {
     const fetchProfileInfo = async () => {
       const res = await getProfile();
@@ -58,7 +63,6 @@ const MyPage = () => {
 
     fetchProfileInfo();
   }, [setProfile, setBanana]);
-
   // mypage api
 
   useEffect(() => {
@@ -166,15 +170,20 @@ const MyPage = () => {
             </div>
             <div className={styles.userInfo}>
               <div className={styles.name}>{isProfile.name} 님</div>
+              {/* 컴포넌트 예정 */}
               <div
                 className={styles.subscribe}
                 onClick={() => {
                   modalNotice(modalSubRef);
+                  console.log(isSubscribed);
                 }}
               >
-                <div className={styles.who}>구독자</div>
-                <div className={styles.when}>{isProfile.endDate}까지 이용</div>
+                {/* <div className={styles.who}>구독자</div>
+                <div className={styles.when}>{isProfile.endDate}까지 이용</div> */}
+                <img src={subscribe} alt="" />
+                <div>구독하기</div>
               </div>
+              {/* 컴포넌트 예정 */}
               <div className={styles.group}>
                 <div className={styles.title}>소속팀</div>
                 <div className={styles.descrip}>{isProfile.team}</div>
@@ -217,8 +226,10 @@ const MyPage = () => {
       </div>
 
       <div className={styles.reservation}>
-        <p>예약 내역 확인하기</p>
-        <img src={rightArrow} alt="" />
+        <Link className={styles.reservation} to="/mypage/reservation">
+          <p>예약 내역 확인하기</p>
+          <img src={rightArrow} alt="" />
+        </Link>
       </div>
 
       <div className={styles.stored}>

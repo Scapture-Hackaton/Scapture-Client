@@ -11,3 +11,7 @@ export interface bananaData {
   balance: number;
   subscribed: boolean;
 }
+
+export interface subscribedData {
+  subscribed: boolean;
+}
