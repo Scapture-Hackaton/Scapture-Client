@@ -5,10 +5,10 @@ import checkBanana from '../image/check-banana.png';
 import {
   postBanana,
   postSubscribe,
-  putSubscribe,
+  // putSubscribe,  //추후 추가 예정
 } from '../../../../apis/api/mypage.api';
 import { useRecoilState, useSetRecoilState } from 'recoil';
-import { bananaData } from '../../dto/atom.interface';
+// import { bananaData } from '../../dto/atom.interface';
 interface ModalProps {
   styles: { [key: string]: string };
   ref: React.RefObject<HTMLDialogElement>;
@@ -127,21 +127,8 @@ export const BananaModal = forwardRef<HTMLDialogElement, ModalProps>(
 export const SubscribeModal = forwardRef<HTMLDialogElement, ModalProps>(
   ({ styles }, ref) => {
     // Recoil
-    const setBanana = useSetRecoilState(bananaDataAtom);
     const [isSubscribed, setSubscribed] = useRecoilState(subscribedAtom);
-    // useState
-    // const [isSubscribeState, setSubscribeState] = useState<boolean>();
-    // const subscribe = isSubscribeState;
 
-    // const Subscribe = async () => {
-    //   const resSubscribe = await postBanana(subscribe);
-    //   if (resSubscribe?.data.balance) {
-    //     setBanana(prev => ({
-    //       ...prev,
-    //       subscribed: resSubscribe.data.balance,
-    //     }));
-    //   }
-    // };
     return (
       <dialog ref={ref} id={styles.subModal}>
         <div className={styles.contents}>
