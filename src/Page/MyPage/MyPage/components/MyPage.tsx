@@ -19,7 +19,12 @@ import profileImgDefault from '../../image/scapture-logo.png';
 import { useEffect, useRef, useState } from 'react';
 import { modalNotice } from '../functions/ModalFunction';
 import { BananaModal, SubscribeModal } from './MyPageModal';
-import { getBanana, getProfile } from '../../../../apis/api/mypage.api';
+import {
+  getBanana,
+  getProfile,
+  getSortVideoLatest,
+  getSortVideoPopularity,
+} from '../../../../apis/api/mypage.api';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { userDataAtom, bananaDataAtom, subscribedAtom } from '../../Atom/atom';
 import { Link } from 'react-router-dom';
@@ -41,16 +46,24 @@ const MyPage = () => {
     const fetchProfileInfo = async () => {
       const res = await getProfile();
       const banana = await getBanana();
-      // console.log(
-      //   'res',
-      //   res?.data,
-      //   '\n',
-      //   'banana',
-      //   banana?.data,
-      //   '\n',
-      //   'subscribe',
-      //   isSubscribed,
-      // );
+      const videoSortLatest = await getSortVideoLatest();
+      const videoSortPopularity = await getSortVideoPopularity();
+      console.log(
+        'res',
+        res?.data,
+        '\n',
+        'banana',
+        banana?.data,
+        '\n',
+        'subscribe',
+        isSubscribed,
+        '\n',
+        'videoSortLatest',
+        videoSortLatest,
+        '\n',
+        'videoSortPopularity',
+        videoSortPopularity,
+      );
       if (res?.data && banana?.data) {
         setProfile(prev => ({
           ...prev,
@@ -71,6 +84,7 @@ const MyPage = () => {
 
     fetchProfileInfo();
   }, [setProfile, setBanana]);
+
   // mypage api
 
   useEffect(() => {
@@ -215,9 +229,8 @@ const MyPage = () => {
           </div>
 
           <hr></hr>
-          {isSubscribed.subscribed ? (
+          {isSubscribed.subscribed || isProfile.endDate ? (
             <>
-              {' '}
               <div className={styles.chargeContainer}>
                 <div className={styles.invite}>
                   {isProfile.name}님은 현재 구독 중 입니다.
