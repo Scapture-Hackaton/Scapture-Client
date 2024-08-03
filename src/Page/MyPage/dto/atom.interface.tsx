@@ -15,3 +15,11 @@ export interface bananaData {
 export interface subscribedData {
   subscribed: boolean;
 }
+
+export interface reservationData {
+  data: string;
+  date: string;
+  name: string;
+  hours: string;
+  message: string;
+}
