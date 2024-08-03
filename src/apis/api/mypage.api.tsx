@@ -1,16 +1,18 @@
 import { CommonResponse } from '../dto/common.response';
 import { authInstance } from '../utils/instance';
 
+//프로필 정보 (get)
 export const getProfile = async (): Promise<CommonResponse | undefined> => {
   try {
     const res = await authInstance.get(`api/user/profile`);
-    console.log('Response:', res);
+    // console.log('Response:', res);
     return res.data;
   } catch (error) {
     console.error('Error: ', error);
   }
 };
 
+//프로필 편집(put)
 export const putProfile = async (
   profileData: { [key: string]: any },
   imageFile: File,
@@ -35,54 +37,60 @@ export const putProfile = async (
   }
 };
 
+//버내너 정보(get)
 export const getBanana = async (): Promise<CommonResponse | undefined> => {
   try {
     const res = await authInstance.get(`api/user/bananas`);
-    console.log('Response:', res);
+    // console.log('Response:', res);
     return res.data;
   } catch (error) {
     console.error('Error: ', error);
   }
 };
 
+//버내너 충전(post)
 export const postBanana = async (
   banana: number, // banana: number,
 ): Promise<CommonResponse | undefined> => {
   try {
     const res = await authInstance.post(`api/user/bananas`, banana);
-    console.log('Response:', res);
+    // console.log('Response:', res);
     return res.data;
   } catch (error: any) {
     if (error) console.error('Error: ', error.message);
   }
 };
 
+//예약 정보(get)
 export const getReservation = async (): Promise<CommonResponse | undefined> => {
   try {
     const res = await authInstance.get(`api/user/reservations`);
-    console.log('Response:', res);
+    // console.log('Response:', res);
     return res.data;
   } catch (error) {
     console.error('Error: ', error);
   }
 };
 
+//구독 요청(post)
+//subscribeData가 requestBody에 필요 없는지 확인 필요
 export const postSubscribe = async (subscribeData: {
   [key: string]: any;
 }): Promise<CommonResponse | undefined> => {
   try {
     const res = await authInstance.post(`api/user/subscribe`, subscribeData);
-    console.log('Response:', res);
+    // console.log('Response:', res);
     return res.data;
   } catch (error) {
     console.error('Error: ', error);
   }
 };
 
+//구독 갱신(put)
 export const putSubscribe = async (): Promise<CommonResponse | undefined> => {
   try {
     const res = await authInstance.put(`api/user/subscribe`);
-    console.log('Response:', res);
+    // console.log('Response:', res);
     return res.data;
   } catch (error) {
     console.error('Error: ', error);

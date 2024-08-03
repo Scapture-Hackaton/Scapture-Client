@@ -17,7 +17,7 @@ interface ModalProps {
 interface ModalCheckProps extends ModalProps {
   extendRef: React.RefObject<HTMLDialogElement>;
 }
-
+//Reservation 참조
 const subscribeData = {
   startDate: '2024-07-22 00:00',
   endDate: '2024-08-22 00:00',
@@ -159,8 +159,7 @@ export const SubscribeModal = forwardRef<HTMLDialogElement, ModalProps>(
               onClick={() => {
                 (ref as React.RefObject<HTMLDialogElement>).current?.close();
                 // subscribe API
-                // postSubscribe(subscribeData);
-                // putSubscribe();
+                postSubscribe(subscribeData);
                 setSubscribed(prev => ({ ...prev, subscribed: true }));
                 console.log(isSubscribed);
               }}
