@@ -23,8 +23,6 @@ import {
   getBanana,
   getProfile,
   getSortVideo,
-  getSortVideoLatest,
-  getSortVideoPopularity,
 } from '../../../../apis/api/mypage.api';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { userDataAtom, bananaDataAtom, subscribedAtom } from '../../Atom/atom';
@@ -63,24 +61,17 @@ const MyPage = () => {
     const fetchProfileInfo = async () => {
       const res = await getProfile();
       const banana = await getBanana();
-      const videoSortLatest = await getSortVideoLatest();
-      const videoSortPopularity = await getSortVideoPopularity();
-      console.log(
-        'res',
-        res?.data,
-        '\n',
-        'banana',
-        banana?.data,
-        '\n',
-        'subscribe',
-        isSubscribed,
-        '\n',
-        'videoSortLatest',
-        videoSortLatest,
-        '\n',
-        'videoSortPopularity',
-        videoSortPopularity,
-      );
+      // const videoSort = await getSortVideo();
+      // console.log(
+      //   'res',
+      //   res?.data,
+      //   '\n',
+      //   'banana',
+      //   banana?.data,
+      //   '\n',
+      //   'subscribe',
+      //   isSubscribed,
+      // );
       if (res?.data && banana?.data) {
         setProfile(prev => ({
           ...prev,
