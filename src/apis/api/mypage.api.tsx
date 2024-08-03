@@ -118,3 +118,14 @@ export const getSortVideoPopularity = async (): Promise<
     console.error('Error: ', error);
   }
 };
+
+export const getSortVideo = async (
+  type: string,
+): Promise<CommonResponse | undefined> => {
+  try {
+    const res = await authInstance.get(`api/videos/store?sort=${type}`);
+    return res.data;
+  } catch (error) {
+    console.error('Error: ', error);
+  }
+};

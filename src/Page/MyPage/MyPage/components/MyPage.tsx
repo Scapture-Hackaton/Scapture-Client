@@ -22,6 +22,7 @@ import { BananaModal, SubscribeModal } from './MyPageModal';
 import {
   getBanana,
   getProfile,
+  getSortVideo,
   getSortVideoLatest,
   getSortVideoPopularity,
 } from '../../../../apis/api/mypage.api';
@@ -41,6 +42,22 @@ const MyPage = () => {
   const [isProfile, setProfile] = useRecoilState<userData>(userDataAtom);
   const [isBanana, setBanana] = useRecoilState<bananaData>(bananaDataAtom);
   const isSubscribed = useRecoilValue<subscribedData>(subscribedAtom);
+
+  // interface sortTypeObject {
+  //   latest: string;
+  //   popularity: string;
+  // }
+
+  //sort Object
+  // const sortType: sortTypeObject = {
+  //   latest: '',
+  //   popularity: '',
+  // };
+
+  const handleSortType = (type: string) => {
+    const res = getSortVideo(type);
+    console.log(res);
+  };
 
   useEffect(() => {
     const fetchProfileInfo = async () => {
@@ -299,7 +316,10 @@ const MyPage = () => {
               <li>
                 <button
                   type="button"
-                  onClick={() => handleOptionClick('최신순')}
+                  onClick={() => {
+                    handleOptionClick('최신순');
+                    handleSortType('latest');
+                  }}
                 >
                   최신순
                 </button>
@@ -307,7 +327,10 @@ const MyPage = () => {
               <li>
                 <button
                   type="button"
-                  onClick={() => handleOptionClick('인기순')}
+                  onClick={() => {
+                    handleOptionClick('인기순');
+                    handleSortType('popularity');
+                  }}
                 >
                   인기순
                 </button>
@@ -315,7 +338,10 @@ const MyPage = () => {
               <li>
                 <button
                   type="button"
-                  onClick={() => handleOptionClick('조회수')}
+                  onClick={() => {
+                    handleOptionClick('조회수');
+                    alert('아직 준비 중 입니다!');
+                  }}
                 >
                   조회수
                 </button>
