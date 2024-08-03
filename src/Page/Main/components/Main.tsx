@@ -1,28 +1,29 @@
 import Header from '../../Header/components/Header';
 import Footer from '../../Footer/components/Footer';
 
+import styles from '../scss/main.module.scss';
+
 import BannerImage from '../image/banner-image.png';
 import IntroImage from '../image/intro-image.png';
 import CheckBox from '../image/checkbox.png';
 import StadiumImage from '../image/stadium-image.png';
 import popularVideoBack from '../image/popularVideoBack.png';
-import InfoImageA from '../image/info-image-a.png';
-import InfoImageB from '../image/info-image-b.png';
+
 import EffectRight from '../image/effect-right.png';
 import EffectLeft from '../image/effect-left.png';
-import styles from '../scss/main.module.scss';
+
 import { useQuery } from '@tanstack/react-query';
-import { getPopularVideosInMain } from '../../../apis/api/main.api';
+import { getMainStadium } from '../../../apis/api/main.api';
 import { useNavigate } from 'react-router-dom';
+import AllianceStadium from './AllianceStadium';
 // import { PopularVideos } from '../../../apis/dto/main.dto';
 // import banner from '../scss/banner.module.scss';
 
 const Main = () => {
-  const { data: popularVideoData, isSuccess: isPopularVideoDataSuccess } =
-    useQuery({
-      queryKey: ['popular_videos'],
-      queryFn: () => getPopularVideosInMain(),
-    });
+  const { data: mainData, isSuccess: isMainDataSuccess } = useQuery({
+    queryKey: ['main_stadium'],
+    queryFn: () => getMainStadium(),
+  });
 
   const navigate = useNavigate();
 
@@ -69,61 +70,66 @@ const Main = () => {
             </div>
           </div>
 
-          {popularVideoData && isPopularVideoDataSuccess ? (
-            <div className={styles.video} onClick={toStadiumPage}>
-              <span id={styles.content}>인기 동영상</span>
-              <div className={styles.imageContainer}>
-                <img
-                  src={popularVideoBack}
-                  alt=""
-                  className={styles.backgroundImage}
-                />
-                <img
-                  src={popularVideoData[0].image}
-                  alt=""
-                  className={styles.overlayImage}
-                />
-              </div>
-              <div id={styles.group}>
-                <div className={styles.name}>
-                  <span id={styles.title}>경기장 이름</span>
-                  <span id={styles.date}>경기 진행 일시</span>
+          {mainData && isMainDataSuccess ? (
+            <>
+              <div className={styles.video} onClick={toStadiumPage}>
+                <span id={styles.content}>인기 동영상</span>
+                <div className={styles.imageContainer}>
+                  <img
+                    src={popularVideoBack}
+                    alt=""
+                    className={styles.backgroundImage}
+                  />
+                  <img
+                    src={mainData.popular.image}
+                    alt=""
+                    className={styles.overlayImage}
+                  />
                 </div>
-                <div className={styles.detail}>
-                  <span id={styles.title}>
-                    {popularVideoData[0].stadium.name}
-                  </span>
-                  <span id={styles.date}>
-                    {popularVideoData[0].date} / 10:00~12:00
-                  </span>
+                <div id={styles.group}>
+                  <div className={styles.name}>
+                    <span id={styles.title}>경기장 이름</span>
+                    <span id={styles.date}>경기 진행 일시</span>
+                  </div>
+                  <div className={styles.detail}>
+                    <span id={styles.title}>
+                      {mainData.popular.stadiumName}
+                    </span>
+                    <span id={styles.date}>
+                      {mainData.popular.date} / {mainData.popular.hours}
+                    </span>
+                  </div>
                 </div>
               </div>
-            </div>
-          ) : null}
 
-          <div className={styles.info}>
-            <div className={styles.group}>
-              <div id={styles.effect}>
-                <div>
-                  <img src={EffectLeft} alt="" />
-                </div>
-                <span>제휴 구장</span>
-                <div>
-                  <img src={EffectRight} alt="" />
+              <div className={styles.info}>
+                <div className={styles.group}>
+                  <div id={styles.effect}>
+                    <div>
+                      <img src={EffectLeft} alt="" />
+                    </div>
+                    <span>제휴 구장</span>
+                    <div>
+                      <img src={EffectRight} alt="" />
+                    </div>
+                  </div>
+                  <div className={styles.images}>
+                    <AllianceStadium
+                      stadiumList={mainData.stadiums}
+                    ></AllianceStadium>
+                    {/* <div>
+                      <img src={InfoImageA} alt="" />
+                      <div>장충테스장</div>
+                    </div>
+                    <div>
+                      <img src={InfoImageB} alt="" />
+                      <div>수락산스포츠타운야구장</div>
+                    </div> */}
+                  </div>
                 </div>
               </div>
-              <div className={styles.images}>
-                <div>
-                  <img src={InfoImageA} alt="" />
-                  <div>장충테스장</div>
-                </div>
-                <div>
-                  <img src={InfoImageB} alt="" />
-                  <div>수락산스포츠타운야구장</div>
-                </div>
-              </div>
-            </div>
-          </div>
+            </>
+          ) : null}
         </div>
       </div>
       <Footer />

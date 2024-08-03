@@ -222,21 +222,40 @@
 
           .images {
             // background-color: #3f2f39;
-            display: flex;
-            flex-direction: row;
+            // width: 100%;
 
-            > div {
-              // background-color: #3433ff;
+            margin: auto;
+
+            .stadiumList {
+              // background-color: red;
+              margin: 0 auto;
+              width: 90%;
+
               display: flex;
-              flex-direction: column;
-              margin: 0 1.5625rem 1.25rem 0;
+              align-items: center;
 
-              > div {
-                // background-color: black;
-                font-size: var(--font-size-s);
+              .items {
+                // background-color: #3433ff;
                 display: flex;
-                justify-content: flex-end;
-                margin-top: 0.9375rem;
+                flex-direction: column;
+                margin: 0 1.5625rem 1.25rem 0;
+
+                img {
+                  width: 183px;
+                  height: 122px;
+
+                  border-radius: 10px;
+
+                  cursor: pointer;
+                }
+
+                div {
+                  // background-color: black;
+                  font-size: var(--font-size-s);
+                  display: flex;
+                  justify-content: flex-end;
+                  margin-top: 0.9375rem;
+                }
               }
             }
           }

@@ -7,3 +7,9 @@ export interface PopularVideos {
   date: string;
   likeCount: number;
 }
+
+export interface AllianceStadiumDto {
+  stadiumId: number;
+  image: string;
+  name: string;
+}
