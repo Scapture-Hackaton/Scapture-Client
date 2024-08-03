@@ -1,8 +1,6 @@
 import React, { forwardRef, useState } from 'react';
-import { userDataAtom, bananaDataAtom, subscribedAtom } from '../../Atom/atom';
-import { modalNotice } from '../functions/ModalFunction';
+import { bananaDataAtom, subscribedAtom } from '../../Atom/atom';
 import cancel from '../image/cancel.png';
-import checkbox from '../image/checkbox.png';
 import checkBanana from '../image/check-banana.png';
 import {
   postBanana,
@@ -26,6 +24,7 @@ const subscribeData = {
 };
 // const banana = 5;
 
+// 버내너 API
 export const BananaModal = forwardRef<HTMLDialogElement, ModalProps>(
   ({ styles }, ref) => {
     // Recoil
@@ -124,6 +123,7 @@ export const BananaModal = forwardRef<HTMLDialogElement, ModalProps>(
   },
 );
 
+// 구독 API
 export const SubscribeModal = forwardRef<HTMLDialogElement, ModalProps>(
   ({ styles }, ref) => {
     // Recoil
@@ -133,15 +133,15 @@ export const SubscribeModal = forwardRef<HTMLDialogElement, ModalProps>(
     // const [isSubscribeState, setSubscribeState] = useState<boolean>();
     // const subscribe = isSubscribeState;
 
-    const Subscribe = async () => {
-      const resSubscribe = await postBanana(subscribe);
-      if (resSubscribe?.data.balance) {
-        setBanana(prev => ({
-          ...prev,
-          subscribed: resSubscribe.data.balance,
-        }));
-      }
-    };
+    // const Subscribe = async () => {
+    //   const resSubscribe = await postBanana(subscribe);
+    //   if (resSubscribe?.data.balance) {
+    //     setBanana(prev => ({
+    //       ...prev,
+    //       subscribed: resSubscribe.data.balance,
+    //     }));
+    //   }
+    // };
     return (
       <dialog ref={ref} id={styles.subModal}>
         <div className={styles.contents}>
@@ -158,6 +158,7 @@ export const SubscribeModal = forwardRef<HTMLDialogElement, ModalProps>(
               id={styles.checkBoxButton}
               onClick={() => {
                 (ref as React.RefObject<HTMLDialogElement>).current?.close();
+                // subscribe API
                 // postSubscribe(subscribeData);
                 // putSubscribe();
                 setSubscribed(prev => ({ ...prev, subscribed: true }));

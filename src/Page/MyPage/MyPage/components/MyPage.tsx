@@ -1,9 +1,11 @@
 import Header from '../../../Header/components/Header';
 import Footer from '../../../Footer/components/Footer';
 import { userData, bananaData, subscribedData } from '../../dto/atom.interface';
+
 import styles from '../scss/my-page.module.scss';
 import modal from '../scss/my-page-modal.module.scss';
 import sub from '../scss/my-page-sub-modal.module.scss';
+
 import pencil from '../../image/pencil.png';
 import banana from '../image/banana.png';
 import rightArrow from '../image/right_arrow.png';
@@ -34,15 +36,21 @@ const MyPage = () => {
   const [isProfile, setProfile] = useRecoilState<userData>(userDataAtom);
   const [isBanana, setBanana] = useRecoilState<bananaData>(bananaDataAtom);
   const isSubscribed = useRecoilValue<subscribedData>(subscribedAtom);
-  // useState
-  const [isSubscribeState, setSubscribeState] = useState<boolean>();
+
   useEffect(() => {
     const fetchProfileInfo = async () => {
       const res = await getProfile();
       const banana = await getBanana();
-      console.log('res', res?.data);
-      console.log('banana', banana?.data);
-
+      // console.log(
+      //   'res',
+      //   res?.data,
+      //   '\n',
+      //   'banana',
+      //   banana?.data,
+      //   '\n',
+      //   'subscribe',
+      //   isSubscribed,
+      // );
       if (res?.data && banana?.data) {
         setProfile(prev => ({
           ...prev,
@@ -170,7 +178,7 @@ const MyPage = () => {
             </div>
             <div className={styles.userInfo}>
               <div className={styles.name}>{isProfile.name} 님</div>
-              {/* 컴포넌트 예정 */}
+
               <div
                 className={styles.subscribe}
                 onClick={() => {
@@ -178,10 +186,20 @@ const MyPage = () => {
                   console.log(isSubscribed);
                 }}
               >
-                {/* <div className={styles.who}>구독자</div>
-                <div className={styles.when}>{isProfile.endDate}까지 이용</div> */}
-                <img src={subscribe} alt="" />
-                <div>구독하기</div>
+                {/* 컴포넌트 예정 */}
+                {isSubscribed.subscribed || isProfile.endDate ? (
+                  <>
+                    <div className={styles.who}>구독자</div>
+                    <div className={styles.when}>
+                      {isProfile.endDate}까지 이용
+                    </div>
+                  </>
+                ) : (
+                  <>
+                    <img src={subscribe} alt="" />
+                    <div>구독하기</div>
+                  </>
+                )}
               </div>
               {/* 컴포넌트 예정 */}
               <div className={styles.group}>
@@ -197,36 +215,53 @@ const MyPage = () => {
           </div>
 
           <hr></hr>
-          <div className={styles.bananaContainer}>
-            <div className={styles.group}>
-              <div className={styles.bananaBox}>
-                <img className={styles.banana} src={banana} alt="" />
+          {isSubscribed.subscribed ? (
+            <>
+              {' '}
+              <div className={styles.chargeContainer}>
+                <div className={styles.invite}>
+                  {isProfile.name}님은 현재 구독 중 입니다.
+                </div>
               </div>
-              <p className={styles.text}>버내너</p>
-            </div>
-            <div className={styles.group}>
-              <p>보유 갯수</p>
-              <p>{isBanana.balance}</p>
-            </div>
-          </div>
-
-          <div className={styles.chargeContainer}>
-            <div className={styles.invite}>친구 초대하고 '버내너 3개' 받기</div>
-            <div
-              className={styles.charge}
-              onClick={() => {
-                modalNotice(modalRef);
-              }}
-            >
-              버내너 충전하기
-            </div>
-          </div>
+            </>
+          ) : (
+            <>
+              <div className={styles.bananaContainer}>
+                <div className={styles.group}>
+                  <div className={styles.bananaBox}>
+                    <img className={styles.banana} src={banana} alt="" />
+                  </div>
+                  <p className={styles.text}>버내너</p>
+                </div>
+                <div className={styles.group}>
+                  <p>보유 갯수</p>
+                  <p>{isBanana.balance}</p>
+                </div>
+              </div>
+              <div className={styles.chargeContainer}>
+                <div className={styles.invite}>
+                  친구 초대하고 '버내너 3개' 받기
+                </div>
+                <div
+                  className={styles.charge}
+                  onClick={() => {
+                    modalNotice(modalRef);
+                  }}
+                >
+                  버내너 충전하기
+                </div>
+              </div>
+            </>
+          )}
         </div>
-        {/* <Footer /> */}
       </div>
 
       <div className={styles.reservation}>
-        <Link className={styles.reservation} to="/mypage/reservation">
+        <Link
+          className={styles.reservation}
+          style={{ textDecoration: 'none' }}
+          to="/mypage/reservation"
+        >
           <p>예약 내역 확인하기</p>
           <img src={rightArrow} alt="" />
         </Link>
