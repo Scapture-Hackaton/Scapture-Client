@@ -11,7 +11,6 @@ interface VideoListProps {
 }
 
 const VideoList: React.FC<VideoListProps> = ({ scheduleId, stadiumId }) => {
-
   // Fetch video data with react-query
   const { data: videos } = useQuery<ScheduleVideo[]>({
     queryKey: ['videoScheduled', scheduleId],
