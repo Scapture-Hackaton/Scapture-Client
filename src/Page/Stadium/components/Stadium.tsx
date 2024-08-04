@@ -236,7 +236,6 @@ const Stadium = () => {
         </div>
 
         <VideoList scheduleId={isScheduleId} stadiumId={stadiumId}></VideoList>
-
       </div>
       <Footer />
     </div>
