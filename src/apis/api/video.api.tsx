@@ -1,8 +1,8 @@
 /**
- * Stadium 관련 API
+ * Stadium - video 관련 API
  */
 import { CommonResponse } from '../dto/common.response';
-import { defaultInstance, authInstance } from '../utils/instance';
+import { authInstance } from '../utils/instance';
 
 // 영상 권한 부여
 export const checkAuthDownloadVideo = async (videoId: number) => {
