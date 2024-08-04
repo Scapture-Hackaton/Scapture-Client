@@ -25,9 +25,9 @@ const PopularVideoList: React.FC<PopularVideoListProps> = ({ videos = [] }) => {
 
                 <div className={styles.field}>
                   <div className={styles.profileImg}>
-                    <img src="" alt=""></img>
+                    <img src={video.stadium.image} alt=""></img>
                   </div>
-                  <div className={styles.name}>{video.stadiumName}</div>
+                  <div className={styles.name}>{video.stadium.name}</div>
                 </div>
               </div>
             </div>

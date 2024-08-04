@@ -1,7 +1,9 @@
 import Header from '../../Header/components/Header';
 import Footer from '../../Footer/components/Footer';
 import styles from '../scss/video.module.scss';
+
 import modal from '../scss/video-modal.module.scss';
+
 import download from '../image/download.png';
 import share from '../image/share.png';
 
@@ -169,7 +171,6 @@ const Video = () => {
   const handleDownloadClick = async () => {
     try {
       const authResponse = await checkAuthDownloadVideo(videoId);
-      // console.log(authResponse.status);
 
       if (authResponse.status === 200 || authResponse.status === 409) {
         const downloadResponse = await downloadVideo(videoId);
@@ -285,7 +286,7 @@ const Video = () => {
       toggleUnStore(videoId);
     }
   };
-  
+
   return (
     <div className={styles.test}>
       <Header />
@@ -408,6 +409,7 @@ const Video = () => {
           <div className={styles.pageNum}>1</div>
           <img src={rightArrow} alt=""></img>
         </div> */}
+
         <VideoModal styles={modal} ref={modalRef} />
       </div>
       <Footer />

@@ -2,8 +2,8 @@ import Header from '../../Header/components/Header';
 import Footer from '../../Footer/components/Footer';
 import dropDown from '../image/dropDown.png';
 import upBtn from '../image/upBtn.png';
-import rightArrow from '../image/rightArrow.png';
-import leftArrow from '../image/leftArrow.png';
+// import rightArrow from '../image/rightArrow.png';
+// import leftArrow from '../image/leftArrow.png';
 
 import styles from '../scss/community.module.scss';
 import { useState } from 'react';
@@ -26,7 +26,7 @@ const Community = () => {
     isSuccess: isPopularVideoDataSuccess,
   } = useQuery({
     queryKey: ['popular_videos'],
-    queryFn: () => getPopularVideos,
+    queryFn: () => getPopularVideos(),
     initialData: { data: [] },
   });
 
@@ -47,8 +47,8 @@ const Community = () => {
   // onToggleLike 함수 정의
   const handleToggleLike = (videoId: number) => {
     // 성공적으로 API 호출 후 데이터 갱신
-    queryClient.invalidateQueries(['popular_videos']);
-    queryClient.invalidateQueries(['video_detail', videoId]);
+    queryClient.invalidateQueries({ queryKey: ['popular_videos'] });
+    queryClient.invalidateQueries({ queryKey: ['video_detail', videoId] });
   };
 
   const handleToggleComments = () => {
@@ -117,11 +117,11 @@ const Community = () => {
 
         <PopularVideoList videos={popularVideoData}></PopularVideoList>
 
-        <div className={styles.paging}>
+        {/* <div className={styles.paging}>
           <img src={leftArrow} alt=""></img>
           <div className={styles.pageNum}>1</div>
           <img src={rightArrow} alt=""></img>
-        </div>
+        </div> */}
       </div>
       <Footer />
     </div>

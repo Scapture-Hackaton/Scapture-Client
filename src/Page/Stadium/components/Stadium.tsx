@@ -9,6 +9,7 @@ import {
   StadiumFileds,
   StadiumHoursData,
 } from '../../../apis/dto/scapture.dto';
+
 import { useQuery } from '@tanstack/react-query';
 import {
   getStadiumDetail,
@@ -20,8 +21,14 @@ import StadiumHours from './StadiumHours';
 import VideoList from './VideoList';
 
 import { useQuery } from '@tanstack/react-query';
-import { getStadiumDetail } from '../../../apis/api/stadium.api';
-import { StadiumDetail } from '../../../apis/dto/stadium.dto';
+import {
+  getStadiumDetail,
+  getStadiumDHours,
+} from '../../../apis/api/stadium.api';
+import { useEffect, useState } from 'react';
+import SelectBtn from './SelectBtn';
+import StadiumHours from './StadiumHours';
+import VideoList from './VideoList';
 
 const Stadium = () => {
   const location = useLocation();

@@ -5,7 +5,7 @@ import Footer from '../../Footer/components/Footer';
 import styles from '../scss/reservation.module.scss';
 import modal from '../scss/reservation-modal.module.scss';
 import check from '../scss/reservation-check-modal.module.scss';
-import { modalNotice } from '../functions/ModalFunction';
+// import { modalNotice } from '../functions/ModalFunction';
 import {
   ReservationModal,
   ReservationCheckModal,
@@ -19,7 +19,7 @@ import { useLocation } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import { getStadiumDetail } from '../../../apis/api/stadium.api';
 import { StadiumDetail, StadiumFileds } from '../../../apis/dto/scapture.dto';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { getReservationList } from '../../../apis/api/reservation.api';
 import SelectBtn from './SelectBtn';
 import ReservationList from './ReservationList';
@@ -27,8 +27,9 @@ import { ReservationDto } from '../../../apis/dto/reservation.dto';
 import { useRef } from 'react';
 
 const Reservation = () => {
-const modalRef = useRef<HTMLDialogElement>(null);
+  const modalRef = useRef<HTMLDialogElement>(null);
   const modalCheckRef = useRef<HTMLDialogElement>(null);
+
   const location = useLocation();
   const stadiumId = location.state.stadiumId;
 
@@ -140,7 +141,7 @@ const modalRef = useRef<HTMLDialogElement>(null);
       fetchData();
     }
   }, [selectedFieldId, formattedDate]);
-  
+
   return (
     <div className={styles.test}>
       <Header />
