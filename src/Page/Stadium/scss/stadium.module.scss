@@ -1,9 +1,6 @@
 .test {
   // background-color: var(--guide-line-color);
   width: 100%;
-
-  // margin-top: 2.875rem;
-
   .stadium {
     color: white;
     margin-top: 2.875rem;
@@ -55,6 +52,9 @@
               font-size: var(--font-size-m);
 
               margin-right: 1rem;
+              span {
+                white-space: pre-wrap;
+              }
             }
           }
 
@@ -81,17 +81,17 @@
               font-size: var(--font-size-xm);
               font-weight: 600;
 
+             height: 100%;
               width: 100px;
-              height: 100%;
-
               background: linear-gradient(
                 -60deg,
                 transparent 20px,
-                rgba(97, 91, 20, 1) 0
+                var(--sub-color-yellow-03) 0
               );
 
               display: flex;
               align-items: center;
+
               padding-left: 0.7rem;
               margin-right: 1rem;
             }
@@ -253,6 +253,7 @@
 
       .housrsList {
         width: 80%;
+
         display: flex;
         flex-direction: row;
         justify-content: center;
