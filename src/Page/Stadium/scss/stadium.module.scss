@@ -55,6 +55,8 @@
               margin-right: 1rem;
               font-weight: 600;
 
+              font-weight: 600;
+
               span {
                 white-space: pre-wrap;
               }
@@ -255,7 +257,7 @@
       margin-bottom: 2rem;
 
       .housrsList {
-        width: 80%;
+        width: 85%;
         display: flex;
         flex-direction: row;
         justify-content: center;
@@ -267,7 +269,10 @@
           background-color: var(--black-color);
           border: 1px solid var(--grey-color-grey-02);
           border-radius: 10px;
-          margin-right: 1.25rem;
+          // margin-right: 1.25rem;
+
+          cursor: pointer;
+          // margin-right: 5rem;
 
           cursor: pointer;
           // margin-right: 5rem;
@@ -289,7 +294,7 @@
               flex-wrap: wrap;
               justify-content: flex-end;
               align-content: flex-end;
-              width: 8.125rem;
+              width: 8rem;
               height: 3rem;
               color: yellow;
             }
@@ -317,7 +322,7 @@
           rgba(0, 56, 255, 0.8) 51%,
           rgba(0, 56, 255, 0.2) 100%
         );
-        
+
         border-image-slice: 1;
 
         padding: 1rem;

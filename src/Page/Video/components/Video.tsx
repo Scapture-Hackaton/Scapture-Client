@@ -36,7 +36,7 @@ import {
 import BookMark from './BookMark';
 
 import { useRef } from 'react';
-// import { modalNotice } from '../functions/ModalFunction';
+import { modalNotice } from '../functions/ModalFunction';
 import { VideoModal } from './VideoModal';
 
 const Video = () => {
