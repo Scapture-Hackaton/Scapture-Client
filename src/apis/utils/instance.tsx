@@ -1,6 +1,7 @@
 import axios from 'axios';
 
 const BASE_URL = `http://${import.meta.env.VITE_SERVER_URL}:${import.meta.env.VITE_SERVER_PORT}/`;
+
 // const BASE_URL = `http://localhost:8080/`;
 
 const defaultApi = axios.create({
