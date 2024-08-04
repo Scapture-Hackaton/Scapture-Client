@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from '../scss/stadium.module.scss';
+import styles from '../scss/video.module.scss';
 import { useQuery } from '@tanstack/react-query';
 import { getVideoScheduled } from '../../../apis/api/stadium.api';
 import { ScheduleVideo } from '../../../apis/dto/scapture.dto';
@@ -7,9 +7,10 @@ import { useNavigate } from 'react-router-dom';
 
 interface VideoListProps {
   scheduleId: number | undefined;
+  stadiumId: number;
 }
 
-const VideoList: React.FC<VideoListProps> = ({ scheduleId }) => {
+const VideoList: React.FC<VideoListProps> = ({ scheduleId, stadiumId }) => {
   // Fetch video data with react-query
   const { data: videos } = useQuery<ScheduleVideo[]>({
     queryKey: ['videoScheduled', scheduleId],
@@ -25,7 +26,7 @@ const VideoList: React.FC<VideoListProps> = ({ scheduleId }) => {
   const navigate = useNavigate();
 
   const toVideo = (videoId: number) => {
-    navigate('/video', { state: { videoId } });
+    navigate('/video', { state: { videoId, stadiumId } });
   };
 
   return (
@@ -33,7 +34,7 @@ const VideoList: React.FC<VideoListProps> = ({ scheduleId }) => {
       {videos && videos.length > 0
         ? videos.map((video: ScheduleVideo) => (
             <div
-              className={styles.videoContainer}
+              className={styles.container}
               key={video.videoId}
               onClick={() => toVideo(video.videoId)}
             >
