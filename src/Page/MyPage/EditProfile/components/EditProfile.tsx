@@ -8,7 +8,7 @@ import profileImgDefault from '../../image/scapture-logo.png';
 import pencil from '../../image/pencil.png';
 import { putProfile } from '../../../../apis/api/mypage.api';
 import { Link } from 'react-router-dom';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 // import profileImg from '../image/profile.webp';
 
@@ -22,7 +22,11 @@ const EditProfile = () => {
   //   role: res.data.role,
   //   team: res.data.team,
   // }));
+
   // userData 한번 더 get 해야 안전하다.
+
+  //recoil
+  const [isProfile, setProfile] = useRecoilState<userData>(userDataAtom);
 
   //useState
   //⚠NOTICE!! : DON'T CHANGE THAT VALUE NAME!!!
@@ -32,8 +36,9 @@ const EditProfile = () => {
   const [isSelectedFile, setSelectedFile] = useState<File | null>(null);
   //⚠NOTICE!! : DON'T CHANGE THAT VALUE NAME!!!
 
-  //recoil
-  const [isProfile, setProfile] = useRecoilState<userData>(userDataAtom);
+  const [isViewImage, setViewImage] = useState<string>(
+    isProfile.image || profileImgDefault,
+  );
 
   const onSelectedFile = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
@@ -41,14 +46,24 @@ const EditProfile = () => {
     if (selectedFile && selectedFile[0]) {
       const file = selectedFile[0];
       const BlobFile = URL.createObjectURL(file);
+      const url = { uploadFile: BlobFile };
       console.log(BlobFile);
+      setViewImage(BlobFile);
       setSelectedFile(file);
-      setSelectedFileURL({ uploadFile: BlobFile });
+      setSelectedFileURL(url);
+
       return BlobFile;
     } else {
       alert('잘못된 형식입니다. 다시 시도해주세요.');
     }
   };
+  //임시로 설정한 useEffect 점검 및 검토 필요
+  useEffect(() => {
+    if (isSelectedFile) {
+      const BlobFile = URL.createObjectURL(isSelectedFile);
+      setSelectedFileURL({ uploadFile: BlobFile });
+    }
+  }, [isSelectedFile]);
 
   return (
     <div className={styles.test}>
@@ -59,7 +74,7 @@ const EditProfile = () => {
               <div className={styles.box}>
                 <img
                   className={styles.image}
-                  src={isProfile.image || isSelectedFileURL.uploadFile} // isSelectedFileURL.uploadFile ||// profileImgDefault
+                  src={isViewImage} // isSelectedFileURL.uploadFile ||// profileImgDefault
                   alt="SCAPTURE"
                 />
               </div>
