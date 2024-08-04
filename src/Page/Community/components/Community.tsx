@@ -2,8 +2,8 @@ import Header from '../../Header/components/Header';
 import Footer from '../../Footer/components/Footer';
 import dropDown from '../image/dropDown.png';
 import upBtn from '../image/upBtn.png';
-import rightArrow from '../image/rightArrow.png';
-import leftArrow from '../image/leftArrow.png';
+// import rightArrow from '../image/rightArrow.png';
+// import leftArrow from '../image/leftArrow.png';
 
 import styles from '../scss/community.module.scss';
 import { useState } from 'react';

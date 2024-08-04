@@ -53,7 +53,7 @@ const Comment: React.FC<CommentProps> = ({ isShow }) => {
       writeComment(newComment.videoId, newComment.content),
     onSuccess: () => {
       // 댓글 작성 후 댓글 목록을 다시 가져옴
-      queryClient.invalidateQueries(['comments', videoId]);
+      queryClient.invalidateQueries({ queryKey: ['comments', videoId] });
       setInput('');
     },
   });
