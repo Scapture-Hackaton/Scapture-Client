@@ -1,6 +1,5 @@
 import Header from '../../Header/components/Header';
 import Footer from '../../Footer/components/Footer';
-
 import styles from '../scss/video.module.scss';
 import download from '../image/download.png';
 import share from '../image/share.png';
@@ -33,7 +32,13 @@ import {
 } from '../../../apis/api/video.api';
 import BookMark from './BookMark';
 
+import modal from '../scss/video-modal.module.scss';
+import { useRef } from 'react';
+import { modalNotice } from '../functions/ModalFunction';
+import { VideoModal } from './VideoModal';
+
 const Video = () => {
+  const modalRef = useRef<HTMLDialogElement>(null);
   const queryClient = useQueryClient();
   const location = useLocation();
   const stadiumId = location.state.stadiumId;
@@ -167,6 +172,7 @@ const Video = () => {
 
       if (authResponse.status === 200 || authResponse.status === 409) {
         const downloadResponse = await downloadVideo(videoId);
+
         if (downloadResponse.status === 200) {
           fetch(`${videoDetail.video}`, {
             method: 'GET',
@@ -325,7 +331,6 @@ const Video = () => {
         ) : (
           <></>
         )}
-
         <div className={styles.dayVideo}>
           <div className={styles.selectGroup}>
             <SelectBtn
@@ -402,6 +407,8 @@ const Video = () => {
           <div className={styles.pageNum}>1</div>
           <img src={rightArrow} alt=""></img>
         </div> */}
+
+        <VideoModal styles={modal} ref={modalRef} />
       </div>
       <Footer />
     </div>
