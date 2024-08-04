@@ -6,6 +6,7 @@ import styles from '../scss/main.module.scss';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
+import { useNavigate } from 'react-router-dom';
 
 interface AllianceStadiumProps {
   stadiumList: AllianceStadiumDto[];
@@ -20,12 +21,20 @@ const AllianceStadium: React.FC<AllianceStadiumProps> = ({ stadiumList }) => {
     slidesToScroll: 2,
   };
 
-  console.log(stadiumList);
+  const navigate = useNavigate();
+
+  const toStadium = (stadiumId: number) => {
+    navigate('/stadium', { state: { stadiumId } });
+  };
 
   return (
     <Slider {...settings} className={styles.stadiumList}>
       {stadiumList.map((allianceStadium: AllianceStadiumDto) => (
-        <div className={styles.items} key={allianceStadium.stadiumId}>
+        <div
+          className={styles.items}
+          key={allianceStadium.stadiumId}
+          onClick={() => toStadium(allianceStadium.stadiumId)}
+        >
           <img src={allianceStadium.image} alt="" />
           <div>{allianceStadium.name}</div>
         </div>
