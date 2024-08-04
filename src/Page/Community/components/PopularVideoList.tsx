@@ -5,14 +5,22 @@ import { PopularVideos } from '../../../apis/dto/community.dto';
 
 interface PopularVideoListProps {
   videos: [PopularVideos];
+  changeVideo: (id: number) => void;
 }
 
-const PopularVideoList: React.FC<PopularVideoListProps> = ({ videos = [] }) => {
+const PopularVideoList: React.FC<PopularVideoListProps> = ({
+  videos = [],
+  changeVideo,
+}) => {
   return (
     <>
       {videos.length >= 2
         ? (videos ?? []).map((video: PopularVideos) => (
-            <div className={styles.subVideoContainer} key={video.videoId}>
+            <div
+              className={styles.subVideoContainer}
+              key={video.videoId}
+              onClick={() => changeVideo(video.videoId)}
+            >
               <div className={styles.video}>
                 <img src={video.image} alt="" />
               </div>

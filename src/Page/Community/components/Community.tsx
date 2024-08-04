@@ -35,6 +35,11 @@ const Community = () => {
       ? popularVideoData[0].videoId
       : null;
 
+  const [isVideoId, setVideoId] = useState(firstVideoId);
+  const changeVideo = (id: number) => {
+    setVideoId(id);
+  };
+
   const { data: videoDetailData, isSuccess: isVideoDetailDataSuccess } =
     useQuery({
       queryKey: ['video_detail', firstVideoId],
@@ -111,11 +116,14 @@ const Community = () => {
           <div
             className={`${styles.commentList} ${isComments ? styles.show : ''}`}
           >
-            <Comment isShow={isComments}></Comment>
+            <Comment isShow={isComments} videoId={isVideoId}></Comment>
           </div>
         </div>
 
-        <PopularVideoList videos={popularVideoData}></PopularVideoList>
+        <PopularVideoList
+          videos={popularVideoData}
+          changeVideo={changeVideo}
+        ></PopularVideoList>
 
         {/* <div className={styles.paging}>
           <img src={leftArrow} alt=""></img>

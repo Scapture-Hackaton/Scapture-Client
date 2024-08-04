@@ -22,14 +22,6 @@
           object-fit: cover;
         }
       }
-
-
-        img {
-          height: 100%;
-
-          object-fit: cover;
-        }
-      }
       
       > .container {
         margin: 2.875rem auto 1.875rem auto;
@@ -61,6 +53,7 @@
               font-size: var(--font-size-m);
 
               margin-right: 1rem;
+              font-weight: 600;
 
               font-weight: 600;
 
@@ -95,7 +88,6 @@
 
               height: 100%;
               width: 100px;
-
               background: linear-gradient(
                 -60deg,
                 transparent 20px,
