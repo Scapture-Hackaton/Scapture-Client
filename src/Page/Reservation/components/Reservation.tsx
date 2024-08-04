@@ -24,6 +24,7 @@ import { getReservationList } from '../../../apis/api/reservation.api';
 import SelectBtn from './SelectBtn';
 import ReservationList from './ReservationList';
 import { ReservationDto } from '../../../apis/dto/reservation.dto';
+import { useRef } from 'react';
 
 const Reservation = () => {
   const modalRef = useRef<HTMLDialogElement>(null);
@@ -166,18 +167,18 @@ const Reservation = () => {
                 </div>
               </div>
 
-              <div className={styles.info}>
-                <div className={styles.header}>
-                  <div className={styles.title}>구장 정보</div>
-                  <button
-                    className={styles.reserve}
-                    onClick={() => {
-                      modalNotice(modalRef);
-                    }}
-                  >
-                    구장 예약하기
-                  </button>
-                </div>
+          <div className={styles.info}>
+            <div className={styles.header}>
+              <div className={styles.title}>구장 정보</div>
+              <button
+                className={styles.reserve}
+                onClick={() => {
+                  modalNotice(modalRef);
+                }}
+              >
+                구장 예약하기
+              </button>
+            </div>
 
                 <div className={styles.contents}>
                   <div className={styles.row}>
@@ -204,59 +205,44 @@ const Reservation = () => {
             </div>
           </div>
         ) : null}
-      </div>
-      <div className={styles.dayVideo}>
-        <div className={styles.selectGroup}>
-          <SelectBtn
-            selectList={monthList}
-            selectedOption={isMonth}
-            onOptionChange={handleMonthChange}
-          />
-          <SelectBtn
-            selectList={dayMap.get(isMonth) || []}
-            selectedOption={isDay}
-            onOptionChange={handleDayChange}
-          />
-          <SelectBtn
-            selectList={fieldList}
-            selectedOption={isField || ''}
-            onOptionChange={handleFieldChange}
-          />
+        
+        <div className={styles.dayVideo}>
+          <div className={styles.selectGroup}>
+            <SelectBtn
+              selectList={monthList}
+              selectedOption={isMonth}
+              onOptionChange={handleMonthChange}
+            />
+            <SelectBtn
+              selectList={dayMap.get(isMonth) || []}
+              selectedOption={isDay}
+              onOptionChange={handleDayChange}
+            />
+            <SelectBtn
+              selectList={fieldList}
+              selectedOption={isField || ''}
+              onOptionChange={handleFieldChange}
+            />
+          </div>
+
+          {/* <div className={styles.dayGroup}>
+            <div className={styles.box}>
+              <div className={styles.date}>Today</div>
+              <div className={styles.date}>10:00~12:00</div>
+              <div className={styles.cnt}>12개의 영상</div>
+            </div>
+            <div className={styles.box}>
+              <div className={styles.date}>Today</div>
+              <div className={styles.date}>10:00~12:00</div>
+              <div className={styles.cnt}>12개의 영상</div>
+            </div>
+          </div> */}
         </div>
-      </div>
-      <div className={styles.reserveList}>
-        <ReservationList reserveList={isReservationList}></ReservationList>
-        {/* <div className={styles.group}>
-            <div className={styles.compontent}>
-              <div className={styles.info}>
-                <div className={styles.field}>A구장</div>
-                <div className={styles.versus}>6 vs 6</div>
-              </div>
-
-              <div className={styles.date}>10:00 ~ 12:00</div>
-
-              <button
-                onClick={() => {
-                  modalNotice(modalRef);
-                }}
-              >
-                예약하기
-              </button>
-            </div>
-
-            <div className={styles.compontent}>
-              <div className={styles.info}>
-                <div className={styles.field}>A구장</div>
-                <div className={styles.versus}>6 vs 6</div>
-              </div>
-
-              <div className={styles.date}>10:00 ~ 12:00</div>
-
-              <div className={styles.booked}>예약마감</div>
-            </div>
+        <div className={styles.reserveList}>
+          <ReservationList reserveList={isReservationList}></ReservationList>
+          
           </div> */}
-
-        {/* <div className={styles.group}>
+          {/* <div className={styles.group}>
             <div className={styles.compontent}>
               <div className={styles.info}>
                 <div className={styles.field}>A구장</div>
@@ -279,6 +265,7 @@ const Reservation = () => {
               <button>예약하기</button>
             </div>
           </div> */}
+        </div>
 
         {/* <div className={styles.paging}>
           <img src={leftArrow} alt=""></img>
@@ -294,6 +281,7 @@ const Reservation = () => {
         />
         {/* modalCheckRef */}
         <ReservationCheckModal styles={check} ref={modalCheckRef} />
+
       </div>
       <Footer />
     </div>

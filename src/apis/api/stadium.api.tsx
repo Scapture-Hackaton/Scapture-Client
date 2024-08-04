@@ -101,6 +101,7 @@ export const unLikeVideo = async (videoId: number) => {
     return res.data;
   } catch (e: any) {
     console.log(e);
+
     return {
       status: e.response.status,
     };

@@ -23,15 +23,6 @@ const StadiumHours: React.FC<StadiumHoursProps> = ({
     slidesToScroll: 2,
   };
 
-  //   const settings = {
-  //     infinite: false,
-  //     speed: 500,
-  //     slidesToShow: 2,
-  //     slidesToScroll: 2,
-  //     centerMode: true, // 중간 슬라이드를 가운데에 배치
-  //     centerPadding: '20px', // 슬라이드 간의 간격 설정
-  //   };
-
   return (
     <>
       {stadiumHourList && stadiumHourList.length > 0 ? (
