@@ -10,7 +10,6 @@ import {
   getStadiumList,
   searchStadiumList,
 } from '../../../apis/api/scapture.api';
-// import { useQuery } from '@tanstack/react-query';
 import { Stadium } from '../../../apis/dto/scapture.dto';
 import Stadiums from './Stadiums';
 

@@ -32,7 +32,13 @@ import {
 } from '../../../apis/api/video.api';
 import BookMark from './BookMark';
 
+import modal from '../scss/video-modal.module.scss';
+import { useRef } from 'react';
+import { modalNotice } from '../functions/ModalFunction';
+import { VideoModal } from './VideoModal';
+
 const Video = () => {
+  const modalRef = useRef<HTMLDialogElement>(null);
   const queryClient = useQueryClient();
   const location = useLocation();
   const stadiumId = location.state.stadiumId;
@@ -401,6 +407,8 @@ const Video = () => {
           <div className={styles.pageNum}>1</div>
           <img src={rightArrow} alt=""></img>
         </div> */}
+
+        <VideoModal styles={modal} ref={modalRef} />
       </div>
       <Footer />
     </div>

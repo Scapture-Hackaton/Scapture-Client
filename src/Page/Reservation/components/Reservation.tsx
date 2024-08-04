@@ -19,16 +19,16 @@ import { useLocation } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import { getStadiumDetail } from '../../../apis/api/stadium.api';
 import { StadiumDetail, StadiumFileds } from '../../../apis/dto/scapture.dto';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { getReservationList } from '../../../apis/api/reservation.api';
 import SelectBtn from './SelectBtn';
 import ReservationList from './ReservationList';
 import { ReservationDto } from '../../../apis/dto/reservation.dto';
-import { useRef } from 'react';
 
 const Reservation = () => {
   const modalRef = useRef<HTMLDialogElement>(null);
   const modalCheckRef = useRef<HTMLDialogElement>(null);
+
   const location = useLocation();
   const stadiumId = location.state.stadiumId;
 
@@ -169,7 +169,14 @@ const Reservation = () => {
               <div className={styles.info}>
                 <div className={styles.header}>
                   <div className={styles.title}>구장 정보</div>
-                  {/* <button className={styles.reserve}>구장 예약하기</button> */}
+                  <button
+                    className={styles.reserve}
+                    onClick={() => {
+                      modalNotice(modalRef);
+                    }}
+                  >
+                    구장 예약하기
+                  </button>
                 </div>
 
                 <div className={styles.contents}>
@@ -197,42 +204,29 @@ const Reservation = () => {
             </div>
           </div>
         ) : null}
-
-        <div className={styles.dayVideo}>
-          <div className={styles.selectGroup}>
-            <SelectBtn
-              selectList={monthList}
-              selectedOption={isMonth}
-              onOptionChange={handleMonthChange}
-            />
-            <SelectBtn
-              selectList={dayMap.get(isMonth) || []}
-              selectedOption={isDay}
-              onOptionChange={handleDayChange}
-            />
-            <SelectBtn
-              selectList={fieldList}
-              selectedOption={isField || ''}
-              onOptionChange={handleFieldChange}
-            />
-          </div>
-
-          {/* <div className={styles.dayGroup}>
-            <div className={styles.box}>
-              <div className={styles.date}>Today</div>
-              <div className={styles.date}>10:00~12:00</div>
-              <div className={styles.cnt}>12개의 영상</div>
-            </div>
-            <div className={styles.box}>
-              <div className={styles.date}>Today</div>
-              <div className={styles.date}>10:00~12:00</div>
-              <div className={styles.cnt}>12개의 영상</div>
-            </div>
-          </div> */}
+      </div>
+      <div className={styles.dayVideo}>
+        <div className={styles.selectGroup}>
+          <SelectBtn
+            selectList={monthList}
+            selectedOption={isMonth}
+            onOptionChange={handleMonthChange}
+          />
+          <SelectBtn
+            selectList={dayMap.get(isMonth) || []}
+            selectedOption={isDay}
+            onOptionChange={handleDayChange}
+          />
+          <SelectBtn
+            selectList={fieldList}
+            selectedOption={isField || ''}
+            onOptionChange={handleFieldChange}
+          />
         </div>
-        <div className={styles.reserveList}>
-          <ReservationList reserveList={isReservationList}></ReservationList>
-          {/* <div className={styles.group}>
+      </div>
+      <div className={styles.reserveList}>
+        <ReservationList reserveList={isReservationList}></ReservationList>
+        {/* <div className={styles.group}>
             <div className={styles.compontent}>
               <div className={styles.info}>
                 <div className={styles.field}>A구장</div>
@@ -262,7 +256,7 @@ const Reservation = () => {
             </div>
           </div> */}
 
-          {/* <div className={styles.group}>
+        {/* <div className={styles.group}>
             <div className={styles.compontent}>
               <div className={styles.info}>
                 <div className={styles.field}>A구장</div>
@@ -286,12 +280,11 @@ const Reservation = () => {
             </div>
           </div> */}
 
-          {/* <div className={styles.paging}>
+        {/* <div className={styles.paging}>
           <img src={leftArrow} alt=""></img>
           <div className={styles.pageNum}>1</div>
           <img src={rightArrow} alt=""></img>
         </div> */}
-        </div>
 
         {/* modalRef */}
         <ReservationModal
