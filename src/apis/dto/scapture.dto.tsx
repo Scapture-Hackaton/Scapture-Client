@@ -44,3 +44,20 @@ export interface ScheduleVideo {
   date: string;
   hours: string;
 }
+
+export interface VideoDetail {
+  name: string;
+  image: string;
+  video: string;
+  isLiked: boolean;
+  likeCount: number;
+  isStored: boolean;
+  views: number;
+  stadium: {
+    name: string;
+    description: string;
+    location: string;
+    isOutside: boolean; // true: 실외 & false: 실내
+    parking: string;
+  };
+}
