@@ -1,5 +1,9 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import {
+  QueryClient,
+  QueryClientProvider,
+  useQuery,
+} from '@tanstack/react-query';
 
 import Main from './Page/Main/components/Main';
 import Scapture from './Page/Scapture/components/Scapture';
@@ -16,8 +20,11 @@ import DevTer from './DevTerminal';
 import './App.scss';
 import Community from './Page/Community/components/Community';
 import ScrollToTop from './utils/ScrollToTop';
+// import LoginCallBack from './Page/Header/test/LoginCallBack';
 
 const queryClient = new QueryClient();
+
+// const queryClient = new QueryClient();
 
 const App = () => {
   return (
@@ -37,6 +44,8 @@ const App = () => {
           <Route path="/header" element={<Header />} />
           <Route path="/footer" element={<Footer />} />
           <Route path="/dev-ter" element={<DevTer />} />
+          {/* Login-API */}
+          {/* <Route path="/oauth/redirected/kakao" element={<LoginCallBack />} /> */}
         </Routes>
       </Router>
     </QueryClientProvider>

@@ -7,7 +7,7 @@ import { defaultInstance, authInstance } from '../utils/instance';
 // 경기장 전체 조회
 export const getStadiums = async (city: string, state: string) => {
   try {
-    const res: CommonResponse = await defaultInstance.post(
+    const res: CommonResponse = await defaultInstance.get(
       `api/stadium?city=${city}&state=${state}`,
     );
     return res;
@@ -24,6 +24,7 @@ export const getStadiumDetail = async (stadiumId: number) => {
     const res: CommonResponse = await defaultInstance.get(
       `api/stadiums/${stadiumId}/detail`,
     );
+
     return res.data.data;
   } catch (e: any) {
     return {
