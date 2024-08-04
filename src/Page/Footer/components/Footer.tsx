@@ -2,6 +2,7 @@ import styles from '../scss/footer.module.scss';
 import ScaptureLogo from '../image/scapture-logo.png';
 import KakaoLogo from '../image/kakao-logo.png';
 import InstagramLogo from '../image/instagram-logo.png';
+import { Link } from 'react-router-dom';
 
 const Footer = () => {
   return (
@@ -9,12 +10,26 @@ const Footer = () => {
       <div className={styles.container}>
         <div className={styles.group}>
           <div id={styles.image}>
-            <img src={ScaptureLogo}></img>
+            <Link to="/" style={{ textDecoration: 'none' }}>
+              <img src={ScaptureLogo}></img>
+            </Link>
           </div>
           <div className={styles.contents}>
-            <div>서비스 소개</div>
-            <div>Scapture</div>
-            <div>커뮤니티</div>
+            <div>
+              <Link to="/" style={{ textDecoration: 'none' }}>
+                서비스 소개
+              </Link>
+            </div>
+            <div>
+              <Link to="/scapture" style={{ textDecoration: 'none' }}>
+                SCAPTURE
+              </Link>
+            </div>
+            <div>
+              <Link to="/community" style={{ textDecoration: 'none' }}>
+                커뮤니티
+              </Link>
+            </div>
             <div>FAQ</div>
             <div>공지사항</div>
           </div>

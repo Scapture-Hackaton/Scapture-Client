@@ -7,7 +7,24 @@ import stadiumVideoImage from '../image/stadium-video-image.png';
 
 import styles from '../scss/stadium.module.scss';
 
+import { useQuery } from '@tanstack/react-query';
+import { getStadiumDetail } from '../../../apis/api/stadium.api';
+import { StadiumDetail } from '../../../apis/dto/stadium.dto';
+
 const Stadium = () => {
+  const { isPending, error, data } = useQuery({
+    queryKey: ['stadium', 3],
+    queryFn: () => getStadiumDetail(3),
+  });
+
+  if (isPending) return 'Loading...';
+
+  if (error) return 'An error has occurred: ' + error.message;
+
+  const stadium: StadiumDetail = data.data;
+
+  console.log(stadium);
+
   return (
     <div className={styles.test}>
       <Header />
@@ -25,9 +42,10 @@ const Stadium = () => {
                 </div>
                 <div className={styles.introText}>
                   <span>
-                    간단한 소개글 들어갈 영역 입니다. 해당 구장은 00소재
+                    {/* 간단한 소개글 들어갈 영역 입니다. 해당 구장은 00소재
                     인조잔디로 평탄화 정도가 좋으며 우천시에도 미끄럽지 않고
-                    여름날씨에도 화상걱정 없이 즐겨 볼 수 있는 잔디입니다.
+                    여름날씨에도 화상걱정 없이 즐겨 볼 수 있는 잔디입니다. */}
+                    {stadium.description}
                   </span>
                 </div>
               </div>
