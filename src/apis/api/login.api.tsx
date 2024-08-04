@@ -7,6 +7,8 @@ import { defaultInstance } from '../utils/instance';
 //로그인 코큰
 export const LoginToken = async (code: string, type: string) => {
   // console.log(code);
+
+  //Object
   const APIURL: { [key: string]: string } = {
     kakao: `api/oauth/social/kakao?code=${code}`,
     naver: `api/oauth/social/naver?code=${code}&state=hLiDdL2uhPtsftcU`,
@@ -20,6 +22,7 @@ export const LoginToken = async (code: string, type: string) => {
     const TOKEN = res.data.data.token || res.data.token;
     localStorage.setItem('TOKEN', TOKEN);
     console.log('Response:', res);
+
     // console.log('TOKEN:', TOKEN);
     return res;
   } catch (error) {

@@ -16,6 +16,11 @@ export const LoginModal: React.FC<LoginModalProps> = ({
     modalRef.current?.close();
   };
 
+  // 추후 리팩토링 후 작업 예정(MyPage)
+  // const handleLoginType = () = > {
+
+  // }
+
   return (
     <dialog ref={modalRef} id={styles.loginModal}>
       <div className={styles.contents}>
