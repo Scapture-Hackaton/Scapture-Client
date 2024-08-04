@@ -12,7 +12,7 @@ interface ModalCheckProps extends ModalProps {
 export const ReservationModal = forwardRef<HTMLDialogElement, ModalCheckProps>(
   ({ styles, extendRef }, ref) => {
     return (
-      <dialog ref={ref}>
+      <dialog ref={ref} id={styles.reservationModal}>
         <div className={styles.contents}>
           <div className={styles.notice}>
             <span>구장명</span>
@@ -54,7 +54,7 @@ export const ReservationModal = forwardRef<HTMLDialogElement, ModalCheckProps>(
 export const ReservationCheckModal = forwardRef<HTMLDialogElement, ModalProps>(
   ({ styles }, ref) => {
     return (
-      <dialog ref={ref}>
+      <dialog ref={ref} id={styles.reservationCheckModal}>
         <div className={styles.contents}>
           <div className={styles.notice}>
             <span>구장명</span>
