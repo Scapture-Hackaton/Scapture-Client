@@ -23,8 +23,6 @@ import Community from './Page/Community/components/Community';
 
 const queryClient = new QueryClient();
 
-// const queryClient = new QueryClient();
-
 const App = () => {
   return (
     <QueryClientProvider client={queryClient}>
