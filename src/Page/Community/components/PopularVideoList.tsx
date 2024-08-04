@@ -4,7 +4,7 @@ import { PopularVideos } from '../../../apis/dto/community.dto';
 // import { getPopularVideos } from '../../../apis/api/community.api';
 
 interface PopularVideoListProps {
-  videos: [PopularVideos];
+  videos: PopularVideos[];
   changeVideo: (id: number) => void;
 }
 
@@ -15,7 +15,7 @@ const PopularVideoList: React.FC<PopularVideoListProps> = ({
   return (
     <>
       {videos.length >= 2
-        ? (videos ?? []).map((video: PopularVideos) => (
+        ? videos.map((video: PopularVideos) => (
             <div
               className={styles.subVideoContainer}
               key={video.videoId}
@@ -33,7 +33,7 @@ const PopularVideoList: React.FC<PopularVideoListProps> = ({
 
                 <div className={styles.field}>
                   <div className={styles.profileImg}>
-                    <img src={video.stadium.image} alt=""></img>
+                    <img src={video.stadium.image} alt="" />
                   </div>
                   <div className={styles.name}>{video.stadium.name}</div>
                 </div>
