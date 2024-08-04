@@ -19,7 +19,7 @@ const authApi = axios.create({
 });
 
 authApi.interceptors.request.use(config => {
-  const token = localStorage.getItem('token');
+  const token = localStorage.getItem('TOKEN');
   if (token) {
     config.headers.Authorization = `Bearer ${token}`;
   }
@@ -32,7 +32,7 @@ const authFileApi = axios.create({
 });
 
 authFileApi.interceptors.request.use(config => {
-  const token = localStorage.getItem('token');
+  const token = localStorage.getItem('TOKEN');
   if (token) {
     config.headers.Authorization = `Bearer ${token}`;
   }

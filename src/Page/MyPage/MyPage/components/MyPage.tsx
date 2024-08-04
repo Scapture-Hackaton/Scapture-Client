@@ -1,5 +1,6 @@
 import Header from '../../../Header/components/Header';
-// import Footer from '../../Footer/components/Footer';
+import Footer from '../../../Footer/components/Footer';
+import { userData, bananaData, subscribedData } from '../../dto/atom.interface';
 
 import styles from '../scss/my-page.module.scss';
 import modal from '../scss/my-page-modal.module.scss';
@@ -10,11 +11,21 @@ import rightArrow from '../image/right_arrow.png';
 import rightFrame from '../image/rightFrame.png';
 import leftFrame from '../image/leftFrame.png';
 import dropDown from '../image/dropDown.png';
+import subscribe from '../image/subscribe.png';
+import profileImgDefault from '../../image/scapture-logo.png';
 // import profileImg from '../image/profile.webp';
 
 import { useEffect, useRef, useState } from 'react';
 import { modalNotice } from '../functions/ModalFunction';
 import { BananaModal, SubscribeModal } from './MyPageModal';
+import {
+  getBanana,
+  getProfile,
+  getSortVideo,
+} from '../../../../apis/api/mypage.api';
+import { useRecoilState, useRecoilValue } from 'recoil';
+import { userDataAtom, bananaDataAtom, subscribedAtom } from '../../Atom/atom';
+import { Link } from 'react-router-dom';
 
 const MyPage = () => {
   const modalRef = useRef<HTMLDialogElement>(null);
@@ -23,6 +34,65 @@ const MyPage = () => {
   const innerSliderRef = useRef<HTMLDivElement>(null);
   const [pressed, setPressed] = useState(false);
   const [startX, setStartX] = useState(0);
+
+  //Recoil
+  const [isProfile, setProfile] = useRecoilState<userData>(userDataAtom);
+  const [isBanana, setBanana] = useRecoilState<bananaData>(bananaDataAtom);
+  const isSubscribed = useRecoilValue<subscribedData>(subscribedAtom);
+
+  // interface sortTypeObject {
+  //   latest: string;
+  //   popularity: string;
+  // }
+
+  //sort Object
+  // const sortType: sortTypeObject = {
+  //   latest: '',
+  //   popularity: '',
+  // };
+
+  const handleSortType = (type: string) => {
+    const res = getSortVideo(type);
+    console.log(res);
+  };
+
+  useEffect(() => {
+    const fetchProfileInfo = async () => {
+      const res = await getProfile();
+      const banana = await getBanana();
+      // const videoSort = await getSortVideo();
+      // console.log(
+      //   'res',
+      //   res?.data,
+      // '\n',
+      // 'banana',
+      // banana?.data,
+      // '\n',
+      // 'subscribe',
+      // isSubscribed,
+      // );
+      if (res?.data && banana?.data) {
+        setProfile(prev => ({
+          ...prev,
+          endDate: res.data.endDate,
+          image: res.data.image,
+          location: res.data.location,
+          name: res.data.name,
+          role: res.data.role,
+          team: res.data.team,
+        }));
+        setBanana(prev => ({
+          ...prev,
+          balance: banana.data.balance,
+          subscribed: banana.data.subscribed,
+        }));
+      }
+    };
+
+    fetchProfileInfo();
+  }, [setProfile, setBanana]);
+
+  // mypage api
 
   useEffect(() => {
     const slider = sliderRef.current;
@@ -115,67 +185,106 @@ const MyPage = () => {
           <div className={styles.container}>
             <div className={styles.image_box}>
               <div className={styles.box}>
-                {/* <img className={styles.image} src={profileImg} alt=""></img> */}
+                <img
+                  className={styles.image}
+                  src={isProfile.image ?? profileImgDefault}
+                  alt="SCAPTURE"
+                />
               </div>
               <div className={styles.modify}>
-                <img className={styles.pencil} src={pencil} alt="" />
+                <Link to="/mypage/edit" style={{ textDecoration: 'none' }}>
+                  <img className={styles.pencil} src={pencil} alt="" />
+                </Link>
               </div>
             </div>
             <div className={styles.userInfo}>
-              <div className={styles.name}>스캡쳐 님</div>
+              <div className={styles.name}>{isProfile.name} 님</div>
+
               <div
                 className={styles.subscribe}
                 onClick={() => {
                   modalNotice(modalSubRef);
+                  console.log(isSubscribed);
                 }}
               >
-                <div className={styles.who}>구독자</div>
-                <div className={styles.when}>2024.08.12 까지 이용</div>
+                {/* 컴포넌트 예정 */}
+                {isSubscribed.subscribed || isProfile.endDate ? (
+                  <>
+                    <div className={styles.who}>구독자</div>
+                    <div className={styles.when}>
+                      {isProfile.endDate}까지 이용
+                    </div>
+                  </>
+                ) : (
+                  <>
+                    <img src={subscribe} alt="" />
+                    <div>구독하기</div>
+                  </>
+                )}
               </div>
+              {/* 컴포넌트 예정 */}
               <div className={styles.group}>
                 <div className={styles.title}>소속팀</div>
-                <div className={styles.descrip}>스캡쳐</div>
+                <div className={styles.descrip}>{isProfile.team}</div>
               </div>
 
               <div className={styles.group}>
                 <div className={styles.title}>활동지역</div>
-                <div className={styles.descrip}>서울 마포구</div>
+                <div className={styles.descrip}>{isProfile.location}</div>
               </div>
             </div>
           </div>
 
           <hr></hr>
-          <div className={styles.bananaContainer}>
-            <div className={styles.group}>
-              <div className={styles.bananaBox}>
-                <img className={styles.banana} src={banana} alt="" />
+          {isSubscribed.subscribed || isProfile.endDate ? (
+            <>
+              <div className={styles.chargeContainer}>
+                <div className={styles.invite}>
+                  {isProfile.name}님은 현재 구독 중 입니다.
+                </div>
               </div>
-              <p className={styles.text}>버내너</p>
-            </div>
-            <div className={styles.group}>
-              <p>보유 갯수</p>
-              <p>5</p>
-            </div>
-          </div>
-
-          <div className={styles.chargeContainer}>
-            <div className={styles.invite}>친구 초대하고 '버내너 3개' 받기</div>
-            <div
-              className={styles.charge}
-              onClick={() => {
-                modalNotice(modalRef);
-              }}
-            >
-              버내너 충전하기
-            </div>
-          </div>
+            </>
+          ) : (
+            <>
+              <div className={styles.bananaContainer}>
+                <div className={styles.group}>
+                  <div className={styles.bananaBox}>
+                    <img className={styles.banana} src={banana} alt="" />
+                  </div>
+                  <p className={styles.text}>버내너</p>
+                </div>
+                <div className={styles.group}>
+                  <p>보유 갯수</p>
+                  <p>{isBanana.balance}</p>
+                </div>
+              </div>
+              <div className={styles.chargeContainer}>
+                <div className={styles.invite}>
+                  친구 초대하고 '버내너 3개' 받기
+                </div>
+                <div
+                  className={styles.charge}
+                  onClick={() => {
+                    modalNotice(modalRef);
+                  }}
+                >
+                  버내너 충전하기
+                </div>
+              </div>
+            </>
+          )}
         </div>
-        {/* <Footer /> */}
       </div>
 
       <div className={styles.reservation}>
-        <p>예약 내역 확인하기</p>
-        <img src={rightArrow} alt="" />
+        <Link
+          className={styles.reservation}
+          style={{ textDecoration: 'none' }}
+          to="/mypage/reservation"
+        >
+          <p>예약 내역 확인하기</p>
+          <img src={rightArrow} alt="" />
+        </Link>
       </div>
 
       <div className={styles.stored}>
@@ -197,7 +306,10 @@ const MyPage = () => {
               <li>
                 <button
                   type="button"
-                  onClick={() => handleOptionClick('최신순')}
+                  onClick={() => {
+                    handleOptionClick('최신순');
+                    handleSortType('latest');
+                  }}
                 >
                   최신순
                 </button>
@@ -205,7 +317,10 @@ const MyPage = () => {
               <li>
                 <button
                   type="button"
-                  onClick={() => handleOptionClick('인기순')}
+                  onClick={() => {
+                    handleOptionClick('인기순');
+                    handleSortType('popularity');
+                  }}
                 >
                   인기순
                 </button>
@@ -213,7 +328,10 @@ const MyPage = () => {
               <li>
                 <button
                   type="button"
-                  onClick={() => handleOptionClick('조회수')}
+                  onClick={() => {
+                    handleOptionClick('조회수');
+                    alert('아직 준비 중 입니다!');
+                  }}
                 >
                   조회수
                 </button>
@@ -235,6 +353,7 @@ const MyPage = () => {
       </div>
       <BananaModal styles={modal} ref={modalRef} />
       <SubscribeModal styles={sub} ref={modalSubRef} />
+      <Footer />
     </div>
   );
 };
