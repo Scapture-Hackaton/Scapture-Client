@@ -1,5 +1,6 @@
 import Header from '../../Header/components/Header';
 import Footer from '../../Footer/components/Footer';
+
 import styles from '../scss/video.module.scss';
 import download from '../image/download.png';
 import share from '../image/share.png';

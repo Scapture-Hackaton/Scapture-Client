@@ -1,6 +1,7 @@
 import axios from 'axios';
 
 const BASE_URL = `http://${import.meta.env.VITE_SERVER_URL}:${import.meta.env.VITE_SERVER_PORT}/`;
+
 // const BASE_URL = `http://localhost:8080/`;
 
 const defaultApi = axios.create({
@@ -19,7 +20,7 @@ const authApi = axios.create({
 });
 
 authApi.interceptors.request.use(config => {
-  const token = localStorage.getItem('token');
+  const token = localStorage.getItem('TOKEN');
   if (token) {
     config.headers.Authorization = `Bearer ${token}`;
   }
@@ -32,7 +33,7 @@ const authFileApi = axios.create({
 });
 
 authFileApi.interceptors.request.use(config => {
-  const token = localStorage.getItem('token');
+  const token = localStorage.getItem('TOKEN');
   if (token) {
     config.headers.Authorization = `Bearer ${token}`;
   }
