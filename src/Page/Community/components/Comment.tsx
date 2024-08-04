@@ -15,16 +15,10 @@ import { getComments, writeComment } from '../../../apis/api/community.api';
 
 interface CommentProps {
   isShow: boolean;
+  videoId: number;
 }
 
-const Comment: React.FC<CommentProps> = ({ isShow }) => {
-  localStorage.setItem(
-    'token',
-    'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIzNjM0ODk4NTUxIiwicHJvdmlkZXIiOiJrYWthbyIsInByb3ZpZGVySWQiOiIzNjM0ODk4NTUxIiwiaWF0IjoxNzIyMzI3MjQ2LCJleHAiOjE3MjI0MTM2NDZ9.O8h_RJzHl0yr3F4i6QOL_SYt1g-FDLTLcZc2i4e-VxU',
-  );
-
-  const videoId = 1;
-
+const Comment: React.FC<CommentProps> = ({ isShow, videoId }) => {
   // 첫 화면에서 댓글을 가져옴
   const queryClient = useQueryClient();
   const { data: commentsData } = useQuery({

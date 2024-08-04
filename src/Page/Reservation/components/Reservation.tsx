@@ -24,7 +24,6 @@ import { getReservationList } from '../../../apis/api/reservation.api';
 import SelectBtn from './SelectBtn';
 import ReservationList from './ReservationList';
 import { ReservationDto } from '../../../apis/dto/reservation.dto';
-import { useRef } from 'react';
 
 const Reservation = () => {
   const modalRef = useRef<HTMLDialogElement>(null);
@@ -167,18 +166,18 @@ const Reservation = () => {
                 </div>
               </div>
 
-          <div className={styles.info}>
-            <div className={styles.header}>
-              <div className={styles.title}>구장 정보</div>
-              <button
-                className={styles.reserve}
-                onClick={() => {
-                  modalNotice(modalRef);
-                }}
-              >
-                구장 예약하기
-              </button>
-            </div>
+              <div className={styles.info}>
+                <div className={styles.header}>
+                  <div className={styles.title}>구장 정보</div>
+                  <button
+                    className={styles.reserve}
+                    onClick={() => {
+                      modalNotice(modalRef);
+                    }}
+                  >
+                    구장 예약하기
+                  </button>
+                </div>
 
                 <div className={styles.contents}>
                   <div className={styles.row}>
@@ -205,7 +204,7 @@ const Reservation = () => {
             </div>
           </div>
         ) : null}
-        
+
         <div className={styles.dayVideo}>
           <div className={styles.selectGroup}>
             <SelectBtn
@@ -240,8 +239,7 @@ const Reservation = () => {
         </div>
         <div className={styles.reserveList}>
           <ReservationList reserveList={isReservationList}></ReservationList>
-          
-          </div> */}
+
           {/* <div className={styles.group}>
             <div className={styles.compontent}>
               <div className={styles.info}>
