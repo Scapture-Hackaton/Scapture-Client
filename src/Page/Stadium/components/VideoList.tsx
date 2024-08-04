@@ -1,6 +1,6 @@
 import React from 'react';
 import styles from '../scss/stadium.module.scss';
-import styles from '../scss/video.module.scss';
+
 import { useQuery } from '@tanstack/react-query';
 import { getVideoScheduled } from '../../../apis/api/stadium.api';
 import { ScheduleVideo } from '../../../apis/dto/scapture.dto';
