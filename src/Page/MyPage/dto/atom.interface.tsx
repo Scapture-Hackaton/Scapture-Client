@@ -1,6 +1,6 @@
 export interface userData {
   endDate: string | null;
-  image: string | null;
+  image: string | undefined;
   location: string;
   name: string;
   role: string;

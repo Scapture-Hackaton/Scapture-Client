@@ -9,7 +9,7 @@ export const userDataAtom = atom<userData>({
   key: 'userData',
   default: {
     endDate: null,
-    image: null,
+    image: undefined,
     location: 'KOREA',
     name: 'undefined',
     role: 'undefined',

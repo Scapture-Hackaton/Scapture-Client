@@ -65,12 +65,12 @@ const MyPage = () => {
       // console.log(
       //   'res',
       //   res?.data,
-      //   '\n',
-      //   'banana',
-      //   banana?.data,
-      //   '\n',
-      //   'subscribe',
-      //   isSubscribed,
+      // '\n',
+      // 'banana',
+      // banana?.data,
+      // '\n',
+      // 'subscribe',
+      // isSubscribed,
       // );
       if (res?.data && banana?.data) {
         setProfile(prev => ({

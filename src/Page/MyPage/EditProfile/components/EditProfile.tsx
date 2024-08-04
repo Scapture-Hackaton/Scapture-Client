@@ -8,15 +8,11 @@ import profileImgDefault from '../../image/scapture-logo.png';
 import pencil from '../../image/pencil.png';
 import { putProfile } from '../../../../apis/api/mypage.api';
 import { Link } from 'react-router-dom';
+import React, { useState } from 'react';
 
 // import profileImg from '../image/profile.webp';
 
 const EditProfile = () => {
-  const imageFile = new File(['../../image/profile.webp'], 'filename.png', {
-    type: 'image/png/',
-  });
-
-  const [isProfile, setProfile] = useRecoilState<userData>(userDataAtom);
   // setProfile(prev => ({
   //   ...prev,
   //   endDate: res.data.endDate,
@@ -26,6 +22,34 @@ const EditProfile = () => {
   //   role: res.data.role,
   //   team: res.data.team,
   // }));
+  // userData 한번 더 get 해야 안전하다.
+
+  //useState
+  //⚠NOTICE!! : DON'T CHANGE THAT VALUE NAME!!!
+  const [isSelectedFileURL, setSelectedFileURL] = useState({
+    uploadFile: '',
+  });
+  const [isSelectedFile, setSelectedFile] = useState<File | null>(null);
+  //⚠NOTICE!! : DON'T CHANGE THAT VALUE NAME!!!
+
+  //recoil
+  const [isProfile, setProfile] = useRecoilState<userData>(userDataAtom);
+
+  const onSelectedFile = (e: React.ChangeEvent<HTMLInputElement>) => {
+    e.preventDefault();
+    const selectedFile: FileList | null = e.target.files;
+    if (selectedFile && selectedFile[0]) {
+      const file = selectedFile[0];
+      const BlobFile = URL.createObjectURL(file);
+      console.log(BlobFile);
+      setSelectedFile(file);
+      setSelectedFileURL({ uploadFile: BlobFile });
+      return BlobFile;
+    } else {
+      alert('잘못된 형식입니다. 다시 시도해주세요.');
+    }
+  };
+
   return (
     <div className={styles.test}>
       <div className={styles.editProfile}>
@@ -35,7 +59,7 @@ const EditProfile = () => {
               <div className={styles.box}>
                 <img
                   className={styles.image}
-                  src={isProfile.image ?? profileImgDefault}
+                  src={isProfile.image || isSelectedFileURL.uploadFile} // isSelectedFileURL.uploadFile ||// profileImgDefault
                   alt="SCAPTURE"
                 />
               </div>
@@ -46,8 +70,8 @@ const EditProfile = () => {
                     id="file-input"
                     type="file"
                     accept="image/*"
+                    onChange={onSelectedFile}
                     style={{ display: 'none' }}
-                    // onChange={}
                   />
                 </div>
               </label>
@@ -135,7 +159,7 @@ const EditProfile = () => {
               <div
                 className={styles.save}
                 onClick={() => {
-                  putProfile(isProfile, imageFile);
+                  putProfile(isProfile, isSelectedFile);
                   // const fetchProfileInfo = async () => {
                   //   const res = await putProfile(isProfile, imageFile);
                   //200일시 리다이렉트

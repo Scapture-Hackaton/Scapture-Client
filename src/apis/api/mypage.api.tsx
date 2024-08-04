@@ -15,13 +15,14 @@ export const getProfile = async (): Promise<CommonResponse | undefined> => {
 //프로필 편집(put)
 export const putProfile = async (
   profileData: { [key: string]: any },
-  imageFile: File,
+  imageFile: File | null,
 ): Promise<CommonResponse | undefined> => {
   const formData = new FormData();
   formData.append(
     'data',
     new Blob([JSON.stringify(profileData)], { type: 'application/json' }),
   );
+
   formData.append('image', imageFile);
 
   try {
