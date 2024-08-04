@@ -1,6 +1,9 @@
 import Header from '../../Header/components/Header';
 import Footer from '../../Footer/components/Footer';
 import styles from '../scss/video.module.scss';
+
+import modal from '../scss/video-modal.module.scss';
+
 import download from '../image/download.png';
 import share from '../image/share.png';
 
@@ -32,7 +35,6 @@ import {
 } from '../../../apis/api/video.api';
 import BookMark from './BookMark';
 
-import modal from '../scss/video-modal.module.scss';
 import { useRef } from 'react';
 import { modalNotice } from '../functions/ModalFunction';
 import { VideoModal } from './VideoModal';
