@@ -1,6 +1,7 @@
 import Header from '../../Header/components/Header';
 import Footer from '../../Footer/components/Footer';
 
+// import { test } from '../functions/function';
 import styles from '../scss/video.module.scss';
 import modal from '../scss/video-modal.module.scss';
 // import emptyHeart from '../image/emptyHeart.png';
