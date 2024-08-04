@@ -5,7 +5,6 @@ import { userData, bananaData, subscribedData } from '../../dto/atom.interface';
 import styles from '../scss/my-page.module.scss';
 import modal from '../scss/my-page-modal.module.scss';
 import sub from '../scss/my-page-sub-modal.module.scss';
-
 import pencil from '../../image/pencil.png';
 import banana from '../image/banana.png';
 import rightArrow from '../image/right_arrow.png';
