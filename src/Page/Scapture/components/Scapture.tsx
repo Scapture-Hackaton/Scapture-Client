@@ -10,7 +10,6 @@ import {
   getStadiumList,
   searchStadiumList,
 } from '../../../apis/api/scapture.api';
-
 import { Stadium } from '../../../apis/dto/scapture.dto';
 import Stadiums from './Stadiums';
 

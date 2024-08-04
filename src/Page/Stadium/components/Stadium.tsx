@@ -107,11 +107,9 @@ const Stadium = () => {
   const selectedDate = new Date(
     today.getFullYear(),
     selectedMonth - 1,
-    selectedDay + 1,
+    selectedDay,
   );
   const formattedDate = selectedDate.toISOString().split('T')[0];
-
-  // console.log(formattedDate);
 
   // 운영시간 리스트
   const [isStadiumHourList, setStadiumHourList] = useState<StadiumHoursData[]>(
@@ -235,8 +233,7 @@ const Stadium = () => {
           />
         </div>
 
-        <VideoList scheduleId={isScheduleId} stadiumId={stadiumId}></VideoList>
-
+        <VideoList scheduleId={isScheduleId}></VideoList>
       </div>
       <Footer />
     </div>

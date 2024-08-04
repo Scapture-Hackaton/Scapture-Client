@@ -7,11 +7,9 @@ import { useNavigate } from 'react-router-dom';
 
 interface VideoListProps {
   scheduleId: number | undefined;
-  stadiumId: number;
 }
 
-const VideoList: React.FC<VideoListProps> = ({ scheduleId, stadiumId }) => {
-
+const VideoList: React.FC<VideoListProps> = ({ scheduleId }) => {
   // Fetch video data with react-query
   const { data: videos } = useQuery<ScheduleVideo[]>({
     queryKey: ['videoScheduled', scheduleId],
@@ -27,7 +25,7 @@ const VideoList: React.FC<VideoListProps> = ({ scheduleId, stadiumId }) => {
   const navigate = useNavigate();
 
   const toVideo = (videoId: number) => {
-    navigate('/video', { state: { videoId, stadiumId } });
+    navigate('/video', { state: { videoId } });
   };
 
   return (
