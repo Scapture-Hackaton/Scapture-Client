@@ -13,7 +13,7 @@ interface ModalCheckProps extends ModalProps {
 export const VideoModal = forwardRef<HTMLDialogElement, ModalProps>(
   ({ styles }, ref) => {
     return (
-      <dialog ref={ref}>
+      <dialog ref={ref} id={styles.videoModal}>
         <div className={styles.contents}>
           <div className={styles.video}></div>
           <div className={styles.group}>

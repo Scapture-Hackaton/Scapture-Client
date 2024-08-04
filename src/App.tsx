@@ -19,29 +19,30 @@ import DevTer from './DevTerminal';
 
 import './App.scss';
 import Community from './Page/Community/components/Community';
+// import LoginCallBack from './Page/Header/test/LoginCallBack';
 
 const queryClient = new QueryClient();
 
 const App = () => {
   return (
-    <QueryClientProvider client={queryClient}>
-      <Router>
-        <Routes>
-          <Route path="/" element={<Main />} />
-          <Route path="/scapture" element={<Scapture />} />
-          <Route path="/stadium" element={<Stadium />} />
-          <Route path="/reservation" element={<Reservation />} />
-          <Route path="/video" element={<Video />} />
-          <Route path="/mypage" element={<MyPage />} />
-          <Route path="/mypage/edit" element={<EditProfile />} />
-          <Route path="/mypage/reservation" element={<MyReservation />} />
-          <Route path="/community" element={<Community />} />
-          <Route path="/header" element={<Header />} />
-          <Route path="/footer" element={<Footer />} />
-          <Route path="/dev-ter" element={<DevTer />} />
-        </Routes>
-      </Router>
-    </QueryClientProvider>
+    <Router>
+      <Routes>
+        <Route path="/" element={<Main />} />
+        <Route path="/scapture" element={<Scapture />} />
+        <Route path="/stadium" element={<Stadium />} />
+        <Route path="/reservation" element={<Reservation />} />
+        <Route path="/video" element={<Video />} />
+        <Route path="/mypage" element={<MyPage />} />
+        <Route path="/mypage/edit" element={<EditProfile />} />
+        <Route path="/mypage/reservation" element={<MyReservation />} />
+        <Route path="/community" element={<Community />} />
+        <Route path="/header" element={<Header />} />
+        <Route path="/footer" element={<Footer />} />
+        <Route path="/dev-ter" element={<DevTer />} />
+        {/* API Token */}
+        {/* <Route path="/oauth/redirected/kakao" element={<LoginCallBack />} /> */}
+      </Routes>
+    </Router>
   );
 };
 
