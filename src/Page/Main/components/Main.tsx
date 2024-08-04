@@ -8,10 +8,9 @@ import StadiumImage from '../image/stadium-image.png';
 import VideoImage from '../image/video-image.png';
 import InfoImageA from '../image/info-image-a.png';
 import InfoImageB from '../image/info-image-b.png';
-import EffectRight from '../image/effect-right.png';
-import EffectLeft from '../image/effect-left.png';
+// import EffectRight from '../image/effect-right.png';
+// import EffectLeft from '../image/effect-left.png';
 import styles from '../scss/main.module.scss';
-// import banner from '../scss/banner.module.scss';
 
 const Main = () => {
   return (

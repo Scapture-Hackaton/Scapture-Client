@@ -55,8 +55,11 @@
               font-size: var(--font-size-m);
 
               margin-right: 1rem;
-
               font-weight: 600;
+
+              span {
+                white-space: pre-wrap;
+              }
             }
           }
 

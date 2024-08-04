@@ -16,6 +16,7 @@ import DevTer from './DevTerminal';
 import './App.scss';
 import Community from './Page/Community/components/Community';
 import ScrollToTop from './utils/ScrollToTop';
+// import LoginCallBack from './Page/Header/test/LoginCallBack';
 
 const queryClient = new QueryClient();
 
@@ -37,6 +38,8 @@ const App = () => {
           <Route path="/header" element={<Header />} />
           <Route path="/footer" element={<Footer />} />
           <Route path="/dev-ter" element={<DevTer />} />
+          {/* Login-API */}
+          {/* <Route path="/oauth/redirected/kakao" element={<LoginCallBack />} /> */}
         </Routes>
       </Router>
     </QueryClientProvider>

@@ -3,6 +3,13 @@ import Footer from '../../Footer/components/Footer';
 
 // import { test } from '../functions/function';
 import styles from '../scss/reservation.module.scss';
+import modal from '../scss/reservation-modal.module.scss';
+import check from '../scss/reservation-check-modal.module.scss';
+import { modalNotice } from '../functions/ModalFunction';
+import {
+  ReservationModal,
+  ReservationCheckModal,
+} from '../components/ReservationModal';
 
 // import testImg from '../image/testImg.png';
 import circle from '../image/circle.png';
@@ -17,8 +24,11 @@ import { getReservationList } from '../../../apis/api/reservation.api';
 import SelectBtn from './SelectBtn';
 import ReservationList from './ReservationList';
 import { ReservationDto } from '../../../apis/dto/reservation.dto';
+import { useRef } from 'react';
 
 const Reservation = () => {
+  const modalRef = useRef<HTMLDialogElement>(null);
+  const modalCheckRef = useRef<HTMLDialogElement>(null);
   const location = useLocation();
   const stadiumId = location.state.stadiumId;
 
@@ -231,7 +241,13 @@ const Reservation = () => {
 
               <div className={styles.date}>10:00 ~ 12:00</div>
 
-              <button>예약하기</button>
+              <button
+                onClick={() => {
+                  modalNotice(modalRef);
+                }}
+              >
+                예약하기
+              </button>
             </div>
 
             <div className={styles.compontent}>
@@ -269,13 +285,22 @@ const Reservation = () => {
               <button>예약하기</button>
             </div>
           </div> */}
-        </div>
 
-        {/* <div className={styles.paging}>
+          {/* <div className={styles.paging}>
           <img src={leftArrow} alt=""></img>
           <div className={styles.pageNum}>1</div>
           <img src={rightArrow} alt=""></img>
         </div> */}
+        </div>
+
+        {/* modalRef */}
+        <ReservationModal
+          styles={modal}
+          ref={modalRef}
+          extendRef={modalCheckRef}
+        />
+        {/* modalCheckRef */}
+        <ReservationCheckModal styles={check} ref={modalCheckRef} />
       </div>
       <Footer />
     </div>
