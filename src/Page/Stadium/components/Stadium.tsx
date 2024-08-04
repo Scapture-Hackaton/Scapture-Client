@@ -19,6 +19,10 @@ import SelectBtn from './SelectBtn';
 import StadiumHours from './StadiumHours';
 import VideoList from './VideoList';
 
+import { useQuery } from '@tanstack/react-query';
+import { getStadiumDetail } from '../../../apis/api/stadium.api';
+import { StadiumDetail } from '../../../apis/dto/stadium.dto';
+
 const Stadium = () => {
   const location = useLocation();
   const stadiumId = location.state.stadiumId;

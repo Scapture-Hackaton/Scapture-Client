@@ -3,6 +3,13 @@ import Footer from '../../Footer/components/Footer';
 
 // import { test } from '../functions/function';
 import styles from '../scss/reservation.module.scss';
+import modal from '../scss/reservation-modal.module.scss';
+import check from '../scss/reservation-check-modal.module.scss';
+import { modalNotice } from '../functions/ModalFunction';
+import {
+  ReservationModal,
+  ReservationCheckModal,
+} from '../components/ReservationModal';
 
 // import testImg from '../image/testImg.png';
 import circle from '../image/circle.png';
@@ -17,8 +24,11 @@ import { getReservationList } from '../../../apis/api/reservation.api';
 import SelectBtn from './SelectBtn';
 import ReservationList from './ReservationList';
 import { ReservationDto } from '../../../apis/dto/reservation.dto';
+import { useRef } from 'react';
 
 const Reservation = () => {
+const modalRef = useRef<HTMLDialogElement>(null);
+  const modalCheckRef = useRef<HTMLDialogElement>(null);
   const location = useLocation();
   const stadiumId = location.state.stadiumId;
 
@@ -130,7 +140,7 @@ const Reservation = () => {
       fetchData();
     }
   }, [selectedFieldId, formattedDate]);
-
+  
   return (
     <div className={styles.test}>
       <Header />
@@ -156,11 +166,18 @@ const Reservation = () => {
                 </div>
               </div>
 
-              <div className={styles.info}>
-                <div className={styles.header}>
-                  <div className={styles.title}>구장 정보</div>
-                  {/* <button className={styles.reserve}>구장 예약하기</button> */}
-                </div>
+          <div className={styles.info}>
+            <div className={styles.header}>
+              <div className={styles.title}>구장 정보</div>
+              <button
+                className={styles.reserve}
+                onClick={() => {
+                  modalNotice(modalRef);
+                }}
+              >
+                구장 예약하기
+              </button>
+            </div>
 
                 <div className={styles.contents}>
                   <div className={styles.row}>
@@ -187,7 +204,7 @@ const Reservation = () => {
             </div>
           </div>
         ) : null}
-
+        
         <div className={styles.dayVideo}>
           <div className={styles.selectGroup}>
             <SelectBtn
@@ -222,30 +239,8 @@ const Reservation = () => {
         </div>
         <div className={styles.reserveList}>
           <ReservationList reserveList={isReservationList}></ReservationList>
-          {/* <div className={styles.group}>
-            <div className={styles.compontent}>
-              <div className={styles.info}>
-                <div className={styles.field}>A구장</div>
-                <div className={styles.versus}>6 vs 6</div>
-              </div>
-
-              <div className={styles.date}>10:00 ~ 12:00</div>
-
-              <button>예약하기</button>
-            </div>
-
-            <div className={styles.compontent}>
-              <div className={styles.info}>
-                <div className={styles.field}>A구장</div>
-                <div className={styles.versus}>6 vs 6</div>
-              </div>
-
-              <div className={styles.date}>10:00 ~ 12:00</div>
-
-              <div className={styles.booked}>예약마감</div>
-            </div>
+          
           </div> */}
-
           {/* <div className={styles.group}>
             <div className={styles.compontent}>
               <div className={styles.info}>
@@ -276,6 +271,16 @@ const Reservation = () => {
           <div className={styles.pageNum}>1</div>
           <img src={rightArrow} alt=""></img>
         </div> */}
+
+        {/* modalRef */}
+        <ReservationModal
+          styles={modal}
+          ref={modalRef}
+          extendRef={modalCheckRef}
+        />
+        {/* modalCheckRef */}
+        <ReservationCheckModal styles={check} ref={modalCheckRef} />
+
       </div>
       <Footer />
     </div>

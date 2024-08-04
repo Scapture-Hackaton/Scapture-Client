@@ -7,7 +7,7 @@ import { defaultInstance, authInstance } from '../utils/instance';
 // 경기장 전체 조회
 export const getStadiums = async (city: string, state: string) => {
   try {
-    const res: CommonResponse = await defaultInstance.post(
+    const res: CommonResponse = await defaultInstance.get(
       `api/stadium?city=${city}&state=${state}`,
     );
     return res;
@@ -101,6 +101,7 @@ export const unLikeVideo = async (videoId: number) => {
     return res.data;
   } catch (e: any) {
     console.log(e);
+
     return {
       status: e.response.status,
     };
