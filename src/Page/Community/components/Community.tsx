@@ -51,7 +51,15 @@ const Community = () => {
     if (isVideoId) {
       queryClient.invalidateQueries({ queryKey: ['video_detail', isVideoId] });
     }
-  }, [isVideoId, queryClient]);
+
+    if (
+      setVideoId != null &&
+      popularVideoData != null &&
+      popularVideoData.length > 0
+    ) {
+      setVideoId(popularVideoData[0].videoId);
+    }
+  }, [isVideoId, queryClient, popularVideoData]);
 
   // onToggleLike 함수 정의
   // const handleToggleLike = (videoId: number) => {
@@ -139,42 +147,44 @@ const Community = () => {
                 onToggleLike={handleToggleLike}
               />
             </div>
+            <div className={styles.commentContainer}>
+              <div className={styles.title}>
+                <div>
+                  <p>댓글</p>
+                  <span className={styles.cnt}>{isCommentCnt}</span>
+                </div>
+                <div
+                  className={styles.moreComment}
+                  onClick={handleToggleComments}
+                >
+                  {isComments ? (
+                    <>
+                      <span>댓글 닫기</span>
+                      <img src={upBtn} alt="" />
+                    </>
+                  ) : (
+                    <>
+                      <span>댓글 더보기</span>
+                      <img src={dropDown} alt="" />
+                    </>
+                  )}
+                </div>
+              </div>
+
+              <div
+                className={`${styles.commentList} ${isComments ? styles.show : ''}`}
+              >
+                <Comment
+                  isShow={isComments}
+                  videoId={isVideoId}
+                  changeCommentCnt={changeCommentCnt}
+                />
+              </div>
+            </div>
           </>
         ) : (
           <></>
         )}
-
-        <div className={styles.commentContainer}>
-          <div className={styles.title}>
-            <div>
-              <p>댓글</p>
-              <span className={styles.cnt}>{isCommentCnt}</span>
-            </div>
-            <div className={styles.moreComment} onClick={handleToggleComments}>
-              {isComments ? (
-                <>
-                  <span>댓글 닫기</span>
-                  <img src={upBtn} alt="" />
-                </>
-              ) : (
-                <>
-                  <span>댓글 더보기</span>
-                  <img src={dropDown} alt="" />
-                </>
-              )}
-            </div>
-          </div>
-
-          <div
-            className={`${styles.commentList} ${isComments ? styles.show : ''}`}
-          >
-            <Comment
-              isShow={isComments}
-              videoId={isVideoId}
-              changeCommentCnt={changeCommentCnt}
-            />
-          </div>
-        </div>
 
         <PopularVideoList videos={popularVideoData} changeVideo={changeVideo} />
 
