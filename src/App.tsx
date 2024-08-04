@@ -1,4 +1,10 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import {
+  QueryClient,
+  QueryClientProvider,
+  useQuery,
+} from '@tanstack/react-query';
+
 import Main from './Page/Main/components/Main';
 import Scapture from './Page/Scapture/components/Scapture';
 import Stadium from './Page/Stadium/components/Stadium';
@@ -14,6 +20,8 @@ import DevTer from './DevTerminal';
 import './App.scss';
 import Community from './Page/Community/components/Community';
 // import LoginCallBack from './Page/Header/test/LoginCallBack';
+
+const queryClient = new QueryClient();
 
 const App = () => {
   return (
