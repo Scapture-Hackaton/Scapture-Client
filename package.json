@@ -11,10 +11,13 @@
   },
   "dependencies": {
     "@tanstack/react-query": "^5.51.1",
+    "axios": "^1.7.2",
+    "dotenv": "^16.4.5",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-router-dom": "^6.24.1",
-    "recoil": "^0.7.7"
+    "recoil": "^0.7.7",
+    "ts-node": "^10.9.2"
   },
   "devDependencies": {
     "@types/react": "^18.3.3",
@@ -23,8 +26,15 @@
     "@typescript-eslint/parser": "^7.13.1",
     "@vitejs/plugin-react-swc": "^3.5.0",
     "eslint": "^8.57.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-import": "^2.29.1",
+    "eslint-plugin-prefer-arrow": "^1.2.3",
+    "eslint-plugin-prettier": "^5.2.1",
+    "eslint-plugin-react": "^7.35.0",
     "eslint-plugin-react-hooks": "^4.6.2",
     "eslint-plugin-react-refresh": "^0.4.7",
+    "prettier": "^3.3.3",
+    "sass": "^1.77.8",
     "typescript": "^5.2.2",
     "vite": "^5.3.1"
   }

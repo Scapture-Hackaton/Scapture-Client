@@ -1,0 +1,141 @@
+.test {
+  // background-color: var(--guide-line-color);
+  width: 100%;
+  margin: 0 auto;
+
+  .scapture {
+    color: var(--white-color);
+
+    .banner {
+      // background-color: antiquewhite;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      position: relative;
+
+      .bannerText {
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        font-size: var(--font-size-xl);
+        bottom: 10%;
+        left: 5%;
+      }
+    }
+
+    .option {
+      // background-color: aqua;
+      display: flex;
+      width: 100%;
+      font-size: var(--font-size-m);
+
+      >.container {
+        width: 95.11%;
+        margin: 1.875rem auto;
+        display: flex;
+        justify-content: space-between;
+
+        select {
+          width: 3.75rem;
+          height: 1.875rem;
+          background-color: var(--grey-color-grey-01);
+          color: var(--white-color);
+          font-size: var(--font-size-m);
+          border: none;
+          border-radius: 0.25rem;
+          // text-align: center;
+        }
+
+        #city,
+        #local {
+          margin-right: 0.5rem;
+        }
+
+        #search {
+          background-color: var(--grey-color-grey-01);
+          color: var(--white-color);
+          display: flex;
+          flex-direction: row;
+          // justify-content: flex-end;
+          align-items: center;
+          width: 12.5rem;
+          height: 1.875rem;
+          border-radius: 0.25rem;
+
+          >input {
+            color: var(--white-color);
+            margin-left: 0.625rem;
+          }
+
+          >input ::placeholder {
+            color: var(--white-color);
+          }
+        }
+
+        #searchImage {
+          display: flex;
+          justify-content: flex-end;
+          width: 2.5rem;
+          // width: 20px;
+        }
+      }
+    }
+
+
+    // display: flex;
+    .stadiumList {
+      background-color: var(--main-color-navy-02);
+      font-size: var(--font-size-xs);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      margin: 0 auto;
+      height: 9.3125rem;
+      width: 95.11%;
+      margin-bottom: 1.875rem;
+      border-radius: 0.625rem;
+      border: 0.0625rem solid var(--grey-color-grey-02);
+
+      >.stadium {
+        display: flex;
+        margin: 0 0.75rem 0 0.75rem;
+
+        .stadiumInfo {
+          .stadium {
+            display: flex;
+            flex-direction: column;
+
+            #name {
+              font-size: var(--font-size-xm);
+              margin-left: 0.6rem;
+              margin-bottom: 2.0625rem;
+            }
+
+            .info {
+              display: flex;
+              flex-direction: column;
+              // background-color: #500b82;
+              height: 4.375rem;
+
+              div {
+                display: flex;
+                margin-top: auto;
+
+                span {
+                  display: flex;
+                  align-items: flex-end;
+                  margin-left: 0.6rem;
+                }
+              }
+
+              .title {
+                border-right: 0.0625rem solid white;
+                width: 3.5rem;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
