@@ -23,7 +23,9 @@ export const putProfile = async (
     new Blob([JSON.stringify(profileData)], { type: 'application/json' }),
   );
 
-  formData.append('image', imageFile);
+  if (imageFile) {
+    formData.append('image', imageFile);
+  }
 
   try {
     const res = await authInstance.put('api/user/profile', formData, {
