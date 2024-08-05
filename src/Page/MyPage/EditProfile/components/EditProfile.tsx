@@ -6,7 +6,12 @@ import { userDataAtom } from '../../Atom/atom';
 import styles from '../scss/edit-profile.module.scss';
 import profileImgDefault from '../../image/scapture-logo.png';
 import pencil from '../../image/pencil.png';
-import { putProfile } from '../../../../apis/api/mypage.api';
+import {
+  getBanana,
+  getProfile,
+  getSortVideo,
+  putProfile,
+} from '../../../../apis/api/mypage.api';
 import { Link } from 'react-router-dom';
 import React, { useEffect, useState } from 'react';
 import Header from '../../../Header/components/Header';
@@ -28,6 +33,28 @@ const EditProfile = () => {
 
   //recoil
   const [isProfile, setProfile] = useRecoilState<userData>(userDataAtom);
+
+  useEffect(() => {
+    const fetchProfileInfo = async () => {
+      const res = await getProfile();
+      const banana = await getBanana();
+      const videoSort = await getSortVideo('latest');
+      console.log('res', res?.data);
+      if (res?.data && banana?.data && videoSort?.data) {
+        setProfile(prev => ({
+          ...prev,
+          endDate: res.data.endDate,
+          image: res.data.image,
+          location: res.data.location,
+          name: res.data.name,
+          role: res.data.role,
+          team: res.data.team,
+        }));
+      }
+    };
+
+    fetchProfileInfo();
+  }, [setProfile]);
 
   //useState
   //⚠NOTICE!! : DON'T CHANGE THAT VALUE NAME!!!
