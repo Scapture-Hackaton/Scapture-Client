@@ -237,11 +237,14 @@
               .items {
                 // background-color: #3433ff;
                 display: flex;
-                flex-direction: column;
-                margin: 0 1.5625rem 1.25rem 0;
+                // flex-direction: column;
+                align-items: end;
+                justify-content: end;
+                // margin: 0 1.5625rem 1.25rem 0;
+                margin-bottom: 1.25rem;
 
                 img {
-                  width: 153px;
+                  width: 163px;
                   height: 122px;
 
                   border-radius: 10px;
@@ -255,6 +258,10 @@
                   display: flex;
                   justify-content: flex-end;
                   margin-top: 0.9375rem;
+
+                  @media (min-width: 450px) {
+                    margin-right: 1rem;
+                  }
                 }
               }
             }
