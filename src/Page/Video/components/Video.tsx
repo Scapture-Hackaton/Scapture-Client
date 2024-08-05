@@ -3,6 +3,7 @@ import Footer from '../../Footer/components/Footer';
 import styles from '../scss/video.module.scss';
 
 import modal from '../scss/video-modal.module.scss';
+import loginModal from '../../Header/scss/login-modal.module.scss';
 
 import download from '../image/download.png';
 import share from '../image/share.png';
@@ -38,9 +39,24 @@ import BookMark from './BookMark';
 import { useRef } from 'react';
 // import { modalNotice } from '../functions/ModalFunction';
 import { VideoModal } from './VideoModal';
+import { modalNotice } from '../functions/ModalFunction';
+import {
+  GOOGLE_AUTH_URL,
+  KAKAO_AUTH_URL,
+  NAVER_AUTH_URL,
+} from '../../../apis/config/login.config';
+import { LoginModal } from '../../Header/components/LoginModal';
 
 const Video = () => {
+  //Object
+  const AUTH_URLS = {
+    kakao: KAKAO_AUTH_URL,
+    google: GOOGLE_AUTH_URL,
+    naver: NAVER_AUTH_URL,
+  };
+
   const modalRef = useRef<HTMLDialogElement>(null);
+  const loginModalRef = useRef<HTMLDialogElement>(null);
   const queryClient = useQueryClient();
   const location = useLocation();
   const stadiumId = location.state.stadiumId;
@@ -198,9 +214,11 @@ const Video = () => {
             });
         } else {
           alert('로그인이 필요합니다.');
+          modalNotice(loginModalRef);
         }
       } else {
         alert('다운로드 권한 부여에 실패했습니다.');
+        modalNotice(loginModalRef);
       }
     } catch (error) {
       console.error('비디오 다운로드 중 오류가 발생했습니다.', error);
@@ -242,6 +260,7 @@ const Video = () => {
   const handleToggleLike = (isLiked: boolean) => {
     if (videoDetail && !isLiked) {
       toggleLike(videoId);
+      modalNotice(loginModalRef);
     } else if (videoDetail && isLiked) {
       toggleUnLike(videoId);
     }
@@ -282,6 +301,7 @@ const Video = () => {
   const handleToggleStore = (isStore: boolean) => {
     if (videoDetail && !isStore) {
       toggleStore(videoId);
+      modalNotice(loginModalRef);
     } else if (videoDetail && isStore) {
       toggleUnStore(videoId);
     }
@@ -411,6 +431,11 @@ const Video = () => {
         </div> */}
 
         <VideoModal styles={modal} ref={modalRef} />
+        <LoginModal
+          styles={loginModal}
+          AUTH_URLS={AUTH_URLS}
+          modalRef={loginModalRef}
+        ></LoginModal>
       </div>
       <Footer />
     </div>
