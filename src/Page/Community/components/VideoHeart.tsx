@@ -2,18 +2,15 @@ import React, { useState, useEffect } from 'react';
 import styles from '../scss/community.module.scss';
 import fullHeart from '../image/fullHeart.png';
 import emptyHeart from '../image/emptyHeart.png';
-import { likesComment, unLikeComment } from '../../../apis/api/community.api';
 
 interface HeartProps {
-  id: number;
+  videoId: number;
   isLiked: boolean;
   likeCount: number;
-  type: 'comment' | 'video';
-  onToggleLike: (id: number, isLiked: boolean) => void;
+  onToggleLike: (isLiked: boolean) => void;
 }
 
-const Heart: React.FC<HeartProps> = ({
-  id,
+const VideoHeart: React.FC<HeartProps> = ({
   isLiked,
   likeCount,
   onToggleLike,
@@ -27,38 +24,25 @@ const Heart: React.FC<HeartProps> = ({
     setCnt(likeCount);
   }, [isLiked, likeCount]);
 
-  const toggleHeart = async () => {
-    try {
-      // 좋아요 상태 변경
-      if (isHeart) {
-        await unLikeComment(id);
-
-        onToggleLike(id, false);
-      } else {
-        await likesComment(id);
-
-        onToggleLike(id, true);
-      }
-    } catch (e) {
-      console.log(e);
-    }
-  };
-
   return (
     <>
       {isHeart ? (
         <img
           src={fullHeart}
           alt="liked"
-          onClick={toggleHeart}
+          onClick={() => onToggleLike(isLiked)}
           className={styles.onHeart}
         />
       ) : (
-        <img src={emptyHeart} alt="not liked" onClick={toggleHeart} />
+        <img
+          src={emptyHeart}
+          onClick={() => onToggleLike(isLiked)}
+          alt="not liked"
+        />
       )}
       <div className={styles.cnt}>{isCnt}</div>
     </>
   );
 };
 
-export default Heart;
+export default VideoHeart;

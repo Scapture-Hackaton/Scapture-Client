@@ -5,7 +5,7 @@ import Footer from '../../Footer/components/Footer';
 import styles from '../scss/reservation.module.scss';
 import modal from '../scss/reservation-modal.module.scss';
 import check from '../scss/reservation-check-modal.module.scss';
-// import { modalNotice } from '../functions/ModalFunction';
+import { modalNotice } from '../functions/ModalFunction';
 import {
   ReservationModal,
   ReservationCheckModal,
@@ -279,7 +279,6 @@ const Reservation = () => {
         />
         {/* modalCheckRef */}
         <ReservationCheckModal styles={check} ref={modalCheckRef} />
-
       </div>
       <Footer />
     </div>
