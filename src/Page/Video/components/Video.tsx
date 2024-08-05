@@ -260,6 +260,7 @@ const Video = () => {
   const handleToggleLike = (isLiked: boolean) => {
     if (videoDetail && !isLiked) {
       toggleLike(videoId);
+      modalNotice(loginModalRef);
     } else if (videoDetail && isLiked) {
       toggleUnLike(videoId);
     }
@@ -300,6 +301,7 @@ const Video = () => {
   const handleToggleStore = (isStore: boolean) => {
     if (videoDetail && !isStore) {
       toggleStore(videoId);
+      modalNotice(loginModalRef);
     } else if (videoDetail && isStore) {
       toggleUnStore(videoId);
     }
