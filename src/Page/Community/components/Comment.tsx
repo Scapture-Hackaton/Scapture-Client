@@ -15,16 +15,15 @@ import { getComments, writeComment } from '../../../apis/api/community.api';
 
 interface CommentProps {
   isShow: boolean;
+  videoId: number;
+  changeCommentCnt: (cnt: number) => void;
 }
 
-const Comment: React.FC<CommentProps> = ({ isShow }) => {
-  localStorage.setItem(
-    'token',
-    'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIzNjM0ODk4NTUxIiwicHJvdmlkZXIiOiJrYWthbyIsInByb3ZpZGVySWQiOiIzNjM0ODk4NTUxIiwiaWF0IjoxNzIyMzI3MjQ2LCJleHAiOjE3MjI0MTM2NDZ9.O8h_RJzHl0yr3F4i6QOL_SYt1g-FDLTLcZc2i4e-VxU',
-  );
-
-  const videoId = 1;
-
+const Comment: React.FC<CommentProps> = ({
+  isShow,
+  videoId,
+  changeCommentCnt,
+}) => {
   // 첫 화면에서 댓글을 가져옴
   const queryClient = useQueryClient();
   const { data: commentsData } = useQuery({
@@ -32,9 +31,6 @@ const Comment: React.FC<CommentProps> = ({ isShow }) => {
     queryFn: () => getComments(videoId),
     initialData: [] as CommentData[], // 초기 데이터를 빈 배열로 설정
   });
-
-  const [isData, setData] = useState<CommentData[]>(commentsData.data);
-  //   const commentsToShow = showAll ? data : data.slice(0, 1);
 
   // 댓글 창의 입력 감지
   const [isInput, setInput] = useState('');
@@ -132,6 +128,10 @@ const Comment: React.FC<CommentProps> = ({ isShow }) => {
 
   // 댓글이 업데이트되었을 때 스크롤을 맨 아래로 이동
   useEffect(() => {
+    if (commentsData.data != null) {
+      changeCommentCnt(commentsData.data.length);
+    }
+
     if (commentBoxRef.current) {
       commentBoxRef.current.scrollTop = commentBoxRef.current.scrollHeight;
     }

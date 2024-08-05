@@ -20,11 +20,9 @@ export const getPopularVideos = async () => {
 // 영상 세부 조회
 export const getVideoDetail = async (videoId: number) => {
   try {
-    const res: CommonResponse = await defaultInstance.get(
+    const res: CommonResponse = await authInstance.get(
       `api/videos/${videoId}/details`,
     );
-
-    console.log(res);
 
     return res.data.data;
   } catch (e: any) {
@@ -99,7 +97,7 @@ export const unLikeComment = async (commentId: number) => {
 export const likesVideo = async (videoId: number) => {
   try {
     const res: CommonResponse = await authInstance.post(
-      `api/comments/${videoId}/likes`,
+      `api/videos/${videoId}/likes`,
     );
 
     return res.data;
@@ -115,7 +113,7 @@ export const likesVideo = async (videoId: number) => {
 export const unLikeVideo = async (videoId: number) => {
   try {
     const res: CommonResponse = await authInstance.delete(
-      `api/comments/${videoId}/likes`,
+      `api/videos/${videoId}/likes`,
     );
 
     return res.data;
