@@ -435,79 +435,43 @@
       margin-top: 50px;
     }
 
-    .slider {
-      width: 100%;
-      height: 124px;
-      overflow: hidden;
-      position: relative; // Added to enable positioning of innerSlider
-      // background: blue;
-
-      .sliderInner {
-        position: absolute; // Changed to absolute for proper positioning
-        top: 0;
-        left: 0;
-        height: 100%;
-
-        width: 350%;
-        display: grid;
-        grid-template-columns: repeat(6, 1fr);
-        gap: 23px;
-        transition: left 0.3s ease; // Smooth transition for sliding
-
-        // background: gold;
-
-        .sliderItem {
-          height: 100%;
-          width: 90%;
-          background-color: var(--grey-color);
-          border-radius: 10px;
-          // margin: 0 1rem;
-        }
-      }
-
+    .images {
+      // background-color: #3f2f39;
+      // width: 100%;
+      width: 90%;
+      margin: auto;
     }
   }
 
-  // 모바일 뷰 미디어 쿼리
-  // @media (max-width: 768px) {
-  //   .myPage {
-  //     .profile {
-  //       height: auto;
-  //       max-height: none;
+  //   .stadiumList {
+  //     // background-color: red;
+  //     margin: 0 auto;
+  //     width: 90%;
 
-  //       .container {
-  //         flex-direction: column;
-  //         align-items: center;
-  //         margin: 2rem auto 0 auto;
+  //     display: flex;
+  //     align-items: center;
 
-  //         .image_box {
-  //           max-width: 90%;
-  //           height: auto;
-  //         }
+  //     .items {
+  //       // background-color: #3433ff;
+  //       display: flex;
+  //       flex-direction: column;
+  //       margin: 0 1.5625rem 1.25rem 0;
 
-  //         .userInfo {
-  //           margin: 1rem 0 0 0;
-  //           max-width: 90%;
-  //           text-align: center;
+  //       img {
+  //         width: 183px;
+  //         height: 122px;
 
-  //           .name {
-  //             font-size: 2em; /* 모바일 뷰 폰트 크기 */
-  //           }
+  //         border-radius: 10px;
 
-  //           .subscribe {
-  //             display: flex;
-  //             align-items: center;
-  //             justify-content: center;
-  //             font-size: 1rem; /* 모바일 뷰 폰트 크기 */
-  //           }
+  //         cursor: pointer;
+  //       }
 
-  //           .group {
-  //             .title,
-  //             .descrip {
-  //               font-size: 1rem; /* 모바일 뷰 폰트 크기 */
-  //             }
-  //           }
-  //         }
+  //       div {
+  //         // background-color: black;
+  //         font-size: var(--font-size-s);
+  //         display: flex;
+  //         justify-content: flex-end;
+  //         margin-top: 0.9375rem;
   //       }
   //     }
   //   }

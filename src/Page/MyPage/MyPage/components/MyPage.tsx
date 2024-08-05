@@ -1,15 +1,15 @@
 import Header from '../../../Header/components/Header';
 import Footer from '../../../Footer/components/Footer';
+import AllianceStadium from '../../../Main/components/AllianceStadium';
 import { userData, bananaData, subscribedData } from '../../dto/atom.interface';
 
 import styles from '../scss/my-page.module.scss';
 import modal from '../scss/my-page-modal.module.scss';
 import sub from '../scss/my-page-sub-modal.module.scss';
+
 import pencil from '../../image/pencil.png';
 import banana from '../image/banana.png';
 import rightArrow from '../image/right_arrow.png';
-import rightFrame from '../image/rightFrame.png';
-import leftFrame from '../image/leftFrame.png';
 import dropDown from '../image/dropDown.png';
 import subscribe from '../image/subscribe.png';
 import profileImgDefault from '../../image/scapture-logo.png';
@@ -30,27 +30,15 @@ import { Link } from 'react-router-dom';
 const MyPage = () => {
   const modalRef = useRef<HTMLDialogElement>(null);
   const modalSubRef = useRef<HTMLDialogElement>(null);
-  const sliderRef = useRef<HTMLDivElement>(null);
-  const innerSliderRef = useRef<HTMLDivElement>(null);
-  const [pressed, setPressed] = useState(false);
-  const [startX, setStartX] = useState(0);
 
   //Recoil
   const [isProfile, setProfile] = useRecoilState<userData>(userDataAtom);
   const [isBanana, setBanana] = useRecoilState<bananaData>(bananaDataAtom);
   const isSubscribed = useRecoilValue<subscribedData>(subscribedAtom);
+
+  //useState
   const [isVideo, setVideo] = useState<string>('');
   const [isVideos, setVideos] = useState([]);
-  // interface sortTypeObject {
-  //   latest: string;
-  //   popularity: string;
-  // }
-
-  //sort Object
-  // const sortType: sortTypeObject = {
-  //   latest: '',
-  //   popularity: '',
-  // };
 
   const handleSortType = (type: string) => {
     const res = getSortVideo(type);
@@ -101,61 +89,6 @@ const MyPage = () => {
     fetchProfileInfo();
   }, [setProfile, setBanana]);
 
-  // mypage api
-
-  useEffect(() => {
-    const slider = sliderRef.current;
-    const innerSlider = innerSliderRef.current;
-
-    if (!slider || !innerSlider) return;
-
-    const handleMouseDown = (e: MouseEvent) => {
-      setPressed(true);
-      setStartX(e.clientX - innerSlider.offsetLeft);
-      slider.style.cursor = 'grabbing';
-    };
-
-    const handleMouseEnter = () => {
-      slider.style.cursor = 'grab';
-    };
-
-    const handleMouseUp = () => {
-      setPressed(false);
-      slider.style.cursor = 'grab';
-    };
-
-    const handleMouseMove = (e: MouseEvent) => {
-      if (!pressed) return;
-      e.preventDefault();
-      const x = e.clientX;
-      innerSlider.style.left = `${x - startX}px`;
-      checkBoundary();
-    };
-
-    const checkBoundary = () => {
-      const outer = slider.getBoundingClientRect();
-      const inner = innerSlider.getBoundingClientRect();
-
-      if (parseInt(innerSlider.style.left) > 0) {
-        innerSlider.style.left = '0px';
-      } else if (inner.right < outer.right) {
-        innerSlider.style.left = `-${inner.width - outer.width}px`;
-      }
-    };
-
-    slider.addEventListener('mousedown', handleMouseDown);
-    slider.addEventListener('mouseenter', handleMouseEnter);
-    window.addEventListener('mouseup', handleMouseUp);
-    slider.addEventListener('mousemove', handleMouseMove);
-
-    return () => {
-      slider.removeEventListener('mousedown', handleMouseDown);
-      slider.removeEventListener('mouseenter', handleMouseEnter);
-      window.removeEventListener('mouseup', handleMouseUp);
-      slider.removeEventListener('mousemove', handleMouseMove);
-    };
-  }, [pressed, startX]);
-
   const [open, setOpen] = useState(false);
   const [selected, setSelected] = useState('최신순');
   const selectRef = useRef<HTMLDivElement>(null);
@@ -168,22 +101,6 @@ const MyPage = () => {
     setSelected(option);
     setOpen(false);
   };
-
-  const handleClickOutside = (event: MouseEvent) => {
-    if (
-      selectRef.current &&
-      !selectRef.current.contains(event.target as Node)
-    ) {
-      setOpen(false);
-    }
-  };
-
-  useEffect(() => {
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
-  }, []);
 
   return (
     <div className={styles.test}>
@@ -298,9 +215,7 @@ const MyPage = () => {
       <div className={styles.stored}>
         <div className={styles.group}>
           <div className={styles.storedText}>
-            {/* <img src={leftFrame} alt=""></img> */}
             <span>저장된 영상</span>
-            {/* <img src={rightFrame} alt=""></img> */}
           </div>
           <div
             className={`${styles.selectbox} ${open ? styles.open : ''}`}
@@ -349,19 +264,8 @@ const MyPage = () => {
         </div>
 
         {isVideo ? (
-          <div className={styles.slider} ref={sliderRef}>
-            <div className={styles.sliderInner} ref={innerSliderRef}>
-              {isVideos.map((video, index) => (
-                <div className={styles.sliderItem} key={index}>
-                  <img
-                    src={video.image}
-                    className={styles.sliderItem}
-                    alt={`Video Thumbnail ${index}`}
-                    style={{ width: '100%', height: 'auto' }}
-                  />
-                </div>
-              ))}
-            </div>
+          <div className={styles.images}>
+            <AllianceStadium stadiumList={isVideos} />
           </div>
         ) : (
           <div className={styles.videoNotice}>내역이 없습니다</div>
