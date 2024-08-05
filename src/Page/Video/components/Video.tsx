@@ -228,7 +228,7 @@ const Video = () => {
   const { mutate: toggleLike } = useMutation({
     mutationFn: async (videoId: number) => {
       const res = await likesVideo(videoId);
-      if (res.status == 400) {
+      if (res.status == 400 || res.status == 403) {
         modalNotice(loginModalRef);
       }
     },
@@ -246,7 +246,7 @@ const Video = () => {
   const { mutate: toggleUnLike } = useMutation({
     mutationFn: async (videoId: number) => {
       const res = await unLikeVideo(videoId);
-      if (res.status == 400) {
+      if (res.status == 400 || res.status == 403) {
         modalNotice(loginModalRef);
       }
     },
@@ -274,7 +274,7 @@ const Video = () => {
   const { mutate: toggleStore } = useMutation({
     mutationFn: async (videoId: number) => {
       const res = await storeVideo(videoId);
-      if (res.status == 400) {
+      if (res.status == 400 || res.status == 403) {
         modalNotice(loginModalRef);
       }
     },
@@ -292,7 +292,7 @@ const Video = () => {
   const { mutate: toggleUnStore } = useMutation({
     mutationFn: async (videoId: number) => {
       const res = await unStoreVideo(videoId);
-      if (res.status == 400) {
+      if (res.status == 400 || res.status == 403) {
         modalNotice(loginModalRef);
       }
     },
