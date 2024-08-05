@@ -6,6 +6,7 @@ import modal from '../../Header/scss/login-modal.module.scss';
 // import fullHeart from '../image/fullHeart.png';
 // import emptyHeart from '../image/emptyHeart.png';
 import sendImg from '../image/sendImg.png';
+import dropDown from '../image/dropDown.png';
 import upBtn from '../image/upBtn.png';
 
 // import { CommonResponse } from '../../../apis/dto/common.response';
@@ -22,16 +23,10 @@ import {
 import { LoginModal } from '../../Header/components/LoginModal';
 
 interface CommentProps {
-  isShow: boolean;
   videoId: number;
-  changeCommentCnt: (cnt: number) => void;
 }
 
-const Comment: React.FC<CommentProps> = ({
-  isShow,
-  videoId,
-  changeCommentCnt,
-}) => {
+const Comment: React.FC<CommentProps> = ({ videoId }) => {
   //DOM
   const modalRef = useRef<HTMLDialogElement>(null);
 
@@ -40,6 +35,13 @@ const Comment: React.FC<CommentProps> = ({
     kakao: KAKAO_AUTH_URL,
     google: GOOGLE_AUTH_URL,
     naver: NAVER_AUTH_URL,
+  };
+
+  const [isComments, setComments] = useState(false);
+
+  const [isCommentCnt, setCommentCnt] = useState('00');
+  const changeCommentCnt = (cnt: number) => {
+    setCommentCnt(cnt.toString().padStart(2, '0'));
   };
 
   // 첫 화면에서 댓글을 가져옴
@@ -130,10 +132,10 @@ const Comment: React.FC<CommentProps> = ({
 
   // 댓글 닫기를 눌렀을 경우 댓글의 맨위로 이동
   useEffect(() => {
-    if (!isShow && commentBoxRef.current) {
+    if (!isComments && commentBoxRef.current) {
       scrollToTop();
     }
-  }, [isShow]);
+  }, [isComments]);
 
   // 좋아요를 눌렀을 때 갱신
   const handleToggleLike = (commentId: number, isLiked: boolean) => {
@@ -160,44 +162,83 @@ const Comment: React.FC<CommentProps> = ({
     }
   }, [commentsData.data]);
 
+  const handleToggleComments = () => {
+    setComments(!isComments);
+  };
+
+  // video가 변경되면 댓글 더보기로 변경
+  useEffect(() => {
+    setComments(false);
+
+    if (commentsData && commentsData.data && commentsData.data != null) {
+      setCommentCnt(commentsData.data.length.toString().padStart(2, '0'));
+    } else {
+      setCommentCnt('00');
+    }
+  }, [videoId]);
+
   return (
     <>
-      <div ref={commentBoxRef} className={`${styles.commentBox} test`}>
-        {(commentsData.data ?? []).map((comment: CommentData) => (
-          <div key={comment.commentId} className={styles.commentGroup}>
-            <div className={styles.profileImg}>
-              <img src={comment.image} alt="" />
-            </div>
-            <div className={styles.comment}>
-              <p>{comment.name}</p>
-              <div>{comment.content}</div>
-            </div>
-            <div className={styles.heartGroup}>
-              <Heart
-                id={comment.commentId}
-                isLiked={comment.isLiked}
-                likeCount={comment.likeCount}
-                type="comment"
-                onToggleLike={handleToggleLike}
-              />
-            </div>
-          </div>
-        ))}
+      <div className={styles.title}>
+        <div>
+          <p>댓글</p>
+          <span className={styles.cnt}>{isCommentCnt}</span>
+        </div>
+        <div className={styles.moreComment} onClick={handleToggleComments}>
+          {isComments ? (
+            <>
+              <span>댓글 닫기</span>
+              <img src={upBtn} alt="" />
+            </>
+          ) : (
+            <>
+              <span>댓글 더보기</span>
+              <img src={dropDown} alt="" />
+            </>
+          )}
+        </div>
       </div>
-      {isShowScrollButton && (
-        <button className={styles.scrollToTopButton} onClick={scrollToTop}>
-          <img src={upBtn} alt="" />
-        </button>
-      )}
-      <div className={styles.inputGroup}>
-        <input
-          type="text"
-          placeholder="댓글 입력하기"
-          onChange={changeInput}
-          value={isInput}
-          onKeyPress={handleKeyPress}
-        />
-        <img src={sendImg} alt="" onClick={sendComment} />
+
+      <div className={`${styles.commentList} ${isComments ? styles.show : ''}`}>
+        <div ref={commentBoxRef} className={`${styles.commentBox} test`}>
+          {(commentsData.data ?? []).map((comment: CommentData) => (
+            <div key={comment.commentId} className={styles.commentGroup}>
+              <div className={styles.profileImg}>
+                <img src={comment.image} alt="" />
+              </div>
+              <div className={styles.comment}>
+                <p>{comment.name}</p>
+                <div>{comment.content}</div>
+              </div>
+              <div className={styles.heartGroup}>
+                <Heart
+                  id={comment.commentId}
+                  isLiked={comment.isLiked}
+                  likeCount={comment.likeCount}
+                  type="comment"
+                  onToggleLike={handleToggleLike}
+                />
+              </div>
+            </div>
+          ))}
+        </div>
+        {isShowScrollButton && (
+          <button className={styles.scrollToTopButton} onClick={scrollToTop}>
+            <img src={upBtn} alt="" />
+          </button>
+        )}
+        <div
+          className={`${styles.inputGroup} ${isComments == false && isCommentCnt == '00' ? styles.hidden : ''}`}
+        >
+          <input
+            type="text"
+            placeholder="댓글 입력하기"
+            onChange={changeInput}
+            value={isInput}
+            onKeyPress={handleKeyPress}
+          />
+          <img src={sendImg} alt="" onClick={sendComment} />
+        </div>
       </div>
       <LoginModal
         styles={modal}

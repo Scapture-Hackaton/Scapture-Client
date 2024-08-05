@@ -14,9 +14,9 @@ interface ModalProps {
   ref: React.RefObject<HTMLDialogElement>;
 }
 
-interface ModalCheckProps extends ModalProps {
-  extendRef: React.RefObject<HTMLDialogElement>;
-}
+// interface ModalCheckProps extends ModalProps {
+//   extendRef: React.RefObject<HTMLDialogElement>;
+// }
 //Reservation 참조
 const subscribeData = {
   startDate: '2024-07-22 00:00',

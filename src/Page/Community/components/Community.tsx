@@ -2,8 +2,6 @@ import { useState, useEffect, useRef } from 'react';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import Header from '../../Header/components/Header';
 import Footer from '../../Footer/components/Footer';
-import dropDown from '../image/dropDown.png';
-import upBtn from '../image/upBtn.png';
 import styles from '../scss/community.module.scss';
 import modal from '../../Header/scss/login-modal.module.scss';
 import Comment from './Comment';
@@ -35,7 +33,6 @@ const Community = () => {
     naver: NAVER_AUTH_URL,
   };
 
-  const [isComments, setComments] = useState(false);
   const queryClient = useQueryClient();
 
   // 인기 동영상 가져오기
@@ -141,20 +138,16 @@ const Community = () => {
     },
   });
 
-  const handleToggleComments = () => {
-    setComments(!isComments);
-  };
-
   const changeVideo = (id: number) => {
     setVideoId(id);
+    queryClient.invalidateQueries({ queryKey: ['comments', id] });
 
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
-  const [isCommentCnt, setCommentCnt] = useState('00');
-  const changeCommentCnt = (cnt: number) => {
-    setCommentCnt(cnt.toString().padStart(2, '0'));
-  };
+  useEffect(() => {
+    queryClient.invalidateQueries({ queryKey: ['comments', isVideoId] });
+  }, [isVideoId, queryClient]);
 
   return (
     <div className={styles.test}>
@@ -183,38 +176,7 @@ const Community = () => {
               />
             </div>
             <div className={styles.commentContainer}>
-              <div className={styles.title}>
-                <div>
-                  <p>댓글</p>
-                  <span className={styles.cnt}>{isCommentCnt}</span>
-                </div>
-                <div
-                  className={styles.moreComment}
-                  onClick={handleToggleComments}
-                >
-                  {isComments ? (
-                    <>
-                      <span>댓글 닫기</span>
-                      <img src={upBtn} alt="" />
-                    </>
-                  ) : (
-                    <>
-                      <span>댓글 더보기</span>
-                      <img src={dropDown} alt="" />
-                    </>
-                  )}
-                </div>
-              </div>
-
-              <div
-                className={`${styles.commentList} ${isComments ? styles.show : ''}`}
-              >
-                <Comment
-                  isShow={isComments}
-                  videoId={isVideoId}
-                  changeCommentCnt={changeCommentCnt}
-                />
-              </div>
+              <Comment videoId={isVideoId} />
             </div>
           </>
         ) : (
