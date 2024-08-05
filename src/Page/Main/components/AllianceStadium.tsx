@@ -11,7 +11,7 @@ import { useNavigate } from 'react-router-dom';
 interface AllianceStadiumProps {
   stadiumList: AllianceStadiumDto[];
 }
-
+//css도 - props 필요
 const AllianceStadium: React.FC<AllianceStadiumProps> = ({ stadiumList }) => {
   const settings = {
     // dots: true,
@@ -35,7 +35,16 @@ const AllianceStadium: React.FC<AllianceStadiumProps> = ({ stadiumList }) => {
           key={allianceStadium.stadiumId}
           onClick={() => toStadium(allianceStadium.stadiumId)}
         >
-          <img src={allianceStadium.image} alt="" />
+          <img
+            src={allianceStadium.image}
+            alt=""
+            style={{
+              width: '183px',
+              height: '122px',
+              borderRadius: '10px',
+              cursor: 'pointer',
+            }}
+          />
           <div>{allianceStadium.name}</div>
         </div>
       ))}
