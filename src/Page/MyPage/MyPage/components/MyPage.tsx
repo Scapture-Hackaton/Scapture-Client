@@ -39,7 +39,8 @@ const MyPage = () => {
   const [isProfile, setProfile] = useRecoilState<userData>(userDataAtom);
   const [isBanana, setBanana] = useRecoilState<bananaData>(bananaDataAtom);
   const isSubscribed = useRecoilValue<subscribedData>(subscribedAtom);
-
+  const [isVideo, setVideo] = useState<string>('');
+  const [isVideos, setVideos] = useState([]);
   // interface sortTypeObject {
   //   latest: string;
   //   popularity: string;
@@ -60,18 +61,24 @@ const MyPage = () => {
     const fetchProfileInfo = async () => {
       const res = await getProfile();
       const banana = await getBanana();
-      // const videoSort = await getSortVideo();
-      // console.log(
-      //   'res',
-      //   res?.data,
-      // '\n',
-      // 'banana',
-      // banana?.data,
-      // '\n',
-      // 'subscribe',
-      // isSubscribed,
-      // );
-      if (res?.data && banana?.data) {
+      const videoSort = await getSortVideo('latest');
+      console.log(
+        'res',
+        res?.data,
+        '\n',
+        'banana',
+        banana?.data,
+        '\n',
+        'subscribe',
+        isSubscribed,
+        '\n',
+        'subscribe',
+        isSubscribed,
+        '\n',
+        'videoSort',
+        videoSort,
+      );
+      if (res?.data && banana?.data && videoSort?.data) {
         setProfile(prev => ({
           ...prev,
           endDate: res.data.endDate,
@@ -86,6 +93,8 @@ const MyPage = () => {
           balance: banana.data.balance,
           subscribed: banana.data.subscribed,
         }));
+        setVideo(videoSort.data[0].image);
+        setVideos(videoSort.data);
       }
     };
 
@@ -178,8 +187,8 @@ const MyPage = () => {
 
   return (
     <div className={styles.test}>
+      <Header />
       <div className={styles.myPage}>
-        <Header />
         <div className={styles.profile}>
           <div className={styles.bar}></div>
           <div className={styles.container}>
@@ -190,10 +199,10 @@ const MyPage = () => {
                   src={isProfile.image ?? profileImgDefault}
                   alt="SCAPTURE"
                 />
-              </div>
-              <div className={styles.modify}>
                 <Link to="/mypage/edit" style={{ textDecoration: 'none' }}>
-                  <img className={styles.pencil} src={pencil} alt="" />
+                  <div className={styles.modify}>
+                    <img className={styles.pencil} src={pencil} alt="" />
+                  </div>
                 </Link>
               </div>
             </div>
@@ -217,7 +226,7 @@ const MyPage = () => {
                   </>
                 ) : (
                   <>
-                    <img src={subscribe} alt="" />
+                    <img className={styles.sub} src={subscribe} alt="" />
                     <div>구독하기</div>
                   </>
                 )}
@@ -235,11 +244,10 @@ const MyPage = () => {
             </div>
           </div>
 
-          <hr></hr>
           {isSubscribed.subscribed || isProfile.endDate ? (
             <>
-              <div className={styles.chargeContainer}>
-                <div className={styles.invite}>
+              <div className={styles.noticeContainer}>
+                <div className={styles.notice}>
                   {isProfile.name}님은 현재 구독 중 입니다.
                 </div>
               </div>
@@ -276,7 +284,7 @@ const MyPage = () => {
         </div>
       </div>
 
-      <div className={styles.reservation}>
+      <div className={styles.list}>
         <Link
           className={styles.reservation}
           style={{ textDecoration: 'none' }}
@@ -290,9 +298,9 @@ const MyPage = () => {
       <div className={styles.stored}>
         <div className={styles.group}>
           <div className={styles.storedText}>
-            <img src={leftFrame} alt=""></img>
+            {/* <img src={leftFrame} alt=""></img> */}
             <span>저장된 영상</span>
-            <img src={rightFrame} alt=""></img>
+            {/* <img src={rightFrame} alt=""></img> */}
           </div>
           <div
             className={`${styles.selectbox} ${open ? styles.open : ''}`}
@@ -340,16 +348,24 @@ const MyPage = () => {
           </div>
         </div>
 
-        <div className={styles.slider} ref={sliderRef}>
-          <div className={styles.sliderInner} ref={innerSliderRef}>
-            <div className={styles.sliderItem}></div>
-            <div className={styles.sliderItem}></div>
-            <div className={styles.sliderItem}></div>
-            <div className={styles.sliderItem}></div>
-            <div className={styles.sliderItem}></div>
-            <div className={styles.sliderItem}></div>
+        {isVideo ? (
+          <div className={styles.slider} ref={sliderRef}>
+            <div className={styles.sliderInner} ref={innerSliderRef}>
+              {isVideos.map((video, index) => (
+                <div className={styles.sliderItem} key={index}>
+                  <img
+                    src={video.image}
+                    className={styles.sliderItem}
+                    alt={`Video Thumbnail ${index}`}
+                    style={{ width: '100%', height: 'auto' }}
+                  />
+                </div>
+              ))}
+            </div>
           </div>
-        </div>
+        ) : (
+          <div className={styles.videoNotice}>내역이 없습니다</div>
+        )}
       </div>
       <BananaModal styles={modal} ref={modalRef} />
       <SubscribeModal styles={sub} ref={modalSubRef} />

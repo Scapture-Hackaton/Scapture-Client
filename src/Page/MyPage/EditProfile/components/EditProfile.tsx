@@ -9,6 +9,7 @@ import pencil from '../../image/pencil.png';
 import { putProfile } from '../../../../apis/api/mypage.api';
 import { Link } from 'react-router-dom';
 import React, { useEffect, useState } from 'react';
+import Header from '../../../Header/components/Header';
 
 // import profileImg from '../image/profile.webp';
 
@@ -67,6 +68,7 @@ const EditProfile = () => {
 
   return (
     <div className={styles.test}>
+      <Header />
       <div className={styles.editProfile}>
         <div className={styles.profile}>
           <div className={styles.container}>
@@ -118,7 +120,7 @@ const EditProfile = () => {
                 </div>
               </div>
 
-              <hr></hr>
+              {/* <hr></hr> */}
 
               <div className={styles.row}>
                 <div className={styles.label}>소속팀</div>
@@ -142,7 +144,7 @@ const EditProfile = () => {
                 </div>
               </div>
 
-              <hr></hr>
+              {/* <hr></hr> */}
 
               <div className={styles.row}>
                 <div className={styles.label}>활동지역</div>
@@ -184,7 +186,7 @@ const EditProfile = () => {
                   // console.log(status);
                 }}
               >
-                저장하기
+                <Link to="/mypage">저장하기</Link>
               </div>
             </div>
           </div>

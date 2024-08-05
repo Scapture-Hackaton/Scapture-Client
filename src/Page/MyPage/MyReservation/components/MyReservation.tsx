@@ -38,16 +38,16 @@ const MyReservation = () => {
     <div className={styles.test}>
       <div className={styles.myReserve}>
         <div className={styles.backBtn}>
-          <img src={backArrow} alt=""></img>
-          <p>
-            <Link
-              className={styles.reservation}
-              style={{ textDecoration: 'none' }}
-              to="/mypage"
-            >
-              예약 내역 확인하기
-            </Link>
-          </p>
+          <Link
+            className={styles.reservation}
+            style={{ textDecoration: 'none' }}
+            to="/mypage"
+          >
+            <div>
+              <img src={backArrow} alt=""></img>
+              <p>예약 내역 확인하기</p>
+            </div>
+          </Link>
         </div>
         {isReservationState.data ? (
           <div className={styles.container}>
