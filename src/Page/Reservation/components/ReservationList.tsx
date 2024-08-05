@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import styles from '../scss/reservation.module.scss';
 import loginModal from '../../Header/scss/login-modal.module.scss';
 import { ReservationDto } from '../../../apis/dto/reservation.dto';
@@ -9,14 +9,63 @@ import {
   NAVER_AUTH_URL,
 } from '../../../apis/config/login.config';
 import { modalNotice } from '../functions/ModalFunction';
+import { reserveField } from '../../../apis/api/reservation.api';
+import { useMutation } from '@tanstack/react-query';
+import { ReservationCheckModal, ReservationModal } from './ReservationModal';
+import modal from '../scss/reservation-modal.module.scss';
+import check from '../scss/reservation-check-modal.module.scss';
 
 interface ReservationListProps {
   reserveList: ReservationDto[][];
+  queryClient: any;
+  stadiumId: number;
+  selectedFieldId: number | undefined;
+  formattedDate: string;
 }
 
-const ReservationList: React.FC<ReservationListProps> = ({ reserveList }) => {
-  const reserve = (scheduleId: number) => {
-    console.log(scheduleId);
+const ReservationList: React.FC<ReservationListProps> = ({
+  reserveList,
+  queryClient,
+  stadiumId,
+  selectedFieldId,
+  formattedDate,
+}) => {
+  const modalRef = useRef<HTMLDialogElement>(null);
+  const modalCheckRef = useRef<HTMLDialogElement>(null);
+
+  const [selectedReservation, setSelectedReservation] =
+    useState<ReservationDto | null>(null);
+
+  const mutation = useMutation({
+    mutationFn: async (scheduleId: number) => {
+      const res = await reserveField(scheduleId);
+
+      if (res.status == 400 || res.status == 403) {
+        modalRef.current?.close();
+        modalNotice(loginModalRef);
+      } else {
+        modalRef.current?.close();
+        modalNotice(modalCheckRef);
+      }
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries([
+        'reservations',
+        stadiumId,
+        selectedFieldId,
+        formattedDate,
+      ]);
+    },
+    onError: (error: any) => {
+      if (error.status == 400 || error.status == 403) {
+        modalNotice(loginModalRef);
+      }
+    },
+  });
+
+  const reserve = async (reservation: ReservationDto) => {
+    setSelectedReservation(reservation);
+    modalNotice(modalRef);
   };
 
   const loginModalRef = useRef<HTMLDialogElement>(null);
@@ -25,6 +74,10 @@ const ReservationList: React.FC<ReservationListProps> = ({ reserveList }) => {
     kakao: KAKAO_AUTH_URL,
     google: GOOGLE_AUTH_URL,
     naver: NAVER_AUTH_URL,
+  };
+
+  const handleReserveConfirm = (scheduleId: number) => {
+    mutation.mutate(scheduleId);
   };
 
   return (
@@ -44,8 +97,7 @@ const ReservationList: React.FC<ReservationListProps> = ({ reserveList }) => {
                 ) : (
                   <button
                     onClick={() => {
-                      reserve(item.scheduleId);
-                      modalNotice(loginModalRef);
+                      reserve(item);
                     }}
                   >
                     예약하기
@@ -63,6 +115,19 @@ const ReservationList: React.FC<ReservationListProps> = ({ reserveList }) => {
         AUTH_URLS={AUTH_URLS}
         modalRef={loginModalRef}
       ></LoginModal>
+      {/* modalRef */}
+      <ReservationModal
+        styles={modal}
+        ref={modalRef}
+        reservation={selectedReservation}
+        onConfirm={handleReserveConfirm}
+      />
+      {/* modalCheckRef */}
+      <ReservationCheckModal
+        styles={check}
+        ref={modalCheckRef}
+        reservation={selectedReservation}
+      />
     </>
   );
 };

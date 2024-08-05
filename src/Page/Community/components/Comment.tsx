@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import styles from '../scss/community.module.scss';
+import modal from '../../Header/scss/login-modal.module.scss';
 
 // import testCircle from '../image/testCircle.png';
 // import fullHeart from '../image/fullHeart.png';
@@ -13,6 +14,13 @@ import Heart from './Heart';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { getComments, writeComment } from '../../../apis/api/community.api';
 
+import {
+  KAKAO_AUTH_URL,
+  GOOGLE_AUTH_URL,
+  NAVER_AUTH_URL,
+} from '../../../apis/config/login.config';
+import { LoginModal } from '../../Header/components/LoginModal';
+
 interface CommentProps {
   isShow: boolean;
   videoId: number;
@@ -24,6 +32,16 @@ const Comment: React.FC<CommentProps> = ({
   videoId,
   changeCommentCnt,
 }) => {
+  //DOM
+  const modalRef = useRef<HTMLDialogElement>(null);
+
+  //Object
+  const AUTH_URLS = {
+    kakao: KAKAO_AUTH_URL,
+    google: GOOGLE_AUTH_URL,
+    naver: NAVER_AUTH_URL,
+  };
+
   // 첫 화면에서 댓글을 가져옴
   const queryClient = useQueryClient();
   const { data: commentsData } = useQuery({
@@ -45,8 +63,13 @@ const Comment: React.FC<CommentProps> = ({
 
   // 댓글이 추가되면 감지하여 요청을 다시 보내 데이터 최신화
   const addCommentMutation = useMutation({
-    mutationFn: (newComment: { videoId: number; content: string }) =>
-      writeComment(newComment.videoId, newComment.content),
+    mutationFn: async (newComment: { videoId: number; content: string }) => {
+      const res = await writeComment(newComment.videoId, newComment.content);
+      if (res.status == 400 || res.status == 403) {
+        modalRef.current?.showModal();
+      }
+    },
+
     onSuccess: () => {
       // 댓글 작성 후 댓글 목록을 다시 가져옴
       queryClient.invalidateQueries({ queryKey: ['comments', videoId] });
@@ -176,6 +199,11 @@ const Comment: React.FC<CommentProps> = ({
         />
         <img src={sendImg} alt="" onClick={sendComment} />
       </div>
+      <LoginModal
+        styles={modal}
+        AUTH_URLS={AUTH_URLS}
+        modalRef={modalRef}
+      ></LoginModal>
     </>
   );
 };

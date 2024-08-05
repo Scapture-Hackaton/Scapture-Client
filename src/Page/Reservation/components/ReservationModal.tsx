@@ -1,16 +1,18 @@
 import { forwardRef } from 'react';
-import { modalNotice } from '../functions/ModalFunction';
+import { ReservationDto } from '../../../apis/dto/reservation.dto';
 interface ModalProps {
   styles: { [key: string]: string };
   ref: React.RefObject<HTMLDialogElement>;
+  reservation?: ReservationDto | null;
 }
 
 interface ModalCheckProps extends ModalProps {
-  extendRef: React.RefObject<HTMLDialogElement>;
+  reservation?: ReservationDto | null;
+  onConfirm: (scheduleId: number) => void;
 }
 
 export const ReservationModal = forwardRef<HTMLDialogElement, ModalCheckProps>(
-  ({ styles, extendRef }, ref) => {
+  ({ styles, reservation, onConfirm }, ref) => {
     return (
       <dialog ref={ref} id={styles.reservationModal}>
         <div className={styles.contents}>
@@ -22,25 +24,26 @@ export const ReservationModal = forwardRef<HTMLDialogElement, ModalCheckProps>(
             <span>예약정보</span>
             <div className={styles.group}>
               <span>예약 날짜</span>
-              <span>2024.08.03.토</span>
+              <span>{reservation?.date}</span>
             </div>
             <div className={styles.group}>
               <span>구장명</span>
-              <span>A구장</span>
+              <span>{reservation?.name}</span>
             </div>
             <div className={styles.group}>
               <span>사용 시간</span>
-              <span>20:00 ~ 22:00</span>
+              <span>{reservation?.hours}</span>
             </div>
             <div className={styles.group}>
               <span>금액</span>
-              <span>120,000원</span>
+              <span>{reservation?.price.toLocaleString()}원</span>
             </div>
           </div>
           <button
             onClick={() => {
-              (ref as React.RefObject<HTMLDialogElement>).current?.close();
-              modalNotice(extendRef);
+              if (reservation) {
+                onConfirm(reservation.scheduleId);
+              }
             }}
           >
             예약하기
@@ -52,7 +55,7 @@ export const ReservationModal = forwardRef<HTMLDialogElement, ModalCheckProps>(
 );
 
 export const ReservationCheckModal = forwardRef<HTMLDialogElement, ModalProps>(
-  ({ styles }, ref) => {
+  ({ styles, reservation }, ref) => {
     return (
       <dialog ref={ref} id={styles.reservationCheckModal}>
         <div className={styles.contents}>
@@ -64,19 +67,19 @@ export const ReservationCheckModal = forwardRef<HTMLDialogElement, ModalProps>(
             <span>예약정보</span>
             <div className={styles.group}>
               <span>예약 날짜</span>
-              <span>2024.08.03.토</span>
+              <span>{reservation?.date}</span>
             </div>
             <div className={styles.group}>
               <span>구장명</span>
-              <span>A구장</span>
+              <span>{reservation?.name}</span>
             </div>
             <div className={styles.group}>
               <span>사용 시간</span>
-              <span>20:00 ~ 22:00</span>
+              <span>{reservation?.hours}</span>
             </div>
             <div className={styles.group}>
               <span>금액</span>
-              <span>120,000원</span>
+              <span>{reservation?.price.toLocaleString()}원</span>
             </div>
           </div>
           <button
