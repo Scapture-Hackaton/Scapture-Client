@@ -1,11 +1,18 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import Header from '../../Header/components/Header';
 import Footer from '../../Footer/components/Footer';
 import dropDown from '../image/dropDown.png';
 import upBtn from '../image/upBtn.png';
 import styles from '../scss/community.module.scss';
+import modal from '../../Header/scss/login-modal.module.scss';
 import Comment from './Comment';
+
+import {
+  KAKAO_AUTH_URL,
+  GOOGLE_AUTH_URL,
+  NAVER_AUTH_URL,
+} from '../../../apis/config/login.config';
 
 import {
   getPopularVideos,
@@ -15,8 +22,19 @@ import {
 import PopularVideoList from './PopularVideoList';
 import { likesVideo } from '../../../apis/api/stadium.api';
 import VideoHeart from './VideoHeart';
+import { LoginModal } from '../../Header/components/LoginModal';
 
 const Community = () => {
+  //DOM
+  const modalRef = useRef<HTMLDialogElement>(null);
+
+  //Object
+  const AUTH_URLS = {
+    kakao: KAKAO_AUTH_URL,
+    google: GOOGLE_AUTH_URL,
+    naver: NAVER_AUTH_URL,
+  };
+
   const [isComments, setComments] = useState(false);
   const queryClient = useQueryClient();
 
@@ -48,10 +66,6 @@ const Community = () => {
     });
 
   useEffect(() => {
-    if (isVideoId) {
-      queryClient.invalidateQueries({ queryKey: ['video_detail', isVideoId] });
-    }
-
     if (
       setVideoId != null &&
       popularVideoData != null &&
@@ -59,7 +73,21 @@ const Community = () => {
     ) {
       setVideoId(popularVideoData[0].videoId);
     }
-  }, [isVideoId, queryClient, popularVideoData]);
+  }, [popularVideoData]);
+
+  useEffect(() => {
+    if (isVideoId) {
+      queryClient.invalidateQueries({ queryKey: ['video_detail', isVideoId] });
+    }
+
+    // if (
+    //   setVideoId != null &&
+    //   popularVideoData != null &&
+    //   popularVideoData.length > 0
+    // ) {
+    //   setVideoId(popularVideoData[0].videoId);
+    // }
+  }, [isVideoId, queryClient]);
 
   // onToggleLike 함수 정의
   // const handleToggleLike = (videoId: number) => {
@@ -79,7 +107,10 @@ const Community = () => {
   // useMutation 훅을 사용하여 영상 좋아요/해제 처리
   const { mutate: toggleLikeVideo } = useMutation({
     mutationFn: async (videoId: number) => {
-      return await likesVideo(videoId);
+      const res = await likesVideo(videoId);
+      if (res.status == 400 || res.status == 403) {
+        modalRef.current?.showModal();
+      }
     },
     onSuccess: () => {
       // 비디오 상세 정보 갱신
@@ -94,7 +125,10 @@ const Community = () => {
 
   const { mutate: toggleUnLikeVideo } = useMutation({
     mutationFn: async (videoId: number) => {
-      return await unLikeVideo(videoId);
+      const res = await unLikeVideo(videoId);
+      if (res.status == 400 || res.status == 403) {
+        modalRef.current?.showModal();
+      }
     },
     onSuccess: () => {
       // 비디오 상세 정보 갱신
@@ -113,6 +147,7 @@ const Community = () => {
 
   const changeVideo = (id: number) => {
     setVideoId(id);
+
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
@@ -195,6 +230,11 @@ const Community = () => {
         </div> */}
       </div>
       <Footer />
+      <LoginModal
+        styles={modal}
+        AUTH_URLS={AUTH_URLS}
+        modalRef={modalRef}
+      ></LoginModal>
     </div>
   );
 };

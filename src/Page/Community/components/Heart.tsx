@@ -1,8 +1,17 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import styles from '../scss/community.module.scss';
 import fullHeart from '../image/fullHeart.png';
 import emptyHeart from '../image/emptyHeart.png';
 import { likesComment, unLikeComment } from '../../../apis/api/community.api';
+import { LoginModal } from '../../Header/components/LoginModal';
+
+import modal from '../../Header/scss/login-modal.module.scss';
+
+import {
+  KAKAO_AUTH_URL,
+  GOOGLE_AUTH_URL,
+  NAVER_AUTH_URL,
+} from '../../../apis/config/login.config';
 
 interface HeartProps {
   id: number;
@@ -18,6 +27,16 @@ const Heart: React.FC<HeartProps> = ({
   likeCount,
   onToggleLike,
 }) => {
+  //DOM
+  const modalRef = useRef<HTMLDialogElement>(null);
+
+  //Object
+  const AUTH_URLS = {
+    kakao: KAKAO_AUTH_URL,
+    google: GOOGLE_AUTH_URL,
+    naver: NAVER_AUTH_URL,
+  };
+
   const [isHeart, setHeart] = useState<boolean>(isLiked);
   const [isCnt, setCnt] = useState<number>(likeCount);
 
@@ -31,13 +50,19 @@ const Heart: React.FC<HeartProps> = ({
     try {
       // 좋아요 상태 변경
       if (isHeart) {
-        await unLikeComment(id);
-
-        onToggleLike(id, false);
+        const res = await unLikeComment(id);
+        if (res.status == 400 || res.status == 403) {
+          modalRef.current?.showModal();
+        } else {
+          onToggleLike(id, false);
+        }
       } else {
-        await likesComment(id);
-
-        onToggleLike(id, true);
+        const res = await likesComment(id);
+        if (res.status == 400 || res.status == 403) {
+          modalRef.current?.showModal();
+        } else {
+          onToggleLike(id, true);
+        }
       }
     } catch (e) {
       console.log(e);
@@ -57,6 +82,11 @@ const Heart: React.FC<HeartProps> = ({
         <img src={emptyHeart} alt="not liked" onClick={toggleHeart} />
       )}
       <div className={styles.cnt}>{isCnt}</div>
+      <LoginModal
+        styles={modal}
+        AUTH_URLS={AUTH_URLS}
+        modalRef={modalRef}
+      ></LoginModal>
     </>
   );
 };
