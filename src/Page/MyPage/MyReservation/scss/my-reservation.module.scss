@@ -8,15 +8,16 @@
     .backBtn {
       display: flex;
       align-items: center;
+
       //   margin: 3rem 0;
 
       width: 100%;
       max-width: 690px;
       margin: 2rem auto;
 
-      p {
-        color: white;
-        font-size: var(--font-size-l);
+      div {
+        display: flex;
+        align-items: center;
       }
     }
 
@@ -27,14 +28,12 @@
       max-width: 690px;
       max-height: 320px;
       margin: 0 auto;
-      border-radius: 30px;
+      border-radius: 10px;
       border: 2px solid transparent;
-      border-image: linear-gradient(
-        270deg,
-        rgba(0, 87, 255, 0.1) 19.41%,
-        rgba(0, 87, 255, 0.4) 48.1%,
-        rgba(0, 87, 255, 0.1) 80.57%
-      );
+      border-image: linear-gradient(270deg,
+          rgba(0, 87, 255, 0.1) 19.41%,
+          rgba(0, 87, 255, 0.4) 48.1%,
+          rgba(0, 87, 255, 0.1) 80.57%);
       border-image-slice: 1;
 
       padding: 2rem;
@@ -68,14 +67,12 @@
       max-width: 690px;
       max-height: 320px;
       margin: 0 auto;
-      border-radius: 30px;
+      border-radius: 10px;
       border: 2px solid transparent;
-      border-image: linear-gradient(
-        270deg,
-        rgba(0, 87, 255, 0.1) 19.41%,
-        rgba(0, 87, 255, 0.4) 48.1%,
-        rgba(0, 87, 255, 0.1) 80.57%
-      );
+      border-image: linear-gradient(270deg,
+          rgba(0, 87, 255, 0.1) 19.41%,
+          rgba(0, 87, 255, 0.4) 48.1%,
+          rgba(0, 87, 255, 0.1) 80.57%);
       border-image-slice: 1;
 
       padding: 2rem;
@@ -84,6 +81,7 @@
       display: flex;
       justify-content: center;
       align-items: center;
+
       p {
         color: rgba(0, 87, 255, 1);
         font-weight: 400;

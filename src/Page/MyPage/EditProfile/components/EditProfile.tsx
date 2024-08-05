@@ -6,9 +6,15 @@ import { userDataAtom } from '../../Atom/atom';
 import styles from '../scss/edit-profile.module.scss';
 import profileImgDefault from '../../image/scapture-logo.png';
 import pencil from '../../image/pencil.png';
-import { putProfile } from '../../../../apis/api/mypage.api';
+import {
+  getBanana,
+  getProfile,
+  getSortVideo,
+  putProfile,
+} from '../../../../apis/api/mypage.api';
 import { Link } from 'react-router-dom';
 import React, { useEffect, useState } from 'react';
+import Header from '../../../Header/components/Header';
 
 // import profileImg from '../image/profile.webp';
 
@@ -27,6 +33,28 @@ const EditProfile = () => {
 
   //recoil
   const [isProfile, setProfile] = useRecoilState<userData>(userDataAtom);
+
+  useEffect(() => {
+    const fetchProfileInfo = async () => {
+      const res = await getProfile();
+      const banana = await getBanana();
+      const videoSort = await getSortVideo('latest');
+      console.log('res', res?.data);
+      if (res?.data && banana?.data && videoSort?.data) {
+        setProfile(prev => ({
+          ...prev,
+          endDate: res.data.endDate,
+          image: res.data.image,
+          location: res.data.location,
+          name: res.data.name,
+          role: res.data.role,
+          team: res.data.team,
+        }));
+      }
+    };
+
+    fetchProfileInfo();
+  }, [setProfile]);
 
   //useState
   //⚠NOTICE!! : DON'T CHANGE THAT VALUE NAME!!!
@@ -67,6 +95,7 @@ const EditProfile = () => {
 
   return (
     <div className={styles.test}>
+      <Header />
       <div className={styles.editProfile}>
         <div className={styles.profile}>
           <div className={styles.container}>
@@ -118,7 +147,7 @@ const EditProfile = () => {
                 </div>
               </div>
 
-              <hr></hr>
+              {/* <hr></hr> */}
 
               <div className={styles.row}>
                 <div className={styles.label}>소속팀</div>
@@ -142,7 +171,7 @@ const EditProfile = () => {
                 </div>
               </div>
 
-              <hr></hr>
+              {/* <hr></hr> */}
 
               <div className={styles.row}>
                 <div className={styles.label}>활동지역</div>
@@ -184,7 +213,7 @@ const EditProfile = () => {
                   // console.log(status);
                 }}
               >
-                저장하기
+                <Link to="/mypage">저장하기</Link>
               </div>
             </div>
           </div>

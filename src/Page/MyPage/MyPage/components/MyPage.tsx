@@ -1,15 +1,15 @@
 import Header from '../../../Header/components/Header';
 import Footer from '../../../Footer/components/Footer';
+import AllianceStadium from '../../../Main/components/AllianceStadium';
 import { userData, bananaData, subscribedData } from '../../dto/atom.interface';
 
 import styles from '../scss/my-page.module.scss';
 import modal from '../scss/my-page-modal.module.scss';
 import sub from '../scss/my-page-sub-modal.module.scss';
+
 import pencil from '../../image/pencil.png';
 import banana from '../image/banana.png';
 import rightArrow from '../image/right_arrow.png';
-import rightFrame from '../image/rightFrame.png';
-import leftFrame from '../image/leftFrame.png';
 import dropDown from '../image/dropDown.png';
 import subscribe from '../image/subscribe.png';
 import profileImgDefault from '../../image/scapture-logo.png';
@@ -30,26 +30,15 @@ import { Link } from 'react-router-dom';
 const MyPage = () => {
   const modalRef = useRef<HTMLDialogElement>(null);
   const modalSubRef = useRef<HTMLDialogElement>(null);
-  const sliderRef = useRef<HTMLDivElement>(null);
-  const innerSliderRef = useRef<HTMLDivElement>(null);
-  const [pressed, setPressed] = useState(false);
-  const [startX, setStartX] = useState(0);
 
   //Recoil
   const [isProfile, setProfile] = useRecoilState<userData>(userDataAtom);
   const [isBanana, setBanana] = useRecoilState<bananaData>(bananaDataAtom);
   const isSubscribed = useRecoilValue<subscribedData>(subscribedAtom);
 
-  // interface sortTypeObject {
-  //   latest: string;
-  //   popularity: string;
-  // }
-
-  //sort Object
-  // const sortType: sortTypeObject = {
-  //   latest: '',
-  //   popularity: '',
-  // };
+  //useState
+  const [isVideo, setVideo] = useState<string>('');
+  const [isVideos, setVideos] = useState([]);
 
   const handleSortType = (type: string) => {
     const res = getSortVideo(type);
@@ -60,18 +49,24 @@ const MyPage = () => {
     const fetchProfileInfo = async () => {
       const res = await getProfile();
       const banana = await getBanana();
-      // const videoSort = await getSortVideo();
-      // console.log(
-      //   'res',
-      //   res?.data,
-      // '\n',
-      // 'banana',
-      // banana?.data,
-      // '\n',
-      // 'subscribe',
-      // isSubscribed,
-      // );
-      if (res?.data && banana?.data) {
+      const videoSort = await getSortVideo('latest');
+      console.log(
+        'res',
+        res?.data,
+        '\n',
+        'banana',
+        banana?.data,
+        '\n',
+        'subscribe',
+        isSubscribed,
+        '\n',
+        'subscribe',
+        isSubscribed,
+        '\n',
+        'videoSort',
+        videoSort,
+      );
+      if (res?.data && banana?.data && videoSort?.data) {
         setProfile(prev => ({
           ...prev,
           endDate: res.data.endDate,
@@ -86,66 +81,13 @@ const MyPage = () => {
           balance: banana.data.balance,
           subscribed: banana.data.subscribed,
         }));
+        setVideo(videoSort.data[0].image);
+        setVideos(videoSort.data);
       }
     };
 
     fetchProfileInfo();
   }, [setProfile, setBanana]);
-
-  // mypage api
-
-  useEffect(() => {
-    const slider = sliderRef.current;
-    const innerSlider = innerSliderRef.current;
-
-    if (!slider || !innerSlider) return;
-
-    const handleMouseDown = (e: MouseEvent) => {
-      setPressed(true);
-      setStartX(e.clientX - innerSlider.offsetLeft);
-      slider.style.cursor = 'grabbing';
-    };
-
-    const handleMouseEnter = () => {
-      slider.style.cursor = 'grab';
-    };
-
-    const handleMouseUp = () => {
-      setPressed(false);
-      slider.style.cursor = 'grab';
-    };
-
-    const handleMouseMove = (e: MouseEvent) => {
-      if (!pressed) return;
-      e.preventDefault();
-      const x = e.clientX;
-      innerSlider.style.left = `${x - startX}px`;
-      checkBoundary();
-    };
-
-    const checkBoundary = () => {
-      const outer = slider.getBoundingClientRect();
-      const inner = innerSlider.getBoundingClientRect();
-
-      if (parseInt(innerSlider.style.left) > 0) {
-        innerSlider.style.left = '0px';
-      } else if (inner.right < outer.right) {
-        innerSlider.style.left = `-${inner.width - outer.width}px`;
-      }
-    };
-
-    slider.addEventListener('mousedown', handleMouseDown);
-    slider.addEventListener('mouseenter', handleMouseEnter);
-    window.addEventListener('mouseup', handleMouseUp);
-    slider.addEventListener('mousemove', handleMouseMove);
-
-    return () => {
-      slider.removeEventListener('mousedown', handleMouseDown);
-      slider.removeEventListener('mouseenter', handleMouseEnter);
-      window.removeEventListener('mouseup', handleMouseUp);
-      slider.removeEventListener('mousemove', handleMouseMove);
-    };
-  }, [pressed, startX]);
 
   const [open, setOpen] = useState(false);
   const [selected, setSelected] = useState('최신순');
@@ -160,26 +102,10 @@ const MyPage = () => {
     setOpen(false);
   };
 
-  const handleClickOutside = (event: MouseEvent) => {
-    if (
-      selectRef.current &&
-      !selectRef.current.contains(event.target as Node)
-    ) {
-      setOpen(false);
-    }
-  };
-
-  useEffect(() => {
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
-  }, []);
-
   return (
     <div className={styles.test}>
+      <Header />
       <div className={styles.myPage}>
-        <Header />
         <div className={styles.profile}>
           <div className={styles.bar}></div>
           <div className={styles.container}>
@@ -190,10 +116,10 @@ const MyPage = () => {
                   src={isProfile.image ?? profileImgDefault}
                   alt="SCAPTURE"
                 />
-              </div>
-              <div className={styles.modify}>
                 <Link to="/mypage/edit" style={{ textDecoration: 'none' }}>
-                  <img className={styles.pencil} src={pencil} alt="" />
+                  <div className={styles.modify}>
+                    <img className={styles.pencil} src={pencil} alt="" />
+                  </div>
                 </Link>
               </div>
             </div>
@@ -217,7 +143,7 @@ const MyPage = () => {
                   </>
                 ) : (
                   <>
-                    <img src={subscribe} alt="" />
+                    <img className={styles.sub} src={subscribe} alt="" />
                     <div>구독하기</div>
                   </>
                 )}
@@ -235,11 +161,10 @@ const MyPage = () => {
             </div>
           </div>
 
-          <hr></hr>
           {isSubscribed.subscribed || isProfile.endDate ? (
             <>
-              <div className={styles.chargeContainer}>
-                <div className={styles.invite}>
+              <div className={styles.noticeContainer}>
+                <div className={styles.notice}>
                   {isProfile.name}님은 현재 구독 중 입니다.
                 </div>
               </div>
@@ -276,7 +201,7 @@ const MyPage = () => {
         </div>
       </div>
 
-      <div className={styles.reservation}>
+      <div className={styles.list}>
         <Link
           className={styles.reservation}
           style={{ textDecoration: 'none' }}
@@ -290,9 +215,7 @@ const MyPage = () => {
       <div className={styles.stored}>
         <div className={styles.group}>
           <div className={styles.storedText}>
-            <img src={leftFrame} alt=""></img>
             <span>저장된 영상</span>
-            <img src={rightFrame} alt=""></img>
           </div>
           <div
             className={`${styles.selectbox} ${open ? styles.open : ''}`}
@@ -340,16 +263,13 @@ const MyPage = () => {
           </div>
         </div>
 
-        <div className={styles.slider} ref={sliderRef}>
-          <div className={styles.sliderInner} ref={innerSliderRef}>
-            <div className={styles.sliderItem}></div>
-            <div className={styles.sliderItem}></div>
-            <div className={styles.sliderItem}></div>
-            <div className={styles.sliderItem}></div>
-            <div className={styles.sliderItem}></div>
-            <div className={styles.sliderItem}></div>
+        {isVideo ? (
+          <div className={styles.images}>
+            <AllianceStadium stadiumList={isVideos} />
           </div>
-        </div>
+        ) : (
+          <div className={styles.videoNotice}>내역이 없습니다</div>
+        )}
       </div>
       <BananaModal styles={modal} ref={modalRef} />
       <SubscribeModal styles={sub} ref={modalSubRef} />
