@@ -3,14 +3,14 @@ import Footer from '../../Footer/components/Footer';
 
 import styles from '../scss/main.module.scss';
 
-import BannerImage from '../image/banner-image.png';
-import IntroImage from '../image/intro-image.png';
-import CheckBox from '../image/checkbox.png';
-import StadiumImage from '../image/stadium-image.png';
-import popularVideoBack from '../image/popularVideoBack.png';
+import BannerImage from '../image/banner-image.svg';
+import IntroImage from '../image/intro-image.svg';
+import CheckBox from '../image/checkbox.svg';
+import StadiumImage from '../image/stadium-image.svg';
+import popularVideoBack from '../image/popularVideoBack.svg';
 
-import EffectRight from '../image/effect-right.png';
-import EffectLeft from '../image/effect-left.png';
+import EffectRight from '../image/effect-right.svg';
+import EffectLeft from '../image/effect-left.svg';
 
 import { useQuery } from '@tanstack/react-query';
 import { getMainStadium } from '../../../apis/api/main.api';
