@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import styles from '../scss/reservation.module.scss';
-import dropDown from '../image/dropDown.png';
+import dropDown from '../image/dropDown.svg';
 
 interface SelectProps {
   selectList: string[];

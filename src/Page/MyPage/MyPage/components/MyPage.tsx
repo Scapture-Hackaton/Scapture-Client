@@ -7,12 +7,12 @@ import styles from '../scss/my-page.module.scss';
 import modal from '../scss/my-page-modal.module.scss';
 import sub from '../scss/my-page-sub-modal.module.scss';
 
-import pencil from '../../image/pencil.png';
-import banana from '../image/banana.png';
-import rightArrow from '../image/right_arrow.png';
-import dropDown from '../image/dropDown.png';
-import subscribe from '../image/subscribe.png';
-import profileImgDefault from '../../image/scapture-logo.png';
+import pencil from '../../image/pencil.svg';
+import banana from '../image/banana.svg';
+import rightArrow from '../image/right_arrow.svg';
+import dropDown from '../image/dropDown.svg';
+import subscribe from '../image/subscribe.svg';
+import profileImgDefault from '../../image/scapture-logo.svg';
 // import profileImg from '../image/profile.webp';
 
 import { useEffect, useRef, useState } from 'react';
