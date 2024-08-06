@@ -1,14 +1,14 @@
 import { forwardRef } from 'react';
-import { modalNotice } from '../functions/ModalFunction';
+// import { modalNotice } from '../functions/ModalFunction';
 import banana from '../image/banana.png';
 interface ModalProps {
   styles: { [key: string]: string };
   ref: React.RefObject<HTMLDialogElement>;
 }
 
-interface ModalCheckProps extends ModalProps {
-  extendRef: React.RefObject<HTMLDialogElement>;
-}
+// interface ModalCheckProps extends ModalProps {
+//   extendRef: React.RefObject<HTMLDialogElement>;
+// }
 
 export const VideoModal = forwardRef<HTMLDialogElement, ModalProps>(
   ({ styles }, ref) => {

@@ -217,7 +217,6 @@ const Video = () => {
           modalNotice(loginModalRef);
         }
       } else {
-        alert('다운로드 권한 부여에 실패했습니다.');
         modalNotice(loginModalRef);
       }
     } catch (error) {
@@ -228,7 +227,10 @@ const Video = () => {
   // useMutation 훅을 사용하여 좋아요/좋아요 취소 처리
   const { mutate: toggleLike } = useMutation({
     mutationFn: async (videoId: number) => {
-      return await likesVideo(videoId);
+      const res = await likesVideo(videoId);
+      if (res.status == 400 || res.status == 403) {
+        modalNotice(loginModalRef);
+      }
     },
     onSuccess: () => {
       // 비디오 상세 정보 갱신
@@ -243,7 +245,10 @@ const Video = () => {
 
   const { mutate: toggleUnLike } = useMutation({
     mutationFn: async (videoId: number) => {
-      return await unLikeVideo(videoId);
+      const res = await unLikeVideo(videoId);
+      if (res.status == 400 || res.status == 403) {
+        modalNotice(loginModalRef);
+      }
     },
     onSuccess: () => {
       // 비디오 상세 정보 갱신
@@ -269,7 +274,10 @@ const Video = () => {
   // useMutation 훅을 사용하여 영상 저장/해제 처리
   const { mutate: toggleStore } = useMutation({
     mutationFn: async (videoId: number) => {
-      return await storeVideo(videoId);
+      const res = await storeVideo(videoId);
+      if (res.status == 400 || res.status == 403) {
+        modalNotice(loginModalRef);
+      }
     },
     onSuccess: () => {
       // 비디오 상세 정보 갱신
@@ -284,7 +292,10 @@ const Video = () => {
 
   const { mutate: toggleUnStore } = useMutation({
     mutationFn: async (videoId: number) => {
-      return await unStoreVideo(videoId);
+      const res = await unStoreVideo(videoId);
+      if (res.status == 400 || res.status == 403) {
+        modalNotice(loginModalRef);
+      }
     },
     onSuccess: () => {
       // 비디오 상세 정보 갱신

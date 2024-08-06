@@ -2,7 +2,7 @@
  * Stadium - video 관련 API
  */
 import { CommonResponse } from '../dto/common.response';
-import { authInstance } from '../utils/instance';
+import { authInstance, defaultInstance } from '../utils/instance';
 
 // 구장 예약
 export const reserveField = async (scheduleId: number) => {
@@ -27,7 +27,7 @@ export const getReservationList = async (
   date: string,
 ) => {
   try {
-    const res: CommonResponse = await authInstance.get(
+    const res: CommonResponse = await defaultInstance.get(
       `api/reservations/${stadiumId}/${fieldId}?date=${date}`,
     );
 
