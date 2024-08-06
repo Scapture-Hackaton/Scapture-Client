@@ -61,8 +61,6 @@ const EditProfile = () => {
   const [isSelectedFileURL, setSelectedFileURL] = useState({
     uploadFile: '',
   });
-  console.log(isSelectedFileURL);
-
   const [isSelectedFile, setSelectedFile] = useState<File | null>(null);
   //⚠NOTICE!! : DON'T CHANGE THAT VALUE NAME!!!
 
@@ -78,6 +76,7 @@ const EditProfile = () => {
       const BlobFile = URL.createObjectURL(file);
       const url = { uploadFile: BlobFile };
       console.log(BlobFile);
+      console.log(isSelectedFileURL);
       setViewImage(BlobFile);
       setSelectedFile(file);
       setSelectedFileURL(url);
