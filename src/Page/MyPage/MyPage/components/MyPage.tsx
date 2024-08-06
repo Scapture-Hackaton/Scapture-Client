@@ -1,5 +1,5 @@
 import Header from '../../../Header/components/Header';
-import Footer from '../../../Footer/components/Footer';
+// import Footer from '../../../Footer/components/Footer';
 import AllianceStadium from '../../../Main/components/AllianceStadium';
 import { userData, bananaData, subscribedData } from '../../dto/atom.interface';
 
@@ -110,6 +110,11 @@ const MyPage = () => {
   const handleOptionClick = (option: string) => {
     setSelected(option);
     setOpen(false);
+  };
+
+  const deleteToken = () => {
+    localStorage.removeItem('TOKEN');
+    window.location.reload();
   };
 
   return (
@@ -289,7 +294,10 @@ const MyPage = () => {
       </div>
       <BananaModal styles={modal} ref={modalRef} />
       <SubscribeModal styles={sub} ref={modalSubRef} />
-      <Footer />
+      <div className={styles.logout} onClick={deleteToken}>
+        로그아웃
+      </div>
+      {/* <Footer /> */}
     </div>
   );
 };
