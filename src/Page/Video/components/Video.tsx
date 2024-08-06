@@ -312,7 +312,6 @@ const Video = () => {
   const handleToggleStore = (isStore: boolean) => {
     if (videoDetail && !isStore) {
       toggleStore(videoId);
-      modalNotice(loginModalRef);
     } else if (videoDetail && isStore) {
       toggleUnStore(videoId);
     }

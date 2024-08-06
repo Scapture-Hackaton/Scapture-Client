@@ -1,11 +1,19 @@
 import GoogleIcon from '../image/google-img.png';
 import KakaoIcon from '../image/kakao-img.png';
 import NaverIcon from '../image/naver-img.png';
+
 interface LoginModalProps {
   styles: { [key: string]: string };
   AUTH_URLS: { kakao: string; google: string; naver: string };
   modalRef: React.RefObject<HTMLDialogElement>;
 }
+
+// 상태 토큰으로 사용할 랜덤 문자열 생성
+const generateState = () => {
+  const array = new Uint8Array(16);
+  window.crypto.getRandomValues(array);
+  return Array.from(array, byte => byte.toString(16).padStart(2, '0')).join('');
+};
 
 export const LoginModal: React.FC<LoginModalProps> = ({
   styles,
@@ -38,7 +46,7 @@ export const LoginModal: React.FC<LoginModalProps> = ({
           onClick={() => {
             localStorage.setItem('LoginType', 'naver');
             closeLoginModal();
-            window.location.href = AUTH_URLS.naver;
+            window.location.href = `${AUTH_URLS.naver}&state=${generateState()}`;
             console.log('NAVER 로그인은 상태값이 필요합니다.');
           }}
         >
