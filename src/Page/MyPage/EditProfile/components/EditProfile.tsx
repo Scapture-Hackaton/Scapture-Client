@@ -12,7 +12,7 @@ import {
   getSortVideo,
   putProfile,
 } from '../../../../apis/api/mypage.api';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import React, { useEffect, useState } from 'react';
 import Header from '../../../Header/components/Header';
 
@@ -69,6 +69,14 @@ const EditProfile = () => {
   const [isViewImage, setViewImage] = useState<string>(
     isProfile.image || profileImgDefault,
   );
+  const navigate = useNavigate();
+
+  const handleSave = async () => {
+    const res = await putProfile(isProfile, isSelectedFile);
+    if (res?.status === 200) {
+      navigate('/mypage');
+    }
+  };
 
   const onSelectedFile = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
@@ -203,19 +211,7 @@ const EditProfile = () => {
               <Link to="/mypage">
                 <div className={styles.cancel}>취소</div>
               </Link>
-              <div
-                className={styles.save}
-                onClick={() => {
-                  putProfile(isProfile, isSelectedFile);
-                  // const fetchProfileInfo = async () => {
-                  //   const res = await putProfile(isProfile, imageFile);
-                  //200일시 리다이렉트
-                  //   return res?.data;
-                  // };
-                  // const status = fetchProfileInfo();
-                  // console.log(status);
-                }}
-              >
+              <div className={styles.save} onClick={handleSave}>
                 <Link to="/mypage">저장하기</Link>
               </div>
             </div>
