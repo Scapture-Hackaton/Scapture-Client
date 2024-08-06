@@ -2,6 +2,7 @@ import GoogleIcon from '../image/google-img.svg';
 import KakaoIcon from '../image/kakao-img.svg';
 import NaverIcon from '../image/naver-img.svg';
 import cancel from '../image/cancel.svg';
+
 interface LoginModalProps {
   styles: { [key: string]: string };
   AUTH_URLS: { kakao: string; google: string; naver: string };
