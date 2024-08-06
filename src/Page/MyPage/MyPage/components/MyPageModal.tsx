@@ -1,7 +1,7 @@
 import React, { forwardRef, useState } from 'react';
 import { bananaDataAtom, subscribedAtom } from '../../Atom/atom';
-import cancel from '../image/cancel.png';
-import checkBanana from '../image/check-banana.png';
+import cancel from '../image/cancel.svg';
+import checkBanana from '../image/check-banana.svg';
 import {
   postBanana,
   postSubscribe,

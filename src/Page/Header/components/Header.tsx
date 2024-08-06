@@ -6,7 +6,7 @@ import {
   NAVER_AUTH_URL,
 } from '../../../apis/config/login.config';
 import { LoginModal } from './LoginModal';
-import ScaptureLogo from '../image/scapture-logo.png';
+import ScaptureLogo from '../image/scapture-logo.svg';
 import { useEffect, useRef } from 'react';
 import useAuth from '../Hook/useAuth';
 import { LoginToken } from '../../../apis/api/login.api';
