@@ -25,7 +25,7 @@ import {
 } from '../../../../apis/api/mypage.api';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { userDataAtom, bananaDataAtom, subscribedAtom } from '../../Atom/atom';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 const MyPage = () => {
   const modalRef = useRef<HTMLDialogElement>(null);
@@ -39,6 +39,16 @@ const MyPage = () => {
   //useState
   const [isVideo, setVideo] = useState<string>('');
   const [isVideos, setVideos] = useState([]);
+  const location = useLocation();
+
+  const handleCopyClipBoard = async (text: string) => {
+    try {
+      await navigator.clipboard.writeText(text);
+      alert('클립보드에 링크가 복사되었어요.');
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   const handleSortType = (type: string) => {
     const res = getSortVideo(type);
@@ -184,7 +194,13 @@ const MyPage = () => {
                 </div>
               </div>
               <div className={styles.chargeContainer}>
-                <div className={styles.invite}>
+                <div
+                  className={styles.invite}
+                  onClick={() => {
+                    // baseURL을 추후에 삽입 해야함
+                    handleCopyClipBoard(`${location.pathname}`);
+                  }}
+                >
                   친구 초대하고 '버내너 3개' 받기
                 </div>
                 <div
