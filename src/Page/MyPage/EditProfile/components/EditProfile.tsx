@@ -4,8 +4,8 @@ import { userData } from '../../dto/atom.interface';
 import { userDataAtom } from '../../Atom/atom';
 
 import styles from '../scss/edit-profile.module.scss';
-import profileImgDefault from '../../image/scapture-logo.png';
-import pencil from '../../image/pencil.png';
+import profileImgDefault from '../../image/scapture-logo.svg';
+import pencil from '../../image/pencil.svg';
 import {
   getBanana,
   getProfile,
@@ -208,10 +208,14 @@ const EditProfile = () => {
             </div>
 
             <div className={styles.actions}>
-              <Link to="/mypage">
+              <Link to="/mypage" style={{ textDecoration: 'none' }}>
                 <div className={styles.cancel}>취소</div>
               </Link>
-              <div className={styles.save} onClick={handleSave}>
+              <div
+                className={styles.save}
+                style={{ textDecoration: 'none' }}
+                onClick={handleSave}
+              >
                 <Link to="/mypage">저장하기</Link>
               </div>
             </div>

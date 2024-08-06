@@ -1,5 +1,5 @@
 import styles from '../scss/footer.module.scss';
-import ScaptureLogo from '../image/scapture-logo.png';
+import ScaptureLogo from '../image/scapture-logo.svg';
 import KakaoLogo from '../image/kakao-logo.png';
 import InstagramLogo from '../image/instagram-logo.png';
 import { Link } from 'react-router-dom';

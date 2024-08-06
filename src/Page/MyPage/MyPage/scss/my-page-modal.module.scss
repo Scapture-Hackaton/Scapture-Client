@@ -1,6 +1,6 @@
 dialog {
   color: var(--black-color);
-  background: url('../image/bananer-modal-bg.png');
+  background: url('../image/banana-modal-bg.svg');
   width: 360px;
   height: 400px;
   border: 0;
@@ -81,6 +81,10 @@ dialog {
       height: 50px;
       border-radius: 10px;
       margin-bottom: 15px;
+    }
+
+    #checkBoxButton:hover {
+      background-color: var(--main-color-blue-01);
     }
 
     // 인접선택자

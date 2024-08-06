@@ -1,6 +1,7 @@
 import Header from '../../Header/components/Header';
 import Footer from '../../Footer/components/Footer';
-import elementImage from '../image/element-image.png';
+// import elementImage from '../image/element-image.png';
+import scaptrueImg from '../image/scaptureImg.png';
 
 import styles from '../scss/stadium.module.scss';
 import { useLocation, useNavigate } from 'react-router-dom';
@@ -162,7 +163,7 @@ const Stadium = () => {
               <div className={styles.group}>
                 <div className={styles.intro}>
                   <div className={styles.title}>
-                    <img src={elementImage} alt="" />
+                    <img src={scaptrueImg} alt="" />
                     <span>{stadiumDetail.name}</span>
                   </div>
                   <div className={styles.introText}>
