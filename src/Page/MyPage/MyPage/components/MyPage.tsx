@@ -180,7 +180,7 @@ const MyPage = () => {
               </div>
             </>
           ) : (
-            <>
+            <div className={styles.bananaWarp}>
               <div className={styles.bananaContainer}>
                 <div className={styles.group}>
                   <div className={styles.bananaBox}>
@@ -212,7 +212,7 @@ const MyPage = () => {
                   버내너 충전하기
                 </div>
               </div>
-            </>
+            </div>
           )}
         </div>
       </div>
