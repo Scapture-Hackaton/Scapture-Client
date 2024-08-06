@@ -5,7 +5,8 @@ import Footer from '../../Footer/components/Footer';
 import styles from '../scss/reservation.module.scss';
 
 // import testImg from '../image/testImg.png';
-import circle from '../image/circle.png';
+// import circle from '../image/circle.png';
+import scaptureImg from '../image/scaptureImg.png';
 // import leftArrow from '../image/leftArrow.png';
 // import rightArrow from '../image/rightArrow.png';
 import { useLocation } from 'react-router-dom';
@@ -160,7 +161,7 @@ const Reservation = () => {
               <div className={styles.description}>
                 <div className={styles.title}>
                   <div className={styles.box}>
-                    <img src={circle} alt="" />
+                    <img src={scaptureImg} alt="" />
                   </div>
                   <span>{stadiumDetail.name}</span>
                 </div>
