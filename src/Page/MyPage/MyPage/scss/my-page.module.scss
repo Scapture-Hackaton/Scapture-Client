@@ -11,10 +11,12 @@
     background: var(--main-color-navy-03);
     border-radius: 10px;
     border: 2px solid transparent;
-    border-image: linear-gradient(270deg,
-        #0057ff1a 19.41%,
-        #0055ff66 48.1%,
-        #0057ff1a 80.57%);
+    border-image: linear-gradient(
+      270deg,
+      #0057ff1a 19.41%,
+      #0055ff66 48.1%,
+      #0057ff1a 80.57%
+    );
     border-image-slice: 1;
 
     // height: 950px;
@@ -34,10 +36,12 @@
         border-radius: 12.5px;
         background: rgba(1, 0, 38, 1);
         border: 1px solid transparent;
-        border-image-source: linear-gradient(270deg,
-            rgba(0, 87, 255, 0.1) 19.41%,
-            rgba(0, 87, 255, 0.4) 48.1%,
-            rgba(0, 87, 255, 0.1) 80.57%);
+        border-image-source: linear-gradient(
+          270deg,
+          rgba(0, 87, 255, 0.1) 19.41%,
+          rgba(0, 87, 255, 0.4) 48.1%,
+          rgba(0, 87, 255, 0.1) 80.57%
+        );
         border-image-slice: 1;
       }
 
@@ -96,8 +100,6 @@
               }
             }
           }
-
-
         }
 
         .userInfo {
@@ -339,10 +341,12 @@
 
       border-radius: 10px;
       border: 2px solid transparent;
-      border-image: linear-gradient(270deg,
-          rgba(0, 87, 255, 0.1) 19.41%,
-          rgba(0, 87, 255, 0.4) 48.1%,
-          rgba(0, 87, 255, 0.1) 80.57%);
+      border-image: linear-gradient(
+        270deg,
+        rgba(0, 87, 255, 0.1) 19.41%,
+        rgba(0, 87, 255, 0.4) 48.1%,
+        rgba(0, 87, 255, 0.1) 80.57%
+      );
       border-image-slice: 1;
 
       p {
@@ -465,5 +469,11 @@
       width: 90%;
       margin: auto;
     }
+  }
+
+  .logout {
+    text-align: center;
+    padding-bottom: 2rem;
+    cursor: pointer;
   }
 }
