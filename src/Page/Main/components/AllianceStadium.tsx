@@ -35,7 +35,16 @@ const AllianceStadium: React.FC<AllianceStadiumProps> = ({ stadiumList }) => {
           key={allianceStadium.stadiumId}
           onClick={() => toStadium(allianceStadium.stadiumId)}
         >
-          <img src={allianceStadium.image} alt="" />
+          <img
+            src={allianceStadium.image}
+            alt=""
+            style={{
+              width: '163px',
+              height: '122px',
+              borderRadius: '10px',
+              cursor: 'pointer',
+            }}
+          />
           <div>{allianceStadium.name}</div>
         </div>
       ))}
