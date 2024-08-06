@@ -44,7 +44,7 @@ const EditProfile = () => {
         setProfile(prev => ({
           ...prev,
           endDate: res.data.endDate,
-          image: res.data.image,
+          // image: res.data.image,
           location: res.data.location,
           name: res.data.name,
           role: res.data.role,
@@ -75,8 +75,8 @@ const EditProfile = () => {
       const file = selectedFile[0];
       const BlobFile = URL.createObjectURL(file);
       const url = { uploadFile: BlobFile };
-      console.log(BlobFile);
       console.log(isSelectedFileURL);
+      console.log(BlobFile);
       setViewImage(BlobFile);
       setSelectedFile(file);
       setSelectedFileURL(url);
@@ -92,7 +92,7 @@ const EditProfile = () => {
       const BlobFile = URL.createObjectURL(isSelectedFile);
       setSelectedFileURL({ uploadFile: BlobFile });
     }
-  }, [isSelectedFile]);
+  }, [isSelectedFile]); //, isViewImage, isSelectedFileURL, setSelectedFileURL
 
   return (
     <div className={styles.test}>
