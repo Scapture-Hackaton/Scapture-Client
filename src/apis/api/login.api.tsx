@@ -22,6 +22,12 @@ export const LoginToken = async (code: string, type: string) => {
     const TOKEN = res.data.data.token || res.data.token;
     localStorage.setItem('TOKEN', TOKEN);
     console.log('Response:', res);
+    window.location.reload();
+    // if (!localStorage.getItem('RELOADED')) {
+    //   localStorage.setItem('RELOADED', 'true');
+    // } else {
+    //   localStorage.removeItem('RELOADED');
+    // }
 
     // console.log('TOKEN:', TOKEN);
     return res;
