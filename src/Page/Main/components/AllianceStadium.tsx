@@ -39,6 +39,7 @@ const AllianceStadium: React.FC<AllianceStadiumProps> = ({ stadiumList }) => {
             src={allianceStadium.image}
             alt=""
             style={{
+              width: '163px',
               width: '183px',
               height: '122px',
               borderRadius: '10px',

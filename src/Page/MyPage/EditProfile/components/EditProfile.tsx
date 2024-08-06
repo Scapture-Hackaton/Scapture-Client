@@ -44,7 +44,7 @@ const EditProfile = () => {
         setProfile(prev => ({
           ...prev,
           endDate: res.data.endDate,
-          image: res.data.image,
+          // image: res.data.image,
           location: res.data.location,
           name: res.data.name,
           role: res.data.role,
@@ -61,6 +61,8 @@ const EditProfile = () => {
   const [isSelectedFileURL, setSelectedFileURL] = useState({
     uploadFile: '',
   });
+  console.log(isSelectedFileURL);
+
   const [isSelectedFile, setSelectedFile] = useState<File | null>(null);
   //⚠NOTICE!! : DON'T CHANGE THAT VALUE NAME!!!
 
@@ -75,6 +77,7 @@ const EditProfile = () => {
       const file = selectedFile[0];
       const BlobFile = URL.createObjectURL(file);
       const url = { uploadFile: BlobFile };
+      console.log(isSelectedFileURL);
       console.log(BlobFile);
       setViewImage(BlobFile);
       setSelectedFile(file);
@@ -91,7 +94,7 @@ const EditProfile = () => {
       const BlobFile = URL.createObjectURL(isSelectedFile);
       setSelectedFileURL({ uploadFile: BlobFile });
     }
-  }, [isSelectedFile]);
+  }, [isSelectedFile]); //, isViewImage, isSelectedFileURL, setSelectedFileURL
 
   return (
     <div className={styles.test}>
