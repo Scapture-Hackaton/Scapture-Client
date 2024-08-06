@@ -18,7 +18,14 @@
     flex-direction: column;
     justify-content: flex-end;
     align-content: center;
+
     // margin-bottom: 15px;
+    #cancel {
+      display: flex;
+      justify-content: flex-end;
+      margin-bottom: 325px;
+      cursor: pointer;
+    }
 
     >button {
       display: flex;
@@ -42,12 +49,13 @@
 
     button:last-child {
       background-color: #FEE500;
-      margin-bottom: 15px;
+      margin-bottom: 30px;
 
       >img {
         margin-right: 45px;
       }
     }
+
   }
 }
 

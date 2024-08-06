@@ -6,7 +6,7 @@ import styles from '../scss/main.module.scss';
 import BannerImage from '../image/banner-image.svg';
 import IntroImage from '../image/intro-image.svg';
 import CheckBox from '../image/checkbox.svg';
-import StadiumImage from '../image/stadium-image.svg';
+import soccer from '../image/soccer.svg';
 import popularVideoBack from '../image/popularVideoBack.svg';
 
 import EffectRight from '../image/effect-right.svg';
@@ -66,7 +66,7 @@ const Main = () => {
               </div>
             </div>
             <div className={styles.images}>
-              <img src={StadiumImage} alt="stadium-image" />
+              <img src={soccer} alt="stadium-image" />
             </div>
           </div>
 

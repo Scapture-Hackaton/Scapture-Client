@@ -1,6 +1,8 @@
 import GoogleIcon from '../image/google-img.svg';
 import KakaoIcon from '../image/kakao-img.svg';
 import NaverIcon from '../image/naver-img.svg';
+import cancel from '../image/cancel.svg';
+
 interface LoginModalProps {
   styles: { [key: string]: string };
   AUTH_URLS: { kakao: string; google: string; naver: string };
@@ -31,16 +33,25 @@ export const LoginModal: React.FC<LoginModalProps> = ({
   return (
     <dialog ref={modalRef} id={styles.loginModal}>
       <div className={styles.contents}>
-        <button
+        <div
+          id={styles.cancel}
+          onClick={() => {
+            closeLoginModal();
+          }}
+        >
+          <img src={cancel} alt="" />
+        </div>
+        {/* <div
+          id={styles.empty}
           onClick={() => {
             localStorage.setItem('LoginType', 'google');
             closeLoginModal();
             window.location.href = AUTH_URLS.google;
           }}
         >
-          <img src={GoogleIcon} alt="" />
+        // <img src={GoogleIcon} alt="" />
           구글로 로그인하기
-        </button>
+        </div> */}
         <button
           onClick={() => {
             localStorage.setItem('LoginType', 'naver');
