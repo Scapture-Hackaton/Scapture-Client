@@ -13,7 +13,7 @@ import { LoginToken } from '../../../apis/api/login.api';
 
 import { Link } from 'react-router-dom';
 import { useRecoilState, useRecoilValue } from 'recoil';
-import { loginData, loginDataAtom } from '../Atom/atom';
+import { headerState, loginData, loginDataAtom } from '../Atom/atom';
 import { userData } from '../../MyPage/dto/atom.interface';
 import { userDataAtom } from '../../MyPage/Atom/atom';
 import { getProfile } from '../../../apis/api/mypage.api';
@@ -32,6 +32,13 @@ const Header = () => {
   //recoil
   const isLoginState = useRecoilValue<loginData>(loginDataAtom);
   const [isProfile, setProfile] = useRecoilState<userData>(userDataAtom);
+
+  //useState
+  const [isActive, setActive] = useRecoilState<headerState>(headerState);
+
+  const handleActive = (index: number) => {
+    setActive(prev => ({ ...prev, state: index }));
+  };
 
   //modal function -> move to function
   const openLoginModal = () => {
@@ -76,21 +83,33 @@ const Header = () => {
             <img src={ScaptureLogo} alt="" />
           </Link>
         </div>
-        <div className={styles.option} id={styles.BtnEffect}>
+        <div
+          className={styles.option}
+          id={isActive.state === 0 ? styles.BtnEffect : ''}
+          onClick={() => handleActive(0)}
+        >
           <div>
             <Link to="/" style={{ textDecoration: 'none' }}>
               서비스 소개
             </Link>
           </div>
         </div>
-        <div className={styles.option} id={styles.BtnEffect}>
+        <div
+          className={styles.option}
+          id={isActive.state === 1 ? styles.BtnEffect : ''}
+          onClick={() => handleActive(1)}
+        >
           <div>
             <Link to="/scapture" style={{ textDecoration: 'none' }}>
               SCAPTURE
             </Link>
           </div>
         </div>
-        <div className={styles.option} id={styles.BtnEffect}>
+        <div
+          className={styles.option}
+          id={isActive.state === 2 ? styles.BtnEffect : ''}
+          onClick={() => handleActive(2)}
+        >
           <div>
             <Link to="/community" style={{ textDecoration: 'none' }}>
               커뮤니티

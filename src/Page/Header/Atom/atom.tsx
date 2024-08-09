@@ -10,9 +10,20 @@ export interface loginData {
   state: boolean;
 }
 
+export interface headerState {
+  state: number | null;
+}
+
 export const loginDataAtom = atom<loginData>({
   key: 'loginData',
   default: {
     state: false,
+  },
+});
+
+export const headerState = atom<headerState>({
+  key: 'headerState',
+  default: {
+    state: null,
   },
 });
