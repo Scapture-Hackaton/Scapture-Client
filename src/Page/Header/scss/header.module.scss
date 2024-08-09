@@ -29,6 +29,7 @@
     }
 
     .option:hover {
+      transition-duration: 1s;
       background-color: var(--main-color-blue-01);
     }
 
