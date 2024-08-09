@@ -33,7 +33,7 @@ const MyReservation = () => {
       }
     };
     fetchReservationInfo();
-  });
+  }, [setReservationState]);
   return (
     <div className={styles.test}>
       <div className={styles.myReserve}>
