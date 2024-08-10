@@ -7,33 +7,30 @@ import { reservationData } from '../../dto/atom.interface';
 
 const MyReservation = () => {
   //어떻게 나눌지 고민...
-  const reservationObject = {
-    data: '',
-    date: '',
-    name: '',
-    hours: '',
-    message: '',
-  };
+  const reservationObject = [
+    {
+      data: '',
+      date: '',
+      name: '',
+      hours: '',
+      message: '',
+    },
+  ];
   const [isReservationState, setReservationState] =
     useState<reservationData>(reservationObject);
-
   useEffect(() => {
     const fetchReservationInfo = async () => {
       const res = await getReservation();
       console.log(res?.message);
-      if (res?.data) {
-        setReservationState(prev => ({
-          ...prev,
-          data: res.data,
-          date: res.data.date,
-          name: res.data.name,
-          hours: res.data.hours,
-          message: res.message,
-        }));
+      console.log(res?.data[0]);
+      if (res?.data[0]) {
+        setReservationState(res.data);
       }
     };
+    console.log(isReservationState);
     fetchReservationInfo();
   }, [setReservationState]);
+
   return (
     <div className={styles.test}>
       <div className={styles.myReserve}>
@@ -49,23 +46,25 @@ const MyReservation = () => {
             </div>
           </Link>
         </div>
-        {isReservationState.data ? (
-          <div className={styles.container}>
-            <div className={styles.header}>나의 예약</div>
+        {isReservationState.length > 0 ? (
+          isReservationState.map((element, index) => (
+            <div className={styles.container} key={index}>
+              <div className={styles.header}>나의 예약</div>
 
-            <div className={styles.row}>
-              <p>예약 날짜</p>
-              <p>2024.08.03.토/{isReservationState.date}</p>
+              <div className={styles.row}>
+                <p>예약 날짜</p>
+                <p>{element.date}</p>
+              </div>
+              <div className={styles.row}>
+                <p>구장 명</p>
+                <p>{element.name}</p>
+              </div>
+              <div className={styles.row}>
+                <p>사용 시간</p>
+                <p>{element.hours}</p>
+              </div>
             </div>
-            <div className={styles.row}>
-              <p>구장 명</p>
-              <p>A구장/{isReservationState.name}</p>
-            </div>
-            <div className={styles.row}>
-              <p>사용 시간</p>
-              <p>20:00 ~ 22:00/{isReservationState.hours}</p>
-            </div>
-          </div>
+          ))
         ) : (
           <div className={styles.noData}>
             <p>아직 예약 내역이 없음</p>

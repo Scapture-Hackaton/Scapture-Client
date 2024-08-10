@@ -16,10 +16,13 @@ export interface subscribedData {
   subscribed: boolean;
 }
 
-export interface reservationData {
+//useState
+export interface reservationElements {
   data: string;
   date: string;
   name: string;
   hours: string;
   message: string;
 }
+
+export type reservationData = reservationElements[];

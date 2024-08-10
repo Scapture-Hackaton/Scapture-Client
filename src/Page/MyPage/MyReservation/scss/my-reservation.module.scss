@@ -26,7 +26,7 @@
       height: 950px;
       width: 100%;
       max-width: 690px;
-      max-height: 320px;
+      max-height: 250px;
       margin: 0 auto;
       border-radius: 10px;
       border: 2px solid transparent;
@@ -36,21 +36,22 @@
           rgba(0, 87, 255, 0.1) 80.57%);
       border-image-slice: 1;
 
-      padding: 2rem;
+      padding: 30px;
       margin-bottom: 2rem;
 
       .header {
         color: rgba(0, 87, 255, 1);
         font-weight: 600;
-        font-size: var(--font-size-m);
-
-        margin-bottom: 3rem;
+        font-size: var(--font-size-l);
+        // margin-top: 1rem;
+        margin-bottom: 1rem;
+        // border-radius: 1px solid white;
       }
 
       .row {
         color: white;
         font-weight: 700;
-        font-size: var(--font-size-xl);
+        font-size: var(--font-size-xm);
 
         margin: 2rem 0;
 
