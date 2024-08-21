@@ -317,17 +317,57 @@ const Video = () => {
     }
   };
 
+  const [isBloblUrl, setBlobUrl] = useState('');
+
+  const loadVideo = async () => {
+    try {
+      const response = await fetch(videoDetail.video);
+      const blob = await response.blob();
+      const url = URL.createObjectURL(blob);
+
+      // Blob URL을 비디오에 설정
+      const videoElement = document.getElementById(
+        'videoPlayer',
+      ) as HTMLVideoElement;
+      if (videoElement) {
+        videoElement.src = url;
+
+        // 비디오가 로드된 후 URL 해제
+        videoElement.onloadeddata = () => {
+          URL.revokeObjectURL(url);
+        };
+      } else {
+        console.error('Video element not found');
+      }
+
+      setBlobUrl(url);
+    } catch (error) {
+      console.error('비디오 로딩 중 오류가 발생했습니다.', error);
+    }
+  };
+
+  useEffect(() => {
+    loadVideo();
+  }, [videoDetail.video]);
+
   return (
     <div className={styles.test}>
       <Header />
       <div className={styles.community}>
-        {isVideoDetailSuccess && videoDetail && videoDetail.video ? (
+        {isVideoDetailSuccess &&
+        videoDetail &&
+        videoDetail.video &&
+        isBloblUrl != '' ? (
           <>
             <div className={styles.videoContainer}>
               <div className={styles.video}>
-                <video controls>
-                  <source src={videoDetail.video}></source>
-                </video>
+                <video
+                  id="videoPlayer"
+                  controls
+                  controlsList="nodownload noremoteplayback"
+                  onContextMenu={e => e.preventDefault()}
+                  src={isBloblUrl}
+                ></video>
               </div>
               <div className={styles.group}>
                 <div className={styles.title}>{videoDetail.name}</div>
