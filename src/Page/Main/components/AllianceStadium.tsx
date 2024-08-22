@@ -17,8 +17,8 @@ const AllianceStadium: React.FC<AllianceStadiumProps> = ({ stadiumList }) => {
     // dots: true,
     infinite: false,
     speed: 500,
-    slidesToShow: 2,
-    slidesToScroll: 2,
+    slidesToShow: 1,
+    slidesToScroll: 1,
   };
 
   const navigate = useNavigate();
@@ -31,20 +31,11 @@ const AllianceStadium: React.FC<AllianceStadiumProps> = ({ stadiumList }) => {
     <Slider {...settings} className={styles.stadiumList}>
       {stadiumList.map((allianceStadium: AllianceStadiumDto) => (
         <div
-          className={styles.items}
+          className={styles.item}
           key={allianceStadium.stadiumId}
           onClick={() => toStadium(allianceStadium.stadiumId)}
         >
-          <img
-            src={allianceStadium.image}
-            alt=""
-            style={{
-              width: '163px',
-              height: '122px',
-              borderRadius: '10px',
-              cursor: 'pointer',
-            }}
-          />
+          <img src={allianceStadium.image} alt="" />
           <div>{allianceStadium.name}</div>
         </div>
       ))}

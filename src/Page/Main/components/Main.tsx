@@ -15,20 +15,10 @@ import videoTopGradient from '../image/videoTopGradient.svg';
 
 import inqyireLogo from '../image/inqyireLogo.svg';
 
-// import IntroImage from '../image/intro-image.svg';
-// import CheckBox from '../image/checkbox.svg';
-// import soccer from '../image/soccer.svg';
-// import popularVideoBack from '../image/popularVideoBack.svg';
-
-// import EffectRight from '../image/effect-right.svg';
-// import EffectLeft from '../image/effect-left.svg';
-
 import { useQuery } from '@tanstack/react-query';
 import { getMainStadium } from '../../../apis/api/main.api';
-import { useNavigate } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
 import AllianceStadium from './AllianceStadium';
-// import { PopularVideos } from '../../../apis/dto/main.dto';
-// import banner from '../scss/banner.module.scss';
 
 const Main = () => {
   const { data: mainData, isSuccess: isMainDataSuccess } = useQuery({
@@ -36,11 +26,11 @@ const Main = () => {
     queryFn: () => getMainStadium(),
   });
 
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
-  const toStadiumPage = () => {
-    navigate('/community');
-  };
+  // const toStadiumPage = () => {
+  //   navigate('/community');
+  // };
 
   return (
     <div className={styles.test}>
@@ -145,6 +135,21 @@ const Main = () => {
           </div>
         </div>
 
+        <div className={styles.stadiums}>
+          <div className={styles.icon}>
+            <img src={mainIcon} loading="lazy" alt="" />
+            <p>제휴 구장</p>
+          </div>
+
+          {mainData && isMainDataSuccess ? (
+            <div className={styles.container}>
+              <AllianceStadium
+                stadiumList={mainData.stadiums}
+              ></AllianceStadium>
+            </div>
+          ) : null}
+        </div>
+
         <div className={styles.inquire}>
           <div className={styles.group}>
             <img src={inqyireLogo} alt="" />
@@ -155,6 +160,7 @@ const Main = () => {
             <button>제휴 문의하기</button>
           </div>
         </div>
+
         {/* <div className={styles.container}>
           <div className={styles.intro}>
             <div>
@@ -234,7 +240,7 @@ const Main = () => {
                     <AllianceStadium
                       stadiumList={mainData.stadiums}
                     ></AllianceStadium>
-                    <div>
+                    {/* <div>
                       <img src={InfoImageA} alt="" />
                       <div>장충테스장</div>
                     </div>
