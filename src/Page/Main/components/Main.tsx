@@ -13,13 +13,15 @@ import iphoneMockup from '../image/iphoneMockup.svg';
 
 import videoTopGradient from '../image/videoTopGradient.svg';
 
-import IntroImage from '../image/intro-image.svg';
-import CheckBox from '../image/checkbox.svg';
-import soccer from '../image/soccer.svg';
-import popularVideoBack from '../image/popularVideoBack.svg';
+import inqyireLogo from '../image/inqyireLogo.svg';
 
-import EffectRight from '../image/effect-right.svg';
-import EffectLeft from '../image/effect-left.svg';
+// import IntroImage from '../image/intro-image.svg';
+// import CheckBox from '../image/checkbox.svg';
+// import soccer from '../image/soccer.svg';
+// import popularVideoBack from '../image/popularVideoBack.svg';
+
+// import EffectRight from '../image/effect-right.svg';
+// import EffectLeft from '../image/effect-left.svg';
 
 import { useQuery } from '@tanstack/react-query';
 import { getMainStadium } from '../../../apis/api/main.api';
@@ -143,7 +145,17 @@ const Main = () => {
           </div>
         </div>
 
-        <div className={styles.container}>
+        <div className={styles.inquire}>
+          <div className={styles.group}>
+            <img src={inqyireLogo} alt="" />
+            <div className={styles.inquireTitle}>파트너 및 제휴 문의</div>
+            <div className={styles.inquireSubTxt}>
+              스캡쳐는 다양한 형태의 협업을 기대하고 있습니다.
+            </div>
+            <button>제휴 문의하기</button>
+          </div>
+        </div>
+        {/* <div className={styles.container}>
           <div className={styles.intro}>
             <div>
               <div className={styles.introText}>
@@ -222,20 +234,20 @@ const Main = () => {
                     <AllianceStadium
                       stadiumList={mainData.stadiums}
                     ></AllianceStadium>
-                    {/* <div>
+                    <div>
                       <img src={InfoImageA} alt="" />
                       <div>장충테스장</div>
                     </div>
                     <div>
                       <img src={InfoImageB} alt="" />
                       <div>수락산스포츠타운야구장</div>
-                    </div> */}
+                    </div>
                   </div>
                 </div>
               </div>
             </>
           ) : null}
-        </div>
+        </div> */}
       </div>
       <Footer />
     </div>

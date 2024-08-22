@@ -330,6 +330,53 @@
       }
     }
 
+    // 5
+    .inquire {
+      width: 100%;
+      height: 262px;
+
+      background-image: url(../image/inquireBg.svg);
+
+      .group {
+        width: 410px;
+
+        margin: 0 auto;
+        padding: 1rem 0;
+
+        .inquireTitle {
+          color: var(--font-color-gray-100);
+
+          font-weight: 700;
+          font-size: var(--font-size-xl);
+
+          line-height: 36px;
+        }
+
+        .inquireSubTxt {
+          color: var(--font-color-gray-500);
+
+          font-weight: 500;
+          font-size: var(--font-size-xm);
+
+          line-height: 40px;
+        }
+
+        button {
+          width: 100%;
+          height: 46px;
+
+          margin-top: 2rem;
+
+          border-radius: 5px;
+
+          background-color: var(--font-color-gray-main);
+
+          font-weight: 700;
+          font-size: var(--font-size-xm);
+        }
+      }
+    }
+
     .container {
       width: 95.11%;
       margin: 0 auto;
