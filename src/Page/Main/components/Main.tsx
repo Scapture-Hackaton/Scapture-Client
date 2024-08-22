@@ -3,7 +3,14 @@ import Footer from '../../Footer/components/Footer';
 
 import styles from '../scss/main.module.scss';
 
-import BannerImage from '../image/banner-image.svg';
+import mainBanner from '../image/mainBanner.svg';
+import mainLogo from '../image/mainLogo.svg';
+import bannerCover from '../image/bannerCover.svg';
+
+import gradientBg from '../image/gradientBg.svg';
+import mainIcon from '../image/mainIcon.svg';
+import iphoneMockup from '../image/iphoneMockup.svg';
+
 import IntroImage from '../image/intro-image.svg';
 import CheckBox from '../image/checkbox.svg';
 import soccer from '../image/soccer.svg';
@@ -36,8 +43,61 @@ const Main = () => {
       <Header />
       <div className={styles.main}>
         <div className={styles.banner}>
-          <img src={BannerImage} alt="" />
+          <img
+            src={mainBanner}
+            className={styles.mainBanner}
+            loading="lazy"
+            alt=""
+          />
+          <img
+            src={bannerCover}
+            className={styles.bannerCover}
+            loading="lazy"
+            alt=""
+          />
+          <img
+            src={mainLogo}
+            className={styles.mainLogo}
+            loading="lazy"
+            alt=""
+          />
+          <div className={styles.mainDes}>
+            <div className={styles.desTitle}>Sports + Capture</div>
+            <div className={styles.des}>
+              원하는 구장에서 운동하고,
+              <br />
+              자동으로 촬영된 영상을 손쉽게 확인해 보세요.
+              <br />
+              마음에 드는 장면은 간단한 클릭으로 다운로드까지 가능합니다.
+            </div>
+          </div>
         </div>
+
+        <div className={styles.mockUp}>
+          <img
+            src={gradientBg}
+            className={styles.gradientBg}
+            loading="lazy"
+            alt=""
+          ></img>
+          <div className={styles.mockUpDes}>
+            <img src={mainIcon} loading="lazy" alt="" />
+            <div className={styles.mockUpDesText}>
+              몸만 와서 운동만 하세요!
+              <br />
+              <span>촬영, 편집, 업로드</span>는
+              <br />
+              SCAPTURE가 해드릴게요!
+            </div>
+          </div>
+          <img
+            src={iphoneMockup}
+            className={styles.iphoneMockup}
+            loading="lazy"
+            alt=""
+          />
+        </div>
+
         <div className={styles.container}>
           <div className={styles.intro}>
             <div>
