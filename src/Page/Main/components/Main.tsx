@@ -11,6 +11,8 @@ import gradientBg from '../image/gradientBg.svg';
 import mainIcon from '../image/mainIcon.svg';
 import iphoneMockup from '../image/iphoneMockup.svg';
 
+import videoTopGradient from '../image/videoTopGradient.svg';
+
 import IntroImage from '../image/intro-image.svg';
 import CheckBox from '../image/checkbox.svg';
 import soccer from '../image/soccer.svg';
@@ -96,6 +98,49 @@ const Main = () => {
             loading="lazy"
             alt=""
           />
+        </div>
+
+        <div className={styles.explainContainer}>
+          <div className={styles.want}>
+            <div className={styles.group}>
+              <img src={mainIcon} loading="lazy" alt="" />
+              <p>내가 원하는 구장에서 운동하고</p>
+            </div>
+          </div>
+
+          <div className={styles.check}>
+            <div className={styles.group}>
+              <img src={mainIcon} loading="lazy" alt="" />
+              <div className={styles.checkTxt}>
+                <span>언제 어디서든</span> 운동 영상을
+                <br />
+                손쉽게 <span>확인, 다운로드</span> 하세요!
+              </div>
+            </div>
+          </div>
+
+          <div className={styles.popualrVideoContiner}>
+            <div className={styles.leftBorder}></div>
+            <div className={styles.popualrVideo}>
+              <img
+                src={videoTopGradient}
+                className={styles.videoTopGradient}
+                loading="lazy"
+                alt=""
+              />
+              <div className={styles.group}>
+                <div className={styles.test}></div>
+                <div className={styles.videoDes}>
+                  <div className={styles.title}>영상 제목 입력</div>
+                  <div className={styles.videoDetail}>
+                    <p>구장 주소 입력 필드</p>
+                    <p>0000.00.00 | 00:00 ~ 00:00</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className={styles.rightBorder}></div>
+          </div>
         </div>
 
         <div className={styles.container}>
