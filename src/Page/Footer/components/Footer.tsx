@@ -44,6 +44,7 @@ const Footer = () => {
               onClick={() => {
                 navigate('/');
               }}
+              alt=""
             ></img>
           </div>
 
@@ -63,8 +64,8 @@ const Footer = () => {
             </div>
 
             <div className={styles.shortcut}>
-              <img src={instagramIcon} loading="lazy" />
-              <img src={kakaotalkIcon} loading="lazy" />
+              <img src={instagramIcon} loading="lazy" alt="" />
+              <img src={kakaotalkIcon} loading="lazy" alt="" />
             </div>
           </div>
         </div>

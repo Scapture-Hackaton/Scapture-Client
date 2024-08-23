@@ -14,7 +14,7 @@ import { useEffect, useRef } from 'react';
 import useAuth from '../Hook/useAuth';
 import { LoginToken } from '../../../apis/api/login.api';
 
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { loginData, loginDataAtom } from '../Atom/atom';
 import { userData } from '../../MyPage/dto/atom.interface';
@@ -77,9 +77,16 @@ const Header = () => {
     <div className={styles.header}>
       <div className={styles.container}>
         <div id={styles.image}>
-          <Link to="/" style={{ textDecoration: 'none' }}>
-            <img src={ScaptureLogo} loading="lazy" alt="" />
-          </Link>
+          <img
+            src={ScaptureLogo}
+            loading="lazy"
+            alt=""
+            onClick={() => {
+              navigate('/');
+            }}
+            width="76px"
+            height="28px"
+          />
         </div>
 
         <div
@@ -89,7 +96,13 @@ const Header = () => {
           }}
         >
           <div className={styles.hoverd}>
-            <img src={menuTopIcon} loading="lazy" alt="" />
+            <img
+              src={menuTopIcon}
+              loading="lazy"
+              alt=""
+              width="14px"
+              height="10px"
+            />
           </div>
           <div>서비스</div>
         </div>
@@ -101,7 +114,13 @@ const Header = () => {
           }}
         >
           <div className={styles.hoverd}>
-            <img src={menuTopIcon} loading="lazy" alt="" />
+            <img
+              src={menuTopIcon}
+              loading="lazy"
+              alt=""
+              width="14px"
+              height="10px"
+            />
           </div>
           <div>Scapture</div>
         </div>
@@ -113,7 +132,13 @@ const Header = () => {
           }}
         >
           <div className={styles.hoverd}>
-            <img src={menuTopIcon} loading="lazy" alt="" />
+            <img
+              src={menuTopIcon}
+              loading="lazy"
+              alt=""
+              width="14px"
+              height="10px"
+            />
           </div>
           <div>커뮤니티</div>
         </div>

@@ -40,20 +40,23 @@ const Main = () => {
           <img
             src={mainBanner}
             className={styles.mainBanner}
-            loading="lazy"
             alt=""
+            width="450px"
+            height="700px"
           />
           <img
             src={bannerCover}
             className={styles.bannerCover}
-            loading="lazy"
             alt=""
+            width="450px"
+            height="700px"
           />
           <img
             src={mainLogo}
             className={styles.mainLogo}
-            loading="lazy"
             alt=""
+            width="400px"
+            height="192px"
           />
           <div className={styles.mainDes}>
             <div className={styles.desTitle}>Sports + Capture</div>
@@ -71,11 +74,18 @@ const Main = () => {
           <img
             src={gradientBg}
             className={styles.gradientBg}
-            loading="lazy"
             alt=""
+            width="450px"
+            height="1264px"
           ></img>
           <div className={styles.mockUpDes}>
-            <img src={mainIcon} loading="lazy" alt="" />
+            <img
+              src={mainIcon}
+              loading="lazy"
+              alt=""
+              width="54px"
+              height="54px"
+            />
             <div className={styles.mockUpDesText}>
               몸만 와서 운동만 하세요!
               <br />
@@ -95,14 +105,26 @@ const Main = () => {
         <div className={styles.explainContainer}>
           <div className={styles.want}>
             <div className={styles.group}>
-              <img src={mainIcon} loading="lazy" alt="" />
+              <img
+                src={mainIcon}
+                loading="lazy"
+                alt=""
+                width="54px"
+                height="54px"
+              />
               <p>내가 원하는 구장에서 운동하고</p>
             </div>
           </div>
 
           <div className={styles.check}>
             <div className={styles.group}>
-              <img src={mainIcon} loading="lazy" alt="" />
+              <img
+                src={mainIcon}
+                loading="lazy"
+                alt=""
+                width="54px"
+                height="54px"
+              />
               <div className={styles.checkTxt}>
                 <span>언제 어디서든</span> 운동 영상을
                 <br />
@@ -137,7 +159,13 @@ const Main = () => {
 
         <div className={styles.stadiums}>
           <div className={styles.icon}>
-            <img src={mainIcon} loading="lazy" alt="" />
+            <img
+              src={mainIcon}
+              loading="lazy"
+              alt=""
+              width="54px"
+              height="54px"
+            />
             <p>제휴 구장</p>
           </div>
 
@@ -152,7 +180,7 @@ const Main = () => {
 
         <div className={styles.inquire}>
           <div className={styles.group}>
-            <img src={inqyireLogo} alt="" />
+            <img src={inqyireLogo} alt="" width="54px" height="54px" />
             <div className={styles.inquireTitle}>파트너 및 제휴 문의</div>
             <div className={styles.inquireSubTxt}>
               스캡쳐는 다양한 형태의 협업을 기대하고 있습니다.

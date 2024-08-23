@@ -37,7 +37,7 @@ const AllianceStadium: React.FC<AllianceStadiumProps> = ({ stadiumList }) => {
           key={allianceStadium.stadiumId}
           onClick={() => toStadium(allianceStadium.stadiumId)}
         >
-          <img src={allianceStadium.image} alt="" />
+          <img src={allianceStadium.image} alt="" loading="lazy" />
           <div>{allianceStadium.name}</div>
         </div>
       ))}
