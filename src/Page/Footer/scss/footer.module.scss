@@ -1,72 +1,69 @@
 .footer {
-  // background-color: var(--guide-line-color);
-
   .container {
-    // background-color: var(--main-color-blue-01);
-    // height: 18.0625rem;
-    height: 20.9375rem;
-    // margin: 1.875rem 1.11rem 2.875rem 1.11rem;
-    margin: 1.875rem 1.31rem 0 1.31rem;
+    background-color: var(--color-grayscale-black-bg);
+
+    .footerMenu {
+      width: 100%;
+      height: 52px;
+
+      padding: 0 3.5rem;
+
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      color: var(--font-color-gray-main);
+      font-size: var(--font-size-s);
+      font-weight: 700;
+
+      border-bottom: 1px solid var(--color-grayscale-input-800);
+
+      div {
+        cursor: pointer;
+      }
+    }
 
     .group {
-
-      font-size: var(--font-size-s);
-      color: white;
-
+      padding: 2rem 2rem 4rem 2rem;
 
       #image {
-        margin-bottom: 2.0625rem;
+        cursor: pointer;
       }
 
-      .contents {
-        // background-color: tomato;
+      .info {
+        padding: 1rem 0;
+        color: var(--font-color-gray-sub);
+        font-size: var(--font-size-s);
+        font-weight: 500;
+
+        line-height: 24.2px;
+      }
+
+      .bottomGroup {
+        color: var(--font-color-gray-main);
+        font-size: var(--font-size-s);
+        font-weight: 700;
+
+        line-height: 19.2px;
+
         display: flex;
-        flex-direction: row;
-        margin-bottom: 3.125rem;
+        justify-content: space-between;
 
-        div {
-          margin-right: 1.25rem;
-        }
-      }
-
-      .copyright {
-        // background-color: blueviolet;
-
-        #terms {
-          // background-color: crimson;
-          text-decoration: underline;
-          margin: 0 1.445625rem 0 11.6%;
-        }
-
-        >#policy {
-          // background-color: crimson;
-          text-decoration: underline;
-        }
-      }
-
-      >.warp {
-        display: flex;
-        flex-direction: row;
-
-        >.info {
-          // background-color: burlywood;
-          display: flex;
-          flex-direction: column;
-          width: 23.015rem;
-          height: 7.1875rem;
-
+        .terms {
           span {
-            margin-top: 0.6rem;
+            margin-right: 1.5rem;
+
+            cursor: pointer;
           }
         }
 
         .shortcut {
           display: flex;
-          align-items: flex-end;
-          // background-color: #ffffff;
 
-          #kakao {
-            margin-left: 0.625rem;
+          img {
+            margin-left: 0.6rem;
+
+            cursor: pointer;
           }
         }
       }

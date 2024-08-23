@@ -1,62 +1,70 @@
 import styles from '../scss/footer.module.scss';
-import ScaptureLogo from '../image/scapture-logo.svg';
-import KakaoLogo from '../image/kakao-logo.png';
-import InstagramLogo from '../image/instagram-logo.png';
-import { Link } from 'react-router-dom';
+import footerIcon from '../image/footerIcon.svg';
+import kakaotalkIcon from '../image/kakaotalkIcon.svg';
+import instagramIcon from '../image/instagramIcon.svg';
+import { useNavigate } from 'react-router-dom';
 
 const Footer = () => {
+  const navigate = useNavigate();
+
   return (
     <div className={styles.footer}>
       <div className={styles.container}>
+        <div className={styles.footerMenu}>
+          <div
+            onClick={() => {
+              navigate('/');
+            }}
+          >
+            서비스 소개
+          </div>
+          <div
+            onClick={() => {
+              navigate('/scapture');
+            }}
+          >
+            Scapture
+          </div>
+          <div
+            onClick={() => {
+              navigate('/community');
+            }}
+          >
+            커뮤니티
+          </div>
+          <div>FAQ</div>
+          <div>공지사항</div>
+        </div>
+
         <div className={styles.group}>
           <div id={styles.image}>
-            <Link to="/" style={{ textDecoration: 'none' }}>
-              <img src={ScaptureLogo}></img>
-            </Link>
+            <img
+              src={footerIcon}
+              loading="lazy"
+              onClick={() => {
+                navigate('/');
+              }}
+            ></img>
           </div>
-          <div className={styles.contents}>
-            <div>
-              <Link to="/" style={{ textDecoration: 'none' }}>
-                서비스 소개
-              </Link>
-            </div>
-            <div>
-              <Link to="/scapture" style={{ textDecoration: 'none' }}>
-                SCAPTURE
-              </Link>
-            </div>
-            <div>
-              <Link to="/community" style={{ textDecoration: 'none' }}>
-                커뮤니티
-              </Link>
-            </div>
-            <div>FAQ</div>
-            <div>공지사항</div>
+
+          <div className={styles.info}>
+            <div>@Copyright Scapture All rights reserved.</div>
+            <div>스캡쳐</div>
+            <div>사업자등록번호 : 149-62-00716</div>
+            <div>대표 : 최용석</div>
+            <div>주소 : 서울특별시 강서구 강서로35길 58 </div>
+            <div>이메일 : contact@s-capture.com</div>
           </div>
-          <div className={styles.copyright}>
-            <span>
-              @Copyright <b>Scapture</b> All rights reserved.
-            </span>
-            <span id={styles.terms}>이용약관</span>
-            <span id={styles.policy}>개인정보처리방침</span>
-          </div>
-        </div>
-        <div className={styles.group}>
-          <div className={styles.warp}>
-            <div className={styles.info}>
-              <span>스캡쳐</span>
-              <span>사업자등록번호 : 149-62-00716</span>
-              <span>대표 : 최용석</span>
-              <span>주소 : 서울특별시 강서구 강서로35길 58 </span>
-              <span>이메일 : scapture0526@gmail.com</span>
+
+          <div className={styles.bottomGroup}>
+            <div className={styles.terms}>
+              <span id={styles.terms}>이용약관</span>
+              <span id={styles.policy}>개인정보처리방침</span>
             </div>
+
             <div className={styles.shortcut}>
-              <div>
-                <img src={InstagramLogo} />
-              </div>
-              <div id={styles.kakao}>
-                <img src={KakaoLogo} />
-              </div>
+              <img src={instagramIcon} loading="lazy" />
+              <img src={kakaotalkIcon} loading="lazy" />
             </div>
           </div>
         </div>
