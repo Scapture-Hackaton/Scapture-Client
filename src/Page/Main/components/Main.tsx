@@ -121,7 +121,7 @@ const Main = () => {
                 alt=""
               />
               <div className={styles.group}>
-                <div className={styles.test}></div>
+                <div className={styles.testVideo}></div>
                 <div className={styles.videoDes}>
                   <div className={styles.title}>영상 제목 입력</div>
                   <div className={styles.videoDetail}>
