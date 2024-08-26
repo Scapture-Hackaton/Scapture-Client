@@ -6,12 +6,15 @@ import {
   NAVER_AUTH_URL,
 } from '../../../apis/config/login.config';
 import { LoginModal } from './LoginModal';
-import ScaptureLogo from '../image/scapture-logo.svg';
+
+import ScaptureLogo from '../image/scaptureLogo.svg';
+import menuTopIcon from '../image/menuTopIcon.svg';
+
 import { useEffect, useRef } from 'react';
 import useAuth from '../Hook/useAuth';
 import { LoginToken } from '../../../apis/api/login.api';
 
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { loginData, loginDataAtom } from '../Atom/atom';
 import { userData } from '../../MyPage/dto/atom.interface';
@@ -68,42 +71,87 @@ const Header = () => {
     }
   }, [isLoginState, setProfile, loginType, TOKEN]);
 
+  const navigate = useNavigate();
+
   return (
     <div className={styles.header}>
       <div className={styles.container}>
         <div id={styles.image}>
-          <Link to="/" style={{ textDecoration: 'none' }}>
-            <img src={ScaptureLogo} alt="" />
-          </Link>
+          <img
+            src={ScaptureLogo}
+            loading="lazy"
+            alt=""
+            onClick={() => {
+              navigate('/');
+            }}
+            width="76px"
+            height="28px"
+          />
         </div>
-        <div className={styles.option} id={styles.BtnEffect}>
-          <div>
-            <Link to="/" style={{ textDecoration: 'none' }}>
-              서비스 소개
-            </Link>
+
+        <div
+          className={styles.option}
+          onClick={() => {
+            navigate('/');
+          }}
+        >
+          <div className={styles.hoverd}>
+            <img
+              src={menuTopIcon}
+              loading="lazy"
+              alt=""
+              width="14px"
+              height="10px"
+            />
           </div>
+          <div>서비스</div>
         </div>
-        <div className={styles.option} id={styles.BtnEffect}>
-          <div>
-            <Link to="/scapture" style={{ textDecoration: 'none' }}>
-              SCAPTURE
-            </Link>
+
+        <div
+          className={styles.option}
+          onClick={() => {
+            navigate('/scapture');
+          }}
+        >
+          <div className={styles.hoverd}>
+            <img
+              src={menuTopIcon}
+              loading="lazy"
+              alt=""
+              width="14px"
+              height="10px"
+            />
           </div>
+          <div>Scapture</div>
         </div>
-        <div className={styles.option} id={styles.BtnEffect}>
-          <div>
-            <Link to="/community" style={{ textDecoration: 'none' }}>
-              커뮤니티
-            </Link>
+
+        <div
+          className={styles.option}
+          onClick={() => {
+            navigate('/community');
+          }}
+        >
+          <div className={styles.hoverd}>
+            <img
+              src={menuTopIcon}
+              loading="lazy"
+              alt=""
+              width="14px"
+              height="10px"
+            />
           </div>
+          <div>커뮤니티</div>
         </div>
+
         <div id={styles.login}>
           {isLoginState && isProfile.name != 'undefined' ? (
-            <button>
-              <Link to="/mypage" style={{ textDecoration: 'none' }}>
-                {/* {isProfile.name}님 */}
-                {name}님
-              </Link>
+            <button
+              onClick={() => {
+                navigate('/mypage');
+              }}
+            >
+              {/* {isProfile.name}님 */}
+              {name}님
             </button>
           ) : (
             <button onClick={openLoginModal}>로그인</button>

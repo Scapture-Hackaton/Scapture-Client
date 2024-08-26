@@ -14,11 +14,13 @@ interface AllianceStadiumProps {
 //css도 - props 필요
 const AllianceStadium: React.FC<AllianceStadiumProps> = ({ stadiumList }) => {
   const settings = {
-    // dots: true,
-    infinite: false,
+    dots: true,
+    infinite: true,
     speed: 500,
-    slidesToShow: 2,
-    slidesToScroll: 2,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    autoplay: true,
+    autoplaySpeed: 2000,
   };
 
   const navigate = useNavigate();
@@ -31,20 +33,11 @@ const AllianceStadium: React.FC<AllianceStadiumProps> = ({ stadiumList }) => {
     <Slider {...settings} className={styles.stadiumList}>
       {stadiumList.map((allianceStadium: AllianceStadiumDto) => (
         <div
-          className={styles.items}
+          className={styles.item}
           key={allianceStadium.stadiumId}
           onClick={() => toStadium(allianceStadium.stadiumId)}
         >
-          <img
-            src={allianceStadium.image}
-            alt=""
-            style={{
-              width: '163px',
-              height: '122px',
-              borderRadius: '10px',
-              cursor: 'pointer',
-            }}
-          />
+          <img src={allianceStadium.image} alt="" loading="lazy" />
           <div>{allianceStadium.name}</div>
         </div>
       ))}

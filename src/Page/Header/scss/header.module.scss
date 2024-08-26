@@ -1,53 +1,66 @@
 .header {
   width: 100%;
-  // background-color: var(--guide-line-color);
+  background-color: var(--color-grayscale-black-bg);
+
+  padding-top: 3.125rem;
+  padding-bottom: 0.8rem;
 
   .container {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: 3.125rem;
-    font-size: var(--font-size-s);
+
+    padding: 0 2rem;
+
+    height: 40px;
+
+    font-weight: 700;
+    font-size: var(--font-size-m);
 
     #image {
-      margin: 0 1.8125rem 0.286rem 1.4375rem
+      cursor: pointer;
     }
 
     .option {
       display: flex;
+      flex-direction: column;
       justify-content: center;
       align-items: center;
-      width: 4.625rem;
-      // height: 1.9rem;
-      height: 1.9rem;
-      // margin-left: 1.0rem;
-      transform: skew(-40deg);
 
-      div {
-        transform: skew(40deg);
+      height: 100%;
+      width: 80px;
+
+      cursor: pointer;
+
+      .hoverd {
+        visibility: hidden;
       }
-    }
 
-    #BtnEffect:hover {
-      background-color: var(--main-color-blue-01);
+      &:hover {
+        color: var(--primary-color-defualt-02);
+
+        .hoverd {
+          visibility: visible;
+        }
+      }
     }
 
     #login {
       display: flex;
       justify-content: center;
-      align-items: center;
-      width: 5.125rem;
-      height: 1.9rem;
+      align-items: end;
+
+      margin-top: auto;
+
+      width: 54px;
+
+      margin-bottom: 0.1rem;
 
       button {
-        font-size: var(--font-size-s);
+        font-size: var(--font-size-m);
         color: var(--main-color-blue-04);
+        font-weight: 700;
       }
-
-      // width: 3.625rem;
-      // width: 5.125rem;
-      // height: 1.9rem;
-      // margin-left: 3.5rem;
     }
 
     // dialog {
