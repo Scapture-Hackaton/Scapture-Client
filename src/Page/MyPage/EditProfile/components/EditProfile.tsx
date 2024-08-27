@@ -106,7 +106,7 @@ const EditProfile = () => {
 
   return (
     <div className={styles.test}>
-      <Header />
+      <Header index={0} />
       <div className={styles.editProfile}>
         <div className={styles.profile}>
           <div className={styles.container}>

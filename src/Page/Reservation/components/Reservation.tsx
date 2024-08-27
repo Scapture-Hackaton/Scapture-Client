@@ -147,7 +147,7 @@ const Reservation = () => {
 
   return (
     <div className={styles.test}>
-      <Header />
+      <Header index={2} />
       <div className={styles.reservation}>
         {stadiumDetail &&
         stadiumDetail.images &&

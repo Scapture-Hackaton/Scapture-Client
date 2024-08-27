@@ -1,4 +1,4 @@
-import { test } from "../functions/function";
+import { test } from '../functions/function';
 
 const MyPage = () => {
   return (

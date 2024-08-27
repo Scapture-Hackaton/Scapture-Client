@@ -34,7 +34,7 @@ const Main = () => {
 
   return (
     <div className={styles.test}>
-      <Header />
+      <Header index={0} />
       <div className={styles.main}>
         <div className={styles.banner}>
           <img

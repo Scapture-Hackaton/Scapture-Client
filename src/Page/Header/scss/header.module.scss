@@ -43,6 +43,13 @@
           visibility: visible;
         }
       }
+
+      &.block {
+        color: var(--primary-color-defualt-02);
+        .hoverd {
+          visibility: visible;
+        }
+      }
     }
 
     #login {

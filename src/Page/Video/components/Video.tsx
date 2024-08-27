@@ -361,7 +361,7 @@ const Video = () => {
 
   return (
     <div className={styles.test}>
-      <Header />
+      <Header index={2} />
       <div className={styles.community}>
         {isVideoDetailSuccess && videoDetail && videoDetail.video ? (
           <>

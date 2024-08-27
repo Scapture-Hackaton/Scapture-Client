@@ -193,7 +193,7 @@ const Community = () => {
 
   return (
     <div className={styles.test}>
-      <Header />
+      <Header index={3} />
       <div className={styles.community}>
         {isVideoDetailDataSuccess && videoDetailData ? (
           <>

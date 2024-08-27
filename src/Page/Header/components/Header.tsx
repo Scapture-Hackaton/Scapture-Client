@@ -10,7 +10,7 @@ import { LoginModal } from './LoginModal';
 import ScaptureLogo from '../image/scaptureLogo.svg';
 import menuTopIcon from '../image/menuTopIcon.svg';
 
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import useAuth from '../Hook/useAuth';
 import { LoginToken } from '../../../apis/api/login.api';
 
@@ -20,7 +20,18 @@ import { loginData, loginDataAtom } from '../Atom/atom';
 import { userData } from '../../MyPage/dto/atom.interface';
 import { userDataAtom } from '../../MyPage/Atom/atom';
 import { getProfile } from '../../../apis/api/mypage.api';
-const Header = () => {
+
+interface HeaderProps {
+  index: number;
+}
+
+const Header: React.FC<HeaderProps> = ({ index }) => {
+  const [isIndex, setIndex] = useState(index);
+
+  useEffect(() => {
+    setIndex(index);
+  }, [index]);
+
   //localStorage
   const loginType = localStorage.getItem('LoginType');
   const TOKEN = localStorage.getItem('TOKEN');
@@ -90,7 +101,7 @@ const Header = () => {
         </div>
 
         <div
-          className={styles.option}
+          className={`${styles.option} ${isIndex === 1 ? styles.block : ''}`}
           onClick={() => {
             navigate('/');
           }}
@@ -108,7 +119,7 @@ const Header = () => {
         </div>
 
         <div
-          className={styles.option}
+          className={`${styles.option} ${isIndex === 2 ? styles.block : ''}`}
           onClick={() => {
             navigate('/scapture');
           }}
@@ -126,7 +137,7 @@ const Header = () => {
         </div>
 
         <div
-          className={styles.option}
+          className={`${styles.option} ${isIndex === 3 ? styles.block : ''}`}
           onClick={() => {
             navigate('/community');
           }}
