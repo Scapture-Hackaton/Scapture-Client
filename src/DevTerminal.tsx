@@ -7,7 +7,7 @@ import styles from './dev-ter.module.scss';
 const DevTerminal = () => {
   return (
     <div>
-      <Header />
+      <Header index={0} />
       <nav className={styles.navbar}>
         <ul className={styles.navList}>
           <li>
