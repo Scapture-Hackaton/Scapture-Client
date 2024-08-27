@@ -1,8 +1,9 @@
 import Header from '../../Header/components/Header';
 import Footer from '../../Footer/components/Footer';
 
-import bannerImage from '../image/banner-image.png';
-import searchImage from '../image/search-image.png';
+import mainIcon from '../image/mainIcon.svg';
+import bannerImg from '../image/bannerImg.svg';
+import searchIcon from '../image/searchIcon.svg';
 import styles from '../scss/scapture.module.scss';
 import SelectBtn from './SelectBtn';
 import { useEffect, useState } from 'react';
@@ -15,7 +16,7 @@ import { Stadium } from '../../../apis/dto/scapture.dto';
 import Stadiums from './Stadiums';
 
 const Scapture = () => {
-  const selectCity = ['서울시', '인천', '경기도'];
+  const selectCity = ['서울시', '경기도'];
   // const selectState: Record<string, string[]> = {
   //   서울시: [
   //     // '성북구',
@@ -148,42 +149,52 @@ const Scapture = () => {
       <Header />
       <div className={styles.scapture}>
         <div className={styles.banner}>
-          <img src={bannerImage} alt="" />
+          <img src={bannerImg} alt="" width="450px" height="480px" />
           <div className={styles.bannerText}>
+            <img src={mainIcon} alt="" width="54px" height="54px" />
             <span>구장을 클릭하면,</span>
             <span>새로운 플레이 그라운드가 열립니다.</span>
           </div>
         </div>
-        <div className={styles.option}>
-          <div className={styles.container}>
-            <div className={styles.select}>
-              <SelectBtn
-                selectList={selectCity}
-                selectedOption={isCity}
-                onOptionChange={handleCityChange}
-              ></SelectBtn>
-              <SelectBtn
-                selectList={selectState[isCity]}
-                selectedOption={isState}
-                onOptionChange={handleStateChange}
-              ></SelectBtn>
-            </div>
-            <div id={styles.search}>
-              <input
-                type="text"
-                placeholder="구장명 검색"
-                onChange={changeInput}
-                onKeyPress={handleKeyPress}
-                value={isInput}
-              />
-              <div id={styles.searchImage}>
-                <img src={searchImage} alt="" onClick={fetchSearchResults} />
+
+        <div className={styles.section}>
+          <div className={styles.option}>
+            <div className={styles.container}>
+              <div id={styles.search}>
+                <input
+                  type="text"
+                  placeholder="구장명 검색"
+                  onChange={changeInput}
+                  onKeyPress={handleKeyPress}
+                  value={isInput}
+                />
+                <div id={styles.searchImage}>
+                  <img
+                    src={searchIcon}
+                    alt=""
+                    onClick={fetchSearchResults}
+                    width="20px"
+                    height="20px"
+                  />
+                </div>
+              </div>
+              <div className={styles.select}>
+                <SelectBtn
+                  selectList={selectCity}
+                  selectedOption={isCity}
+                  onOptionChange={handleCityChange}
+                ></SelectBtn>
+                <SelectBtn
+                  selectList={selectState[isCity]}
+                  selectedOption={isState}
+                  onOptionChange={handleStateChange}
+                ></SelectBtn>
               </div>
             </div>
           </div>
-        </div>
 
-        <Stadiums stadiumData={stadiumData}></Stadiums>
+          <Stadiums stadiumData={stadiumData}></Stadiums>
+        </div>
 
         {/* <div className={styles.stadiumList}>
           <div className={styles.stadium}>

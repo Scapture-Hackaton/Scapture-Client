@@ -3,6 +3,10 @@ import styles from '../scss/scapture.module.scss';
 import { Stadium } from '../../../apis/dto/scapture.dto';
 import { useNavigate } from 'react-router-dom';
 
+import location from '../image/location.svg';
+import clock from '../image/Clock.svg';
+import parking from '../image/parking.svg';
+
 interface StadiumsProps {
   stadiumData: Stadium[];
 }
@@ -29,37 +33,36 @@ const Stadiums: React.FC<StadiumsProps> = ({ stadiumData }) => {
           >
             <div className={styles.stadium}>
               <div className={styles.stadiumImage}>
-                <img src={stadium.image} alt="" />
+                <img src={stadium.image} alt="" width="180px" height="140px" />
               </div>
               <div className={styles.stadiumInfo}>
                 <div className={styles.stadium}>
+                  <div className={styles.topInfo}>
+                    <div className={styles.isOutside}>
+                      {stadium.isOutside ? '실외' : '실내'}
+                    </div>
+                    <div className={styles.isParking}>
+                      {stadium.isOutside ? '주차 가능' : '주차 불가능'}
+                    </div>
+                  </div>
+
                   <span id={styles.name}>{stadium.name}</span>
-                  <div className={styles.info}>
-                    <div>
-                      <span className={styles.title} id={styles.location}>
-                        구장 위치
-                      </span>
-                      <span id={styles.info}>{stadium.location}</span>
+
+                  <div id={styles.info}>
+                    <div className={styles.line}>
+                      <img src={location} alt="" width="16px" height="16px" />
+                      <div className={styles.info}>{stadium.location}</div>
                     </div>
-                    <div>
-                      <span className={styles.title} id={styles.location}>
-                        운영 시간
-                      </span>
-                      <span id={styles.info}>{stadium.hours}</span>
+
+                    <div className={styles.line}>
+                      <img src={clock} alt="" width="16px" height="16px" />
+                      <span className={styles.info}>{stadium.hours}</span>
                     </div>
-                    <div>
-                      <span className={styles.title} id={styles.location}>
-                        실내/실외
-                      </span>
-                      <span id={styles.info}>
-                        {stadium.isOutside ? '실외' : '실내'}
-                      </span>
-                    </div>
-                    <div>
-                      <span className={styles.title} id={styles.location}>
-                        주차 공간
-                      </span>
-                      <span id={styles.info}>{stadium.parking}</span>
+
+                    <div className={styles.line}>
+                      <img src={parking} alt="" width="16px" height="16px" />
+
+                      <span className={styles.info}>{stadium.parking}</span>
                     </div>
                   </div>
                 </div>
