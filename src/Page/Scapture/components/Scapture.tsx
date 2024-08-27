@@ -146,7 +146,7 @@ const Scapture = () => {
 
   return (
     <div className={styles.test}>
-      <Header />
+      <Header index={2} />
       <div className={styles.scapture}>
         <div className={styles.banner}>
           <img src={bannerImg} alt="" width="450px" height="480px" />

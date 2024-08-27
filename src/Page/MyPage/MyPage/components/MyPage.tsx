@@ -119,7 +119,7 @@ const MyPage = () => {
 
   return (
     <div className={styles.test}>
-      <Header />
+      <Header index={0} />
       <div className={styles.myPage}>
         <div className={styles.profile}>
           <div className={styles.bar}></div>

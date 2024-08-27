@@ -150,7 +150,7 @@ const Stadium = () => {
 
   return (
     <div className={styles.test}>
-      <Header />
+      <Header index={2} />
       <div className={styles.stadium}>
         {stadiumDetail &&
         stadiumDetail.images &&
