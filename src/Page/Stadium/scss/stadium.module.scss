@@ -3,131 +3,166 @@
   width: 100%;
 
   .stadium {
-    color: white;
-    margin-top: 2.875rem;
+    width: 100%;
 
-    > div {
-      // background-color: blue;
+    .banner {
+      height: 338px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
 
-      .banner {
-        // background-color: antiquewhite;
-        height: 338px;
+      img {
+        width: 100%;
+        height: 100%;
+
+        object-fit: cover;
+      }
+    }
+
+    .introBox {
+      width: 100%;
+      height: 100%;
+      background: var(--color-grayscale-black-bg);
+
+      .title {
         display: flex;
-        flex-direction: column;
-        justify-content: center;
+        justify-content: space-between;
+        align-items: center;
 
-        img {
-          height: 100%;
+        padding: 1rem;
 
-          object-fit: cover;
+        border-bottom: 1px solid var(--color-grayscale-input-700);
+
+        #reservation {
+          background-color: var(--primary-color-defualt-01);
+          // width: 6.875rem;
+          width: 115px;
+          height: 38px;
+
+          color: var(--white-color);
+          font-size: var(--font-size-xm);
+          font-weight: 700;
+          border-radius: 5px;
+        }
+
+        div {
+          font-weight: 700;
+          font-size: var(--font-size-l);
+          color: var(--font-color-gray-100);
         }
       }
 
-      > .container {
-        margin: 2.875rem auto 1.875rem auto;
-        background-color: var(--main-color-navy-02);
+      .introText {
+        width: 100%;
+
+        padding: 1rem;
+
+        font-size: var(--font-size-s);
+        color: var(--font-color-gray-sub);
+        font-weight: 500;
+
+        white-space: pre-wrap;
+        word-wrap: break-word;
+      }
+    }
+
+    .infoBox {
+      background: var(--color-grayscale-web-card);
+      .infoHeader {
+        height: 48px;
+
+        padding: 0 1rem;
+
         display: flex;
-        flex-direction: column;
-        width: 95.11%;
-        // height: 28.125rem;
+        justify-content: space-between;
+        align-items: center;
 
-        > .group {
-          margin: 0.75rem 0.9375rem 1rem 0.9375rem;
+        color: var(--font-color-gray-100);
 
-          .intro {
-            .title {
-              display: flex;
-              align-items: center;
-              margin-bottom: 1.9375rem;
+        border-bottom: 1px solid var(--color-grayscale-input-700);
 
-              img {
-                width: 50px;
-                height: 50px;
+        img {
+          width: 20px;
+          height: 20px;
 
-                border-radius: 50%;
+          cursor: pointer;
+        }
+      }
 
-                object-fit: cover;
-                margin-right: 0.75rem;
-              }
+      .infoGroup {
+        padding: 1rem;
+        .topInfo {
+          display: flex;
+          justify-content: start;
+          align-items: center;
 
-              > span {
-                font-size: var(--font-size-l);
-              }
-            }
+          margin-bottom: 0.7rem;
 
-            .introText {
-              font-size: var(--font-size-m);
-              margin-right: 1rem;
-              font-weight: 600;
-
-              span {
-                white-space: pre-wrap;
-              }
-            }
-          }
-
-          .reservationBtn {
-            // background-color: #615B14;
+          .isOutside {
             display: flex;
-            justify-content: space-between;
+            justify-content: center;
             align-items: center;
-            margin: 3.0625rem 0 3.0625rem 0;
-            height: 1.875rem;
 
-            #reservation {
-              background-color: var(--gradient-color-blue-01);
-              // width: 6.875rem;
-              width: 110px;
-              height: 100%;
-              color: var(--white-color);
-              font-size: var(--font-size-xm);
-              font-weight: 600;
-              border-radius: 0.25rem;
-            }
+            width: 37px;
+            height: 19px;
 
-            #stadium {
-              font-size: var(--font-size-xm);
-              font-weight: 600;
+            background: var(--color-ect-info);
 
-              height: 100%;
-              width: 100px;
-              background: linear-gradient(
-                -60deg,
-                transparent 20px,
-                var(--sub-color-yellow-03) 0
-              );
+            border-radius: 4px;
 
-              display: flex;
-              align-items: center;
+            color: var(--font-color-gray-700);
+            font-weight: 500;
+            font-size: var(--font-size-s);
 
-              padding-left: 0.7rem;
-              margin-right: 1rem;
-            }
+            margin-right: 0.4rem;
           }
 
-          > .info {
-            // background-color: yellowgreen;
+          .isParking {
             display: flex;
-            flex-direction: row;
-            font-size: var(--font-size-xm);
+            justify-content: center;
+            align-items: center;
 
-            > .group {
-              > span {
-                margin: auto 0 0 0;
-              }
+            min-width: 61px;
+            height: 19px;
+
+            background: var(--color-ect-accent);
+
+            border-radius: 4px;
+
+            color: var(--white-color);
+            font-weight: 500;
+            font-size: var(--font-size-s);
+
+            margin-right: 1rem;
+          }
+        }
+
+        #info {
+          width: 100%;
+
+          .line {
+            display: flex;
+            justify-content: start;
+            align-items: center;
+
+            margin-top: 0.2rem;
+
+            img {
+              width: 20px;
+              height: 20px;
             }
 
-            > .group:first-child {
-              // background-color: teal;
-              display: flex;
-              flex-direction: column;
-              width: 7.1875rem;
-              height: 145px;
-            }
+            .info {
+              color: var(--font-color-gray-sub);
+              font-weight: 500;
+              font-size: var(--font-size-m);
+              margin-left: 0.3rem;
 
-            > .group:last-child {
-              display: flex;
-              flex-direction: column;
+              line-height: 22px;
+
+              text-overflow: ellipsis;
+              overflow: hidden;
+              white-space: nowrap;
             }
           }
         }
