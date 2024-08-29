@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import styles from '../scss/reservation.module.scss';
-import dropDown from '../image/dropDown.svg';
+import dropDown from '../../../assets/Icon/dropDown.svg';
 
 interface SelectProps {
   selectList: string[];
@@ -63,7 +63,7 @@ const SelectBtn: React.FC<SelectProps> = ({
     >
       <button type="button" onClick={toggleDropdown}>
         <span>{selectedOption}</span>
-        <img src={dropDown} alt=""></img>
+        <img src={dropDown} alt="" width="16px" height="16px"></img>
       </button>
       <ul>
         {selectList.length <= 0

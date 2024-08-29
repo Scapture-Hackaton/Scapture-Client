@@ -15,6 +15,8 @@ import { ReservationCheckModal, ReservationModal } from './ReservationModal';
 import modal from '../scss/reservation-modal.module.scss';
 import check from '../scss/reservation-check-modal.module.scss';
 
+import noDataIcon from '../../../assets/Icon/noDataIcon.svg';
+
 interface ReservationListProps {
   reserveList: ReservationDto[][];
   queryClient: any;
@@ -107,8 +109,42 @@ const ReservationList: React.FC<ReservationListProps> = ({
           </div>
         ))
       ) : (
-        <div>No reservations available</div>
+        <div className={styles.noData}>
+          <img
+            src={noDataIcon}
+            alt="검색 결과가 없습니다."
+            width="180px"
+            height="180px"
+          />
+          <div>검색 결과가 없어요</div>
+        </div>
       )}
+
+      <div className={styles.group}>
+        <div className={styles.compontent}>
+          <div className={styles.field}>A구장장장장장장</div>
+
+          <div className={styles.info}>
+            <div className={styles.date}>10:00 ~ 12:00</div>
+            <div className={styles.versus}>6 vs 6</div>
+
+            <button>예약하기</button>
+          </div>
+        </div>
+
+        <div className={styles.compontent}>
+          <div className={styles.field}>A구장</div>
+
+          <div className={styles.info}>
+            <div className={styles.date}>10:00 ~ 12:00</div>
+            <div className={styles.versus}>6 vs 6</div>
+
+            <button className={styles.booked} disabled>
+              예약하기
+            </button>
+          </div>
+        </div>
+      </div>
       <LoginModal
         styles={loginModal}
         AUTH_URLS={AUTH_URLS}
