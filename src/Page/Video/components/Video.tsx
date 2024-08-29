@@ -8,7 +8,7 @@ import loginModal from '../../Header/scss/login-modal.module.scss';
 import download from '../../../assets/Icon/downLoadIcon.svg';
 import share from '../../../assets/Icon/shareIcon.svg';
 
-import { useLocation } from 'react-router-dom';
+// import { useLocation } from 'react-router-dom';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import {
   getStadiumDetail,
@@ -182,8 +182,12 @@ const Video = () => {
 
   // 운영 시간 아이디
   const [isScheduleId, setScheduleId] = useState<number>();
-  const chooseSchedule = (scheduleId: number) => {
-    setScheduleId(scheduleId);
+  // const chooseSchedule = (scheduleId: number) => {
+  //   setScheduleId(scheduleId);
+  // };
+
+  const handelOpenDownloadModal = () => {
+    modalNotice(modalRef);
   };
 
   // 다운로드 기능
@@ -197,7 +201,6 @@ const Video = () => {
         if (downloadResponse.status === 200) {
           fetch(`${videoDetail.video}`, {
             method: 'GET',
-            // content-type은 따로 지정하지 않았습니다.
           })
             .then(response => response.blob())
             .then(blob => {
@@ -224,6 +227,8 @@ const Video = () => {
       }
     } catch (error) {
       console.error('비디오 다운로드 중 오류가 발생했습니다.', error);
+    } finally {
+      modalRef.current?.close(); // 다운로드 완료 후 모달 닫기
     }
   };
 
@@ -396,7 +401,7 @@ const Video = () => {
                     onToggleStore={handleToggleStore}
                   ></BookMark>
                 </li>
-                <li onClick={handleDownloadClick}>
+                <li onClick={handelOpenDownloadModal}>
                   <img src={download} alt="" width="20px" height="20px"></img>
                   <p>다운로드</p>
                 </li>
@@ -448,7 +453,11 @@ const Video = () => {
           <img src={rightArrow} alt=""></img>
         </div> */}
 
-        <VideoModal styles={modal} ref={modalRef} />
+        <VideoModal
+          styles={modal}
+          ref={modalRef}
+          handleDownloadClick={handleDownloadClick}
+        />
         <LoginModal
           styles={loginModal}
           AUTH_URLS={AUTH_URLS}
