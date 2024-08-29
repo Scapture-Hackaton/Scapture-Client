@@ -187,6 +187,20 @@ const MyPage = () => {
               <div className={styles.chargeButton}>버내너 충전하기</div>
             </div>
           </div>
+          <div className={styles.reservationContainer}>
+            <div className={styles.textContainer}>
+              <div
+                style={{ display: 'flex', gap: '4px', alignItems: 'center' }}
+              >
+                <div className={styles.title}>예약내역</div>
+                <div className={styles.count}>1</div>
+              </div>
+              <div className={styles.subTitle}>
+                나의 예약정보를 확인할 수 있어요
+              </div>
+            </div>
+            <div className={styles.detail}>자세히 보기</div>
+          </div>
         </div>
       </div>
       {/* <div className={styles.myPage}>

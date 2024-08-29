@@ -317,6 +317,78 @@
           }
         }
       }
+      .reservationContainer {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 410px;
+        height: 129px;
+        flex-shrink: 0;
+        border-radius: 12px;
+        background: var(--GRAY-SCALE-Gray-900_CARD, #2b2c31);
+        margin-top: 24px;
+        padding: 40px 20px 40px 20px;
+        .textContainer {
+          .title {
+            color: var(--GRAY-SCALE-Gray-100, #f9fafe);
+
+            /* SUBTITLE/20_bold */
+            font-family: Pretendard;
+            font-size: 20px;
+            font-style: normal;
+            font-weight: 700;
+            line-height: 150%; /* 30px */
+          }
+          .count {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 24px;
+            height: 24px;
+            flex-shrink: 0;
+            border-radius: 50%;
+            background-color: var(--Blue-Blue-400, #2458ec);
+            color: var(--GRAY-SCALE-Gray-100, #f9fafe);
+
+            /* SUBTITLE/16_bold */
+            font-family: Pretendard;
+            font-size: 16px;
+            font-style: normal;
+            font-weight: 700;
+            line-height: 160%; /* 25.6px */
+          }
+          .subTitle {
+            color: var(--grayscale-gray-600-iconsubtext, #75777f);
+
+            /* BODY/12_medium */
+            font-family: Pretendard;
+            font-size: 12px;
+            font-style: normal;
+            font-weight: 500;
+            line-height: 160%; /* 19.2px */
+          }
+        }
+        .detail {
+          display: flex;
+          width: 137px;
+          height: 38px;
+          padding: 7px 18px 7px 16px;
+          justify-content: center;
+          align-items: center;
+          gap: 4px;
+          border-radius: 5px;
+          background: var(--Blue-Blue-400, #2458ec);
+          color: #fff;
+          text-align: center;
+
+          /* SUBTITLE/16_bold */
+          font-family: Pretendard;
+          font-size: 16px;
+          font-style: normal;
+          font-weight: 700;
+          line-height: 160%; /* 25.6px */
+        }
+      }
     }
   }
 }
