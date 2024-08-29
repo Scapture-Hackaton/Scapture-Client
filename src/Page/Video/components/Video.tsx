@@ -5,8 +5,8 @@ import styles from '../scss/video.module.scss';
 import modal from '../scss/video-modal.module.scss';
 import loginModal from '../../Header/scss/login-modal.module.scss';
 
-import download from '../image/download.png';
-import share from '../image/share.png';
+import download from '../../../assets/Icon/downLoadIcon.svg';
+import share from '../../../assets/Icon/shareIcon.svg';
 
 import { useLocation } from 'react-router-dom';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
@@ -25,7 +25,7 @@ import {
 } from '../../../apis/dto/scapture.dto';
 import { useEffect, useState } from 'react';
 import SelectBtn from './SelectBtn';
-import StadiumHours from './StadiumHours';
+// import StadiumHours from './StadiumHours';
 import VideoList from './VideoList';
 import Heart from './Heart';
 import {
@@ -58,9 +58,12 @@ const Video = () => {
   const modalRef = useRef<HTMLDialogElement>(null);
   const loginModalRef = useRef<HTMLDialogElement>(null);
   const queryClient = useQueryClient();
-  const location = useLocation();
-  const stadiumId = location.state.stadiumId;
-  const videoId = location.state.videoId;
+  // const location = useLocation();
+  // const stadiumId = location.state.stadiumId;
+  // const videoId = location.state.videoId;
+
+  const stadiumId = 1;
+  const videoId = 1;
 
   const { data: stadiumDetail } = useQuery({
     queryKey: ['stadiumDetail', stadiumId],
@@ -364,120 +367,80 @@ const Video = () => {
       <Header index={2} />
       <div className={styles.community}>
         {isVideoDetailSuccess && videoDetail && videoDetail.video ? (
-          <>
-            <div className={styles.videoContainer}>
-              <div className={styles.video}>
-                <video
-                  id="videoPlayer"
-                  controls
-                  controlsList="nodownload"
-                  onContextMenu={e => e.preventDefault()}
-                ></video>
-              </div>
-              <div className={styles.group}>
-                <div className={styles.title}>{videoDetail.name}</div>
-                <ul className={styles.icons}>
-                  <li onClick={handleDownloadClick}>
-                    <p>다운로드</p>
-                    <img src={download} alt=""></img>
-                  </li>
-                  <li>
-                    <img src={share} alt=""></img>
-                  </li>
-                  <li>
-                    {/* <img src={bookMark} alt=""></img> */}
-                    <BookMark
-                      stored={videoDetail.isStored}
-                      onToggleStore={handleToggleStore}
-                    ></BookMark>
-                  </li>
-                </ul>
-              </div>
-              <div className={styles.heart}>
-                <Heart
-                  id={videoId}
-                  isLiked={videoDetail.isLiked}
-                  likeCount={videoDetail.likeCount}
-                  onToggleLike={handleToggleLike}
-                />
-                {/* <img src={fullHeart} alt="" />
-                <div className={styles.cnt}>10</div> */}
-              </div>
+          <div className={styles.videoContainer}>
+            <div className={styles.video}>
+              <video
+                id="videoPlayer"
+                controls
+                controlsList="nodownload"
+                onContextMenu={e => e.preventDefault()}
+              ></video>
             </div>
-          </>
+            <div className={styles.group}>
+              <div className={styles.title}>{videoDetail.name}</div>
+              <ul className={styles.icons}>
+                <li className={styles.heart}>
+                  <Heart
+                    id={videoId}
+                    isLiked={videoDetail.isLiked}
+                    likeCount={videoDetail.likeCount}
+                    onToggleLike={handleToggleLike}
+                  />
+                  {/* <img src={fullHeart} alt="" />
+                <div className={styles.cnt}>10</div> */}
+                </li>
+                <li>
+                  {/* <img src={bookMark} alt=""></img> */}
+                  <BookMark
+                    stored={videoDetail.isStored}
+                    onToggleStore={handleToggleStore}
+                  ></BookMark>
+                </li>
+                <li onClick={handleDownloadClick}>
+                  <img src={download} alt="" width="20px" height="20px"></img>
+                  <p>다운로드</p>
+                </li>
+                <li>
+                  <img src={share} alt="" width="20px" height="20px"></img>
+                  <p>공유</p>
+                </li>
+              </ul>
+            </div>
+          </div>
         ) : (
           <></>
         )}
-        <div className={styles.dayVideo}>
-          <div className={styles.selectGroup}>
-            <SelectBtn
-              selectList={monthList}
-              selectedOption={isMonth}
-              onOptionChange={handleMonthChange}
-            />
-            <SelectBtn
-              selectList={dayMap.get(isMonth) || []}
-              selectedOption={isDay}
-              onOptionChange={handleDayChange}
-            />
-            <SelectBtn
-              selectList={fieldList}
-              selectedOption={isField || ''}
-              onOptionChange={handleFieldChange}
-            />
-          </div>
 
-          <div className={styles.dayGroup}>
-            {/* <div className={styles.box}>
-              <div className={styles.date}>Today</div>
-              <div className={styles.date}>10:00~12:00</div>
-              <div className={styles.cnt}>12개의 영상</div>
+        <div className={styles.option}>
+          <div className={styles.container}>
+            <div className={styles.title}>
+              <div id={styles.mainTitle}>내 영상 빠르게 찾기</div>
+              <div id={styles.subTitle}>
+                내가 운동했던 조건을 선택하면 빠르게 내 영상을 찾을 수 있어요!
+              </div>
             </div>
-            <div className={styles.box}>
-              <div className={styles.date}>Today</div>
-              <div className={styles.date}>10:00~12:00</div>
-              <div className={styles.cnt}>12개의 영상</div>
+
+            <div className={styles.select}>
+              <SelectBtn
+                selectList={fieldList}
+                selectedOption={isField || ''}
+                onOptionChange={handleFieldChange}
+              />
+              <SelectBtn
+                selectList={monthList}
+                selectedOption={isMonth}
+                onOptionChange={handleMonthChange}
+              />
+              <SelectBtn
+                selectList={dayMap.get(isMonth) || []}
+                selectedOption={isDay}
+                onOptionChange={handleDayChange}
+              />
             </div>
-          </div> */}
-            <StadiumHours
-              stadiumHourList={isStadiumHourList}
-              chooseSchedule={chooseSchedule}
-            />
           </div>
         </div>
 
         <VideoList scheduleId={isScheduleId} stadiumId={stadiumId}></VideoList>
-        {/* <div className={styles.videoList}>
-          <div className={styles.container}>
-            <div className={styles.video}></div>
-            <div className={styles.description}>
-              <div className={styles.titles}>
-                <div id={styles.first}>1번째</div>
-                <div id={styles.second}>골영상</div>
-              </div>
-
-              <div className={styles.info}>
-                <div>창골축구장(FC서울 축구교실)</div>
-                <div>07.10.수 / 10:00~12:00</div>
-              </div>
-            </div>
-          </div>
-
-          <div className={styles.container}>
-            <div className={styles.video}></div>
-            <div className={styles.description}>
-              <div className={styles.titles}>
-                <div id={styles.first}>1번째</div>
-                <div id={styles.second}>골영상</div>
-              </div>
-
-              <div className={styles.info}>
-                <div>창골축구장(FC서울 축구교실)</div>
-                <div>07.10.수 / 10:00~12:00</div>
-              </div>
-            </div>
-          </div>
-        </div> */}
 
         {/* <div className={styles.paging}>
           <img src={leftArrow} alt=""></img>

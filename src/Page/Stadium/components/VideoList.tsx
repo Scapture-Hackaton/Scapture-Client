@@ -42,7 +42,12 @@ const VideoList: React.FC<VideoListProps> = ({ scheduleId, stadiumId }) => {
             onClick={() => toVideo(video.videoId)}
           >
             <div className={styles.video}>
-              <img src={video.image} alt={video.name} />
+              <img
+                src={video.image}
+                alt={video.name}
+                width="410px"
+                height="230"
+              />
             </div>
             <div className={styles.description}>
               <div className={styles.title}>{video.name}</div>
