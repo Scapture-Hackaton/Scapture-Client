@@ -1,5 +1,9 @@
 import Header from '../../../Header/components/Header';
-// import Footer from '../../../Footer/components/Footer';
+import Clock from '../image/Clock.svg';
+import DefaultProfile from '../image/DefaultProfile.svg';
+import DownArrow from '../image/downArrow.svg';
+import Banana from '../image/banana.svg';
+import Footer from '../../../Footer/components/Footer';
 import AllianceStadium from '../../../Main/components/AllianceStadium';
 import { userData, bananaData, subscribedData } from '../../dto/atom.interface';
 
@@ -16,6 +20,8 @@ import profileImgDefault from '../../image/scapture-logo.svg';
 // import profileImg from '../image/profile.webp';
 
 import { useEffect, useRef, useState } from 'react';
+import ReactPaginate from 'react-paginate';
+
 import { modalNotice } from '../functions/ModalFunction';
 import { BananaModal, SubscribeModal } from './MyPageModal';
 import {
@@ -26,6 +32,8 @@ import {
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { userDataAtom, bananaDataAtom, subscribedAtom } from '../../Atom/atom';
 import { Link, useLocation } from 'react-router-dom';
+
+const itemsPerPage = 8; // 페이지당 보여줄 아이템 수
 
 const MyPage = () => {
   const modalRef = useRef<HTMLDialogElement>(null);
@@ -116,11 +124,137 @@ const MyPage = () => {
     localStorage.removeItem('TOKEN');
     window.location.reload();
   };
+  //  페이지네이션 더미
+  const videoData = Array.from({ length: 50 }, (_, index) => ({
+    title: `영상 제목 ${index + 1}`,
+    field: '구장 주소 입력 필드',
+    time: '0000.00.00 | 00:00 - 00:00',
+  }));
+
+  const [currentPage, setCurrentPage] = useState(0);
+
+  // 현재 페이지에 표시될 비디오 수
+  const offset = currentPage * itemsPerPage;
+  const currentItems = videoData.slice(offset, offset + itemsPerPage);
+  const pageCount = Math.ceil(videoData.length / itemsPerPage);
+
+  // 페이지 변경 시 호출되는 함수
+  const handlePageClick = ({ selected }) => {
+    setCurrentPage(selected);
+  };
 
   return (
     <div className={styles.test}>
       <Header index={0} />
-      <div className={styles.myPage}>
+      <div className={styles.myPageContainer}>
+        <div className={styles.centerContainer}>
+          <div className={styles.baseInformation}>
+            <div className={styles.mainTitle}>
+              <div className={styles.boldText}>기본 정보</div>
+              <img className={styles.image} src={Clock} alt=""></img>
+            </div>
+            <div className={styles.subTitle}>
+              서비스에 이용되는 프로필을 설정해주세요
+            </div>
+            <div className={styles.profileContainer}>
+              <img
+                className={styles.profileImg}
+                src={DefaultProfile}
+                alt=""
+              ></img>
+              <div className={styles.profile}>
+                <div className={styles.subscribe}>
+                  <div className={styles.badge}>구독</div>
+                  <div className={styles.date}>0000.00.00 까지 이용</div>
+                </div>
+                <div className={styles.profileId}>000님</div>
+              </div>
+            </div>
+            <div className={styles.infoContainer}>
+              <div className={styles.teamContainer}>
+                <div className={styles.title}>소속팀</div>
+                <div className={styles.description}>스캡쳐</div>
+              </div>
+              <div className={styles.regionContainer}>
+                <div className={styles.title}>활동 지역</div>
+                <div style={{ display: 'flex', gap: '8px' }}>
+                  <div className={styles.dropdownContainer}>
+                    <div className={styles.dropdownTitle}>도시</div>
+                    <img className={styles.dropdownImg} src={DownArrow}></img>
+                  </div>
+                  <div className={styles.dropdownContainer}>
+                    <div className={styles.dropdownTitle}>지역</div>
+                    <img className={styles.dropdownImg} src={DownArrow}></img>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className={styles.bananaContainer}>
+            <div className={styles.mainTitle}>버내너 관리</div>
+            <div className={styles.subTitle}>
+              보유한 갯수만큼 영상을 다운받을 수 있어요
+            </div>
+            <div className={styles.countContainer}>
+              <img className={styles.img} src={Banana} alt=""></img>
+              <div className={styles.presentContainer}>
+                <div className={styles.present}>현재 버내너 보유갯수</div>
+                <div className={styles.count}>00개</div>
+              </div>
+            </div>
+            <div className={styles.buttonContainer}>
+              <div className={styles.inviteButton}>
+                친구 초대하고 버내너 3개 받기
+              </div>
+              <div className={styles.chargeButton}>버내너 충전하기</div>
+            </div>
+          </div>
+          <div className={styles.reservationContainer}>
+            <div className={styles.textContainer}>
+              <div
+                style={{ display: 'flex', gap: '4px', alignItems: 'center' }}
+              >
+                <div className={styles.title}>예약내역</div>
+                <div className={styles.count}>1</div>
+              </div>
+              <div className={styles.subTitle}>
+                나의 예약정보를 확인할 수 있어요
+              </div>
+            </div>
+            <div className={styles.detail}>자세히 보기</div>
+          </div>
+          <div className={styles.saveContainer}>
+            <div className={styles.title}>저장한 영상</div>
+            <div className={styles.videoGrid}>
+              {currentItems.map((item, index) => (
+                <div className={styles.videoCard} key={index}>
+                  <div className={styles.thumbnail}></div>
+                  <div className={styles.videoInfo}>
+                    <div className={styles.videoTitle}>{item.title}</div>
+                    <div className={styles.videoDetails}>
+                      <div className={styles.videoField}>{item.field}</div>
+                      <div className={styles.videoTime}>{item.time}</div>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+            <ReactPaginate
+              previousLabel={'<'}
+              nextLabel={'>'}
+              pageCount={pageCount} //몇개 페이지 보여줄건지
+              pageRangeDisplayed={10} // 페이지 주변에 표시될 번호 범위
+              onPageChange={handlePageClick}
+              containerClassName={styles.pagination} /// 전체컨테이너
+              activeClassName={styles.active} // 활성화 페이지 번호에 적용
+              pageClassName={styles.pageNumber} //각 페이지 번호에 적용
+              previousClassName={styles.button} // 이전버튼 적용
+              nextClassName={styles.button} //다음버튼 적용
+            />
+          </div>
+        </div>
+      </div>
+      {/* <div className={styles.myPage}>
         <div className={styles.profile}>
           <div className={styles.bar}></div>
           <div className={styles.container}>
@@ -148,7 +282,7 @@ const MyPage = () => {
                   console.log(isSubscribed);
                 }}
               >
-                {/* 컴포넌트 예정 */}
+                컴포넌트 예정
                 {isSubscribed.subscribed || isProfile.endDate ? (
                   <>
                     <div className={styles.who}>구독자</div>
@@ -163,7 +297,7 @@ const MyPage = () => {
                   </>
                 )}
               </div>
-              {/* 컴포넌트 예정 */}
+              컴포넌트 예정
               <div className={styles.group}>
                 <div className={styles.title}>소속팀</div>
                 <div className={styles.descrip}>{isProfile.team}</div>
@@ -297,7 +431,7 @@ const MyPage = () => {
       <div className={styles.logout} onClick={deleteToken}>
         로그아웃
       </div>
-      {/* <Footer /> */}
+      <Footer /> */}
     </div>
   );
 };
