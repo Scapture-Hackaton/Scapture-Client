@@ -20,6 +20,8 @@ import profileImgDefault from '../../image/scapture-logo.svg';
 // import profileImg from '../image/profile.webp';
 
 import { useEffect, useRef, useState } from 'react';
+import ReactPaginate from 'react-paginate';
+
 import { modalNotice } from '../functions/ModalFunction';
 import { BananaModal, SubscribeModal } from './MyPageModal';
 import {
@@ -30,6 +32,8 @@ import {
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { userDataAtom, bananaDataAtom, subscribedAtom } from '../../Atom/atom';
 import { Link, useLocation } from 'react-router-dom';
+
+const itemsPerPage = 8; // 페이지당 보여줄 아이템 수
 
 const MyPage = () => {
   const modalRef = useRef<HTMLDialogElement>(null);
@@ -120,6 +124,24 @@ const MyPage = () => {
     localStorage.removeItem('TOKEN');
     window.location.reload();
   };
+  //  페이지네이션 더미
+  const videoData = Array.from({ length: 50 }, (_, index) => ({
+    title: `영상 제목 ${index + 1}`,
+    field: '구장 주소 입력 필드',
+    time: '0000.00.00 | 00:00 - 00:00',
+  }));
+
+  const [currentPage, setCurrentPage] = useState(0);
+
+  // 현재 페이지에 표시될 비디오 수
+  const offset = currentPage * itemsPerPage;
+  const currentItems = videoData.slice(offset, offset + itemsPerPage);
+  const pageCount = Math.ceil(videoData.length / itemsPerPage);
+
+  // 페이지 변경 시 호출되는 함수
+  const handlePageClick = ({ selected }) => {
+    setCurrentPage(selected);
+  };
 
   return (
     <div className={styles.test}>
@@ -200,6 +222,35 @@ const MyPage = () => {
               </div>
             </div>
             <div className={styles.detail}>자세히 보기</div>
+          </div>
+          <div className={styles.saveContainer}>
+            <div className={styles.title}>저장한 영상</div>
+            <div className={styles.videoGrid}>
+              {currentItems.map((item, index) => (
+                <div className={styles.videoCard} key={index}>
+                  <div className={styles.thumbnail}></div>
+                  <div className={styles.videoInfo}>
+                    <div className={styles.videoTitle}>{item.title}</div>
+                    <div className={styles.videoDetails}>
+                      <div className={styles.videoField}>{item.field}</div>
+                      <div className={styles.videoTime}>{item.time}</div>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+            <ReactPaginate
+              previousLabel={'<'}
+              nextLabel={'>'}
+              pageCount={pageCount} //몇개 페이지 보여줄건지
+              pageRangeDisplayed={10} // 페이지 주변에 표시될 번호 범위
+              onPageChange={handlePageClick}
+              containerClassName={styles.pagination} /// 전체컨테이너
+              activeClassName={styles.active} // 활성화 페이지 번호에 적용
+              pageClassName={styles.pageNumber} //각 페이지 번호에 적용
+              previousClassName={styles.button} // 이전버튼 적용
+              nextClassName={styles.button} //다음버튼 적용
+            />
           </div>
         </div>
       </div>
