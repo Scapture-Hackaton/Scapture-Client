@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import styles from '../scss/scapture.module.scss';
-import dropDown from '../image/dropDown.svg';
+import dropDown from '../../../assets/Icon/dropDown.svg';
 
 interface SelectProps {
   selectList: string[];

@@ -3,9 +3,9 @@ import styles from '../scss/scapture.module.scss';
 import { Stadium } from '../../../apis/dto/scapture.dto';
 import { useNavigate } from 'react-router-dom';
 
-import location from '../image/location.svg';
-import clock from '../image/Clock.svg';
-import parking from '../image/parking.svg';
+import location from '../../../assets/Icon/location.svg';
+import clock from '../../../assets/Icon/Clock.svg';
+import parking from '../../../assets/Icon/parking.svg';
 
 interface StadiumsProps {
   stadiumData: Stadium[];

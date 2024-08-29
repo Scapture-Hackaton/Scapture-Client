@@ -3,131 +3,172 @@
   width: 100%;
 
   .stadium {
-    color: white;
-    margin-top: 2.875rem;
+    width: 100%;
 
-    > div {
-      // background-color: blue;
+    .banner {
+      height: 338px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
 
-      .banner {
-        // background-color: antiquewhite;
-        height: 338px;
+      img {
+        width: 100%;
+        height: 100%;
+
+        object-fit: cover;
+      }
+    }
+
+    .introBox {
+      width: 100%;
+      height: 100%;
+      background: var(--color-grayscale-black-bg);
+
+      .title {
         display: flex;
-        flex-direction: column;
-        justify-content: center;
+        justify-content: space-between;
+        align-items: center;
 
-        img {
-          height: 100%;
+        padding: 1rem;
 
-          object-fit: cover;
+        border-bottom: 1px solid var(--color-grayscale-input-700);
+
+        #reservation {
+          background-color: var(--primary-color-defualt-01);
+          // width: 6.875rem;
+          width: 115px;
+          height: 38px;
+
+          color: var(--white-color);
+          font-size: var(--font-size-xm);
+          font-weight: 700;
+          border-radius: 5px;
+        }
+
+        div {
+          font-weight: 700;
+          font-size: var(--font-size-l);
+          color: var(--font-color-gray-100);
         }
       }
 
-      > .container {
-        margin: 2.875rem auto 1.875rem auto;
-        background-color: var(--main-color-navy-02);
+      .introText {
+        width: 100%;
+
+        padding: 1rem;
+
+        font-size: var(--font-size-s);
+        color: var(--font-color-gray-sub);
+        font-weight: 500;
+
+        white-space: pre-wrap;
+        word-wrap: break-word;
+      }
+    }
+
+    .infoBox {
+      background: var(--color-grayscale-web-card);
+      .infoHeader {
+        height: 48px;
+
+        padding: 0 1rem;
+
         display: flex;
-        flex-direction: column;
-        width: 95.11%;
-        // height: 28.125rem;
+        justify-content: space-between;
+        align-items: center;
 
-        > .group {
-          margin: 0.75rem 0.9375rem 1rem 0.9375rem;
+        color: var(--font-color-gray-100);
 
-          .intro {
-            .title {
-              display: flex;
-              align-items: center;
-              margin-bottom: 1.9375rem;
+        border-bottom: 1px solid var(--color-grayscale-input-700);
 
-              img {
-                width: 50px;
-                height: 50px;
+        img {
+          width: 20px;
+          height: 20px;
 
-                border-radius: 50%;
+          cursor: pointer;
+        }
+      }
 
-                object-fit: cover;
-                margin-right: 0.75rem;
-              }
+      &.open .infoGroup {
+        display: block;
+      }
 
-              > span {
-                font-size: var(--font-size-l);
-              }
-            }
+      .infoGroup {
+        display: none;
+        padding: 1rem;
 
-            .introText {
-              font-size: var(--font-size-m);
-              margin-right: 1rem;
-              font-weight: 600;
+        .topInfo {
+          display: flex;
+          justify-content: start;
+          align-items: center;
 
-              span {
-                white-space: pre-wrap;
-              }
-            }
-          }
+          margin-bottom: 0.7rem;
 
-          .reservationBtn {
-            // background-color: #615B14;
+          .isOutside {
             display: flex;
-            justify-content: space-between;
+            justify-content: center;
             align-items: center;
-            margin: 3.0625rem 0 3.0625rem 0;
-            height: 1.875rem;
 
-            #reservation {
-              background-color: var(--gradient-color-blue-01);
-              // width: 6.875rem;
-              width: 110px;
-              height: 100%;
-              color: var(--white-color);
-              font-size: var(--font-size-xm);
-              font-weight: 600;
-              border-radius: 0.25rem;
-            }
+            width: 37px;
+            height: 19px;
 
-            #stadium {
-              font-size: var(--font-size-xm);
-              font-weight: 600;
+            background: var(--color-ect-info);
 
-              height: 100%;
-              width: 100px;
-              background: linear-gradient(
-                -60deg,
-                transparent 20px,
-                var(--sub-color-yellow-03) 0
-              );
+            border-radius: 4px;
 
-              display: flex;
-              align-items: center;
+            color: var(--font-color-gray-700);
+            font-weight: 500;
+            font-size: var(--font-size-s);
 
-              padding-left: 0.7rem;
-              margin-right: 1rem;
-            }
+            margin-right: 0.4rem;
           }
 
-          > .info {
-            // background-color: yellowgreen;
+          .isParking {
             display: flex;
-            flex-direction: row;
-            font-size: var(--font-size-xm);
+            justify-content: center;
+            align-items: center;
 
-            > .group {
-              > span {
-                margin: auto 0 0 0;
-              }
+            min-width: 61px;
+            height: 19px;
+
+            background: var(--color-ect-accent);
+
+            border-radius: 4px;
+
+            color: var(--white-color);
+            font-weight: 500;
+            font-size: var(--font-size-s);
+
+            margin-right: 1rem;
+          }
+        }
+
+        #info {
+          width: 100%;
+
+          .line {
+            display: flex;
+            justify-content: start;
+            align-items: center;
+
+            margin-top: 0.2rem;
+
+            img {
+              width: 20px;
+              height: 20px;
             }
 
-            > .group:first-child {
-              // background-color: teal;
-              display: flex;
-              flex-direction: column;
-              width: 7.1875rem;
-              height: 145px;
-            }
+            .info {
+              color: var(--font-color-gray-sub);
+              font-weight: 500;
+              font-size: var(--font-size-m);
+              margin-left: 0.3rem;
 
-            > .group:last-child {
-              display: flex;
-              flex-direction: column;
+              line-height: 22px;
+
+              text-overflow: ellipsis;
+              overflow: hidden;
+              white-space: nowrap;
             }
           }
         }
@@ -138,23 +179,31 @@
       display: flex;
       flex-direction: row;
       justify-content: space-between;
-      margin-bottom: 30px;
+
       width: 100%;
       font-size: var(--font-size-m);
 
-      > .container {
-        margin: 0 auto;
-        background-color: var(--main-color-navy-01);
+      background: var(--color-grayscale-black-bg);
 
-        select {
-          width: 60px;
-          height: 30px;
-          background-color: var(--grey-color-grey-01);
-          color: var(--white-color);
-          font-size: var(--font-size-m);
-          border: none;
-          border-radius: 4px;
-          text-align: center;
+      > .container {
+        margin-top: 2rem;
+        padding: 0 1rem;
+
+        .title {
+          margin: 0.7rem 0;
+          #mainTitle {
+            color: var(--font-color-gray-100);
+            font-size: var(--font-size-l);
+            font-weight: 700;
+
+            margin-bottom: 0.6rem;
+          }
+
+          #subTitle {
+            color: var(--font-color-lemon-400);
+            font-size: var(--font-size-s);
+            font-weight: 500;
+          }
         }
 
         .select {
@@ -163,16 +212,14 @@
 
           .selectbox {
             position: relative;
-
-            min-width: 60px;
-            // max-width: 60px;
-            height: 30px;
+            // min-width: 128px;
+            height: 36px;
 
             display: flex;
             align-items: center;
             justify-content: center;
 
-            margin-right: 0.5rem;
+            margin-right: 0.6rem;
 
             button {
               width: 100%;
@@ -182,24 +229,23 @@
               align-items: center;
               justify-content: space-between;
 
-              // padding: 0.5rem 0 0.5rem 0.8rem;
-              border: none;
-              border-radius: 5px;
+              border-radius: 6px;
               background: rgba(37, 37, 37, 1);
-              color: white;
-
-              font-weight: 400;
-              font-size: var(--font-size-m);
+              background: var(--color-grayscale-input-700);
 
               cursor: pointer;
 
               span {
-                margin-left: 0.6rem;
-                margin-right: 0.6rem;
+                color: var(--font-color-gray-400);
+                font-weight: 500;
+                font-size: var(--font-size-m);
+
+                margin-left: 0.5rem;
+                margin-right: 0.5rem;
               }
 
               img {
-                margin-right: 0.4rem;
+                margin-right: 0.6rem;
               }
             }
 
@@ -223,12 +269,17 @@
               li {
                 button {
                   width: 100%;
-                  padding: 0.5rem;
+                  padding: 0.5rem 0;
+                  padding-left: 0.5rem;
                   border: none;
                   background: rgba(37, 37, 37, 1);
                   color: white;
                   text-align: left;
                   cursor: pointer;
+
+                  p {
+                    margin-left: 1rem;
+                  }
 
                   &:hover {
                     background: rgba(57, 57, 57, 1);
@@ -255,95 +306,87 @@
       }
     }
 
-    .hours {
-      width: 100%;
-      margin-bottom: 2rem;
+    // .hours {
+    //   width: 100%;
+    //   margin-bottom: 2rem;
 
-      .housrsList {
-        width: 85%;
-        display: flex;
-        flex-direction: row;
-        justify-content: center;
-        margin: 0 auto;
-        background-color: var(--main-color-navy-01);
-        // margin: 0 0 2rem 0.6875rem;
+    //   .housrsList {
+    //     width: 85%;
+    //     display: flex;
+    //     flex-direction: row;
+    //     justify-content: center;
+    //     margin: 0 auto;
+    //     background-color: var(--main-color-navy-01);
+    //     // margin: 0 0 2rem 0.6875rem;
 
-        .group {
-          background-color: var(--black-color);
-          border: 1px solid var(--grey-color-grey-02);
-          border-radius: 10px;
-          // margin-right: 1.25rem;
+    //     .group {
+    //       background-color: var(--black-color);
+    //       border: 1px solid var(--grey-color-grey-02);
+    //       border-radius: 10px;
+    //       // margin-right: 1.25rem;
 
-          cursor: pointer;
-          // margin-right: 5rem;
+    //       cursor: pointer;
+    //       // margin-right: 5rem;
 
-          cursor: pointer;
-          // margin-right: 5rem;
+    //       cursor: pointer;
+    //       // margin-right: 5rem;
 
-          .contents {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            margin: 1rem;
-            width: 8.25rem;
-            height: 5.625rem;
+    //       .contents {
+    //         display: flex;
+    //         flex-direction: column;
+    //         justify-content: center;
+    //         margin: 1rem;
+    //         width: 8.25rem;
+    //         height: 5.625rem;
 
-            span:first-child {
-              padding: 0.0625rem;
-            }
+    //         span:first-child {
+    //           padding: 0.0625rem;
+    //         }
 
-            span:last-child {
-              display: flex;
-              flex-wrap: wrap;
-              justify-content: flex-end;
-              align-content: flex-end;
-              width: 8rem;
-              height: 3rem;
-              color: yellow;
-            }
-          }
-        }
-      }
-    }
+    //         span:last-child {
+    //           display: flex;
+    //           flex-wrap: wrap;
+    //           justify-content: flex-end;
+    //           align-content: flex-end;
+    //           width: 8rem;
+    //           height: 3rem;
+    //           color: yellow;
+    //         }
+    //       }
+    //     }
+    //   }
+    // }
 
     .videoList {
       // width: 100%;
+      padding-top: 1.7rem;
+      background: var(--color-grayscale-black-bg);
 
-      margin: 1rem 1rem 0 1rem;
-
-      .videoContainer {
-        width: 100%;
-        background: #020039;
-        height: 146px;
-
-        border: 1px solid transparent;
-        border-radius: 10px;
-        border-image-source: linear-gradient(
-          180deg,
-          rgba(0, 56, 255, 0.2) 0%,
-          rgba(0, 56, 255, 0.8) 51%,
-          rgba(0, 56, 255, 0.2) 100%
-        );
-        border-image-slice: 1;
-
-        padding: 1rem;
-
+      .noData {
         display: flex;
-        // justify-content: space-between;
-        flex-direction: row;
+        flex-direction: column;
+        justify-content: center;
         align-items: center;
 
-        margin-bottom: 1rem;
+        padding: 7rem 0;
 
-        cursor: pointer;
+        div {
+          font-weight: 500;
+          font-size: var(--font-size-sl);
+          color: var(--font-color-gray-400);
+        }
+      }
+
+      .videoContainer {
+        padding: 0 1rem 1rem 1rem;
 
         .video {
-          width: 222px;
-          height: 124px;
-          // background: black;
-          border-radius: 10px;
+          width: 100%;
+          height: 230px;
+          background: black;
+          border-radius: 14px;
 
-          margin-right: 1.7rem;
+          cursor: pointer;
 
           img {
             width: 100%;
@@ -355,32 +398,21 @@
         }
 
         .description {
-          height: 100%;
-          display: flex;
-          flex-direction: column;
-          justify-content: space-between;
+          .title {
+            margin: 1rem 0 0.5rem 0;
 
-          .titles {
-            #first {
-              color: white;
-              font-weight: 600;
-              font-size: var(--font-size-xm);
-            }
-
-            #second {
-              color: white;
-              font-weight: 400;
-              font-size: 14px;
-            }
+            font-weight: 700;
+            font-size: var(--font-size-xm);
+            color: var(--font-color-gray-100);
           }
 
-          .info {
-            color: white;
-            font-weight: 400;
-            font-size: var(--font-size-xs);
+          .subDes {
+            font-weight: 500;
+            font-size: var(--font-size-s);
+            color: var(--font-color-gray-sub);
 
             div {
-              margin-top: 0.5rem;
+              margin-bottom: 0.3rem;
             }
           }
         }
