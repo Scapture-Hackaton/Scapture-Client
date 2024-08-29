@@ -14,7 +14,7 @@ import {
   getStadiumDetail,
   getStadiumDHours,
 } from '../../../apis/api/stadium.api';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import SelectBtn from './SelectBtn';
 import StadiumHours from './StadiumHours';
 import VideoList from './VideoList';
@@ -22,7 +22,9 @@ import VideoList from './VideoList';
 import locationImg from '../../../assets/Icon/location.svg';
 import clock from '../../../assets/Icon/Clock.svg';
 import parking from '../../../assets/Icon/parking.svg';
+
 import dropDown from '../../../assets/Icon/dropDown.svg';
+import upArrow from '../../../assets/Icon/upArrow.svg';
 
 const Stadium = () => {
   const location = useLocation();
@@ -65,6 +67,9 @@ const Stadium = () => {
   const { monthList, dayMap } = generateDateLists(weekAgo, today);
 
   // 기본 날짜 값 설정
+  // const [isMonth, setMonth] = useState(monthList[0]);
+  // const [isDay, setDay] = useState(dayMap.get(isMonth)?.[0] || '');
+
   const [isMonth, setMonth] = useState(monthList[0]);
   const [isDay, setDay] = useState(dayMap.get(isMonth)?.[0] || '');
 
@@ -145,6 +150,18 @@ const Stadium = () => {
     setScheduleId(scheduleId);
   };
 
+  // 구장 정보 자세히 보기
+
+  // 버튼을 눌렀는지에 대한 상태
+  const [open, setOpen] = useState(false);
+
+  const selectRef = useRef<HTMLDivElement>(null);
+
+  const toggleDropdown = () => {
+    setOpen(!open);
+  };
+
+  // 예약 페이지로 이동
   const navigate = useNavigate();
 
   const toReservation = (stadiumId: number) => {
@@ -184,10 +201,29 @@ const Stadium = () => {
               </div>
             </div>
 
-            <div className={styles.infoBox}>
+            <div
+              className={`${styles.infoBox}  ${open ? styles.open : ''}`}
+              ref={selectRef}
+            >
               <div className={styles.infoHeader}>
                 <div>구장 정보</div>
-                <img src={dropDown} alt="" width="20px" height="20px"></img>
+                {open ? (
+                  <img
+                    src={upArrow}
+                    alt=""
+                    width="20px"
+                    height="20px"
+                    onClick={toggleDropdown}
+                  ></img>
+                ) : (
+                  <img
+                    src={dropDown}
+                    alt=""
+                    width="20px"
+                    height="20px"
+                    onClick={toggleDropdown}
+                  ></img>
+                )}
               </div>
 
               <div className={styles.infoGroup}>
@@ -223,7 +259,19 @@ const Stadium = () => {
         ) : null}
         <div className={styles.option}>
           <div className={styles.container}>
+            <div className={styles.title}>
+              <div id={styles.mainTitle}>내 영상 빠르게 찾기</div>
+              <div id={styles.subTitle}>
+                내가 운동했던 조건을 선택하면 빠르게 내 영상을 찾을 수 있어요!
+              </div>
+            </div>
+
             <div className={styles.select}>
+              <SelectBtn
+                selectList={fieldList}
+                selectedOption={isField || ''}
+                onOptionChange={handleFieldChange}
+              />
               <SelectBtn
                 selectList={monthList}
                 selectedOption={isMonth}
@@ -233,11 +281,6 @@ const Stadium = () => {
                 selectList={dayMap.get(isMonth) || []}
                 selectedOption={isDay}
                 onOptionChange={handleDayChange}
-              />
-              <SelectBtn
-                selectList={fieldList}
-                selectedOption={isField || ''}
-                onOptionChange={handleFieldChange}
               />
             </div>
           </div>
