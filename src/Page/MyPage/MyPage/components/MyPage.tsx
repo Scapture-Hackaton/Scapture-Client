@@ -1,5 +1,9 @@
 import Header from '../../../Header/components/Header';
-// import Footer from '../../../Footer/components/Footer';
+import Clock from '../image/Clock.svg';
+import DefaultProfile from '../image/DefaultProfile.svg';
+import DownArrow from '../image/downArrow.svg';
+import Banana from '../image/banana.svg';
+import Footer from '../../../Footer/components/Footer';
 import AllianceStadium from '../../../Main/components/AllianceStadium';
 import { userData, bananaData, subscribedData } from '../../dto/atom.interface';
 
@@ -120,7 +124,72 @@ const MyPage = () => {
   return (
     <div className={styles.test}>
       <Header index={0} />
-      <div className={styles.myPage}>
+      <div className={styles.myPageContainer}>
+        <div className={styles.centerContainer}>
+          <div className={styles.baseInformation}>
+            <div className={styles.mainTitle}>
+              <div className={styles.boldText}>기본 정보</div>
+              <img className={styles.image} src={Clock} alt=""></img>
+            </div>
+            <div className={styles.subTitle}>
+              서비스에 이용되는 프로필을 설정해주세요
+            </div>
+            <div className={styles.profileContainer}>
+              <img
+                className={styles.profileImg}
+                src={DefaultProfile}
+                alt=""
+              ></img>
+              <div className={styles.profile}>
+                <div className={styles.subscribe}>
+                  <div className={styles.badge}>구독</div>
+                  <div className={styles.date}>0000.00.00 까지 이용</div>
+                </div>
+                <div className={styles.profileId}>000님</div>
+              </div>
+            </div>
+            <div className={styles.infoContainer}>
+              <div className={styles.teamContainer}>
+                <div className={styles.title}>소속팀</div>
+                <div className={styles.description}>스캡쳐</div>
+              </div>
+              <div className={styles.regionContainer}>
+                <div className={styles.title}>활동 지역</div>
+                <div style={{ display: 'flex', gap: '8px' }}>
+                  <div className={styles.dropdownContainer}>
+                    <div className={styles.dropdownTitle}>도시</div>
+                    <img className={styles.dropdownImg} src={DownArrow}></img>
+                  </div>
+                  <div className={styles.dropdownContainer}>
+                    <div className={styles.dropdownTitle}>지역</div>
+                    <img className={styles.dropdownImg} src={DownArrow}></img>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className={styles.bananaContainer}>
+            <div className={styles.mainTitle}>버내너 관리</div>
+            <div className={styles.subTitle}>
+              보유한 갯수만큼 영상을 다운받을 수 있어요
+            </div>
+            <div className={styles.countContainer}>
+              <img className={styles.img} src={Banana} alt=""></img>
+              <div className={styles.presentContainer}>
+                <div className={styles.present}>현재 버내너 보유갯수</div>
+                <div className={styles.count}>00개</div>
+              </div>
+            </div>
+            <div className={styles.buttonContainer}>
+              <div className={styles.inviteButton}>
+                친구 초대하고 버내너 3개 받기
+              </div>
+              <div className={styles.chargeButton}>버내너 충전하기</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      {/* <div className={styles.myPage}>
         <div className={styles.profile}>
           <div className={styles.bar}></div>
           <div className={styles.container}>
@@ -148,7 +217,7 @@ const MyPage = () => {
                   console.log(isSubscribed);
                 }}
               >
-                {/* 컴포넌트 예정 */}
+                컴포넌트 예정
                 {isSubscribed.subscribed || isProfile.endDate ? (
                   <>
                     <div className={styles.who}>구독자</div>
@@ -163,7 +232,7 @@ const MyPage = () => {
                   </>
                 )}
               </div>
-              {/* 컴포넌트 예정 */}
+              컴포넌트 예정
               <div className={styles.group}>
                 <div className={styles.title}>소속팀</div>
                 <div className={styles.descrip}>{isProfile.team}</div>
@@ -297,7 +366,7 @@ const MyPage = () => {
       <div className={styles.logout} onClick={deleteToken}>
         로그아웃
       </div>
-      {/* <Footer /> */}
+      <Footer /> */}
     </div>
   );
 };
