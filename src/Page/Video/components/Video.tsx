@@ -8,7 +8,7 @@ import loginModal from '../../Header/scss/login-modal.module.scss';
 import download from '../../../assets/Icon/downLoadIcon.svg';
 import share from '../../../assets/Icon/shareIcon.svg';
 
-// import { useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import {
   getStadiumDetail,
@@ -58,12 +58,9 @@ const Video = () => {
   const modalRef = useRef<HTMLDialogElement>(null);
   const loginModalRef = useRef<HTMLDialogElement>(null);
   const queryClient = useQueryClient();
-  // const location = useLocation();
-  // const stadiumId = location.state.stadiumId;
-  // const videoId = location.state.videoId;
-
-  const stadiumId = 1;
-  const videoId = 1;
+  const location = useLocation();
+  const stadiumId = location.state.stadiumId;
+  const videoId = location.state.videoId;
 
   const { data: stadiumDetail } = useQuery({
     queryKey: ['stadiumDetail', stadiumId],
@@ -391,11 +388,8 @@ const Video = () => {
                     likeCount={videoDetail.likeCount}
                     onToggleLike={handleToggleLike}
                   />
-                  {/* <img src={fullHeart} alt="" />
-                <div className={styles.cnt}>10</div> */}
                 </li>
                 <li>
-                  {/* <img src={bookMark} alt=""></img> */}
                   <BookMark
                     stored={videoDetail.isStored}
                     onToggleStore={handleToggleStore}

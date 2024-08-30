@@ -45,7 +45,7 @@ const VideoList: React.FC<VideoListProps> = ({ scheduleId, stadiumId }) => {
                 src={video.image}
                 alt={video.name}
                 width="410px"
-                height="230"
+                height="230px"
               />
             </div>
             <div className={styles.description}>
@@ -70,7 +70,7 @@ const VideoList: React.FC<VideoListProps> = ({ scheduleId, stadiumId }) => {
           <div>검색 결과가 없어요</div>
         </div>
       )}
-      <div className={styles.videoContainer}>
+      {/* <div className={styles.videoContainer}>
         <div className={styles.video}>
           <img src={noDataIcon} alt="" width="410px" height="230" />
         </div>
@@ -81,7 +81,7 @@ const VideoList: React.FC<VideoListProps> = ({ scheduleId, stadiumId }) => {
             <div>2024.08.29(목) / 18:00-20:00</div>
           </div>
         </div>
-      </div>
+      </div> */}
     </div>
   );
 };
