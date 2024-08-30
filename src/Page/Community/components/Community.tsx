@@ -323,6 +323,7 @@ const Community = () => {
               <div className={styles.video}>
                 <video
                   id="videoPlayer"
+                  src={videoDetailData.video}
                   controls
                   controlsList="nodownload"
                   onContextMenu={e => e.preventDefault()}

@@ -13,7 +13,7 @@ const PopularVideoList: React.FC<PopularVideoListProps> = ({
   changeVideo,
 }) => {
   return (
-    <>
+    <div className={styles.videoList}>
       {videos.length >= 2
         ? videos.map((video: PopularVideos) => (
             <div
@@ -22,26 +22,26 @@ const PopularVideoList: React.FC<PopularVideoListProps> = ({
               onClick={() => changeVideo(video.videoId)}
             >
               <div className={styles.video}>
-                <img src={video.image} alt="" />
+                <img
+                  src={video.image}
+                  alt={video.name}
+                  width="410px"
+                  height="230px"
+                />
               </div>
-              <div className={styles.group}>
+              <div className={styles.description}>
                 <div className={styles.title}>{video.name}</div>
-                <div className={styles.info}>
-                  <div className={styles.cnt}>조회수 {video.views}회</div>
-                  <p>{video.date}</p>
-                </div>
-
-                <div className={styles.field}>
-                  <div className={styles.profileImg}>
-                    <img src={video.stadium.image} alt="" />
+                <div className={styles.subDes}>
+                  <div>{video.stadium.name}</div>
+                  <div>
+                    조회수 {video.views}회 | {video.date}
                   </div>
-                  <div className={styles.name}>{video.stadium.name}</div>
                 </div>
               </div>
             </div>
           ))
         : null}
-    </>
+    </div>
   );
 };
 
