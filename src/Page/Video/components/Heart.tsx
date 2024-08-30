@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import styles from '../scss/video.module.scss';
 import fullHeart from '../image/fullHeart.png';
-import emptyHeart from '../image/emptyHeart.png';
+import emptyHeart from '../../../assets/Icon/heartIcon.svg';
 
 interface HeartProps {
   id: number;
@@ -27,15 +27,19 @@ const Heart: React.FC<HeartProps> = ({ isLiked, likeCount, onToggleLike }) => {
           alt="liked"
           onClick={() => onToggleLike(isLiked)}
           className={styles.onHeart}
+          width="20px"
+          height="20px"
         />
       ) : (
         <img
           src={emptyHeart}
-          onClick={() => onToggleLike(isLiked)}
           alt="not liked"
+          onClick={() => onToggleLike(isLiked)}
+          width="20px"
+          height="20px"
         />
       )}
-      <div className={styles.cnt}>{isCnt}</div>
+      <p className={styles.cnt}>{isCnt}</p>
     </>
   );
 };

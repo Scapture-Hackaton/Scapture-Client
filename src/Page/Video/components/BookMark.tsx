@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import styles from '../scss/video.module.scss';
-import bookMark from '../image/bookMark.png';
-import storedBookmark from '../image/storedBookmark.png';
+import bookMark from '../../../assets/Icon/bookMarkIcon.svg';
+import storedBookmark from '../../../assets/Icon/bookMarkIcon.svg';
 
 interface BookMarkProps {
   stored: boolean;
@@ -23,14 +23,19 @@ const BookMark: React.FC<BookMarkProps> = ({ stored, onToggleStore }) => {
           alt="liked"
           onClick={() => onToggleStore(isStored)}
           className={styles.onBookmark}
+          width="20px"
+          height="20px"
         />
       ) : (
         <img
           src={bookMark}
           onClick={() => onToggleStore(isStored)}
           alt="not liked"
+          width="20px"
+          height="20px"
         />
       )}
+      <p>저장</p>
     </>
   );
 };
