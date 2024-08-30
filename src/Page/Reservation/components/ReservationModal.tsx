@@ -69,8 +69,8 @@ export const ReservationModal = forwardRef<HTMLDialogElement, ModalProps>(
                 height="20px"
                 loading="lazy"
               />
-              {/* <div>{reservation?.date}</div> */}
-              <div>0000.00.00</div>
+              <div>{reservation?.date}</div>
+              {/* <div>0000.00.00</div> */}
             </li>
             <li className={styles.line}>
               <img
@@ -80,8 +80,8 @@ export const ReservationModal = forwardRef<HTMLDialogElement, ModalProps>(
                 height="20px"
                 loading="lazy"
               />
-              {/* <div>{reservation?.name}</div> */}
-              <div>구장명 입니다.</div>
+              <div>{reservation?.name}</div>
+              {/* <div>구장명 입니다.</div> */}
             </li>
             <li className={styles.line}>
               <img
@@ -91,8 +91,8 @@ export const ReservationModal = forwardRef<HTMLDialogElement, ModalProps>(
                 height="20px"
                 loading="lazy"
               />
-              {/* <div>{reservation?.hours}</div> */}
-              <div>00:00 ~ 00:00</div>
+              <div>{reservation?.hours}</div>
+              {/* <div>00:00 ~ 00:00</div> */}
             </li>
             <li className={styles.line}>
               <img
@@ -102,16 +102,16 @@ export const ReservationModal = forwardRef<HTMLDialogElement, ModalProps>(
                 height="20px"
                 loading="lazy"
               />
-              {/* <div>{reservation?.hours}</div> */}
-              <div>00 vs 00</div>
+              <div>{reservation?.hours}</div>
+              {/* <div>00 vs 00</div> */}
             </li>
           </ul>
         </div>
         <div className={styles.footer}>
           <div className={styles.priceInfo}>
             <div id={styles.text}>총 금액</div>
-            {/* <div>{reservation?.price.toLocaleString()}원</div> */}
-            <div id={styles.price}>000,000</div>
+            <div>{reservation?.price.toLocaleString()}원</div>
+            {/* <div id={styles.price}>000,000</div> */}
           </div>
           <button
             onClick={() => {
@@ -195,8 +195,8 @@ export const ReservationCheckModal = forwardRef<
               height="20px"
               loading="lazy"
             />
-            {/* <div>{reservation?.date}</div> */}
-            <div>0000.00.00</div>
+            <div>{reservation?.date}</div>
+            {/* <div>0000.00.00</div> */}
           </li>
           <li className={styles.line}>
             <img
@@ -206,8 +206,8 @@ export const ReservationCheckModal = forwardRef<
               height="20px"
               loading="lazy"
             />
-            {/* <div>{reservation?.name}</div> */}
-            <div>구장명 입니다.</div>
+            <div>{reservation?.name}</div>
+            {/* <div>구장명 입니다.</div> */}
           </li>
           <li className={styles.line}>
             <img
@@ -217,8 +217,8 @@ export const ReservationCheckModal = forwardRef<
               height="20px"
               loading="lazy"
             />
-            {/* <div>{reservation?.hours}</div> */}
-            <div>00:00 ~ 00:00</div>
+            <div>{reservation?.hours}</div>
+            {/* <div>00:00 ~ 00:00</div> */}
           </li>
           <li className={styles.line}>
             <img
@@ -228,16 +228,16 @@ export const ReservationCheckModal = forwardRef<
               height="20px"
               loading="lazy"
             />
-            {/* <div>{reservation?.hours}</div> */}
-            <div>00 vs 00</div>
+            <div>{reservation?.hours}</div>
+            {/* <div>00 vs 00</div> */}
           </li>
         </ul>
       </div>
       <div className={styles.footer}>
         <div className={styles.priceInfo}>
           <div id={styles.text}>결제한 금액</div>
-          {/* <div>{reservation?.price.toLocaleString()}원</div> */}
-          <div id={styles.price}>000,000원</div>
+          <div>{reservation?.price.toLocaleString()}원</div>
+          {/* <div id={styles.price}>000,000원</div> */}
         </div>
       </div>
     </dialog>

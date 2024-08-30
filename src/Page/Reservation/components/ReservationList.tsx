@@ -124,7 +124,7 @@ const ReservationList: React.FC<ReservationListProps> = ({
         </div>
       )}
 
-      <div className={styles.group}>
+      {/* <div className={styles.group}>
         <div className={styles.compontent}>
           <div className={styles.field}>A구장장장장장장</div>
 
@@ -154,7 +154,8 @@ const ReservationList: React.FC<ReservationListProps> = ({
             </button>
           </div>
         </div>
-      </div>
+      </div> */}
+
       <LoginModal
         styles={loginModal}
         AUTH_URLS={AUTH_URLS}
