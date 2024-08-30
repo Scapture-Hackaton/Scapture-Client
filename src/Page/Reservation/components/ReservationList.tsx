@@ -78,6 +78,10 @@ const ReservationList: React.FC<ReservationListProps> = ({
     naver: NAVER_AUTH_URL,
   };
 
+  const successReserve = () => {
+    modalNotice(modalCheckRef);
+  };
+
   const handleReserveConfirm = (scheduleId: number) => {
     mutation.mutate(scheduleId);
   };
@@ -128,7 +132,13 @@ const ReservationList: React.FC<ReservationListProps> = ({
             <div className={styles.date}>10:00 ~ 12:00</div>
             <div className={styles.versus}>6 vs 6</div>
 
-            <button>예약하기</button>
+            <button
+              onClick={() => {
+                modalNotice(modalRef);
+              }}
+            >
+              예약하기
+            </button>
           </div>
         </div>
 
@@ -155,6 +165,7 @@ const ReservationList: React.FC<ReservationListProps> = ({
         styles={modal}
         ref={modalRef}
         reservation={selectedReservation}
+        onSuccess={successReserve}
         onConfirm={handleReserveConfirm}
       />
       {/* modalCheckRef */}

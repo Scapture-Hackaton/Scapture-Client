@@ -242,9 +242,10 @@ const Reservation = () => {
         <div className={styles.option}>
           <div className={styles.container}>
             <div className={styles.title}>
-              <div id={styles.mainTitle}>내 영상 빠르게 찾기</div>
+              <div id={styles.mainTitle}>예약 가능 구장 빠르게 찾기</div>
               <div id={styles.subTitle}>
-                내가 운동했던 조건을 선택하면 빠르게 내 영상을 찾을 수 있어요!
+                내가 원하는 운동 조건을 선택하면 빠르게 예약 가능한 구장을 찾을
+                수 있어요!
               </div>
             </div>
 
