@@ -35,6 +35,11 @@ import { Link, useLocation } from 'react-router-dom';
 
 const itemsPerPage = 8; // 페이지당 보여줄 아이템 수
 
+const selectState = {
+  서울시: ['성북구', '강서구', '영등포구', '강남구', '노원구', '동대문구'],
+  경기도: ['고양'],
+};
+
 const MyPage = () => {
   const modalRef = useRef<HTMLDialogElement>(null);
   const modalSubRef = useRef<HTMLDialogElement>(null);
@@ -107,12 +112,17 @@ const MyPage = () => {
     fetchProfileInfo();
   }, [setProfile, setBanana]);
 
-  const [open, setOpen] = useState(false);
+  const [logout, setLogout] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
   const [selected, setSelected] = useState('최신순');
   const selectRef = useRef<HTMLDivElement>(null);
 
+  const toggleLogout = () => {
+    setLogout(!logout);
+  };
+
   const toggleDropdown = () => {
-    setOpen(!open);
+    setIsOpen(!isOpen);
   };
 
   const handleOptionClick = (option: string) => {
@@ -142,7 +152,6 @@ const MyPage = () => {
   const handlePageClick = ({ selected }) => {
     setCurrentPage(selected);
   };
-
   return (
     <div className={styles.test}>
       <Header index={0} />
@@ -151,7 +160,23 @@ const MyPage = () => {
           <div className={styles.baseInformation}>
             <div className={styles.mainTitle}>
               <div className={styles.boldText}>기본 정보</div>
-              <img className={styles.image} src={Clock} alt=""></img>
+              <img
+                className={styles.image}
+                src={Clock}
+                alt=""
+                onClick={toggleLogout}
+              ></img>
+              {logout && (
+                <div className={styles.dropDownContainer}>
+                  {/* 로그아웃/회원탈퇴 로직추가 */}
+                  <div className={styles.dropDownItem} onClick={toggleLogout}>
+                    로그아웃
+                  </div>
+                  <div className={styles.dropDownItem} onClick={toggleLogout}>
+                    회원탈퇴
+                  </div>
+                </div>
+              )}
             </div>
             <div className={styles.subTitle}>
               서비스에 이용되는 프로필을 설정해주세요
@@ -180,11 +205,19 @@ const MyPage = () => {
                 <div style={{ display: 'flex', gap: '8px' }}>
                   <div className={styles.dropdownContainer}>
                     <div className={styles.dropdownTitle}>도시</div>
-                    <img className={styles.dropdownImg} src={DownArrow}></img>
+                    <img
+                      className={styles.dropdownImg}
+                      src={DownArrow}
+                      onClick={toggleDropdown}
+                    ></img>
                   </div>
                   <div className={styles.dropdownContainer}>
                     <div className={styles.dropdownTitle}>지역</div>
-                    <img className={styles.dropdownImg} src={DownArrow}></img>
+                    <img
+                      className={styles.dropdownImg}
+                      src={DownArrow}
+                      onClick={toggleDropdown}
+                    ></img>
                   </div>
                 </div>
               </div>
