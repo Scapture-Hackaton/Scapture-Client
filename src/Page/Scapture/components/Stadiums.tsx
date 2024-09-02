@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import location from '../../../assets/Icon/location.svg';
 import clock from '../../../assets/Icon/Clock.svg';
 import parking from '../../../assets/Icon/parking.svg';
+import noDataIcon from '../../../assets/Icon/noDataIcon.svg';
 
 interface StadiumsProps {
   stadiumData: Stadium[];
@@ -23,7 +24,15 @@ const Stadiums: React.FC<StadiumsProps> = ({ stadiumData }) => {
       {stadiumData == null ||
       stadiumData.length <= 0 ||
       typeof stadiumData == 'undefined' ? (
-        <div className={styles.noData}>조회된 데이터가 없습니다.</div>
+        <div className={styles.noData}>
+          <img
+            src={noDataIcon}
+            alt="검색 결과가 없습니다."
+            width="180px"
+            height="180px"
+          />
+          <div>검색 결과가 없어요</div>
+        </div>
       ) : (
         stadiumData.map(stadium => (
           <div
