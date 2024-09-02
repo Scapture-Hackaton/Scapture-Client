@@ -385,33 +385,35 @@ const Community = () => {
               <div className={styles.infoGroup}>
                 <div className={styles.topInfo}>
                   <div className={styles.isOutside}>
-                    {/* {stadiumDetail.isOutside ? '실외' : '실내'} */}
-                    실외
+                    {videoDetailData.isOutside ? '실외' : '실내'}
                   </div>
                   <div className={styles.isParking}>
-                    {/* {stadiumDetail.isOutside ? '주차 가능' : '주차 불가능'} */}
-                    주차 가능
+                    {videoDetailData.isOutside ? '주차 가능' : '주차 불가능'}
                   </div>
                 </div>
 
                 <div id={styles.info}>
                   <div className={styles.line}>
                     <img src={locationImg} alt="" width="20px" height="20px" />
-                    {/* <div className={styles.info}>{stadiumDetail.location}</div> */}
-                    <div className={styles.info}>주소</div>
+                    <div className={styles.info}>
+                      {videoDetailData.stadium.location}
+                    </div>
                   </div>
 
                   <div className={styles.line}>
                     <img src={clock} alt="" width="20px" height="20px" />
-                    {/* <span className={styles.info}>{stadiumDetail.hours}</span> */}
+                    {/* <span className={styles.info}>
+                      {videoDetailData.stadium.hours}
+                    </span> */}
                     <span className={styles.info}>00:00 ~ 00:00</span>
                   </div>
 
                   <div className={styles.line}>
                     <img src={parking} alt="" width="20px" height="20px" />
 
-                    {/* <span className={styles.info}>{stadiumDetail.parking}</span> */}
-                    <span className={styles.info}>유료 주차</span>
+                    <span className={styles.info}>
+                      {videoDetailData.stadium.parking}
+                    </span>
                   </div>
                 </div>
               </div>

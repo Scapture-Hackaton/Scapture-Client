@@ -1,6 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
 import styles from '../scss/community.module.scss';
-import modal from '../../Header/scss/login-modal.module.scss';
 
 // import testCircle from '../image/testCircle.png';
 // import fullHeart from '../image/fullHeart.png';
@@ -24,6 +23,7 @@ import {
   NAVER_AUTH_URL,
 } from '../../../apis/config/login.config';
 import { LoginModal } from '../../Header/components/LoginModal';
+import modal from '../../Header/scss/login-modal.module.scss';
 
 interface CommentProps {
   videoId: number;
