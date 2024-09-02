@@ -3,127 +3,128 @@ import Clock from '../image/Clock.svg';
 import DefaultProfile from '../image/DefaultProfile.svg';
 import DownArrow from '../image/downArrow.svg';
 import Banana from '../image/banana.svg';
-import Footer from '../../../Footer/components/Footer';
-import AllianceStadium from '../../../Main/components/AllianceStadium';
-import { userData, bananaData, subscribedData } from '../../dto/atom.interface';
+// import Footer from '../../../Footer/components/Footer';
+// import AllianceStadium from '../../../Main/components/AllianceStadium';
+// import { userData, bananaData, subscribedData } from '../../dto/atom.interface';
 
 import styles from '../scss/my-page.module.scss';
-import modal from '../scss/my-page-modal.module.scss';
-import sub from '../scss/my-page-sub-modal.module.scss';
+// import modal from '../scss/my-page-modal.module.scss';
+// import sub from '../scss/my-page-sub-modal.module.scss';
 
-import pencil from '../../image/pencil.svg';
-import banana from '../image/banana.svg';
-import rightArrow from '../image/right_arrow.svg';
-import dropDown from '../image/dropDown.svg';
-import subscribe from '../image/subscribe.svg';
-import profileImgDefault from '../../image/scapture-logo.svg';
+// import pencil from '../../image/pencil.svg';
+// import banana from '../image/banana.svg';
+// import rightArrow from '../image/right_arrow.svg';
+// import dropDown from '../image/dropDown.svg';
+// import subscribe from '../image/subscribe.svg';
+// import profileImgDefault from '../../image/scapture-logo.svg';
 // import profileImg from '../image/profile.webp';
 
-import { useEffect, useRef, useState } from 'react';
+// import { useEffect, useRef, useState } from 'react';
 import ReactPaginate from 'react-paginate';
 
-import { modalNotice } from '../functions/ModalFunction';
-import { BananaModal, SubscribeModal } from './MyPageModal';
-import {
-  getBanana,
-  getProfile,
-  getSortVideo,
-} from '../../../../apis/api/mypage.api';
-import { useRecoilState, useRecoilValue } from 'recoil';
-import { userDataAtom, bananaDataAtom, subscribedAtom } from '../../Atom/atom';
-import { Link, useLocation } from 'react-router-dom';
+// import { modalNotice } from '../functions/ModalFunction';
+// import { BananaModal, SubscribeModal } from './MyPageModal';
+// import {
+//   getBanana,
+//   getProfile,
+//   getSortVideo,
+// } from '../../../../apis/api/mypage.api';
+// import { useRecoilState, useRecoilValue } from 'recoil';
+// import { userDataAtom, bananaDataAtom, subscribedAtom } from '../../Atom/atom';
+// import { Link, useLocation } from 'react-router-dom';
+// import { useLocation } from 'react-router-dom';
 
 const itemsPerPage = 8; // 페이지당 보여줄 아이템 수
 
 const MyPage = () => {
-  const modalRef = useRef<HTMLDialogElement>(null);
-  const modalSubRef = useRef<HTMLDialogElement>(null);
+  // const modalRef = useRef<HTMLDialogElement>(null);
+  // const modalSubRef = useRef<HTMLDialogElement>(null);
 
-  //Recoil
-  const [isProfile, setProfile] = useRecoilState<userData>(userDataAtom);
-  const [isBanana, setBanana] = useRecoilState<bananaData>(bananaDataAtom);
-  const isSubscribed = useRecoilValue<subscribedData>(subscribedAtom);
+  // //Recoil
+  // const [isProfile, setProfile] = useRecoilState<userData>(userDataAtom);
+  // const [isBanana, setBanana] = useRecoilState<bananaData>(bananaDataAtom);
+  // const isSubscribed = useRecoilValue<subscribedData>(subscribedAtom);
 
-  //useState
-  const [isVideo, setVideo] = useState<string>('');
-  const [isVideos, setVideos] = useState([]);
-  const location = useLocation();
+  // //useState
+  // const [isVideo, setVideo] = useState<string>('');
+  // const [isVideos, setVideos] = useState([]);
+  // const location = useLocation();
 
-  const handleCopyClipBoard = async (text: string) => {
-    try {
-      await navigator.clipboard.writeText(text);
-      alert('클립보드에 링크가 복사되었어요.');
-    } catch (err) {
-      console.log(err);
-    }
-  };
+  // const handleCopyClipBoard = async (text: string) => {
+  //   try {
+  //     await navigator.clipboard.writeText(text);
+  //     alert('클립보드에 링크가 복사되었어요.');
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  // };
 
-  const handleSortType = (type: string) => {
-    const res = getSortVideo(type);
-    console.log(res);
-  };
+  // const handleSortType = (type: string) => {
+  //   const res = getSortVideo(type);
+  //   console.log(res);
+  // };
 
-  useEffect(() => {
-    const fetchProfileInfo = async () => {
-      const res = await getProfile();
-      const banana = await getBanana();
-      const videoSort = await getSortVideo('latest');
-      console.log(
-        'res',
-        res?.data,
-        '\n',
-        'banana',
-        banana?.data,
-        '\n',
-        'subscribe',
-        isSubscribed,
-        '\n',
-        'subscribe',
-        isSubscribed,
-        '\n',
-        'videoSort',
-        videoSort,
-      );
-      if (res?.data && banana?.data && videoSort?.data) {
-        setProfile(prev => ({
-          ...prev,
-          endDate: res.data.endDate,
-          image: res.data.image,
-          location: res.data.location,
-          name: res.data.name,
-          role: res.data.role,
-          team: res.data.team,
-        }));
-        setBanana(prev => ({
-          ...prev,
-          balance: banana.data.balance,
-          subscribed: banana.data.subscribed,
-        }));
-        setVideo(videoSort.data[0].image);
-        setVideos(videoSort.data);
-      }
-    };
+  // useEffect(() => {
+  //   const fetchProfileInfo = async () => {
+  //     const res = await getProfile();
+  //     const banana = await getBanana();
+  //     const videoSort = await getSortVideo('latest');
+  //     console.log(
+  //       'res',
+  //       res?.data,
+  //       '\n',
+  //       'banana',
+  //       banana?.data,
+  //       '\n',
+  //       'subscribe',
+  //       isSubscribed,
+  //       '\n',
+  //       'subscribe',
+  //       isSubscribed,
+  //       '\n',
+  //       'videoSort',
+  //       videoSort,
+  //     );
+  //     if (res?.data && banana?.data && videoSort?.data) {
+  //       setProfile(prev => ({
+  //         ...prev,
+  //         endDate: res.data.endDate,
+  //         image: res.data.image,
+  //         location: res.data.location,
+  //         name: res.data.name,
+  //         role: res.data.role,
+  //         team: res.data.team,
+  //       }));
+  //       setBanana(prev => ({
+  //         ...prev,
+  //         balance: banana.data.balance,
+  //         subscribed: banana.data.subscribed,
+  //       }));
+  //       setVideo(videoSort.data[0].image);
+  //       setVideos(videoSort.data);
+  //     }
+  //   };
 
-    fetchProfileInfo();
-  }, [setProfile, setBanana]);
+  //   fetchProfileInfo();
+  // }, [setProfile, setBanana]);
 
-  const [open, setOpen] = useState(false);
-  const [selected, setSelected] = useState('최신순');
-  const selectRef = useRef<HTMLDivElement>(null);
+  // const [open, setOpen] = useState(false);
+  // const [selected, setSelected] = useState('최신순');
+  // const selectRef = useRef<HTMLDivElement>(null);
 
-  const toggleDropdown = () => {
-    setOpen(!open);
-  };
+  // const toggleDropdown = () => {
+  //   setOpen(!open);
+  // };
 
-  const handleOptionClick = (option: string) => {
-    setSelected(option);
-    setOpen(false);
-  };
+  // const handleOptionClick = (option: string) => {
+  //   setSelected(option);
+  //   setOpen(false);
+  // };
 
-  const deleteToken = () => {
-    localStorage.removeItem('TOKEN');
-    window.location.reload();
-  };
+  // const deleteToken = () => {
+  //   localStorage.removeItem('TOKEN');
+  //   window.location.reload();
+  // };
   //  페이지네이션 더미
   const videoData = Array.from({ length: 50 }, (_, index) => ({
     title: `영상 제목 ${index + 1}`,
@@ -131,17 +132,17 @@ const MyPage = () => {
     time: '0000.00.00 | 00:00 - 00:00',
   }));
 
-  const [currentPage, setCurrentPage] = useState(0);
+  // const [currentPage, setCurrentPage] = useState(0);
 
   // 현재 페이지에 표시될 비디오 수
-  const offset = currentPage * itemsPerPage;
-  const currentItems = videoData.slice(offset, offset + itemsPerPage);
+  // const offset = currentPage * itemsPerPage;
+  // const currentItems = videoData.slice(offset, offset + itemsPerPage);
   const pageCount = Math.ceil(videoData.length / itemsPerPage);
 
   // 페이지 변경 시 호출되는 함수
-  const handlePageClick = ({ selected }) => {
-    setCurrentPage(selected);
-  };
+  // const handlePageClick = ({ selected }) => {
+  //   setCurrentPage(selected);
+  // };
 
   return (
     <div className={styles.test}>
@@ -226,7 +227,7 @@ const MyPage = () => {
           <div className={styles.saveContainer}>
             <div className={styles.title}>저장한 영상</div>
             <div className={styles.videoGrid}>
-              {currentItems.map((item, index) => (
+              {/* {currentItems.map((item, index) => (
                 <div className={styles.videoCard} key={index}>
                   <div className={styles.thumbnail}></div>
                   <div className={styles.videoInfo}>
@@ -237,14 +238,14 @@ const MyPage = () => {
                     </div>
                   </div>
                 </div>
-              ))}
+              ))} */}
             </div>
             <ReactPaginate
               previousLabel={'<'}
               nextLabel={'>'}
               pageCount={pageCount} //몇개 페이지 보여줄건지
               pageRangeDisplayed={10} // 페이지 주변에 표시될 번호 범위
-              onPageChange={handlePageClick}
+              // onPageChange={handlePageClick}
               containerClassName={styles.pagination} /// 전체컨테이너
               activeClassName={styles.active} // 활성화 페이지 번호에 적용
               pageClassName={styles.pageNumber} //각 페이지 번호에 적용
