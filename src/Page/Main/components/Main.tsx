@@ -15,9 +15,15 @@ import videoTopGradient from '../image/videoTopGradient.svg';
 
 import inqyireLogo from '../image/inqyireLogo.svg';
 
+import location from '../../../assets/Icon/location.svg';
+import clock from '../../../assets/Icon/Clock.svg';
+import parking from '../../../assets/Icon/parking.svg';
+
+import playBtnIcon from '../image/playBtnIcon.svg';
+
 import { useQuery } from '@tanstack/react-query';
 import { getMainStadium } from '../../../apis/api/main.api';
-// import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import AllianceStadium from './AllianceStadium';
 
 const Main = () => {
@@ -26,11 +32,13 @@ const Main = () => {
     queryFn: () => getMainStadium(),
   });
 
-  // const navigate = useNavigate();
+  console.log(mainData);
 
-  // const toStadiumPage = () => {
-  //   navigate('/community');
-  // };
+  const navigate = useNavigate();
+
+  const toCommunityPage = () => {
+    navigate('/community');
+  };
 
   return (
     <div className={styles.test}>
@@ -116,6 +124,115 @@ const Main = () => {
             </div>
           </div>
 
+          {mainData != null ? (
+            <div
+              className={styles.oneInfo}
+              // onClick={() => toStadiumPage(stadium.stadiumId)}
+            >
+              <div className={styles.stadium}>
+                <div className={styles.stadiumImage}>
+                  <img
+                    src={mainData.popular.image}
+                    alt=""
+                    width="180px"
+                    height="140px"
+                  />
+                </div>
+                <div className={styles.stadiumInfo}>
+                  <div className={styles.stadium}>
+                    <div className={styles.topInfo}>
+                      <div className={styles.isOutside}>
+                        {/* {stadium.isOutside ? '실외' : '실내'} */}
+                        실외
+                      </div>
+                      <div className={styles.isParking}>
+                        {/* {stadium.isOutside ? '주차 가능' : '주차 불가능'} */}
+                        주차 가능
+                      </div>
+                    </div>
+
+                    <span id={styles.name}>
+                      {/* {stadium.name} */}
+                      한성대 풋살장
+                    </span>
+
+                    <div id={styles.info}>
+                      <div className={styles.line}>
+                        <img src={location} alt="" width="16px" height="16px" />
+                        {/* <div className={styles.info}>{stadium.location}</div> */}
+                        <div className={styles.info}>한성대학교</div>
+                      </div>
+
+                      <div className={styles.line}>
+                        <img src={clock} alt="" width="16px" height="16px" />
+                        {/* <span className={styles.info}>{stadium.hours}</span> */}
+                        <span className={styles.info}>10:00~24:00</span>
+                      </div>
+
+                      <div className={styles.line}>
+                        <img src={parking} alt="" width="16px" height="16px" />
+
+                        {/* <span className={styles.info}>{stadium.parking}</span> */}
+                        <span className={styles.info}>유료 주차</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          ) : (
+            <div
+              className={styles.oneInfo}
+              // onClick={() => toStadiumPage(stadium.stadiumId)}
+            >
+              <div className={styles.stadium}>
+                <div className={styles.stadiumImage}>
+                  <img src={location} alt="" width="180px" height="140px" />
+                </div>
+                <div className={styles.stadiumInfo}>
+                  <div className={styles.stadium}>
+                    <div className={styles.topInfo}>
+                      <div className={styles.isOutside}>
+                        {/* {stadium.isOutside ? '실외' : '실내'} */}
+                        실외
+                      </div>
+                      <div className={styles.isParking}>
+                        {/* {stadium.isOutside ? '주차 가능' : '주차 불가능'} */}
+                        주차 가능
+                      </div>
+                    </div>
+
+                    <span id={styles.name}>
+                      {/* {stadium.name} */}
+                      한성대 풋살장
+                    </span>
+
+                    <div id={styles.info}>
+                      <div className={styles.line}>
+                        <img src={location} alt="" width="16px" height="16px" />
+                        {/* <div className={styles.info}>{stadium.location}</div> */}
+                        <div className={styles.info}>한성대학교</div>
+                      </div>
+
+                      <div className={styles.line}>
+                        <img src={clock} alt="" width="16px" height="16px" />
+                        {/* <span className={styles.info}>{stadium.hours}</span> */}
+                        <span className={styles.info}>10:00:24:00</span>
+                      </div>
+
+                      <div className={styles.line}>
+                        <img src={parking} alt="" width="16px" height="16px" />
+
+                        {/* <span className={styles.info}>{stadium.parking}</span> */}
+                        <span className={styles.info}>유료 주차</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
+
           <div className={styles.check}>
             <div className={styles.group}>
               <img
@@ -142,16 +259,64 @@ const Main = () => {
                 loading="lazy"
                 alt=""
               />
-              <div className={styles.group}>
-                <div className={styles.testVideo}></div>
-                <div className={styles.videoDes}>
-                  <div className={styles.title}>영상 제목 입력</div>
-                  <div className={styles.videoDetail}>
-                    <p>구장 주소 입력 필드</p>
-                    <p>0000.00.00 | 00:00 ~ 00:00</p>
+              {mainData != null ? (
+                <div className={styles.group}>
+                  <div
+                    className={styles.testVideo}
+                    onClick={() => toCommunityPage()}
+                  >
+                    <img
+                      src={mainData.popular.image}
+                      className={styles.mainImg}
+                      alt=""
+                      width="266px"
+                      height="150px"
+                      loading="lazy"
+                    />
+
+                    <img
+                      src={playBtnIcon}
+                      className={styles.subImg}
+                      alt=""
+                      width="60px"
+                      height="60px"
+                      loading="lazy"
+                    />
+                  </div>
+
+                  <div className={styles.videoDes}>
+                    <div className={styles.title}>
+                      {mainData.popular.stadiumName}
+                    </div>
+                    <div className={styles.videoDetail}>
+                      <p>구장 주소 입력 필드</p>
+                      <p>
+                        {mainData.popular.date} | {mainData.popular.hours}
+                      </p>
+                    </div>
                   </div>
                 </div>
-              </div>
+              ) : (
+                <div className={styles.group}>
+                  <div className={styles.testVideo}>
+                    <img
+                      src={playBtnIcon}
+                      className={styles.subImg}
+                      alt=""
+                      width="60px"
+                      height="60px"
+                      loading="lazy"
+                    />
+                  </div>
+                  <div className={styles.videoDes}>
+                    <div className={styles.title}>영상 제목</div>
+                    <div className={styles.videoDetail}>
+                      <p>구장 주소</p>
+                      <p>0000.00.00.0 | 00:00~00:00</p>
+                    </div>
+                  </div>
+                </div>
+              )}
             </div>
             <div className={styles.rightBorder}></div>
           </div>
