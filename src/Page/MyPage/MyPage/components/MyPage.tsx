@@ -113,7 +113,11 @@ const MyPage = () => {
   }, [setProfile, setBanana]);
 
   const [logout, setLogout] = useState(false);
-  const [isOpen, setIsOpen] = useState(false);
+  const [selectedCity, setSelectedCity] = useState('');
+  const [selectedRegion, setSelectedRegion] = useState('');
+  const [cityDropdownOpen, setCityDropdownOpen] = useState(false);
+  const [regionDropdownOpen, setRegionDropdownOpen] = useState(false);
+
   const [selected, setSelected] = useState('최신순');
   const selectRef = useRef<HTMLDivElement>(null);
 
@@ -121,8 +125,23 @@ const MyPage = () => {
     setLogout(!logout);
   };
 
-  const toggleDropdown = () => {
-    setIsOpen(!isOpen);
+  const handleCityChange = city => {
+    setSelectedCity(city);
+    setSelectedRegion(''); // 도시를 변경시 지역 초기화
+    setCityDropdownOpen(false);
+  };
+
+  const handleRegionChange = region => {
+    setSelectedRegion(region);
+    setRegionDropdownOpen(false);
+  };
+
+  const toggleCityDropdown = () => {
+    setCityDropdownOpen(!cityDropdownOpen);
+  };
+
+  const toggleRegionDropdown = () => {
+    setRegionDropdownOpen(!regionDropdownOpen);
   };
 
   const handleOptionClick = (option: string) => {
@@ -203,21 +222,47 @@ const MyPage = () => {
               <div className={styles.regionContainer}>
                 <div className={styles.title}>활동 지역</div>
                 <div style={{ display: 'flex', gap: '8px' }}>
-                  <div className={styles.dropdownContainer}>
-                    <div className={styles.dropdownTitle}>도시</div>
-                    <img
-                      className={styles.dropdownImg}
-                      src={DownArrow}
-                      onClick={toggleDropdown}
-                    ></img>
+                  <div className={styles.dropdown} onClick={toggleCityDropdown}>
+                    <div className={styles.dropdownTitle}>
+                      {selectedCity || '도시'}
+                    </div>
+                    <img className={styles.dropdownImg} src={DownArrow}></img>
+                    {cityDropdownOpen && (
+                      <div className={styles.dropdownMenu}>
+                        {Object.keys(selectState).map(city => (
+                          <div
+                            key={city}
+                            className={styles.dropdownItem}
+                            onClick={() => handleCityChange(city)}
+                          >
+                            {city}
+                          </div>
+                        ))}
+                      </div>
+                    )}
                   </div>
-                  <div className={styles.dropdownContainer}>
-                    <div className={styles.dropdownTitle}>지역</div>
-                    <img
-                      className={styles.dropdownImg}
-                      src={DownArrow}
-                      onClick={toggleDropdown}
-                    ></img>
+                  <div
+                    className={styles.dropdown}
+                    onClick={toggleRegionDropdown}
+                    disabled={!selectedCity}
+                  >
+                    <div className={styles.dropdownTitle}>
+                      {selectedRegion || '지역'}
+                    </div>
+                    <img className={styles.dropdownImg} src={DownArrow}></img>
+                    {regionDropdownOpen && selectedCity && (
+                      <div className={styles.dropdownMenu}>
+                        {selectState[selectedCity].map(region => (
+                          <div
+                            key={region}
+                            className={styles.dropdownItem}
+                            onClick={() => handleRegionChange(region)}
+                          >
+                            {region}
+                          </div>
+                        ))}
+                      </div>
+                    )}
                   </div>
                 </div>
               </div>
