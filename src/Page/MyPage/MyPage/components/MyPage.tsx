@@ -3,9 +3,12 @@ import Clock from '../image/Clock.svg';
 import DefaultProfile from '../image/DefaultProfile.svg';
 import DownArrow from '../image/downArrow.svg';
 import Banana from '../image/banana.svg';
-// import Footer from '../../../Footer/components/Footer';
-// import AllianceStadium from '../../../Main/components/AllianceStadium';
-// import { userData, bananaData, subscribedData } from '../../dto/atom.interface';
+import Cancel from '../image/cancel.svg';
+import Vector from '../image/Vector9.svg';
+import Button from '../image/Radiobutton.svg';
+import Footer from '../../../Footer/components/Footer';
+import AllianceStadium from '../../../Main/components/AllianceStadium';
+import { userData, bananaData, subscribedData } from '../../dto/atom.interface';
 
 import styles from '../scss/my-page.module.scss';
 // import modal from '../scss/my-page-modal.module.scss';
@@ -35,6 +38,11 @@ import ReactPaginate from 'react-paginate';
 // import { useLocation } from 'react-router-dom';
 
 const itemsPerPage = 8; // 페이지당 보여줄 아이템 수
+
+const selectState = {
+  서울시: ['성북구', '강서구', '영등포구', '강남구', '노원구', '동대문구'],
+  경기도: ['고양'],
+};
 
 const MyPage = () => {
   // const modalRef = useRef<HTMLDialogElement>(null);
@@ -108,13 +116,47 @@ const MyPage = () => {
   //   fetchProfileInfo();
   // }, [setProfile, setBanana]);
 
-  // const [open, setOpen] = useState(false);
-  // const [selected, setSelected] = useState('최신순');
-  // const selectRef = useRef<HTMLDivElement>(null);
+  const [logout, setLogout] = useState(false);
+  const [selectedCity, setSelectedCity] = useState('');
+  const [selectedRegion, setSelectedRegion] = useState('');
+  const [cityDropdownOpen, setCityDropdownOpen] = useState(false);
+  const [regionDropdownOpen, setRegionDropdownOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
+  const [selectedButtonId, setSelectedButtonId] = useState(null);
+  console.log(selectedButtonId);
 
-  // const toggleDropdown = () => {
-  //   setOpen(!open);
-  // };
+  const [selected, setSelected] = useState('최신순');
+  const selectRef = useRef<HTMLDivElement>(null);
+
+  const handleClick = id => {
+    setSelectedButtonId(id); // 클릭된 버튼의 ID를 상태로 설정
+  };
+  const toggleLogout = () => {
+    setLogout(!logout);
+  };
+
+  const handleCityChange = city => {
+    setSelectedCity(city);
+    setSelectedRegion(''); // 도시를 변경시 지역 초기화
+    setCityDropdownOpen(false);
+  };
+
+  const handleRegionChange = region => {
+    setSelectedRegion(region);
+    setRegionDropdownOpen(false);
+  };
+
+  const toggleCityDropdown = () => {
+    setCityDropdownOpen(!cityDropdownOpen);
+  };
+
+  const toggleRegionDropdown = () => {
+    setRegionDropdownOpen(!regionDropdownOpen);
+  };
+
+  const toggleModal = () => {
+    setIsOpen(!isOpen);
+  };
 
   // const handleOptionClick = (option: string) => {
   //   setSelected(option);
@@ -140,10 +182,14 @@ const MyPage = () => {
   const pageCount = Math.ceil(videoData.length / itemsPerPage);
 
   // 페이지 변경 시 호출되는 함수
-  // const handlePageClick = ({ selected }) => {
-  //   setCurrentPage(selected);
-  // };
-
+  const handlePageClick = ({ selected }) => {
+    setCurrentPage(selected);
+  };
+  const bananas = [
+    { id: 1, quantity: '1개', price: '2,990원' },
+    { id: 2, quantity: '5개', price: '9,990원' },
+    { id: 3, quantity: '10개', price: '19,990원' },
+  ];
   return (
     <div className={styles.test}>
       <Header index={0} />
@@ -152,7 +198,23 @@ const MyPage = () => {
           <div className={styles.baseInformation}>
             <div className={styles.mainTitle}>
               <div className={styles.boldText}>기본 정보</div>
-              <img className={styles.image} src={Clock} alt=""></img>
+              <img
+                className={styles.image}
+                src={Clock}
+                alt=""
+                onClick={toggleLogout}
+              ></img>
+              {logout && (
+                <div className={styles.dropDownContainer}>
+                  {/* 로그아웃/회원탈퇴 로직추가 */}
+                  <div className={styles.dropDownItem} onClick={toggleLogout}>
+                    로그아웃
+                  </div>
+                  <div className={styles.dropDownItem} onClick={toggleLogout}>
+                    회원탈퇴
+                  </div>
+                </div>
+              )}
             </div>
             <div className={styles.subTitle}>
               서비스에 이용되는 프로필을 설정해주세요
@@ -179,13 +241,47 @@ const MyPage = () => {
               <div className={styles.regionContainer}>
                 <div className={styles.title}>활동 지역</div>
                 <div style={{ display: 'flex', gap: '8px' }}>
-                  <div className={styles.dropdownContainer}>
-                    <div className={styles.dropdownTitle}>도시</div>
+                  <div className={styles.dropdown} onClick={toggleCityDropdown}>
+                    <div className={styles.dropdownTitle}>
+                      {selectedCity || '도시'}
+                    </div>
                     <img className={styles.dropdownImg} src={DownArrow}></img>
+                    {cityDropdownOpen && (
+                      <div className={styles.dropdownMenu}>
+                        {Object.keys(selectState).map(city => (
+                          <div
+                            key={city}
+                            className={styles.dropdownItem}
+                            onClick={() => handleCityChange(city)}
+                          >
+                            {city}
+                          </div>
+                        ))}
+                      </div>
+                    )}
                   </div>
-                  <div className={styles.dropdownContainer}>
-                    <div className={styles.dropdownTitle}>지역</div>
+                  <div
+                    className={styles.dropdown}
+                    onClick={toggleRegionDropdown}
+                    disabled={!selectedCity}
+                  >
+                    <div className={styles.dropdownTitle}>
+                      {selectedRegion || '지역'}
+                    </div>
                     <img className={styles.dropdownImg} src={DownArrow}></img>
+                    {regionDropdownOpen && selectedCity && (
+                      <div className={styles.dropdownMenu}>
+                        {selectState[selectedCity].map(region => (
+                          <div
+                            key={region}
+                            className={styles.dropdownItem}
+                            onClick={() => handleRegionChange(region)}
+                          >
+                            {region}
+                          </div>
+                        ))}
+                      </div>
+                    )}
                   </div>
                 </div>
               </div>
@@ -207,7 +303,9 @@ const MyPage = () => {
               <div className={styles.inviteButton}>
                 친구 초대하고 버내너 3개 받기
               </div>
-              <div className={styles.chargeButton}>버내너 충전하기</div>
+              <div className={styles.chargeButton} onClick={toggleModal}>
+                버내너 충전하기
+              </div>
             </div>
           </div>
           <div className={styles.reservationContainer}>
@@ -254,6 +352,50 @@ const MyPage = () => {
             />
           </div>
         </div>
+        {/* 모달 */}
+        {isOpen && (
+          <div className={styles.modalContainer}>
+            <div className={styles.modalCard}>
+              <div className={styles.modalHeader}>
+                <div className={styles.modalHeaderText}>버내너 충전하기</div>
+                <img
+                  className={styles.close}
+                  src={Cancel}
+                  onClick={() => {
+                    toggleModal();
+                    setSelectedButtonId(null);
+                  }}
+                ></img>
+              </div>
+              <img src={Vector} />
+              <img className={styles.modalImg} src={banana}></img>
+              <div className={styles.modalText}>
+                버내너 갯수만큼<br></br>원하는 영상을 다운로드 할 수 있어요!
+              </div>
+              {bananas.map(banana => (
+                <div
+                  key={banana.id}
+                  className={styles.bananaContainer}
+                  onClick={() => handleClick(banana.id)}
+                >
+                  <div className={styles.numOfBanana}>
+                    <div
+                      className={`${styles.button} ${selectedButtonId === banana.id ? styles.clicked : ''}`}
+                    ></div>
+                    <div className={styles.banana}>버내너</div>
+                    <div className={styles.bananaNum}>{banana.quantity}</div>
+                  </div>
+                  <div className={styles.price}>{banana.price}</div>
+                </div>
+              ))}
+              <div
+                className={`${styles.payment} ${selectedButtonId != null ? styles.clicked : ''}`}
+              >
+                결제하기
+              </div>
+            </div>
+          </div>
+        )}
       </div>
       {/* <div className={styles.myPage}>
         <div className={styles.profile}>
