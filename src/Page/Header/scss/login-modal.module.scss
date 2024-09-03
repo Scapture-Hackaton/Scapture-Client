@@ -84,9 +84,9 @@
         align-items: center;
         justify-content: center;
 
-        font-size: var(--font-size-xm);
-        font-weight: 700;
-        color: var(--color-grayscale-input-800);
+        // font-size: var(--font-size-xm);
+        // font-weight: 700;
+        // color: var(--color-grayscale-input-800);
 
         margin: 0.3rem 0;
 
@@ -100,16 +100,32 @@
 
       .google {
         background-color: var(--white-color);
+
+        div {
+          font-size: var(--font-size-xm);
+          font-weight: 700;
+          color: var(--color-grayscale-input-800);
+        }
       }
 
       .kakao {
         background-color: #fee500;
+
+        div {
+          font-size: var(--font-size-xm);
+          font-weight: 700;
+          color: var(--color-grayscale-input-800);
+        }
       }
 
       .naver {
         background-color: #02c759;
 
-        color: var(--white-color);
+        div {
+          font-size: var(--font-size-xm);
+          font-weight: 700;
+          color: var(--white-color);
+        }
       }
     }
   }

@@ -53,7 +53,7 @@ const Footer = () => {
             <div>스캡쳐</div>
             <div>사업자등록번호 : 149-62-00716</div>
             <div>대표 : 최용석</div>
-            <div>주소 : 서울특별시 강서구 강서로35길 58 </div>
+            <div>주소 : 서울특별시 서울특별시 관악구 봉천로545, 501호</div>
             <div>이메일 : contact@s-capture.com</div>
           </div>
 

@@ -20,7 +20,7 @@ import {
 import {
   StadiumDetail,
   StadiumFileds,
-  StadiumHoursData,
+  // StadiumHoursData,
   VideoDetail,
 } from '../../../apis/dto/scapture.dto';
 import { useEffect, useState } from 'react';
@@ -157,9 +157,9 @@ const Video = () => {
   const formattedDate = selectedDate.toISOString().split('T')[0];
 
   // 운영시간 리스트
-  const [isStadiumHourList, setStadiumHourList] = useState<StadiumHoursData[]>(
-    [],
-  );
+  // const [isStadiumHourList, setStadiumHourList] = useState<StadiumHoursData[]>(
+  //   [],
+  // );
 
   // 운영 시간 리스트 가져오기
   useEffect(() => {
@@ -167,7 +167,7 @@ const Video = () => {
       const fetchData = async () => {
         const data = await getStadiumDHours(selectedFieldId, formattedDate);
 
-        setStadiumHourList(data);
+        // setStadiumHourList(data);
 
         if (data && data.length >= 1) {
           setScheduleId(data[0].scheduleId);
