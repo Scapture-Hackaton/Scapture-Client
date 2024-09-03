@@ -3,6 +3,9 @@ import Clock from '../image/Clock.svg';
 import DefaultProfile from '../image/DefaultProfile.svg';
 import DownArrow from '../image/downArrow.svg';
 import Banana from '../image/banana.svg';
+import Cancel from '../image/cancel.svg';
+import Vector from '../image/Vector9.svg';
+import Button from '../image/Radiobutton.svg';
 import Footer from '../../../Footer/components/Footer';
 import AllianceStadium from '../../../Main/components/AllianceStadium';
 import { userData, bananaData, subscribedData } from '../../dto/atom.interface';
@@ -117,10 +120,16 @@ const MyPage = () => {
   const [selectedRegion, setSelectedRegion] = useState('');
   const [cityDropdownOpen, setCityDropdownOpen] = useState(false);
   const [regionDropdownOpen, setRegionDropdownOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
+  const [selectedButtonId, setSelectedButtonId] = useState(null);
+  console.log(selectedButtonId);
 
   const [selected, setSelected] = useState('최신순');
   const selectRef = useRef<HTMLDivElement>(null);
 
+  const handleClick = id => {
+    setSelectedButtonId(id); // 클릭된 버튼의 ID를 상태로 설정
+  };
   const toggleLogout = () => {
     setLogout(!logout);
   };
@@ -142,6 +151,10 @@ const MyPage = () => {
 
   const toggleRegionDropdown = () => {
     setRegionDropdownOpen(!regionDropdownOpen);
+  };
+
+  const toggleModal = () => {
+    setIsOpen(!isOpen);
   };
 
   const handleOptionClick = (option: string) => {
@@ -171,6 +184,11 @@ const MyPage = () => {
   const handlePageClick = ({ selected }) => {
     setCurrentPage(selected);
   };
+  const bananas = [
+    { id: 1, quantity: '1개', price: '2,990원' },
+    { id: 2, quantity: '5개', price: '9,990원' },
+    { id: 3, quantity: '10개', price: '19,990원' },
+  ];
   return (
     <div className={styles.test}>
       <Header index={0} />
@@ -284,7 +302,9 @@ const MyPage = () => {
               <div className={styles.inviteButton}>
                 친구 초대하고 버내너 3개 받기
               </div>
-              <div className={styles.chargeButton}>버내너 충전하기</div>
+              <div className={styles.chargeButton} onClick={toggleModal}>
+                버내너 충전하기
+              </div>
             </div>
           </div>
           <div className={styles.reservationContainer}>
@@ -331,6 +351,50 @@ const MyPage = () => {
             />
           </div>
         </div>
+        {/* 모달 */}
+        {isOpen && (
+          <div className={styles.modalContainer}>
+            <div className={styles.modalCard}>
+              <div className={styles.modalHeader}>
+                <div className={styles.modalHeaderText}>버내너 충전하기</div>
+                <img
+                  className={styles.close}
+                  src={Cancel}
+                  onClick={() => {
+                    toggleModal();
+                    setSelectedButtonId(null);
+                  }}
+                ></img>
+              </div>
+              <img src={Vector} />
+              <img className={styles.modalImg} src={banana}></img>
+              <div className={styles.modalText}>
+                버내너 갯수만큼<br></br>원하는 영상을 다운로드 할 수 있어요!
+              </div>
+              {bananas.map(banana => (
+                <div
+                  key={banana.id}
+                  className={styles.bananaContainer}
+                  onClick={() => handleClick(banana.id)}
+                >
+                  <div className={styles.numOfBanana}>
+                    <div
+                      className={`${styles.button} ${selectedButtonId === banana.id ? styles.clicked : ''}`}
+                    ></div>
+                    <div className={styles.banana}>버내너</div>
+                    <div className={styles.bananaNum}>{banana.quantity}</div>
+                  </div>
+                  <div className={styles.price}>{banana.price}</div>
+                </div>
+              ))}
+              <div
+                className={`${styles.payment} ${selectedButtonId != null ? styles.clicked : ''}`}
+              >
+                결제하기
+              </div>
+            </div>
+          </div>
+        )}
       </div>
       {/* <div className={styles.myPage}>
         <div className={styles.profile}>
