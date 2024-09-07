@@ -3,8 +3,11 @@ import Clock from '../image/Clock.svg';
 import DefaultProfile from '../image/DefaultProfile.svg';
 import DownArrow from '../image/downArrow.svg';
 import Banana from '../image/banana.svg';
-import Cancel from '../image/cancel.svg';
+import Cancel from '../image/Cancel.svg';
 import Vector from '../image/Vector9.svg';
+import benefit1 from '../image/benefit1.svg';
+import benefit2 from '../image/benefit2.svg';
+import benefit3 from '../image/benefit3.svg';
 import Button from '../image/Radiobutton.svg';
 import Footer from '../../../Footer/components/Footer';
 import AllianceStadium from '../../../Main/components/AllianceStadium';
@@ -22,7 +25,9 @@ import styles from '../scss/my-page.module.scss';
 // import profileImgDefault from '../../image/scapture-logo.svg';
 // import profileImg from '../image/profile.webp';
 
-// import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+
 import ReactPaginate from 'react-paginate';
 
 // import { modalNotice } from '../functions/ModalFunction';
@@ -45,76 +50,77 @@ const selectState = {
 };
 
 const MyPage = () => {
-  // const modalRef = useRef<HTMLDialogElement>(null);
-  // const modalSubRef = useRef<HTMLDialogElement>(null);
+  const navigate = useNavigate();
+  const modalRef = useRef<HTMLDialogElement>(null);
+  const modalSubRef = useRef<HTMLDialogElement>(null);
 
-  // //Recoil
-  // const [isProfile, setProfile] = useRecoilState<userData>(userDataAtom);
-  // const [isBanana, setBanana] = useRecoilState<bananaData>(bananaDataAtom);
-  // const isSubscribed = useRecoilValue<subscribedData>(subscribedAtom);
+  //Recoil
+  const [isProfile, setProfile] = useRecoilState<userData>(userDataAtom);
+  const [isBanana, setBanana] = useRecoilState<bananaData>(bananaDataAtom);
+  const isSubscribed = useRecoilValue<subscribedData>(subscribedAtom);
 
-  // //useState
-  // const [isVideo, setVideo] = useState<string>('');
-  // const [isVideos, setVideos] = useState([]);
-  // const location = useLocation();
+  //useState
+  const [isVideo, setVideo] = useState<string>('');
+  const [isVideos, setVideos] = useState([]);
+  const location = useLocation();
 
-  // const handleCopyClipBoard = async (text: string) => {
-  //   try {
-  //     await navigator.clipboard.writeText(text);
-  //     alert('클립보드에 링크가 복사되었어요.');
-  //   } catch (err) {
-  //     console.log(err);
-  //   }
-  // };
+  const handleCopyClipBoard = async (text: string) => {
+    try {
+      await navigator.clipboard.writeText(text);
+      alert('클립보드에 링크가 복사되었어요.');
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
-  // const handleSortType = (type: string) => {
-  //   const res = getSortVideo(type);
-  //   console.log(res);
-  // };
+  const handleSortType = (type: string) => {
+    const res = getSortVideo(type);
+    console.log(res);
+  };
 
-  // useEffect(() => {
-  //   const fetchProfileInfo = async () => {
-  //     const res = await getProfile();
-  //     const banana = await getBanana();
-  //     const videoSort = await getSortVideo('latest');
-  //     console.log(
-  //       'res',
-  //       res?.data,
-  //       '\n',
-  //       'banana',
-  //       banana?.data,
-  //       '\n',
-  //       'subscribe',
-  //       isSubscribed,
-  //       '\n',
-  //       'subscribe',
-  //       isSubscribed,
-  //       '\n',
-  //       'videoSort',
-  //       videoSort,
-  //     );
-  //     if (res?.data && banana?.data && videoSort?.data) {
-  //       setProfile(prev => ({
-  //         ...prev,
-  //         endDate: res.data.endDate,
-  //         image: res.data.image,
-  //         location: res.data.location,
-  //         name: res.data.name,
-  //         role: res.data.role,
-  //         team: res.data.team,
-  //       }));
-  //       setBanana(prev => ({
-  //         ...prev,
-  //         balance: banana.data.balance,
-  //         subscribed: banana.data.subscribed,
-  //       }));
-  //       setVideo(videoSort.data[0].image);
-  //       setVideos(videoSort.data);
-  //     }
-  //   };
+  useEffect(() => {
+    const fetchProfileInfo = async () => {
+      const res = await getProfile();
+      const banana = await getBanana();
+      const videoSort = await getSortVideo('latest');
+      console.log(
+        'res',
+        res?.data,
+        '\n',
+        'banana',
+        banana?.data,
+        '\n',
+        'subscribe',
+        isSubscribed,
+        '\n',
+        'subscribe',
+        isSubscribed,
+        '\n',
+        'videoSort',
+        videoSort,
+      );
+      if (res?.data && banana?.data && videoSort?.data) {
+        setProfile(prev => ({
+          ...prev,
+          endDate: res.data.endDate,
+          image: res.data.image,
+          location: res.data.location,
+          name: res.data.name,
+          role: res.data.role,
+          team: res.data.team,
+        }));
+        setBanana(prev => ({
+          ...prev,
+          balance: banana.data.balance,
+          subscribed: banana.data.subscribed,
+        }));
+        setVideo(videoSort.data[0].image);
+        setVideos(videoSort.data);
+      }
+    };
 
-  //   fetchProfileInfo();
-  // }, [setProfile, setBanana]);
+    fetchProfileInfo();
+  }, [setProfile, setBanana]);
 
   const [logout, setLogout] = useState(false);
   const [selectedCity, setSelectedCity] = useState('');
@@ -122,6 +128,7 @@ const MyPage = () => {
   const [cityDropdownOpen, setCityDropdownOpen] = useState(false);
   const [regionDropdownOpen, setRegionDropdownOpen] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
+  const [isOpen2, setIsOpen2] = useState(false);
   const [selectedButtonId, setSelectedButtonId] = useState(null);
   console.log(selectedButtonId);
 
@@ -157,6 +164,9 @@ const MyPage = () => {
   const toggleModal = () => {
     setIsOpen(!isOpen);
   };
+  const toggleModal2 = () => {
+    setIsOpen2(!isOpen2);
+  };
 
   // const handleOptionClick = (option: string) => {
   //   setSelected(option);
@@ -185,6 +195,7 @@ const MyPage = () => {
   const handlePageClick = ({ selected }) => {
     setCurrentPage(selected);
   };
+
   const bananas = [
     { id: 1, quantity: '1개', price: '2,990원' },
     { id: 2, quantity: '5개', price: '9,990원' },
@@ -287,6 +298,13 @@ const MyPage = () => {
               </div>
             </div>
           </div>
+          {/* 비구독 배너 비구독일때 제거 필요 */}
+          <div className={styles.banner} onClick={toggleModal2}>
+            <div className={styles.mainTitle}>구독혜택 구경하기</div>
+            <div className={styles.subTitle}>
+              구독시 받을 수 있는 혜택을 살펴보세요!
+            </div>
+          </div>
           <div className={styles.bananaContainer}>
             <div className={styles.mainTitle}>버내너 관리</div>
             <div className={styles.subTitle}>
@@ -303,7 +321,13 @@ const MyPage = () => {
               <div className={styles.inviteButton}>
                 친구 초대하고 버내너 3개 받기
               </div>
-              <div className={styles.chargeButton} onClick={toggleModal}>
+              <div
+                className={styles.chargeButton}
+                onClick={() => {
+                  toggleModal();
+                  navigate('/mypage/reservation');
+                }}
+              >
                 버내너 충전하기
               </div>
             </div>
@@ -352,7 +376,7 @@ const MyPage = () => {
             />
           </div>
         </div>
-        {/* 모달 */}
+        {/* 버내너 충전 모달 */}
         {isOpen && (
           <div className={styles.modalContainer}>
             <div className={styles.modalCard}>
@@ -396,7 +420,42 @@ const MyPage = () => {
             </div>
           </div>
         )}
+        {/* 구독혜택 모달 */}
+        {isOpen2 && (
+          <div className={styles.benefitContainer}>
+            <div className={styles.benefit}>
+              <div className={styles.modalHeader}>
+                <div className={styles.modalHeaderText}>구독 혜택</div>
+                <img
+                  className={styles.close}
+                  src={Cancel}
+                  onClick={() => {
+                    toggleModal2();
+                    setSelectedButtonId(null);
+                  }}
+                ></img>
+              </div>
+              <img src={Vector} />
+              <div className={styles.detailContainer}>
+                <div className={styles.detail}>
+                  <img src={benefit1} alt="" className={styles.img}></img>
+                  <div className={styles.text}>영상 무료 다운로드</div>
+                </div>
+                <div className={styles.detail}>
+                  <img src={benefit2} alt="" className={styles.img}></img>
+                  <div className={styles.text}>영상 무제한 저장</div>
+                </div>
+                <div className={styles.detail}>
+                  <img src={benefit3} alt="" className={styles.img}></img>
+                  <div className={styles.text}>월 19,900원</div>
+                </div>
+                <div className={styles.button}>구독하러 가기</div>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
+      <Footer></Footer>
       {/* <div className={styles.myPage}>
         <div className={styles.profile}>
           <div className={styles.bar}></div>

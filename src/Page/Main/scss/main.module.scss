@@ -126,6 +126,11 @@
         width: 381px;
         height: 770px;
       }
+      .iphoneScreen {
+        z-index: 2;
+        position: absolute;
+        bottom: 11rem;
+      }
 
       @media (max-width: 450px) {
         height: 180vh;

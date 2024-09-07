@@ -6,7 +6,7 @@
 
   .myPageContainer {
     width: 100%;
-    height: 2439px;
+    height: 1950px;
     background: var(--GRAY-SCALE-Black_BG, #1a1b1e);
     display: flex;
     justify-content: center;
@@ -187,6 +187,7 @@
               border-radius: 6px;
               border: 1px solid var(--GRAY-SCALE-Gray-700_DISABLE, #37383e);
               background: var(--GRAY-SCALE-Gray-800_-INPUT-FIELD, #323339);
+              cursor: pointer;
 
               &:hover {
                 border: 1px solid var(--Blue-Blue-400, #2458ec);
@@ -211,6 +212,44 @@
               }
             }
           }
+        }
+      }
+      .banner {
+        width: 410px;
+        height: 88px;
+        padding: 0 0 0 20px;
+        margin-bottom: 24px;
+        flex-shrink: 0;
+        border-radius: 10px;
+        background: linear-gradient(85deg, #2458ec -2.83%, #d2f75a 102.24%);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: flex-start;
+        cursor: pointer;
+
+        &:hover {
+          background: linear-gradient(85deg, #5480ff -2.83%, #e0fe7d 102.24%);
+        }
+        .mainTitle {
+          color: var(--GRAY-SCALE-Gray-100, #f9fafe);
+
+          /* SUBTITLE/20_bold */
+          font-family: Pretendard;
+          font-size: 20px;
+          font-style: normal;
+          font-weight: 700;
+          line-height: 150%; /* 30px */
+        }
+        .subTitle {
+          color: var(--GRAY-SCALE-Gray-300, #d9dadd);
+
+          /* BODY/12_medium */
+          font-family: Pretendard;
+          font-size: 12px;
+          font-style: normal;
+          font-weight: 500;
+          line-height: 160%; /* 19.2px */
         }
       }
       .bananaContainer {
@@ -767,6 +806,102 @@
         background: var(--Blue-Blue-400, #2458ec);
         color: #fff;
         cursor: pointer;
+      }
+    }
+  }
+}
+
+.benefitContainer {
+  width: 100%;
+  height: 100%;
+  flex-shrink: 0;
+  background: rgba(0, 0, 0, 0.5);
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  right: 0;
+  top: 0;
+  .benefit {
+    display: flex;
+    width: 320px;
+    height: 280px;
+    flex-direction: column;
+    flex-shrink: 0;
+    border-radius: 14px;
+    background: var(--GRAY-SCALE-Gray-900_CARD, #2b2c31);
+
+    /* card shadow1 */
+    box-shadow: 0px 0px 16px 0px rgba(0, 0, 0, 0.1);
+    .modalHeader {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      .modalHeaderText {
+        color: var(--GRAY-SCALE-Gray-200_DEFAULT-MAIN-TEXT, #eff0f4);
+
+        /* SUBTITLE/16_bold */
+        font-family: Pretendard;
+        font-size: 16px;
+        font-style: normal;
+        font-weight: 700;
+        line-height: 160%; /* 25.6px */
+        padding: 11px;
+        width: 230px;
+        text-align: center;
+        margin-left: 30px;
+      }
+      .close {
+        cursor: pointer;
+        margin-bottom: 3px;
+      }
+    }
+    .detailContainer {
+      padding: 20px;
+      .detail {
+        display: flex;
+        gap: 8px;
+        margin-bottom: 16px;
+        .img {
+          width: 32px;
+          height: 32px;
+        }
+        .text {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          color: var(--GRAY-SCALE-Gray-400, #c5c6cb);
+          text-align: center;
+
+          /* SUBTITLE/14_bold */
+          font-family: Pretendard;
+          font-size: 14px;
+          font-style: normal;
+          font-weight: 700;
+          line-height: 160%; /* 22.4px */
+        }
+      }
+      .button {
+        display: flex;
+        width: 280px;
+        height: 38px;
+        padding: 7px 16px;
+        justify-content: center;
+        align-items: center;
+        gap: 4px;
+        flex-shrink: 0;
+        border-radius: 5px;
+        background: var(--Blue-Blue-400, #2458ec);
+        cursor: pointer;
+        color: #fff;
+        text-align: center;
+
+        /* SUBTITLE/16_bold */
+        font-family: Pretendard;
+        font-size: 16px;
+        font-style: normal;
+        font-weight: 700;
+        line-height: 160%; /* 25.6px */
       }
     }
   }

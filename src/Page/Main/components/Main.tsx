@@ -15,6 +15,7 @@ import videoTopGradient from '../image/videoTopGradient.svg';
 
 import inqyireLogo from '../image/inqyireLogo.svg';
 
+import Vector from '../image/Vector.svg';
 import location from '../../../assets/Icon/location.svg';
 import clock from '../../../assets/Icon/Clock.svg';
 import parking from '../../../assets/Icon/parking.svg';
@@ -107,6 +108,12 @@ const Main = () => {
             className={styles.iphoneMockup}
             loading="lazy"
             alt=""
+          />
+          <img
+            src={Vector}
+            className={styles.iphoneScreen}
+            alt=""
+            loading="lazy"
           />
         </div>
 
