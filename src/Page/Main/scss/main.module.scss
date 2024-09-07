@@ -130,6 +130,9 @@
         z-index: 2;
         position: absolute;
         bottom: 11rem;
+
+        width: 337.989px;
+        height: 739.67px;
       }
 
       @media (max-width: 450px) {
@@ -138,6 +141,10 @@
           bottom: 13rem;
 
           padding: 0 2rem;
+        }
+        .iphoneScreen {
+          bottom: 14rem;
+          padding: 0 1.7rem;
         }
       }
     }
