@@ -3,7 +3,7 @@ import Clock from '../image/Clock.svg';
 import DefaultProfile from '../image/DefaultProfile.svg';
 import DownArrow from '../image/downArrow.svg';
 import Banana from '../image/banana.svg';
-import Cancel from '../image/cancel.svg';
+import Cancel from '../image/Cancel.svg';
 import Vector from '../image/Vector9.svg';
 import Button from '../image/Radiobutton.svg';
 import Footer from '../../../Footer/components/Footer';
@@ -23,6 +23,7 @@ import profileImgDefault from '../../image/scapture-logo.svg';
 // import profileImg from '../image/profile.webp';
 
 import { useEffect, useRef, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import ReactPaginate from 'react-paginate';
 
 import { modalNotice } from '../functions/ModalFunction';
@@ -44,6 +45,7 @@ const selectState = {
 };
 
 const MyPage = () => {
+  const navigate = useNavigate();
   const modalRef = useRef<HTMLDialogElement>(null);
   const modalSubRef = useRef<HTMLDialogElement>(null);
 
@@ -184,6 +186,7 @@ const MyPage = () => {
   const handlePageClick = ({ selected }) => {
     setCurrentPage(selected);
   };
+
   const bananas = [
     { id: 1, quantity: '1개', price: '2,990원' },
     { id: 2, quantity: '5개', price: '9,990원' },
@@ -286,6 +289,13 @@ const MyPage = () => {
               </div>
             </div>
           </div>
+          {/* 비구독 배너 비구독일때 제거 필요 */}
+          <div className={styles.banner}>
+            <div className={styles.mainTitle}>구독혜택 구경하기</div>
+            <div className={styles.subTitle}>
+              구독시 받을 수 있는 혜택을 살펴보세요!
+            </div>
+          </div>
           <div className={styles.bananaContainer}>
             <div className={styles.mainTitle}>버내너 관리</div>
             <div className={styles.subTitle}>
@@ -302,7 +312,13 @@ const MyPage = () => {
               <div className={styles.inviteButton}>
                 친구 초대하고 버내너 3개 받기
               </div>
-              <div className={styles.chargeButton} onClick={toggleModal}>
+              <div
+                className={styles.chargeButton}
+                onClick={() => {
+                  toggleModal();
+                  navigate('/mypage/reservation');
+                }}
+              >
                 버내너 충전하기
               </div>
             </div>
@@ -396,6 +412,7 @@ const MyPage = () => {
           </div>
         )}
       </div>
+      <Footer></Footer>
       {/* <div className={styles.myPage}>
         <div className={styles.profile}>
           <div className={styles.bar}></div>
