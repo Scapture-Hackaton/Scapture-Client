@@ -40,6 +40,21 @@
       background-color: var(--color-grayscale-black-bg);
       padding: 1rem 1rem 3rem 1rem;
 
+      .noData {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+
+        padding: 7rem 0;
+
+        div {
+          font-weight: 500;
+          font-size: var(--font-size-sl);
+          color: var(--font-color-gray-400);
+        }
+      }
+
       .option {
         // background-color: aqua;
         display: flex;

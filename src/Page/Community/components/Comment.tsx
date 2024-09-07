@@ -1,13 +1,15 @@
 import React, { useEffect, useRef, useState } from 'react';
 import styles from '../scss/community.module.scss';
-import modal from '../../Header/scss/login-modal.module.scss';
 
 // import testCircle from '../image/testCircle.png';
 // import fullHeart from '../image/fullHeart.png';
 // import emptyHeart from '../image/emptyHeart.png';
-import sendImg from '../image/sendImg.png';
-import dropDown from '../image/dropDown.png';
-import upBtn from '../image/upBtn.png';
+// import sendImg from '../image/sendImg.png';
+import testImg from '../image/testImg.png';
+import moreIcon from '../image/moreIcon.svg';
+
+import dropDown from '../../../assets/Icon/dropDown.svg';
+import upBtn from '../../../assets/Icon/upArrow.svg';
 
 // import { CommonResponse } from '../../../apis/dto/common.response';
 import { CommentData } from '../../../apis/dto/community.dto';
@@ -21,6 +23,7 @@ import {
   NAVER_AUTH_URL,
 } from '../../../apis/config/login.config';
 import { LoginModal } from '../../Header/components/LoginModal';
+import modal from '../../Header/scss/login-modal.module.scss';
 
 interface CommentProps {
   videoId: number;
@@ -186,38 +189,52 @@ const Comment: React.FC<CommentProps> = ({ videoId }) => {
         </div>
         <div className={styles.moreComment} onClick={handleToggleComments}>
           {isComments ? (
-            <>
-              <span>댓글 닫기</span>
-              <img src={upBtn} alt="" />
-            </>
+            <img src={upBtn} alt="" width="20px" height="20px" />
           ) : (
-            <>
-              <span>댓글 더보기</span>
-              <img src={dropDown} alt="" />
-            </>
+            <img src={dropDown} alt="" width="20px" height="20px" />
           )}
         </div>
       </div>
 
       <div className={`${styles.commentList} ${isComments ? styles.show : ''}`}>
         <div ref={commentBoxRef} className={`${styles.commentBox} test`}>
+          <div className={styles.inputContainer}>
+            <div className={styles.myImg}>
+              <img src={testImg} alt="" width="32px" height="32px" />
+            </div>
+            <div
+              className={`${styles.inputGroup} ${isComments == false && isCommentCnt == '00' ? styles.hidden : ''}`}
+            >
+              <input
+                type="text"
+                placeholder="댓글을 달아주세요"
+                onChange={changeInput}
+                value={isInput}
+                onKeyPress={handleKeyPress}
+              />
+              {/* <img src={sendImg} alt="" onClick={sendComment} /> */}
+            </div>
+          </div>
           {(commentsData.data ?? []).map((comment: CommentData) => (
             <div key={comment.commentId} className={styles.commentGroup}>
               <div className={styles.profileImg}>
-                <img src={comment.image} alt="" />
+                <img src={comment.image} alt="" width="32px" height="32px" />
               </div>
               <div className={styles.comment}>
                 <p>{comment.name}</p>
                 <div>{comment.content}</div>
+                <div className={styles.heartGroup}>
+                  <Heart
+                    id={comment.commentId}
+                    isLiked={comment.isLiked}
+                    likeCount={comment.likeCount}
+                    type="comment"
+                    onToggleLike={handleToggleLike}
+                  />
+                </div>
               </div>
-              <div className={styles.heartGroup}>
-                <Heart
-                  id={comment.commentId}
-                  isLiked={comment.isLiked}
-                  likeCount={comment.likeCount}
-                  type="comment"
-                  onToggleLike={handleToggleLike}
-                />
+              <div>
+                <img src={moreIcon} alt="" width="16px" height="16px" />
               </div>
             </div>
           ))}
@@ -227,18 +244,6 @@ const Comment: React.FC<CommentProps> = ({ videoId }) => {
             <img src={upBtn} alt="" />
           </button>
         )}
-        <div
-          className={`${styles.inputGroup} ${isComments == false && isCommentCnt == '00' ? styles.hidden : ''}`}
-        >
-          <input
-            type="text"
-            placeholder="댓글 입력하기"
-            onChange={changeInput}
-            value={isInput}
-            onKeyPress={handleKeyPress}
-          />
-          <img src={sendImg} alt="" onClick={sendComment} />
-        </div>
       </div>
       <LoginModal
         styles={modal}
