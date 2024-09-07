@@ -5,6 +5,9 @@ import DownArrow from '../image/downArrow.svg';
 import Banana from '../image/banana.svg';
 import Cancel from '../image/Cancel.svg';
 import Vector from '../image/Vector9.svg';
+import benefit1 from '../image/benefit1.svg';
+import benefit2 from '../image/benefit2.svg';
+import benefit3 from '../image/benefit3.svg';
 import Button from '../image/Radiobutton.svg';
 import Footer from '../../../Footer/components/Footer';
 import AllianceStadium from '../../../Main/components/AllianceStadium';
@@ -123,6 +126,7 @@ const MyPage = () => {
   const [cityDropdownOpen, setCityDropdownOpen] = useState(false);
   const [regionDropdownOpen, setRegionDropdownOpen] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
+  const [isOpen2, setIsOpen2] = useState(false);
   const [selectedButtonId, setSelectedButtonId] = useState(null);
   console.log(selectedButtonId);
 
@@ -157,6 +161,9 @@ const MyPage = () => {
 
   const toggleModal = () => {
     setIsOpen(!isOpen);
+  };
+  const toggleModal2 = () => {
+    setIsOpen2(!isOpen2);
   };
 
   const handleOptionClick = (option: string) => {
@@ -290,7 +297,7 @@ const MyPage = () => {
             </div>
           </div>
           {/* 비구독 배너 비구독일때 제거 필요 */}
-          <div className={styles.banner}>
+          <div className={styles.banner} onClick={toggleModal2}>
             <div className={styles.mainTitle}>구독혜택 구경하기</div>
             <div className={styles.subTitle}>
               구독시 받을 수 있는 혜택을 살펴보세요!
@@ -367,7 +374,7 @@ const MyPage = () => {
             />
           </div>
         </div>
-        {/* 모달 */}
+        {/* 버내너 충전 모달 */}
         {isOpen && (
           <div className={styles.modalContainer}>
             <div className={styles.modalCard}>
@@ -407,6 +414,40 @@ const MyPage = () => {
                 className={`${styles.payment} ${selectedButtonId != null ? styles.clicked : ''}`}
               >
                 결제하기
+              </div>
+            </div>
+          </div>
+        )}
+        {/* 구독혜택 모달 */}
+        {isOpen2 && (
+          <div className={styles.benefitContainer}>
+            <div className={styles.benefit}>
+              <div className={styles.modalHeader}>
+                <div className={styles.modalHeaderText}>구독 혜택</div>
+                <img
+                  className={styles.close}
+                  src={Cancel}
+                  onClick={() => {
+                    toggleModal2();
+                    setSelectedButtonId(null);
+                  }}
+                ></img>
+              </div>
+              <img src={Vector} />
+              <div className={styles.detailContainer}>
+                <div className={styles.detail}>
+                  <img src={benefit1} alt="" className={styles.img}></img>
+                  <div className={styles.text}>영상 무료 다운로드</div>
+                </div>
+                <div className={styles.detail}>
+                  <img src={benefit2} alt="" className={styles.img}></img>
+                  <div className={styles.text}>영상 무제한 저장</div>
+                </div>
+                <div className={styles.detail}>
+                  <img src={benefit3} alt="" className={styles.img}></img>
+                  <div className={styles.text}>월 19,900원</div>
+                </div>
+                <div className={styles.button}>구독하러 가기</div>
               </div>
             </div>
           </div>

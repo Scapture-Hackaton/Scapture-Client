@@ -15,6 +15,8 @@ import videoTopGradient from '../image/videoTopGradient.svg';
 
 import inqyireLogo from '../image/inqyireLogo.svg';
 
+import Vector from '../image/Vector.svg';
+
 import { useQuery } from '@tanstack/react-query';
 import { getMainStadium } from '../../../apis/api/main.api';
 // import { useNavigate } from 'react-router-dom';
@@ -99,6 +101,12 @@ const Main = () => {
             className={styles.iphoneMockup}
             loading="lazy"
             alt=""
+          />
+          <img
+            src={Vector}
+            className={styles.iphoneScreen}
+            alt=""
+            loading="lazy"
           />
         </div>
 
