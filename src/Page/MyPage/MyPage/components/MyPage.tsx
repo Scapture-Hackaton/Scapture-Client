@@ -3,15 +3,15 @@ import Clock from '../image/Clock.svg';
 import DefaultProfile from '../image/DefaultProfile.svg';
 import DownArrow from '../image/downArrow.svg';
 import Banana from '../image/banana.svg';
-import Cancel from '../image/Cancel.svg';
+import Cancel from '../image/cancel.svg';
 import Vector from '../image/Vector9.svg';
 import benefit1 from '../image/benefit1.svg';
 import benefit2 from '../image/benefit2.svg';
 import benefit3 from '../image/benefit3.svg';
-import Button from '../image/Radiobutton.svg';
+// import Button from '../image/Radiobutton.svg';
 import Footer from '../../../Footer/components/Footer';
-import AllianceStadium from '../../../Main/components/AllianceStadium';
-import { userData, bananaData, subscribedData } from '../../dto/atom.interface';
+// import AllianceStadium from '../../../Main/components/AllianceStadium';
+// import { userData, bananaData, subscribedData } from '../../dto/atom.interface';
 
 import styles from '../scss/my-page.module.scss';
 // import modal from '../scss/my-page-modal.module.scss';
@@ -25,7 +25,8 @@ import styles from '../scss/my-page.module.scss';
 // import profileImgDefault from '../../image/scapture-logo.svg';
 // import profileImg from '../image/profile.webp';
 
-import { useEffect, useRef, useState } from 'react';
+// import { useEffect, useRef, useState } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import ReactPaginate from 'react-paginate';
@@ -51,80 +52,80 @@ const selectState = {
 
 const MyPage = () => {
   const navigate = useNavigate();
-  const modalRef = useRef<HTMLDialogElement>(null);
-  const modalSubRef = useRef<HTMLDialogElement>(null);
+  // const modalRef = useRef<HTMLDialogElement>(null);
+  // const modalSubRef = useRef<HTMLDialogElement>(null);
 
   //Recoil
-  const [isProfile, setProfile] = useRecoilState<userData>(userDataAtom);
-  const [isBanana, setBanana] = useRecoilState<bananaData>(bananaDataAtom);
-  const isSubscribed = useRecoilValue<subscribedData>(subscribedAtom);
+  // const [isProfile, setProfile] = useRecoilState<userData>(userDataAtom);
+  // const [isBanana, setBanana] = useRecoilState<bananaData>(bananaDataAtom);
+  // const isSubscribed = useRecoilValue<subscribedData>(subscribedAtom);
 
   //useState
-  const [isVideo, setVideo] = useState<string>('');
-  const [isVideos, setVideos] = useState([]);
-  const location = useLocation();
+  // const [isVideo, setVideo] = useState<string>('');
+  // const [isVideos, setVideos] = useState([]);
+  // const location = useLocation();
 
-  const handleCopyClipBoard = async (text: string) => {
-    try {
-      await navigator.clipboard.writeText(text);
-      alert('클립보드에 링크가 복사되었어요.');
-    } catch (err) {
-      console.log(err);
-    }
-  };
+  // const handleCopyClipBoard = async (text: string) => {
+  //   try {
+  //     await navigator.clipboard.writeText(text);
+  //     alert('클립보드에 링크가 복사되었어요.');
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  // };
 
-  const handleSortType = (type: string) => {
-    const res = getSortVideo(type);
-    console.log(res);
-  };
+  // const handleSortType = (type: string) => {
+  //   const res = getSortVideo(type);
+  //   console.log(res);
+  // };
 
-  useEffect(() => {
-    const fetchProfileInfo = async () => {
-      const res = await getProfile();
-      const banana = await getBanana();
-      const videoSort = await getSortVideo('latest');
-      console.log(
-        'res',
-        res?.data,
-        '\n',
-        'banana',
-        banana?.data,
-        '\n',
-        'subscribe',
-        isSubscribed,
-        '\n',
-        'subscribe',
-        isSubscribed,
-        '\n',
-        'videoSort',
-        videoSort,
-      );
-      if (res?.data && banana?.data && videoSort?.data) {
-        setProfile(prev => ({
-          ...prev,
-          endDate: res.data.endDate,
-          image: res.data.image,
-          location: res.data.location,
-          name: res.data.name,
-          role: res.data.role,
-          team: res.data.team,
-        }));
-        setBanana(prev => ({
-          ...prev,
-          balance: banana.data.balance,
-          subscribed: banana.data.subscribed,
-        }));
-        setVideo(videoSort.data[0].image);
-        setVideos(videoSort.data);
-      }
-    };
+  // useEffect(() => {
+  //   const fetchProfileInfo = async () => {
+  //     const res = await getProfile();
+  //     const banana = await getBanana();
+  //     const videoSort = await getSortVideo('latest');
+  //     console.log(
+  //       'res',
+  //       res?.data,
+  //       '\n',
+  //       'banana',
+  //       banana?.data,
+  //       '\n',
+  //       'subscribe',
+  //       isSubscribed,
+  //       '\n',
+  //       'subscribe',
+  //       isSubscribed,
+  //       '\n',
+  //       'videoSort',
+  //       videoSort,
+  //     );
+  //     if (res?.data && banana?.data && videoSort?.data) {
+  //       setProfile(prev => ({
+  //         ...prev,
+  //         endDate: res.data.endDate,
+  //         image: res.data.image,
+  //         location: res.data.location,
+  //         name: res.data.name,
+  //         role: res.data.role,
+  //         team: res.data.team,
+  //       }));
+  //       setBanana(prev => ({
+  //         ...prev,
+  //         balance: banana.data.balance,
+  //         subscribed: banana.data.subscribed,
+  //       }));
+  //       setVideo(videoSort.data[0].image);
+  //       setVideos(videoSort.data);
+  //     }
+  //   };
 
-    fetchProfileInfo();
-  }, [setProfile, setBanana]);
+  //   fetchProfileInfo();
+  // }, [setProfile, setBanana]);
 
   const [logout, setLogout] = useState(false);
-  const [selectedCity, setSelectedCity] = useState('');
-  const [selectedRegion, setSelectedRegion] = useState('');
+  // const [selectedCity, setSelectedCity] = useState('');
+  // const [selectedRegion, setSelectedRegion] = useState('');
   const [cityDropdownOpen, setCityDropdownOpen] = useState(false);
   const [regionDropdownOpen, setRegionDropdownOpen] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
@@ -132,26 +133,26 @@ const MyPage = () => {
   const [selectedButtonId, setSelectedButtonId] = useState(null);
   console.log(selectedButtonId);
 
-  const [selected, setSelected] = useState('최신순');
-  const selectRef = useRef<HTMLDivElement>(null);
+  // const [selected, setSelected] = useState('최신순');
+  // const selectRef = useRef<HTMLDivElement>(null);
 
-  const handleClick = id => {
-    setSelectedButtonId(id); // 클릭된 버튼의 ID를 상태로 설정
-  };
+  // const handleClick = id => {
+  //   setSelectedButtonId(id); // 클릭된 버튼의 ID를 상태로 설정
+  // };
   const toggleLogout = () => {
     setLogout(!logout);
   };
 
-  const handleCityChange = city => {
-    setSelectedCity(city);
-    setSelectedRegion(''); // 도시를 변경시 지역 초기화
-    setCityDropdownOpen(false);
-  };
+  // const handleCityChange = city => {
+  //   setSelectedCity(city);
+  //   setSelectedRegion(''); // 도시를 변경시 지역 초기화
+  //   setCityDropdownOpen(false);
+  // };
 
-  const handleRegionChange = region => {
-    setSelectedRegion(region);
-    setRegionDropdownOpen(false);
-  };
+  // const handleRegionChange = region => {
+  //   setSelectedRegion(region);
+  //   setRegionDropdownOpen(false);
+  // };
 
   const toggleCityDropdown = () => {
     setCityDropdownOpen(!cityDropdownOpen);
@@ -192,9 +193,9 @@ const MyPage = () => {
   const pageCount = Math.ceil(videoData.length / itemsPerPage);
 
   // 페이지 변경 시 호출되는 함수
-  const handlePageClick = ({ selected }) => {
-    setCurrentPage(selected);
-  };
+  // const handlePageClick = ({ selected }) => {
+  //   setCurrentPage(selected);
+  // };
 
   const bananas = [
     { id: 1, quantity: '1개', price: '2,990원' },
@@ -254,7 +255,8 @@ const MyPage = () => {
                 <div style={{ display: 'flex', gap: '8px' }}>
                   <div className={styles.dropdown} onClick={toggleCityDropdown}>
                     <div className={styles.dropdownTitle}>
-                      {selectedCity || '도시'}
+                      {/* {selectedCity || '도시'} */}
+                      '도시'
                     </div>
                     <img className={styles.dropdownImg} src={DownArrow}></img>
                     {cityDropdownOpen && (
@@ -263,7 +265,7 @@ const MyPage = () => {
                           <div
                             key={city}
                             className={styles.dropdownItem}
-                            onClick={() => handleCityChange(city)}
+                            // onClick={() => handleCityChange(city)}
                           >
                             {city}
                           </div>
@@ -274,15 +276,16 @@ const MyPage = () => {
                   <div
                     className={styles.dropdown}
                     onClick={toggleRegionDropdown}
-                    disabled={!selectedCity}
+                    // disabled={!selectedCity}
                   >
                     <div className={styles.dropdownTitle}>
-                      {selectedRegion || '지역'}
+                      {/* {selectedRegion || '지역'} */}
+                      지역
                     </div>
                     <img className={styles.dropdownImg} src={DownArrow}></img>
-                    {regionDropdownOpen && selectedCity && (
+                    {regionDropdownOpen && (
                       <div className={styles.dropdownMenu}>
-                        {selectState[selectedCity].map(region => (
+                        {/* {selectState[selectedCity].map(region => (
                           <div
                             key={region}
                             className={styles.dropdownItem}
@@ -290,7 +293,7 @@ const MyPage = () => {
                           >
                             {region}
                           </div>
-                        ))}
+                        ))} */}
                       </div>
                     )}
                   </div>
@@ -392,7 +395,7 @@ const MyPage = () => {
                 ></img>
               </div>
               <img src={Vector} />
-              <img className={styles.modalImg} src={banana}></img>
+              <img className={styles.modalImg} src={Banana}></img>
               <div className={styles.modalText}>
                 버내너 갯수만큼<br></br>원하는 영상을 다운로드 할 수 있어요!
               </div>
@@ -400,7 +403,7 @@ const MyPage = () => {
                 <div
                   key={banana.id}
                   className={styles.bananaContainer}
-                  onClick={() => handleClick(banana.id)}
+                  // onClick={() => handleClick(banana.id)}
                 >
                   <div className={styles.numOfBanana}>
                     <div

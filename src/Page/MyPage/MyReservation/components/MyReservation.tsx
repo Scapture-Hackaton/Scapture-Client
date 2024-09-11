@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import styles from '../scss/my-reservation.module.scss';
-import backArrow from '../image/backArrow.png';
+// import backArrow from '../image/backArrow.png';
 import Ground from '../image/Ground.svg';
 import People from '../image/People.svg';
 import Clockk from '../image/Clockk.svg';
@@ -8,7 +8,7 @@ import Calendar from '../image/Calendar.svg';
 import Point from '../image/Point.svg';
 import ReactPaginate from 'react-paginate';
 import { getReservation } from '../../../../apis/api/mypage.api';
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
 import { reservationData } from '../../dto/atom.interface';
 import Header from '../../../Header/components/Header';
 import Footer from '../../../Footer/components/Footer';
@@ -23,6 +23,8 @@ const MyReservation = () => {
   };
   const [isReservationState, setReservationState] =
     useState<reservationData>(reservationObject);
+
+  console.log(isReservationState);
 
   useEffect(() => {
     const fetchReservationInfo = async () => {
@@ -97,7 +99,7 @@ const MyReservation = () => {
 
   return (
     <div className={styles.test}>
-      <Header></Header>
+      <Header index={1}></Header>
       {isReservation ? (
         <div className={styles.reservationContainer}>
           {reservations.map(reservation => (
