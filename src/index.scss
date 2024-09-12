@@ -2,6 +2,19 @@
 
 :root {
   // color design-system
+  --primary-color-defualt-01: #2458ec;
+  --primary-color-defualt-02: #d2f75a;
+
+  --color-grayscale-web-bg: #101010;
+  --color-grayscale-black-bg: #1a1b1e;
+  --color-grayscale-web-card: #2b2c31;
+  --color-grayscale-card-900: #2b2c31;
+  --color-grayscale-input-800: #323339;
+  --color-grayscale-input-700: #37383e;
+
+  --color-ect-info: #edd0ff;
+  --color-ect-accent: #ff772a;
+
   --main-color-navy-01: #010026;
   --main-color-navy-02: #020039;
   --main-color-navy-03: #1a1a3c;
@@ -9,7 +22,7 @@
   --main-color-blue-01: #0038ff;
   --main-color-blue-02: #2f5cfb;
   --main-color-blue-03: #bbc6ee;
-  --main-color-blue-04: #4285f4;
+  --main-color-blue-04: #2458ec;
 
   --sub-color-yellow-01: #ffed1d;
   --sub-color-yellow-02: #d6df22;
@@ -35,10 +48,19 @@
   --font-size-xxl: 28px;
   --font-size-xl: 24px;
   --font-size-l: 20px;
+  --font-size-sl: 18px;
   --font-size-xm: 16px;
   --font-size-m: 14px;
   --font-size-s: 12px;
   --font-size-xs: 11px;
+
+  --font-color-gray-main: #eff0f4;
+  --font-color-gray-sub: #75777f;
+  --font-color-gray-100: #f9fafe;
+  --font-color-gray-400: #c5c6cb;
+  --font-color-gray-500: #93959d;
+  --font-color-gray-700: #37383e;
+  --font-color-lemon-400: #d2f75a;
 
   --font-family-Regular: 'Pretendard Variable';
 }
@@ -101,7 +123,7 @@ a {
 }
 
 body {
-  background-color: var(--main-color-navy-01);
+  background-color: var(--color-grayscale-web-bg);
   font-family: 'Pretendard Variable';
   color: var(--white-color);
   margin: 0;

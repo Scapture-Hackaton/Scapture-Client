@@ -35,7 +35,7 @@ const App = () => {
           <Route path="/mypage/edit" element={<EditProfile />} />
           <Route path="/mypage/reservation" element={<MyReservation />} />
           <Route path="/community" element={<Community />} />
-          <Route path="/header" element={<Header />} />
+          <Route path="/header" element={<Header index={0} />} />
           <Route path="/footer" element={<Footer />} />
           <Route path="/dev-ter" element={<DevTer />} />
           {/* Login-API */}

@@ -1,23 +1,24 @@
 import Header from '../../Header/components/Header';
 import Footer from '../../Footer/components/Footer';
 
-// import { test } from '../functions/function';
 import styles from '../scss/reservation.module.scss';
 
-// import testImg from '../image/testImg.png';
-// import circle from '../image/circle.png';
-import scaptureImg from '../image/scaptureImg.png';
-// import leftArrow from '../image/leftArrow.png';
-// import rightArrow from '../image/rightArrow.png';
 import { useLocation } from 'react-router-dom';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { getStadiumDetail } from '../../../apis/api/stadium.api';
 import { StadiumDetail, StadiumFileds } from '../../../apis/dto/scapture.dto';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { getReservationList } from '../../../apis/api/reservation.api';
 import SelectBtn from './SelectBtn';
 import ReservationList from './ReservationList';
 import { ReservationDto } from '../../../apis/dto/reservation.dto';
+
+import locationImg from '../../../assets/Icon/location.svg';
+import clock from '../../../assets/Icon/Clock.svg';
+import parking from '../../../assets/Icon/parking.svg';
+
+import dropDown from '../../../assets/Icon/dropDown.svg';
+import upArrow from '../../../assets/Icon/upArrow.svg';
 
 const Reservation = () => {
   const location = useLocation();
@@ -145,102 +146,129 @@ const Reservation = () => {
     setReservationList(reservationList);
   }, [reservationList]);
 
+  // 버튼을 눌렀는지에 대한 상태
+  const [open, setOpen] = useState(false);
+
+  const selectRef = useRef<HTMLDivElement>(null);
+
+  const toggleDropdown = () => {
+    setOpen(!open);
+  };
+
   return (
     <div className={styles.test}>
-      <Header />
+      <Header index={2} />
       <div className={styles.reservation}>
         {stadiumDetail &&
         stadiumDetail.images &&
         stadiumDetail.images.length > 0 ? (
-          <div className={styles.stadiumDetail}>
-            <div className={styles.slider}>
-              <img src={stadiumDetail.images[0].image} alt="" />
+          <>
+            <div className={styles.banner}>
+              <img
+                src={stadiumDetail.images[0].image}
+                alt=""
+                width="450px"
+                height="300px"
+              />
             </div>
 
-            <div className={styles.container}>
-              <div className={styles.description}>
-                <div className={styles.title}>
-                  <div className={styles.box}>
-                    <img src={scaptureImg} alt="" />
-                  </div>
-                  <span>{stadiumDetail.name}</span>
-                </div>
-                <div className={styles.introduce}>
-                  {stadiumDetail.description}
-                </div>
+            <div className={styles.introBox}>
+              <div className={styles.title}>
+                <div>{stadiumDetail.name}</div>
               </div>
 
-              <div className={styles.info}>
-                <div className={styles.header}>
-                  <div className={styles.title}>구장 정보</div>
-                  {/* <button
-                    className={styles.reserve}
-                    onClick={() => {
-                      modalNotice(modalRef);
-                    }}
-                  >
-                    구장 예약하기
-                  </button> */}
+              <div className={styles.introText}>
+                {stadiumDetail.description}
+              </div>
+            </div>
+
+            <div
+              className={`${styles.infoBox}  ${open ? styles.open : ''}`}
+              ref={selectRef}
+            >
+              <div className={styles.infoHeader}>
+                <div>구장 정보</div>
+                {open ? (
+                  <img
+                    src={upArrow}
+                    alt=""
+                    width="20px"
+                    height="20px"
+                    onClick={toggleDropdown}
+                  ></img>
+                ) : (
+                  <img
+                    src={dropDown}
+                    alt=""
+                    width="20px"
+                    height="20px"
+                    onClick={toggleDropdown}
+                  ></img>
+                )}
+              </div>
+
+              <div className={styles.infoGroup}>
+                <div className={styles.topInfo}>
+                  <div className={styles.isOutside}>
+                    {stadiumDetail.isOutside ? '실외' : '실내'}
+                  </div>
+                  <div className={styles.isParking}>
+                    {stadiumDetail.isOutside ? '주차 가능' : '주차 불가능'}
+                  </div>
                 </div>
 
-                <div className={styles.contents}>
-                  <div className={styles.row}>
-                    <div className={styles.th}>구장 위치</div>
-                    <div>{stadiumDetail.location}</div>
+                <div id={styles.info}>
+                  <div className={styles.line}>
+                    <img src={locationImg} alt="" width="20px" height="20px" />
+                    <div className={styles.info}>{stadiumDetail.location}</div>
                   </div>
 
-                  <div className={styles.row}>
-                    <div className={styles.th}>운영 시간</div>
-                    <div>{stadiumDetail.hours}</div>
+                  <div className={styles.line}>
+                    <img src={clock} alt="" width="20px" height="20px" />
+                    <span className={styles.info}>{stadiumDetail.hours}</span>
                   </div>
 
-                  <div className={styles.row}>
-                    <div className={styles.th}>실내/실외</div>
-                    <div>{stadiumDetail.isOutside ? '실외' : '실내'}</div>
-                  </div>
+                  <div className={styles.line}>
+                    <img src={parking} alt="" width="20px" height="20px" />
 
-                  <div className={styles.row}>
-                    <div className={styles.th}>주차 공간</div>
-                    <div>{stadiumDetail.parking}</div>
+                    <span className={styles.info}>{stadiumDetail.parking}</span>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
+          </>
         ) : null}
 
-        <div className={styles.dayVideo}>
-          <div className={styles.selectGroup}>
-            <SelectBtn
-              selectList={monthList}
-              selectedOption={isMonth}
-              onOptionChange={handleMonthChange}
-            />
-            <SelectBtn
-              selectList={dayMap.get(isMonth) || []}
-              selectedOption={isDay}
-              onOptionChange={handleDayChange}
-            />
-            <SelectBtn
-              selectList={fieldList}
-              selectedOption={isField || ''}
-              onOptionChange={handleFieldChange}
-            />
-          </div>
+        <div className={styles.option}>
+          <div className={styles.container}>
+            <div className={styles.title}>
+              <div id={styles.mainTitle}>예약 가능 구장 빠르게 찾기</div>
+              <div id={styles.subTitle}>
+                내가 원하는 운동 조건을 선택하면 빠르게 예약 가능한 구장을 찾을
+                수 있어요!
+              </div>
+            </div>
 
-          {/* <div className={styles.dayGroup}>
-            <div className={styles.box}>
-              <div className={styles.date}>Today</div>
-              <div className={styles.date}>10:00~12:00</div>
-              <div className={styles.cnt}>12개의 영상</div>
+            <div className={styles.select}>
+              <SelectBtn
+                selectList={fieldList}
+                selectedOption={isField || ''}
+                onOptionChange={handleFieldChange}
+              />
+              <SelectBtn
+                selectList={monthList}
+                selectedOption={isMonth}
+                onOptionChange={handleMonthChange}
+              />
+              <SelectBtn
+                selectList={dayMap.get(isMonth) || []}
+                selectedOption={isDay}
+                onOptionChange={handleDayChange}
+              />
             </div>
-            <div className={styles.box}>
-              <div className={styles.date}>Today</div>
-              <div className={styles.date}>10:00~12:00</div>
-              <div className={styles.cnt}>12개의 영상</div>
-            </div>
-          </div> */}
+          </div>
         </div>
+
         <div className={styles.reserveList}>
           <ReservationList
             reserveList={isReservationList}

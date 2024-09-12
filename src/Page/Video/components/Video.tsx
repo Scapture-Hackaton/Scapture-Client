@@ -5,8 +5,8 @@ import styles from '../scss/video.module.scss';
 import modal from '../scss/video-modal.module.scss';
 import loginModal from '../../Header/scss/login-modal.module.scss';
 
-import download from '../image/download.png';
-import share from '../image/share.png';
+import download from '../../../assets/Icon/downLoadIcon.svg';
+import share from '../../../assets/Icon/shareIcon.svg';
 
 import { useLocation } from 'react-router-dom';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
@@ -20,12 +20,12 @@ import {
 import {
   StadiumDetail,
   StadiumFileds,
-  StadiumHoursData,
+  // StadiumHoursData,
   VideoDetail,
 } from '../../../apis/dto/scapture.dto';
 import { useEffect, useState } from 'react';
 import SelectBtn from './SelectBtn';
-import StadiumHours from './StadiumHours';
+// import StadiumHours from './StadiumHours';
 import VideoList from './VideoList';
 import Heart from './Heart';
 import {
@@ -157,9 +157,9 @@ const Video = () => {
   const formattedDate = selectedDate.toISOString().split('T')[0];
 
   // 운영시간 리스트
-  const [isStadiumHourList, setStadiumHourList] = useState<StadiumHoursData[]>(
-    [],
-  );
+  // const [isStadiumHourList, setStadiumHourList] = useState<StadiumHoursData[]>(
+  //   [],
+  // );
 
   // 운영 시간 리스트 가져오기
   useEffect(() => {
@@ -167,7 +167,7 @@ const Video = () => {
       const fetchData = async () => {
         const data = await getStadiumDHours(selectedFieldId, formattedDate);
 
-        setStadiumHourList(data);
+        // setStadiumHourList(data);
 
         if (data && data.length >= 1) {
           setScheduleId(data[0].scheduleId);
@@ -179,8 +179,12 @@ const Video = () => {
 
   // 운영 시간 아이디
   const [isScheduleId, setScheduleId] = useState<number>();
-  const chooseSchedule = (scheduleId: number) => {
-    setScheduleId(scheduleId);
+  // const chooseSchedule = (scheduleId: number) => {
+  //   setScheduleId(scheduleId);
+  // };
+
+  const handelOpenDownloadModal = () => {
+    modalNotice(modalRef);
   };
 
   // 다운로드 기능
@@ -194,7 +198,6 @@ const Video = () => {
         if (downloadResponse.status === 200) {
           fetch(`${videoDetail.video}`, {
             method: 'GET',
-            // content-type은 따로 지정하지 않았습니다.
           })
             .then(response => response.blob())
             .then(blob => {
@@ -221,6 +224,8 @@ const Video = () => {
       }
     } catch (error) {
       console.error('비디오 다운로드 중 오류가 발생했습니다.', error);
+    } finally {
+      modalRef.current?.close(); // 다운로드 완료 후 모달 닫기
     }
   };
 
@@ -317,122 +322,124 @@ const Video = () => {
     }
   };
 
+  const [isBlobUrl, setBlobUrl] = useState('');
+
+  const loadVideo = async () => {
+    try {
+      if (isBlobUrl) {
+        // 기존 Blob URL을 해제하여 메모리 누수 방지
+        URL.revokeObjectURL(isBlobUrl);
+        setBlobUrl('');
+      }
+
+      // 비디오 데이터를 모두 다운로드
+      const response = await fetch(videoDetail.video);
+      const blob = await response.blob();
+      const url = URL.createObjectURL(blob);
+
+      const videoElement = document.getElementById(
+        'videoPlayer',
+      ) as HTMLVideoElement;
+
+      if (videoElement) {
+        videoElement.src = url;
+
+        // 비디오가 끝까지 재생된 후 Blob URL 해제
+        videoElement.onended = () => {
+          URL.revokeObjectURL(url);
+          setBlobUrl(''); // 해제 후 상태 초기화
+        };
+      }
+
+      // 새로운 Blob URL 상태 설정
+      setBlobUrl(url);
+    } catch (error) {
+      console.error('비디오 로딩 중 오류가 발생했습니다.', error);
+    }
+  };
+
+  useEffect(() => {
+    if (videoDetail && videoDetail.video) {
+      loadVideo();
+    }
+  }, [videoDetail]);
+
   return (
     <div className={styles.test}>
-      <Header />
+      <Header index={2} />
       <div className={styles.community}>
         {isVideoDetailSuccess && videoDetail && videoDetail.video ? (
-          <>
-            <div className={styles.videoContainer}>
-              <div className={styles.video}>
-                <video controls>
-                  <source src={videoDetail.video}></source>
-                </video>
-              </div>
-              <div className={styles.group}>
-                <div className={styles.title}>{videoDetail.name}</div>
-                <ul className={styles.icons}>
-                  <li onClick={handleDownloadClick}>
-                    <p>다운로드</p>
-                    <img src={download} alt=""></img>
-                  </li>
-                  <li>
-                    <img src={share} alt=""></img>
-                  </li>
-                  <li>
-                    {/* <img src={bookMark} alt=""></img> */}
-                    <BookMark
-                      stored={videoDetail.isStored}
-                      onToggleStore={handleToggleStore}
-                    ></BookMark>
-                  </li>
-                </ul>
-              </div>
-              <div className={styles.heart}>
-                <Heart
-                  id={videoId}
-                  isLiked={videoDetail.isLiked}
-                  likeCount={videoDetail.likeCount}
-                  onToggleLike={handleToggleLike}
-                />
-                {/* <img src={fullHeart} alt="" />
-                <div className={styles.cnt}>10</div> */}
-              </div>
+          <div className={styles.videoContainer}>
+            <div className={styles.video}>
+              <video
+                id="videoPlayer"
+                controls
+                controlsList="nodownload"
+                onContextMenu={e => e.preventDefault()}
+              ></video>
             </div>
-          </>
+            <div className={styles.group}>
+              <div className={styles.title}>{videoDetail.name}</div>
+              <ul className={styles.icons}>
+                <li className={styles.heart}>
+                  <Heart
+                    id={videoId}
+                    isLiked={videoDetail.isLiked}
+                    likeCount={videoDetail.likeCount}
+                    onToggleLike={handleToggleLike}
+                  />
+                </li>
+                <li>
+                  <BookMark
+                    stored={videoDetail.isStored}
+                    onToggleStore={handleToggleStore}
+                  ></BookMark>
+                </li>
+                <li onClick={handelOpenDownloadModal}>
+                  <img src={download} alt="" width="20px" height="20px"></img>
+                  <p>다운로드</p>
+                </li>
+                <li>
+                  <img src={share} alt="" width="20px" height="20px"></img>
+                  <p>공유</p>
+                </li>
+              </ul>
+            </div>
+          </div>
         ) : (
           <></>
         )}
-        <div className={styles.dayVideo}>
-          <div className={styles.selectGroup}>
-            <SelectBtn
-              selectList={monthList}
-              selectedOption={isMonth}
-              onOptionChange={handleMonthChange}
-            />
-            <SelectBtn
-              selectList={dayMap.get(isMonth) || []}
-              selectedOption={isDay}
-              onOptionChange={handleDayChange}
-            />
-            <SelectBtn
-              selectList={fieldList}
-              selectedOption={isField || ''}
-              onOptionChange={handleFieldChange}
-            />
-          </div>
 
-          <div className={styles.dayGroup}>
-            {/* <div className={styles.box}>
-              <div className={styles.date}>Today</div>
-              <div className={styles.date}>10:00~12:00</div>
-              <div className={styles.cnt}>12개의 영상</div>
+        <div className={styles.option}>
+          <div className={styles.container}>
+            <div className={styles.title}>
+              <div id={styles.mainTitle}>내 영상 빠르게 찾기</div>
+              <div id={styles.subTitle}>
+                내가 운동했던 조건을 선택하면 빠르게 내 영상을 찾을 수 있어요!
+              </div>
             </div>
-            <div className={styles.box}>
-              <div className={styles.date}>Today</div>
-              <div className={styles.date}>10:00~12:00</div>
-              <div className={styles.cnt}>12개의 영상</div>
+
+            <div className={styles.select}>
+              <SelectBtn
+                selectList={fieldList}
+                selectedOption={isField || ''}
+                onOptionChange={handleFieldChange}
+              />
+              <SelectBtn
+                selectList={monthList}
+                selectedOption={isMonth}
+                onOptionChange={handleMonthChange}
+              />
+              <SelectBtn
+                selectList={dayMap.get(isMonth) || []}
+                selectedOption={isDay}
+                onOptionChange={handleDayChange}
+              />
             </div>
-          </div> */}
-            <StadiumHours
-              stadiumHourList={isStadiumHourList}
-              chooseSchedule={chooseSchedule}
-            />
           </div>
         </div>
 
         <VideoList scheduleId={isScheduleId} stadiumId={stadiumId}></VideoList>
-        {/* <div className={styles.videoList}>
-          <div className={styles.container}>
-            <div className={styles.video}></div>
-            <div className={styles.description}>
-              <div className={styles.titles}>
-                <div id={styles.first}>1번째</div>
-                <div id={styles.second}>골영상</div>
-              </div>
-
-              <div className={styles.info}>
-                <div>창골축구장(FC서울 축구교실)</div>
-                <div>07.10.수 / 10:00~12:00</div>
-              </div>
-            </div>
-          </div>
-
-          <div className={styles.container}>
-            <div className={styles.video}></div>
-            <div className={styles.description}>
-              <div className={styles.titles}>
-                <div id={styles.first}>1번째</div>
-                <div id={styles.second}>골영상</div>
-              </div>
-
-              <div className={styles.info}>
-                <div>창골축구장(FC서울 축구교실)</div>
-                <div>07.10.수 / 10:00~12:00</div>
-              </div>
-            </div>
-          </div>
-        </div> */}
 
         {/* <div className={styles.paging}>
           <img src={leftArrow} alt=""></img>
@@ -440,7 +447,11 @@ const Video = () => {
           <img src={rightArrow} alt=""></img>
         </div> */}
 
-        <VideoModal styles={modal} ref={modalRef} />
+        <VideoModal
+          styles={modal}
+          ref={modalRef}
+          handleDownloadClick={handleDownloadClick}
+        />
         <LoginModal
           styles={loginModal}
           AUTH_URLS={AUTH_URLS}

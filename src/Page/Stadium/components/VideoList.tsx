@@ -6,6 +6,8 @@ import { getVideoScheduled } from '../../../apis/api/stadium.api';
 import { ScheduleVideo } from '../../../apis/dto/scapture.dto';
 import { useNavigate } from 'react-router-dom';
 
+import noDataIcon from '../../../assets/Icon/noDataIcon.svg';
+
 interface VideoListProps {
   scheduleId: number | undefined;
   stadiumId: number;
@@ -32,32 +34,43 @@ const VideoList: React.FC<VideoListProps> = ({ scheduleId, stadiumId }) => {
 
   return (
     <div className={styles.videoList}>
-      {videos && videos.length > 0
-        ? videos.map((video: ScheduleVideo) => (
-            <div
-              className={styles.videoContainer}
-              key={video.videoId}
-              onClick={() => toVideo(video.videoId)}
-            >
-              <div className={styles.video}>
-                <img src={video.image} alt={video.name} />
-              </div>
-              <div className={styles.description}>
-                <div className={styles.titles}>
-                  <div id={styles.first}>{video.name}</div>
-                  <div id={styles.second}>골영상</div>
-                </div>
-
-                <div className={styles.info}>
-                  <div> {video.stadiumName}</div>
-                  <div>
-                    {video.date} / {video.hours}
-                  </div>
+      {videos && videos.length > 0 ? (
+        videos.map((video: ScheduleVideo) => (
+          <div
+            className={styles.videoContainer}
+            key={video.videoId}
+            onClick={() => toVideo(video.videoId)}
+          >
+            <div className={styles.video}>
+              <img
+                src={video.image}
+                alt={video.name}
+                width="410px"
+                height="230"
+              />
+            </div>
+            <div className={styles.description}>
+              <div className={styles.title}>{video.name}</div>
+              <div className={styles.subDes}>
+                <div>{video.stadiumName}</div>
+                <div>
+                  {video.date} / {video.hours}
                 </div>
               </div>
             </div>
-          ))
-        : null}
+          </div>
+        ))
+      ) : (
+        <div className={styles.noData}>
+          <img
+            src={noDataIcon}
+            alt="검색 결과가 없습니다."
+            width="180px"
+            height="180px"
+          />
+          <div>검색 결과가 없어요</div>
+        </div>
+      )}
     </div>
   );
 };

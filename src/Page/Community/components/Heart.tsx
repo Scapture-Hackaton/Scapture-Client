@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import styles from '../scss/community.module.scss';
-import fullHeart from '../image/fullHeart.png';
-import emptyHeart from '../image/emptyHeart.png';
+import fullHeart from '../../../assets/Icon/heartIcon.svg';
+import emptyHeart from '../../../assets/Icon/heartIcon.svg';
 import { likesComment, unLikeComment } from '../../../apis/api/community.api';
 import { LoginModal } from '../../Header/components/LoginModal';
 
@@ -77,9 +77,19 @@ const Heart: React.FC<HeartProps> = ({
           alt="liked"
           onClick={toggleHeart}
           className={styles.onHeart}
+          width="16px"
+          height="16px"
+          loading="lazy"
         />
       ) : (
-        <img src={emptyHeart} alt="not liked" onClick={toggleHeart} />
+        <img
+          src={emptyHeart}
+          alt="not liked"
+          onClick={toggleHeart}
+          width="16px"
+          height="16px"
+          loading="lazy"
+        />
       )}
       <div className={styles.cnt}>{isCnt}</div>
       <LoginModal
