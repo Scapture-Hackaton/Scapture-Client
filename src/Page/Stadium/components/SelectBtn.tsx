@@ -6,12 +6,14 @@ interface SelectProps {
   selectList: string[];
   selectedOption: string;
   onOptionChange: (option: string) => void;
+  type: string;
 }
 
 const SelectBtn: React.FC<SelectProps> = ({
   selectList,
   selectedOption,
   onOptionChange,
+  type,
 }) => {
   // 버튼을 눌렀는지에 대한 상태
   const [open, setOpen] = useState(false);
@@ -61,15 +63,22 @@ const SelectBtn: React.FC<SelectProps> = ({
       className={`${styles.selectbox} ${open ? styles.open : ''}`}
       ref={selectRef}
     >
-      <button type="button" onClick={toggleDropdown}>
+      <button type="button" onClick={toggleDropdown} id={styles.selectedBtn}>
         <span>{selectedOption}</span>
         <img src={dropDown} alt="" width="16px" height="16px"></img>
       </button>
       <ul>
+        <li className={styles.ulTitle}>
+          {type === 'field' ? (
+            <button type="button" disabled>
+              구역명
+            </button>
+          ) : null}
+        </li>
         {selectList.length <= 0
           ? null
           : selectList.map((option, idx) => (
-              <li key={idx}>
+              <li key={idx} className={styles.items}>
                 <button
                   type="button"
                   onClick={() => handleOptionClick(`${option}`)}
