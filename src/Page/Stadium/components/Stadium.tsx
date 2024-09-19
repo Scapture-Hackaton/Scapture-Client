@@ -25,6 +25,11 @@ import parking from '../../../assets/Icon/parking.svg';
 
 import dropDown from '../../../assets/Icon/dropDown.svg';
 import upArrow from '../../../assets/Icon/upArrow.svg';
+import Calendar from './Calendar';
+
+import calendarIcon from '../../../assets/Icon/calendarIcon.svg';
+import clockIcon from '../image/clockIcon.svg';
+import locationIcon from '../image/locationIcon.svg';
 
 const Stadium = () => {
   const location = useLocation();
@@ -66,6 +71,28 @@ const Stadium = () => {
 
   const { monthList, dayMap } = generateDateLists(weekAgo, today);
 
+  const getDayOfWeek = (date: Date) => {
+    const daysOfWeek = ['일', '월', '화', '수', '목', '금', '토'];
+    return daysOfWeek[date.getDay()];
+  };
+
+  // 일, 요일 만들기
+  const generateDateListsWithWeekdays = (startDate: Date, endDate: Date) => {
+    const dayList = [];
+    const currentDate = new Date(startDate);
+
+    while (currentDate <= endDate) {
+      const day = currentDate.getDate();
+      const weekday = getDayOfWeek(currentDate); // 요일 계산
+      dayList.push({ day: `${day}`, weekday }); // 날짜와 요일을 함께 저장
+      currentDate.setDate(currentDate.getDate() + 1);
+    }
+
+    return dayList;
+  };
+
+  const dayList = generateDateListsWithWeekdays(weekAgo, today);
+
   // 기본 날짜 값 설정
   // const [isMonth, setMonth] = useState(monthList[0]);
   // const [isDay, setDay] = useState(dayMap.get(isMonth)?.[0] || '');
@@ -95,6 +122,7 @@ const Stadium = () => {
       const fields = stadiumDetail.fields.map(
         (field: StadiumFileds) => field.name,
       );
+
       setFieldList(fields);
       setField(fields[0]); // 기본값 설정
     }
@@ -131,16 +159,47 @@ const Stadium = () => {
   // 운영 시간 리스트 가져오기
   useEffect(() => {
     if (selectedFieldId && formattedDate) {
-      const fetchData = async () => {
-        const data = await getStadiumDHours(selectedFieldId, formattedDate);
+      const data = [
+        {
+          scheduleId: 1,
+          hours: '10:00 ~ 12:00',
+          videoCount: 12,
+        },
+        {
+          scheduleId: 2,
+          hours: '12:00 ~ 14:00',
+          videoCount: 15,
+        },
+        {
+          scheduleId: 3,
+          hours: '12:00 ~ 14:00',
+          videoCount: 15,
+        },
+        {
+          scheduleId: 4,
+          hours: '12:00 ~ 14:00',
+          videoCount: 15,
+        },
+      ];
 
-        setStadiumHourList(data);
+      setStadiumHourList(data);
 
-        if (data && data.length >= 1) {
-          setScheduleId(data[0].scheduleId);
-        }
-      };
-      fetchData();
+      if (data && data.length >= 1) {
+        setScheduleId(data[0].scheduleId);
+      }
+
+      // const fetchData = async () => {
+      //   const data = await getStadiumDHours(selectedFieldId, formattedDate);
+
+      //   setStadiumHourList(data);
+
+      //   if (data && data.length >= 1) {
+      //     setScheduleId(data[0].scheduleId);
+      //   }
+      // };
+      // fetchData();
+
+      console.log('hi');
     }
   }, [selectedFieldId, formattedDate]);
 
@@ -152,13 +211,22 @@ const Stadium = () => {
 
   // 구장 정보 자세히 보기
 
-  // 버튼을 눌렀는지에 대한 상태
+  // 디테일 버튼을 눌렀는지에 대한 상태
   const [open, setOpen] = useState(false);
 
   const selectRef = useRef<HTMLDivElement>(null);
 
   const toggleDropdown = () => {
     setOpen(!open);
+  };
+
+  // 옵션 버튼을 눌렀는지에 대한 상태
+  const [isOpenOption, setOpenOption] = useState(false);
+
+  const optionRef = useRef<HTMLDivElement>(null);
+
+  const toggleDropdownOption = () => {
+    setOpenOption(!isOpenOption);
   };
 
   // 예약 페이지로 이동
@@ -257,39 +325,100 @@ const Stadium = () => {
             </div>
           </>
         ) : null}
-        <div className={styles.option}>
+        <div
+          className={`${styles.option}  ${isOpenOption ? styles.openOption : ''}`}
+          ref={optionRef}
+        >
           <div className={styles.container}>
             <div className={styles.title}>
-              <div id={styles.mainTitle}>내 영상 빠르게 찾기</div>
+              <div id={styles.mainTitle}>
+                <div>내 영상 빠르게 찾기</div>
+                {isOpenOption ? (
+                  <img
+                    src={upArrow}
+                    alt=""
+                    width="20px"
+                    height="20px"
+                    onClick={toggleDropdownOption}
+                  ></img>
+                ) : (
+                  <img
+                    src={dropDown}
+                    alt=""
+                    width="20px"
+                    height="20px"
+                    onClick={toggleDropdownOption}
+                  ></img>
+                )}
+              </div>
               <div id={styles.subTitle}>
                 내가 운동했던 조건을 선택하면 빠르게 내 영상을 찾을 수 있어요!
               </div>
             </div>
 
-            <div className={styles.select}>
-              <SelectBtn
-                selectList={fieldList}
-                selectedOption={isField || ''}
-                onOptionChange={handleFieldChange}
-              />
-              <SelectBtn
-                selectList={monthList}
-                selectedOption={isMonth}
-                onOptionChange={handleMonthChange}
-              />
-              <SelectBtn
-                selectList={dayMap.get(isMonth) || []}
-                selectedOption={isDay}
-                onOptionChange={handleDayChange}
-              />
+            <div className={styles.selectBox}>
+              <div className={styles.select}>
+                <SelectBtn
+                  selectList={fieldList}
+                  selectedOption={isField || ''}
+                  onOptionChange={handleFieldChange}
+                  type="field"
+                />
+                <SelectBtn
+                  selectList={monthList}
+                  selectedOption={isMonth}
+                  onOptionChange={handleMonthChange}
+                  type="month"
+                />
+                <SelectBtn
+                  selectList={dayMap.get(isMonth) || []}
+                  selectedOption={isDay}
+                  onOptionChange={handleDayChange}
+                  type="day"
+                />
+              </div>
+
+              <div className={styles.selectGroup}>
+                <div className={styles.options}>
+                  <div className={styles.subTitle}>
+                    <img src={calendarIcon} alt="" width="20px" height="20px" />
+                    <div>날짜</div>
+                  </div>
+                  <Calendar
+                    dayList={dayList}
+                    onOptionChange={handleDayChange}
+                  ></Calendar>
+                </div>
+                <div className={styles.options}>
+                  <div className={styles.subTitle}>
+                    <img src={clockIcon} alt="" width="20px" height="20px" />
+                    <div>시간</div>
+                  </div>
+
+                  <div className={styles.test}>
+                    <StadiumHours
+                      stadiumHourList={isStadiumHourList}
+                      chooseSchedule={chooseSchedule}
+                    />
+                  </div>
+                </div>
+                <div className={styles.options}>
+                  <div className={styles.subTitle}>
+                    <img src={locationIcon} alt="" width="20px" height="20px" />
+                    <div>구역</div>
+                  </div>
+                  <div className={styles.selectLocation}>
+                    <SelectBtn
+                      selectList={fieldList}
+                      selectedOption={isField || ''}
+                      onOptionChange={handleFieldChange}
+                      type="field"
+                    />
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
-        </div>
-        <div className={styles.hours}>
-          <StadiumHours
-            stadiumHourList={isStadiumHourList}
-            chooseSchedule={chooseSchedule}
-          />
         </div>
 
         <VideoList scheduleId={isScheduleId} stadiumId={stadiumId}></VideoList>
