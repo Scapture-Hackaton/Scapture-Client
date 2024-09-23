@@ -29,7 +29,7 @@ import styles from '../scss/my-page.module.scss';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import ReactPaginate from 'react-paginate';
+// import ReactPaginate from 'react-paginate';
 
 // import { modalNotice } from '../functions/ModalFunction';
 // import { BananaModal, SubscribeModal } from './MyPageModal';
@@ -43,7 +43,7 @@ import ReactPaginate from 'react-paginate';
 // import { Link, useLocation } from 'react-router-dom';
 // import { useLocation } from 'react-router-dom';
 
-const itemsPerPage = 8; // 페이지당 보여줄 아이템 수
+// const itemsPerPage = 8; // 페이지당 보여줄 아이템 수
 
 const selectState = {
   서울시: ['성북구', '강서구', '영등포구', '강남구', '노원구', '동대문구'],
@@ -179,18 +179,18 @@ const MyPage = () => {
   //   window.location.reload();
   // };
   //  페이지네이션 더미
-  const videoData = Array.from({ length: 50 }, (_, index) => ({
-    title: `영상 제목 ${index + 1}`,
-    field: '구장 주소 입력 필드',
-    time: '0000.00.00 | 00:00 - 00:00',
-  }));
+  // const videoData = Array.from({ length: 50 }, (_, index) => ({
+  //   title: `영상 제목 ${index + 1}`,
+  //   field: '구장 주소 입력 필드',
+  //   time: '0000.00.00 | 00:00 - 00:00',
+  // }));
 
   // const [currentPage, setCurrentPage] = useState(0);
 
   // 현재 페이지에 표시될 비디오 수
   // const offset = currentPage * itemsPerPage;
   // const currentItems = videoData.slice(offset, offset + itemsPerPage);
-  const pageCount = Math.ceil(videoData.length / itemsPerPage);
+  // const pageCount = Math.ceil(videoData.length / itemsPerPage);
 
   // 페이지 변경 시 호출되는 함수
   // const handlePageClick = ({ selected }) => {
@@ -365,7 +365,7 @@ const MyPage = () => {
                 </div>
               ))} */}
             </div>
-            <ReactPaginate
+            {/* <ReactPaginate
               previousLabel={'<'}
               nextLabel={'>'}
               pageCount={pageCount} //몇개 페이지 보여줄건지
@@ -376,7 +376,7 @@ const MyPage = () => {
               pageClassName={styles.pageNumber} //각 페이지 번호에 적용
               previousClassName={styles.button} // 이전버튼 적용
               nextClassName={styles.button} //다음버튼 적용
-            />
+            /> */}
           </div>
         </div>
         {/* 버내너 충전 모달 */}

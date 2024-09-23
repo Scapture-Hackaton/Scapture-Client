@@ -6,7 +6,7 @@ import People from '../image/People.svg';
 import Clockk from '../image/Clockk.svg';
 import Calendar from '../image/Calendar.svg';
 import Point from '../image/Point.svg';
-import ReactPaginate from 'react-paginate';
+// import ReactPaginate from 'react-paginate';
 import { getReservation } from '../../../../apis/api/mypage.api';
 // import { Link } from 'react-router-dom';
 import { reservationData } from '../../dto/atom.interface';
@@ -131,7 +131,7 @@ const MyReservation = () => {
               </div>
             </div>
           ))}
-          <ReactPaginate
+          {/* <ReactPaginate
             previousLabel={'<'}
             nextLabel={'>'}
             pageCount={8} //몇개 페이지 보여줄건지
@@ -141,7 +141,7 @@ const MyReservation = () => {
             pageClassName={styles.pageNumber} //각 페이지 번호에 적용
             previousClassName={styles.button} // 이전버튼 적용
             nextClassName={styles.button} //다음버튼 적용
-          />
+          /> */}
         </div>
       ) : (
         <div className={styles.reservationContainer}>
