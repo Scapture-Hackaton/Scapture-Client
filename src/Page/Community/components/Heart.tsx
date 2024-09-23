@@ -71,27 +71,28 @@ const Heart: React.FC<HeartProps> = ({
 
   return (
     <>
-      {isHeart ? (
-        <img
-          src={fullHeart}
-          alt="liked"
-          onClick={toggleHeart}
-          className={styles.onHeart}
-          width="16px"
-          height="16px"
-          loading="lazy"
-        />
-      ) : (
-        <img
-          src={emptyHeart}
-          alt="not liked"
-          onClick={toggleHeart}
-          width="16px"
-          height="16px"
-          loading="lazy"
-        />
-      )}
-      <div className={styles.cnt}>{isCnt}</div>
+      <div className={styles.heartGroup} onClick={toggleHeart}>
+        {isHeart ? (
+          <img
+            src={fullHeart}
+            alt="liked"
+            className={styles.onHeart}
+            width="16px"
+            height="16px"
+            loading="lazy"
+          />
+        ) : (
+          <img
+            src={emptyHeart}
+            alt="not liked"
+            width="16px"
+            height="16px"
+            loading="lazy"
+          />
+        )}
+
+        <div className={styles.cnt}>{isCnt}</div>
+      </div>
       <LoginModal
         styles={modal}
         AUTH_URLS={AUTH_URLS}

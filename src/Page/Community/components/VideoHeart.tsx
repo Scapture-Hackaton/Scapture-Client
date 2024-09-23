@@ -26,25 +26,20 @@ const VideoHeart: React.FC<HeartProps> = ({
 
   return (
     <>
-      {isHeart ? (
-        <img
-          src={fullHeart}
-          alt="liked"
-          onClick={() => onToggleLike(isLiked)}
-          className={styles.onHeart}
-          width="20px"
-          height="20px"
-        />
-      ) : (
-        <img
-          src={emptyHeart}
-          alt="not liked"
-          onClick={() => onToggleLike(isLiked)}
-          width="20px"
-          height="20px"
-        />
-      )}
-      <p className={styles.cnt}>{isCnt}</p>
+      <li className={styles.heart} onClick={() => onToggleLike(isLiked)}>
+        {isHeart ? (
+          <img
+            src={fullHeart}
+            alt="liked"
+            className={styles.onHeart}
+            width="20px"
+            height="20px"
+          />
+        ) : (
+          <img src={emptyHeart} alt="not liked" width="20px" height="20px" />
+        )}
+        <p className={styles.cnt}>{isCnt}</p>
+      </li>
     </>
   );
 };
