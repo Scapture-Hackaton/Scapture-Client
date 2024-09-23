@@ -314,8 +314,6 @@ const Community = () => {
     setOpen(!open);
   };
 
-  console.log(videoDetailData);
-
   return (
     <div className={styles.test}>
       <Header index={3} />
