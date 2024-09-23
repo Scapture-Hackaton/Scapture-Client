@@ -145,7 +145,8 @@ const Community = () => {
     mutationFn: async (videoId: number) => {
       const res = await unLikeVideo(videoId);
       if (res.status == 400 || res.status == 403) {
-        modalRef.current?.showModal();
+        modalNotice(loginModalRef);
+        // modalRef.current?.showModal();
       }
     },
     onSuccess: () => {
@@ -313,6 +314,8 @@ const Community = () => {
     setOpen(!open);
   };
 
+  console.log(videoDetailData);
+
   return (
     <div className={styles.test}>
       <Header index={3} />
@@ -389,13 +392,14 @@ const Community = () => {
                     {videoDetailData.isOutside ? '실외' : '실내'}
                   </div>
                   <div className={styles.isParking}>
-                    {videoDetailData.isOutside ? '주차 가능' : '주차 불가능'}
+                    {videoDetailData.isParking ? '주차 가능' : '주차 불가능'}
                   </div>
                 </div>
 
                 <div id={styles.info}>
                   <div className={styles.line}>
                     <img src={locationImg} alt="" width="20px" height="20px" />
+
                     <div className={styles.info}>
                       {videoDetailData.stadium.location}
                     </div>
@@ -403,10 +407,10 @@ const Community = () => {
 
                   <div className={styles.line}>
                     <img src={clock} alt="" width="20px" height="20px" />
-                    {/* <span className={styles.info}>
+
+                    <span className={styles.info}>
                       {videoDetailData.stadium.hours}
-                    </span> */}
-                    <span className={styles.info}>00:00 ~ 00:00</span>
+                    </span>
                   </div>
 
                   <div className={styles.line}>

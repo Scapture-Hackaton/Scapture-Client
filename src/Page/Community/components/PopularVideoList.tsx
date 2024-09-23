@@ -32,7 +32,9 @@ const PopularVideoList: React.FC<PopularVideoListProps> = ({
               <div className={styles.description}>
                 <div className={styles.title}>{video.name}</div>
                 <div className={styles.subDes}>
-                  <div>{video.stadium.name}</div>
+                  <div>
+                    {video.stadiumName} | {video.fieldName}
+                  </div>
                   <div>
                     조회수 {video.views}회 | {video.date}
                   </div>

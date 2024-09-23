@@ -213,7 +213,7 @@ const Reservation = () => {
                     {stadiumDetail.isOutside ? '실외' : '실내'}
                   </div>
                   <div className={styles.isParking}>
-                    {stadiumDetail.isOutside ? '주차 가능' : '주차 불가능'}
+                    {stadiumDetail.isParking ? '주차 가능' : '주차 불가능'}
                   </div>
                 </div>
 

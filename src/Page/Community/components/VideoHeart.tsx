@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import styles from '../scss/community.module.scss';
-import fullHeart from '../../../assets/Icon/heartIcon.svg';
+import fullHeart from '../../../assets/Icon/pressedHeart.svg';
 import emptyHeart from '../../../assets/Icon/heartIcon.svg';
 
 interface HeartProps {

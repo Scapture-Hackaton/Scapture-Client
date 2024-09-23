@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import styles from '../scss/community.module.scss';
 import bookMark from '../../../assets/Icon/bookMarkIcon.svg';
-import storedBookmark from '../../../assets/Icon/bookMarkIcon.svg';
+import storedBookmark from '../../../assets/Icon/storedBookmark.svg';
 
 interface BookMarkProps {
   stored: boolean;

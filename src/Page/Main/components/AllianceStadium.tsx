@@ -14,13 +14,14 @@ interface AllianceStadiumProps {
 //css도 - props 필요
 const AllianceStadium: React.FC<AllianceStadiumProps> = ({ stadiumList }) => {
   const settings = {
-    dots: true,
-    infinite: true,
-    speed: 500,
+    // dots: true,
+    infinite: false,
+    // speed: 500,
     slidesToShow: 1,
     slidesToScroll: 1,
-    autoplay: true,
-    autoplaySpeed: 2000,
+    // autoplay: true,
+    // autoplaySpeed: 2000,
+    arrows: false,
   };
 
   const navigate = useNavigate();

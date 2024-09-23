@@ -30,6 +30,7 @@ import Calendar from './Calendar';
 import calendarIcon from '../../../assets/Icon/calendarIcon.svg';
 import clockIcon from '../image/clockIcon.svg';
 import locationIcon from '../image/locationIcon.svg';
+import StadiumImages from './StadiumImages';
 
 const Stadium = () => {
   const location = useLocation();
@@ -46,67 +47,48 @@ const Stadium = () => {
   const weekAgo = new Date(today);
   weekAgo.setDate(today.getDate() - 7);
 
-  // 추출한 날짜를 기반으로 월/일 리스트 생성
-  const generateDateLists = (startDate: Date, endDate: Date) => {
-    const monthList = new Set<string>();
-    const dayMap = new Map<string, string[]>();
-
-    const currentDate = new Date(startDate);
-    while (currentDate <= endDate) {
-      const month = `${currentDate.getMonth() + 1}월`;
-      const day = `${currentDate.getDate()}일`;
-
-      monthList.add(month);
-
-      if (!dayMap.has(month)) {
-        dayMap.set(month, []);
-      }
-      dayMap.get(month)?.push(day);
-
-      currentDate.setDate(currentDate.getDate() + 1);
-    }
-
-    return { monthList: Array.from(monthList), dayMap };
-  };
-
-  const { monthList, dayMap } = generateDateLists(weekAgo, today);
-
+  // 요일 추출 함수
   const getDayOfWeek = (date: Date) => {
     const daysOfWeek = ['일', '월', '화', '수', '목', '금', '토'];
     return daysOfWeek[date.getDay()];
   };
 
-  // 일, 요일 만들기
-  const generateDateListsWithWeekdays = (startDate: Date, endDate: Date) => {
+  // 일, 월, 요일을 함께 저장하는 리스트 생성 함수
+  const generateDateListsWithMonthAndWeekdays = (
+    startDate: Date,
+    endDate: Date,
+  ) => {
     const dayList = [];
     const currentDate = new Date(startDate);
 
     while (currentDate <= endDate) {
-      const day = currentDate.getDate();
-      const weekday = getDayOfWeek(currentDate); // 요일 계산
-      dayList.push({ day: `${day}`, weekday }); // 날짜와 요일을 함께 저장
+      const month = currentDate.getMonth() + 1; // 월 (0부터 시작하므로 +1)
+      const day = currentDate.getDate(); // 일
+      const weekday = getDayOfWeek(currentDate); // 요일
+      dayList.push({ month: `${month}`, day: `${day}`, weekday }); // 월, 일, 요일 저장
       currentDate.setDate(currentDate.getDate() + 1);
     }
 
     return dayList;
   };
 
-  const dayList = generateDateListsWithWeekdays(weekAgo, today);
+  // dayList 생성
+  const dayList = generateDateListsWithMonthAndWeekdays(weekAgo, today);
 
   // 기본 날짜 값 설정
   // const [isMonth, setMonth] = useState(monthList[0]);
   // const [isDay, setDay] = useState(dayMap.get(isMonth)?.[0] || '');
 
-  const [isMonth, setMonth] = useState(monthList[0]);
-  const [isDay, setDay] = useState(dayMap.get(isMonth)?.[0] || '');
+  const [isMonth, setMonth] = useState(dayList[dayList.length - 1].month);
+  const [isDay, setDay] = useState(dayList[dayList.length - 1].day || '');
 
-  const handleMonthChange = (month: string) => {
-    setMonth(month);
-    const days = dayMap.get(month);
-    if (days && days.length > 0) {
-      setDay(days[0]);
-    }
-  };
+  // const handleMonthChange = (month: string) => {
+  //   setMonth(month);
+  //   const days = dayMap.get(month);
+  //   if (days && days.length > 0) {
+  //     setDay(days[0]);
+  //   }
+  // };
 
   const handleDayChange = (day: string) => {
     setDay(day);
@@ -139,17 +121,15 @@ const Stadium = () => {
   const selectedFieldId = selectedField?.fieldId;
 
   // 날짜 포맷팅
-  const selectedMonth = parseInt(isMonth.replace('월', ''));
-  const selectedDay = parseInt(isDay.replace('일', ''));
+  // const selectedMonth = parseInt(isMonth.replace('월', ''));
+  // const selectedDay = parseInt(isDay.replace('일', ''));
 
   const selectedDate = new Date(
     today.getFullYear(),
-    selectedMonth - 1,
-    selectedDay + 1,
+    parseInt(isMonth) - 1,
+    parseInt(isDay) + 1,
   );
   const formattedDate = selectedDate.toISOString().split('T')[0];
-
-  // console.log(formattedDate);
 
   // 운영시간 리스트
   const [isStadiumHourList, setStadiumHourList] = useState<StadiumHoursData[]>(
@@ -159,47 +139,40 @@ const Stadium = () => {
   // 운영 시간 리스트 가져오기
   useEffect(() => {
     if (selectedFieldId && formattedDate) {
-      const data = [
-        {
-          scheduleId: 1,
-          hours: '10:00 ~ 12:00',
-          videoCount: 12,
-        },
-        {
-          scheduleId: 2,
-          hours: '12:00 ~ 14:00',
-          videoCount: 15,
-        },
-        {
-          scheduleId: 3,
-          hours: '12:00 ~ 14:00',
-          videoCount: 15,
-        },
-        {
-          scheduleId: 4,
-          hours: '12:00 ~ 14:00',
-          videoCount: 15,
-        },
-      ];
-
-      setStadiumHourList(data);
-
-      if (data && data.length >= 1) {
-        setScheduleId(data[0].scheduleId);
-      }
-
-      // const fetchData = async () => {
-      //   const data = await getStadiumDHours(selectedFieldId, formattedDate);
-
-      //   setStadiumHourList(data);
-
-      //   if (data && data.length >= 1) {
-      //     setScheduleId(data[0].scheduleId);
-      //   }
-      // };
-      // fetchData();
-
-      console.log('hi');
+      // const data = [
+      //   {
+      //     scheduleId: 1,
+      //     hours: '10:00 ~ 12:00',
+      //     videoCount: 12,
+      //   },
+      //   {
+      //     scheduleId: 2,
+      //     hours: '12:00 ~ 14:00',
+      //     videoCount: 15,
+      //   },
+      //   {
+      //     scheduleId: 3,
+      //     hours: '12:00 ~ 14:00',
+      //     videoCount: 15,
+      //   },
+      //   {
+      //     scheduleId: 4,
+      //     hours: '12:00 ~ 14:00',
+      //     videoCount: 15,
+      //   },
+      // ];
+      // setStadiumHourList(data);
+      // if (data && data.length >= 1) {
+      //   setScheduleId(data[0].scheduleId);
+      // }
+      const fetchData = async () => {
+        const data = await getStadiumDHours(selectedFieldId, formattedDate);
+        setStadiumHourList(data);
+        if (data && data.length >= 1) {
+          setScheduleId(data[0].scheduleId);
+        }
+      };
+      fetchData();
     }
   }, [selectedFieldId, formattedDate]);
 
@@ -244,14 +217,15 @@ const Stadium = () => {
         stadiumDetail.images &&
         stadiumDetail.images.length > 0 ? (
           <>
-            <div className={styles.banner}>
+            {/* <div className={styles.banner}>
               <img
                 src={stadiumDetail.images[0].image}
                 alt=""
                 width="450px"
                 height="300px"
               />
-            </div>
+            </div> */}
+            <StadiumImages images={stadiumDetail.images}></StadiumImages>
 
             <div className={styles.introBox}>
               <div className={styles.title}>
@@ -300,7 +274,7 @@ const Stadium = () => {
                     {stadiumDetail.isOutside ? '실외' : '실내'}
                   </div>
                   <div className={styles.isParking}>
-                    {stadiumDetail.isOutside ? '주차 가능' : '주차 불가능'}
+                    {stadiumDetail.isParking ? '주차 가능' : '주차 불가능'}
                   </div>
                 </div>
 
@@ -357,7 +331,7 @@ const Stadium = () => {
             </div>
 
             <div className={styles.selectBox}>
-              <div className={styles.select}>
+              {/* <div className={styles.select}>
                 <SelectBtn
                   selectList={fieldList}
                   selectedOption={isField || ''}
@@ -376,7 +350,7 @@ const Stadium = () => {
                   onOptionChange={handleDayChange}
                   type="day"
                 />
-              </div>
+              </div> */}
 
               <div className={styles.selectGroup}>
                 <div className={styles.options}>
@@ -389,19 +363,7 @@ const Stadium = () => {
                     onOptionChange={handleDayChange}
                   ></Calendar>
                 </div>
-                <div className={styles.options}>
-                  <div className={styles.subTitle}>
-                    <img src={clockIcon} alt="" width="20px" height="20px" />
-                    <div>시간</div>
-                  </div>
 
-                  <div className={styles.test}>
-                    <StadiumHours
-                      stadiumHourList={isStadiumHourList}
-                      chooseSchedule={chooseSchedule}
-                    />
-                  </div>
-                </div>
                 <div className={styles.options}>
                   <div className={styles.subTitle}>
                     <img src={locationIcon} alt="" width="20px" height="20px" />
@@ -414,6 +376,26 @@ const Stadium = () => {
                       onOptionChange={handleFieldChange}
                       type="field"
                     />
+                  </div>
+                </div>
+
+                <div className={styles.options}>
+                  <div className={styles.subTitle}>
+                    <img src={clockIcon} alt="" width="20px" height="20px" />
+                    <div>시간</div>
+                  </div>
+
+                  <div>
+                    {isStadiumHourList && isStadiumHourList.length > 0 ? (
+                      <StadiumHours
+                        stadiumHourList={isStadiumHourList}
+                        chooseSchedule={chooseSchedule}
+                      />
+                    ) : (
+                      <div id={styles.noHours}>
+                        해당하는 조건의 결과가 없습니다.
+                      </div>
+                    )}
                   </div>
                 </div>
               </div>
