@@ -381,20 +381,18 @@ const Video = () => {
             <div className={styles.group}>
               <div className={styles.title}>{videoDetail.name}</div>
               <ul className={styles.icons}>
-                <li className={styles.heart}>
-                  <Heart
-                    id={videoId}
-                    isLiked={videoDetail.isLiked}
-                    likeCount={videoDetail.likeCount}
-                    onToggleLike={handleToggleLike}
-                  />
-                </li>
-                <li>
-                  <BookMark
-                    stored={videoDetail.isStored}
-                    onToggleStore={handleToggleStore}
-                  ></BookMark>
-                </li>
+                <Heart
+                  id={videoId}
+                  isLiked={videoDetail.isLiked}
+                  likeCount={videoDetail.likeCount}
+                  onToggleLike={handleToggleLike}
+                />
+
+                <BookMark
+                  stored={videoDetail.isStored}
+                  onToggleStore={handleToggleStore}
+                ></BookMark>
+
                 <li onClick={handelOpenDownloadModal}>
                   <img src={download} alt="" width="20px" height="20px"></img>
                   <p>다운로드</p>

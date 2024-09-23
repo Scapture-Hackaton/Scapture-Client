@@ -223,15 +223,14 @@ const Comment: React.FC<CommentProps> = ({ videoId }) => {
               <div className={styles.comment}>
                 <p>{comment.name}</p>
                 <div>{comment.content}</div>
-                <div className={styles.heartGroup}>
-                  <Heart
-                    id={comment.commentId}
-                    isLiked={comment.isLiked}
-                    likeCount={comment.likeCount}
-                    type="comment"
-                    onToggleLike={handleToggleLike}
-                  />
-                </div>
+
+                <Heart
+                  id={comment.commentId}
+                  isLiked={comment.isLiked}
+                  likeCount={comment.likeCount}
+                  type="comment"
+                  onToggleLike={handleToggleLike}
+                />
               </div>
               <div>
                 <img src={moreIcon} alt="" width="16px" height="16px" />

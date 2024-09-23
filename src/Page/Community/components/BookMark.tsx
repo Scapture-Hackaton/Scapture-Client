@@ -16,27 +16,20 @@ const BookMark: React.FC<BookMarkProps> = ({ stored, onToggleStore }) => {
   }, [stored]);
 
   return (
-    <>
+    <li onClick={() => onToggleStore(isStored)}>
       {isStored ? (
         <img
           src={storedBookmark}
           alt="liked"
-          onClick={() => onToggleStore(isStored)}
           className={styles.onBookmark}
           width="20px"
           height="20px"
         />
       ) : (
-        <img
-          src={bookMark}
-          onClick={() => onToggleStore(isStored)}
-          alt="not liked"
-          width="20px"
-          height="20px"
-        />
+        <img src={bookMark} alt="not liked" width="20px" height="20px" />
       )}
       <p>저장</p>
-    </>
+    </li>
   );
 };
 

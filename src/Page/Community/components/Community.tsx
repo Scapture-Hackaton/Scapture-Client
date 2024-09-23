@@ -334,20 +334,18 @@ const Community = () => {
               <div className={styles.group}>
                 <div className={styles.title}>{videoDetailData.name}</div>
                 <ul className={styles.icons}>
-                  <li className={styles.heart}>
-                    <VideoHeart
-                      videoId={isVideoId}
-                      isLiked={videoDetailData.isLiked}
-                      likeCount={videoDetailData.likeCount}
-                      onToggleLike={handleToggleLike}
-                    />
-                  </li>
-                  <li>
-                    <BookMark
-                      stored={videoDetailData.isStored}
-                      onToggleStore={handleToggleStore}
-                    ></BookMark>
-                  </li>
+                  <VideoHeart
+                    videoId={isVideoId}
+                    isLiked={videoDetailData.isLiked}
+                    likeCount={videoDetailData.likeCount}
+                    onToggleLike={handleToggleLike}
+                  />
+
+                  <BookMark
+                    stored={videoDetailData.isStored}
+                    onToggleStore={handleToggleStore}
+                  ></BookMark>
+
                   <li onClick={handelOpenDownloadModal}>
                     <img src={download} alt="" width="20px" height="20px"></img>
                     <p>다운로드</p>
