@@ -79,7 +79,8 @@ const Stadium = () => {
   // const [isMonth, setMonth] = useState(monthList[0]);
   // const [isDay, setDay] = useState(dayMap.get(isMonth)?.[0] || '');
 
-  const [isMonth, setMonth] = useState(dayList[dayList.length - 1].month);
+  // const [isMonth, setMonth] = useState(dayList[dayList.length - 1].month);
+  const isMonth = dayList[dayList.length - 1].month;
   const [isDay, setDay] = useState(dayList[dayList.length - 1].day || '');
 
   // const handleMonthChange = (month: string) => {
