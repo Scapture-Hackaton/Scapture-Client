@@ -14,8 +14,6 @@ export interface PopularVideos {
   views: number;
   date: string;
   likeCount: number;
-  stadium: {
-    name: string;
-    image: string;
-  };
+  stadiumName: string;
+  fieldName: string;
 }

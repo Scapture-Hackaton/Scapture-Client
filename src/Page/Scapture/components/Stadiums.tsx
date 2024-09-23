@@ -51,7 +51,7 @@ const Stadiums: React.FC<StadiumsProps> = ({ stadiumData }) => {
                       {stadium.isOutside ? '실외' : '실내'}
                     </div>
                     <div className={styles.isParking}>
-                      {stadium.isOutside ? '주차 가능' : '주차 불가능'}
+                      {stadium.isParking ? '주차 가능' : '주차 불가능'}
                     </div>
                   </div>
 

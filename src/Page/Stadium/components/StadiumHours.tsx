@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import styles from '../scss/stadium.module.scss';
 import { StadiumHoursData } from '../../../apis/dto/scapture.dto';
 
@@ -32,10 +32,6 @@ const StadiumHours: React.FC<StadiumHoursProps> = ({
     setSelectedShcedule(index); // 클릭된 요소의 index를 상태로 설정
     chooseSchedule(index);
   };
-
-  // useEffect(() => {
-  //   onOptionChange(selectedSchedule.toString());
-  // }, [selectedSchedule]);
 
   return (
     <>

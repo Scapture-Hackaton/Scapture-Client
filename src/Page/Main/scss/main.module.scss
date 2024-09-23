@@ -97,6 +97,19 @@
         object-fit: cover;
       }
 
+      .gradientBg {
+        opacity: 0;
+        transform: translateY(80px); /* 아래로 50px 이동한 상태 */
+        transition:
+          opacity 0.2s ease-out,
+          transform 0.2s ease-out; /* 애니메이션 효과 */
+
+        &.show {
+          opacity: 1;
+          transform: translateY(0); /* 원래 위치로 */
+        }
+      }
+
       .mockUpDes {
         position: absolute;
         z-index: 1;
@@ -114,6 +127,12 @@
           span {
             color: var(--font-color-lemon-400);
           }
+
+          // &.show {
+          //   span {
+          //     color: var(--font-color-lemon-400); /* 바뀐 색상 */
+          //   }
+          // }
         }
       }
 
@@ -133,6 +152,20 @@
 
         width: 337.989px;
         height: 739.67px;
+      }
+
+      .iphoneMockup,
+      .iphoneScreen {
+        opacity: 0;
+        transform: translateY(60px); /* 아래로 50px 이동한 상태 */
+        transition:
+          opacity 1.5s ease-out,
+          transform 1.5s ease-out; /* 애니메이션 효과 */
+
+        &.show {
+          opacity: 1;
+          transform: translateY(0); /* 원래 위치로 */
+        }
       }
 
       @media (max-width: 450px) {
@@ -215,8 +248,6 @@
         // justify-content: center;
         // align-items: center;
 
-        min-height: 148px;
-
         border-radius: 0.625rem;
 
         cursor: pointer;
@@ -236,8 +267,8 @@
             margin: auto 0;
 
             img {
-              width: 180px;
-              height: 140px;
+              width: 170px;
+              height: 125px;
               object-fit: cover;
 
               border-radius: 10px;
@@ -306,7 +337,7 @@
                 font-size: var(--font-size-xm);
                 font-weight: 700;
 
-                margin-bottom: 1.4rem;
+                margin-bottom: 1.2rem;
 
                 text-overflow: ellipsis;
                 overflow: hidden;
@@ -352,6 +383,176 @@
             }
           }
         }
+      }
+
+      .blurInfo {
+        position: absolute;
+
+        width: 280px;
+        height: 110px;
+
+        z-index: -1;
+
+        left: 50%;
+        transform: translateX(-50%);
+
+        margin: 1rem auto 0 auto;
+
+        background-color: var(--color-grayscale-card-900);
+
+        font-size: var(--font-size-ss);
+
+        display: flex;
+        // justify-content: center;
+        // align-items: center;
+
+        // min-height: 148px;
+
+        border-radius: 0.625rem;
+
+        cursor: pointer;
+
+        padding: 0.7rem;
+        // margin-bottom: 1rem;
+
+        > .stadium {
+          // width: 100%;
+          display: flex;
+
+          overflow: hidden;
+
+          .stadiumImage {
+            border-radius: 10px;
+
+            margin: auto 0;
+
+            img {
+              width: 110px;
+              height: 125px;
+              object-fit: cover;
+
+              border-radius: 10px;
+            }
+          }
+
+          .stadiumInfo {
+            // width: 100%;
+
+            margin-left: 1rem;
+
+            .topInfo {
+              display: flex;
+              justify-content: start;
+              align-items: center;
+
+              margin-bottom: 0.3rem;
+
+              .isOutside {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+
+                width: 25px;
+                height: 15px;
+
+                background: var(--color-ect-info);
+
+                border-radius: 4px;
+
+                color: var(--font-color-gray-700);
+                font-weight: 500;
+                font-size: var(--font-size-ss);
+
+                margin-right: 0.4rem;
+              }
+
+              .isParking {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+
+                width: 43px;
+                height: 15px;
+
+                background: var(--color-ect-accent);
+
+                border-radius: 4px;
+
+                color: var(--white-color);
+                font-weight: 500;
+                font-size: var(--font-size-ss);
+              }
+            }
+
+            .stadium {
+              width: 100%;
+              max-width: 194px;
+
+              display: flex;
+              flex-direction: column;
+
+              #name {
+                font-size: var(--font-size-xs);
+                font-weight: 700;
+
+                margin-bottom: 1.2rem;
+
+                text-overflow: ellipsis;
+                overflow: hidden;
+                white-space: nowrap;
+              }
+
+              #info {
+                width: 100%;
+
+                min-height: 4.375rem;
+
+                .line {
+                  display: flex;
+                  justify-content: start;
+                  align-items: center;
+
+                  // margin-top: rem;
+
+                  .info {
+                    color: var(--font-color-gray-sub);
+                    font-weight: 500;
+                    font-size: var(--font-size-ss);
+                    margin-left: 0.3rem;
+
+                    text-overflow: ellipsis;
+                    overflow: hidden;
+                    white-space: nowrap;
+                  }
+                }
+              }
+
+              // @media (max-width: 420px) {
+              //   width: 160px;
+              // }
+
+              // @media (max-width: 400px) {
+              //   width: 150px;
+              // }
+
+              // @media (max-width: 380px) {
+              //   width: 60%;
+              // }
+            }
+          }
+        }
+      }
+
+      .blurInfo1 {
+        @extend .blurInfo;
+
+        top: -90px;
+      }
+
+      .blurInfo2 {
+        @extend .blurInfo;
+
+        top: 25px;
       }
 
       .check {
@@ -483,6 +684,8 @@
               .mainImg {
                 width: 100%;
                 height: 100%;
+
+                border-radius: 8px;
 
                 object-fit: cover;
               }
@@ -643,7 +846,11 @@
           line-height: 40px;
         }
 
-        button {
+        #button {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+
           width: 100%;
           height: 46px;
 
@@ -653,6 +860,7 @@
 
           background-color: var(--font-color-gray-main);
 
+          color: var(--color-grayscale-input-800);
           font-weight: 700;
           font-size: var(--font-size-xm);
         }

@@ -26,6 +26,8 @@ import { useQuery } from '@tanstack/react-query';
 import { getMainStadium } from '../../../apis/api/main.api';
 import { useNavigate } from 'react-router-dom';
 import AllianceStadium from './AllianceStadium';
+import { useEffect, useRef } from 'react';
+import BlurInfoBox from './BlurInfoBox';
 
 const Main = () => {
   const { data: mainData, isSuccess: isMainDataSuccess } = useQuery({
@@ -33,12 +35,51 @@ const Main = () => {
     queryFn: () => getMainStadium(),
   });
 
-  console.log(mainData);
-
   const navigate = useNavigate();
 
   const toCommunityPage = () => {
     navigate('/community');
+  };
+
+  const iphoneMockupRef = useRef<HTMLImageElement>(null);
+  const iphoneScreenRef = useRef<HTMLImageElement>(null);
+
+  const backgrdoundRef = useRef<HTMLImageElement>(null);
+
+  // const mockUpDesTextRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add(styles.show);
+          }
+        });
+      },
+      { threshold: 0.7 }, // 요소가 50% 보일 때 트리거
+    );
+
+    if (iphoneMockupRef.current) {
+      observer.observe(iphoneMockupRef.current);
+    }
+    if (iphoneScreenRef.current) {
+      observer.observe(iphoneScreenRef.current);
+    }
+
+    if (backgrdoundRef.current) {
+      observer.observe(backgrdoundRef.current);
+    }
+
+    return () => {
+      if (iphoneMockupRef.current) observer.unobserve(iphoneMockupRef.current);
+      if (iphoneScreenRef.current) observer.unobserve(iphoneScreenRef.current);
+      if (backgrdoundRef.current) observer.unobserve(backgrdoundRef.current);
+    };
+  }, []);
+
+  const toStadiumPage = (stadiumId: string) => {
+    navigate('/stadium', { state: { stadiumId } });
   };
 
   return (
@@ -81,6 +122,7 @@ const Main = () => {
 
         <div className={styles.mockUp}>
           <img
+            ref={backgrdoundRef}
             src={gradientBg}
             className={styles.gradientBg}
             alt=""
@@ -104,12 +146,14 @@ const Main = () => {
             </div>
           </div>
           <img
+            ref={iphoneMockupRef}
             src={iphoneMockup}
             className={styles.iphoneMockup}
             loading="lazy"
             alt=""
           />
           <img
+            ref={iphoneScreenRef}
             src={Vector}
             className={styles.iphoneScreen}
             alt=""
@@ -129,58 +173,70 @@ const Main = () => {
               />
               <p>내가 원하는 구장에서 운동하고</p>
             </div>
+            {mainData && mainData.randomStadiums ? (
+              <BlurInfoBox mainData={mainData}></BlurInfoBox>
+            ) : (
+              <></>
+            )}
           </div>
 
-          {mainData != null ? (
+          {mainData && mainData.randomStadiums ? (
             <div
               className={styles.oneInfo}
-              // onClick={() => toStadiumPage(stadium.stadiumId)}
+              onClick={() =>
+                toStadiumPage(mainData.randomStadiums[0].stadiumId)
+              }
             >
               <div className={styles.stadium}>
                 <div className={styles.stadiumImage}>
                   <img
-                    src={mainData.popular.image}
+                    src={mainData.randomStadiums[0].image}
                     alt=""
-                    width="180px"
-                    height="140px"
+                    width="160px"
+                    height="125px"
                   />
                 </div>
                 <div className={styles.stadiumInfo}>
                   <div className={styles.stadium}>
                     <div className={styles.topInfo}>
                       <div className={styles.isOutside}>
-                        {/* {stadium.isOutside ? '실외' : '실내'} */}
-                        실외
+                        {mainData.randomStadiums[0].isOutside ? '실외' : '실내'}
                       </div>
                       <div className={styles.isParking}>
-                        {/* {stadium.isOutside ? '주차 가능' : '주차 불가능'} */}
-                        주차 가능
+                        {mainData.randomStadiums[0].isParking
+                          ? '주차 가능'
+                          : '주차 불가능'}
                       </div>
                     </div>
 
                     <span id={styles.name}>
-                      {/* {stadium.name} */}
-                      한성대 풋살장
+                      {mainData.randomStadiums[0].name}
                     </span>
 
                     <div id={styles.info}>
                       <div className={styles.line}>
                         <img src={location} alt="" width="16px" height="16px" />
-                        {/* <div className={styles.info}>{stadium.location}</div> */}
-                        <div className={styles.info}>한성대학교</div>
+                        <div className={styles.info}>
+                          {mainData.randomStadiums[0].location}
+                        </div>
+                        {/* <div className={styles.info}>한성대학교</div> */}
                       </div>
 
                       <div className={styles.line}>
                         <img src={clock} alt="" width="16px" height="16px" />
-                        {/* <span className={styles.info}>{stadium.hours}</span> */}
-                        <span className={styles.info}>10:00~24:00</span>
+                        <span className={styles.info}>
+                          {mainData.randomStadiums[0].hours}
+                        </span>
+                        {/* <span className={styles.info}>10:00~24:00</span> */}
                       </div>
 
                       <div className={styles.line}>
                         <img src={parking} alt="" width="16px" height="16px" />
 
-                        {/* <span className={styles.info}>{stadium.parking}</span> */}
-                        <span className={styles.info}>유료 주차</span>
+                        <span className={styles.info}>
+                          {mainData.randomStadiums[0].parking}
+                        </span>
+                        {/* <span className={styles.info}>유료 주차</span> */}
                       </div>
                     </div>
                   </div>
@@ -296,7 +352,7 @@ const Main = () => {
                       {mainData.popular.stadiumName}
                     </div>
                     <div className={styles.videoDetail}>
-                      <p>구장 주소 입력 필드</p>
+                      <p>{mainData.popular.stadiumName}</p>
                       <p>
                         {mainData.popular.date} | {mainData.popular.hours}
                       </p>
@@ -357,7 +413,7 @@ const Main = () => {
             <div className={styles.inquireSubTxt}>
               스캡쳐는 다양한 형태의 협업을 기대하고 있습니다.
             </div>
-            <button>제휴 문의하기</button>
+            <div id={styles.button}>제휴 문의하기</div>
           </div>
         </div>
 
