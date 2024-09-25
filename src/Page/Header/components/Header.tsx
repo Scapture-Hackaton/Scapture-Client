@@ -9,6 +9,7 @@ import { LoginModal } from './LoginModal';
 
 import ScaptureLogo from '../image/scaptureLogo.svg';
 import menuTopIcon from '../image/menuTopIcon.svg';
+import noProfile from '../image/noProfile.svg';
 
 import { useEffect, useRef, useState } from 'react';
 import useAuth from '../Hook/useAuth';
@@ -35,7 +36,7 @@ const Header: React.FC<HeaderProps> = ({ index }) => {
   //localStorage
   const loginType = localStorage.getItem('LoginType');
   const TOKEN = localStorage.getItem('TOKEN');
-  const name = localStorage.getItem('name');
+  // const name = localStorage.getItem('name');
 
   //DOM
   const modalRef = useRef<HTMLDialogElement>(null);
@@ -156,14 +157,24 @@ const Header: React.FC<HeaderProps> = ({ index }) => {
 
         <div id={styles.login}>
           {isLoginState && isProfile.name != 'undefined' ? (
-            <button
+            // <button
+            //   onClick={() => {
+            //     navigate('/mypage');
+            //   }}
+            // >
+            //   {/* {isProfile.name}님 */}
+            //   {name}님
+            // </button>
+
+            <img
+              src={isProfile.image ? isProfile.image : noProfile}
+              alt=""
+              width="29px"
+              height="29px"
               onClick={() => {
                 navigate('/mypage');
               }}
-            >
-              {/* {isProfile.name}님 */}
-              {name}님
-            </button>
+            />
           ) : (
             <button onClick={openLoginModal}>로그인</button>
           )}

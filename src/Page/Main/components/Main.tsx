@@ -21,6 +21,7 @@ import clock from '../../../assets/Icon/Clock.svg';
 import parking from '../../../assets/Icon/parking.svg';
 
 import playBtnIcon from '../image/playBtnIcon.svg';
+import stadiumEx from '../image/stadiumEx.jpeg';
 
 import { useQuery } from '@tanstack/react-query';
 import { getMainStadium } from '../../../apis/api/main.api';
@@ -173,24 +174,19 @@ const Main = () => {
               />
               <p>내가 원하는 구장에서 운동하고</p>
             </div>
-            {mainData && mainData.randomStadiums ? (
-              <BlurInfoBox mainData={mainData}></BlurInfoBox>
-            ) : (
-              <></>
-            )}
+
+            <BlurInfoBox></BlurInfoBox>
           </div>
 
-          {mainData && mainData.randomStadiums ? (
+          {mainData && mainData.randomStadium ? (
             <div
               className={styles.oneInfo}
-              onClick={() =>
-                toStadiumPage(mainData.randomStadiums[0].stadiumId)
-              }
+              onClick={() => toStadiumPage(mainData.randomStadium.stadiumId)}
             >
               <div className={styles.stadium}>
                 <div className={styles.stadiumImage}>
                   <img
-                    src={mainData.randomStadiums[0].image}
+                    src={mainData.randomStadium.image}
                     alt=""
                     width="160px"
                     height="125px"
@@ -200,24 +196,22 @@ const Main = () => {
                   <div className={styles.stadium}>
                     <div className={styles.topInfo}>
                       <div className={styles.isOutside}>
-                        {mainData.randomStadiums[0].isOutside ? '실외' : '실내'}
+                        {mainData.randomStadium.isOutside ? '실외' : '실내'}
                       </div>
                       <div className={styles.isParking}>
-                        {mainData.randomStadiums[0].isParking
+                        {mainData.randomStadium.isParking
                           ? '주차 가능'
                           : '주차 불가능'}
                       </div>
                     </div>
 
-                    <span id={styles.name}>
-                      {mainData.randomStadiums[0].name}
-                    </span>
+                    <span id={styles.name}>{mainData.randomStadium.name}</span>
 
                     <div id={styles.info}>
                       <div className={styles.line}>
                         <img src={location} alt="" width="16px" height="16px" />
                         <div className={styles.info}>
-                          {mainData.randomStadiums[0].location}
+                          {mainData.randomStadium.location}
                         </div>
                         {/* <div className={styles.info}>한성대학교</div> */}
                       </div>
@@ -225,7 +219,7 @@ const Main = () => {
                       <div className={styles.line}>
                         <img src={clock} alt="" width="16px" height="16px" />
                         <span className={styles.info}>
-                          {mainData.randomStadiums[0].hours}
+                          {mainData.randomStadium.hours}
                         </span>
                         {/* <span className={styles.info}>10:00~24:00</span> */}
                       </div>
@@ -234,7 +228,7 @@ const Main = () => {
                         <img src={parking} alt="" width="16px" height="16px" />
 
                         <span className={styles.info}>
-                          {mainData.randomStadiums[0].parking}
+                          {mainData.randomStadium.parking}
                         </span>
                         {/* <span className={styles.info}>유료 주차</span> */}
                       </div>
@@ -250,7 +244,7 @@ const Main = () => {
             >
               <div className={styles.stadium}>
                 <div className={styles.stadiumImage}>
-                  <img src={location} alt="" width="180px" height="140px" />
+                  <img src={stadiumEx} alt="" width="180px" height="140px" />
                 </div>
                 <div className={styles.stadiumInfo}>
                   <div className={styles.stadium}>
@@ -322,7 +316,7 @@ const Main = () => {
                 loading="lazy"
                 alt=""
               />
-              {mainData != null ? (
+              {mainData != null && mainData.popular ? (
                 <div className={styles.group}>
                   <div
                     className={styles.testVideo}
@@ -416,100 +410,6 @@ const Main = () => {
             <div id={styles.button}>제휴 문의하기</div>
           </div>
         </div>
-
-        {/* <div className={styles.container}>
-          <div className={styles.intro}>
-            <div>
-              <div className={styles.introText}>
-                <span>몸만 와서 운동만 하세요!</span>
-                <div>
-                  <span id={styles.yellow}> 촬영, 편집, 업로드</span>
-                  <span>는</span>
-                </div>
-                <span>SCAPTURE가 해드릴게요!</span>
-              </div>
-              <div className={styles.object}>
-                <img src={IntroImage} alt="introImage" />
-              </div>
-            </div>
-          </div>
-          <div className={styles.stadium}>
-            <div className={styles.group}>
-              <div id={styles.checkbox}>
-                <img src={CheckBox} alt="checkbox-image" />
-              </div>
-              <div className={styles.about}>
-                <span>내가 원하는 구장에서 운동하고</span>
-                <span>언제 어디서든 운동 영상을 손쉽게 확인해보고</span>
-                <span>다운로드하세요.</span>
-              </div>
-            </div>
-            <div className={styles.images}>
-              <img src={soccer} alt="stadium-image" />
-            </div>
-          </div>
-
-          {mainData && isMainDataSuccess ? (
-            <>
-              <div className={styles.video} onClick={toStadiumPage}>
-                <span id={styles.content}>인기 동영상</span>
-                <div className={styles.imageContainer}>
-                  <img
-                    src={popularVideoBack}
-                    alt=""
-                    className={styles.backgroundImage}
-                  />
-                  <img
-                    src={mainData.popular.image}
-                    alt=""
-                    className={styles.overlayImage}
-                  />
-                </div>
-                <div id={styles.group}>
-                  <div className={styles.name}>
-                    <span id={styles.title}>경기장 이름</span>
-                    <span id={styles.date}>경기 진행 일시</span>
-                  </div>
-                  <div className={styles.detail}>
-                    <span id={styles.title}>
-                      {mainData.popular.stadiumName}
-                    </span>
-                    <span id={styles.date}>
-                      {mainData.popular.date} / {mainData.popular.hours}
-                    </span>
-                  </div>
-                </div>
-              </div>
-
-              <div className={styles.info}>
-                <div className={styles.group}>
-                  <div id={styles.effect}>
-                    <div>
-                      <img src={EffectLeft} alt="" />
-                    </div>
-                    <span>제휴 구장</span>
-                    <div>
-                      <img src={EffectRight} alt="" />
-                    </div>
-                  </div>
-                  <div className={styles.images}>
-                    <AllianceStadium
-                      stadiumList={mainData.stadiums}
-                    ></AllianceStadium>
-                    {/* <div>
-                      <img src={InfoImageA} alt="" />
-                      <div>장충테스장</div>
-                    </div>
-                    <div>
-                      <img src={InfoImageB} alt="" />
-                      <div>수락산스포츠타운야구장</div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </>
-          ) : null}
-        </div> */}
       </div>
       <Footer />
     </div>

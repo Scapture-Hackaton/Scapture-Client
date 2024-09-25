@@ -418,7 +418,11 @@
                   justify-content: start;
 
                   .scheduleGroup {
+                    margin-right: 1rem;
                     padding: 0.5rem;
+
+                    border: 3px solid var(--font-color-gray-700);
+                    border-radius: 6px;
 
                     cursor: pointer;
 

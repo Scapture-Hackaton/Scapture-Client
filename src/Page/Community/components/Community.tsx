@@ -127,7 +127,7 @@ const Community = () => {
     mutationFn: async (videoId: number) => {
       const res = await likesVideo(videoId);
       if (res.status == 400 || res.status == 403) {
-        modalRef.current?.showModal();
+        modalNotice(loginModalRef);
       }
     },
     onSuccess: () => {
@@ -207,12 +207,21 @@ const Community = () => {
   //   }
   // };
 
+  // 북마크를 눌렀을 때 처리
+  const handleToggleStore = (isStore: boolean) => {
+    if (videoDetailData && !isStore) {
+      toggleStore(isVideoId);
+    } else if (videoDetailData && isStore) {
+      toggleUnStore(isVideoId);
+    }
+  };
+
   // useMutation 훅을 사용하여 영상 저장/해제 처리
   const { mutate: toggleStore } = useMutation({
     mutationFn: async (videoId: number) => {
       const res = await storeVideo(videoId);
       if (res.status == 400 || res.status == 403) {
-        modalNotice(modalRef);
+        modalNotice(loginModalRef);
       }
     },
     onSuccess: () => {
@@ -223,6 +232,24 @@ const Community = () => {
     },
     onError: error => {
       console.error('영상 저장 중 오류가 발생했습니다.', error);
+    },
+  });
+
+  const { mutate: toggleUnStore } = useMutation({
+    mutationFn: async (videoId: number) => {
+      const res = await unStoreVideo(videoId);
+      if (res.status == 400 || res.status == 403) {
+        modalNotice(loginModalRef);
+      }
+    },
+    onSuccess: () => {
+      // 비디오 상세 정보 갱신
+      queryClient.invalidateQueries({
+        queryKey: ['videoDetail', isVideoId],
+      });
+    },
+    onError: error => {
+      console.error('영상 저장 해제 중 오류가 발생했습니다.', error);
     },
   });
 
@@ -265,33 +292,6 @@ const Community = () => {
       console.error('비디오 다운로드 중 오류가 발생했습니다.', error);
     } finally {
       modalRef.current?.close(); // 다운로드 완료 후 모달 닫기
-    }
-  };
-
-  const { mutate: toggleUnStore } = useMutation({
-    mutationFn: async (videoId: number) => {
-      const res = await unStoreVideo(videoId);
-      if (res.status == 400 || res.status == 403) {
-        modalNotice(modalRef);
-      }
-    },
-    onSuccess: () => {
-      // 비디오 상세 정보 갱신
-      queryClient.invalidateQueries({
-        queryKey: ['videoDetail', isVideoId],
-      });
-    },
-    onError: error => {
-      console.error('영상 저장 해제 중 오류가 발생했습니다.', error);
-    },
-  });
-
-  // 북마크를 눌렀을 때 처리
-  const handleToggleStore = (isStore: boolean) => {
-    if (videoDetailData && !isStore) {
-      toggleStore(isVideoId);
-    } else if (videoDetailData && isStore) {
-      toggleUnStore(isVideoId);
     }
   };
 

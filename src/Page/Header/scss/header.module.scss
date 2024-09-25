@@ -59,14 +59,25 @@
 
       margin-top: auto;
 
-      width: 54px;
+      // width: 54px;
 
+      margin-left: 1rem;
       margin-bottom: 0.1rem;
 
       button {
         font-size: var(--font-size-m);
         color: var(--main-color-blue-04);
         font-weight: 700;
+      }
+
+      img {
+        width: 29px;
+        height: 29px;
+
+        cursor: pointer;
+
+        border-radius: 50%;
+        object-fit: cover;
       }
     }
 

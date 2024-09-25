@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import styles from '../scss/community.module.scss';
-import fullHeart from '../../../assets/Icon/heartIcon.svg';
+import fullHeart from '../../../assets/Icon/pressedHeart.svg';
 import emptyHeart from '../../../assets/Icon/heartIcon.svg';
 import { likesComment, unLikeComment } from '../../../apis/api/community.api';
 import { LoginModal } from '../../Header/components/LoginModal';
