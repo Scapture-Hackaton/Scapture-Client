@@ -57,14 +57,22 @@ const Community = () => {
   const queryClient = useQueryClient();
 
   // 인기 동영상 가져오기
-  const {
-    data: popularVideoData = { data: [] },
-    isSuccess: isPopularVideoDataSuccess,
-  } = useQuery({
-    queryKey: ['popular_videos'],
-    queryFn: getPopularVideos,
-    initialData: { data: [] },
-  });
+  const { data: popularVideoData, isSuccess: isPopularVideoDataSuccess } =
+    useQuery({
+      queryKey: ['popular_videos'],
+      queryFn: getPopularVideos,
+    });
+
+  // 인기 동영상 요청이 완료된 후 첫 번째 비디오 ID 설정
+  useEffect(() => {
+    if (
+      isPopularVideoDataSuccess &&
+      popularVideoData &&
+      popularVideoData.length > 0
+    ) {
+      setVideoId(popularVideoData[0].videoId); // 첫 번째 비디오 ID 설정
+    }
+  }, [isPopularVideoDataSuccess, popularVideoData]);
 
   // 1위 동영상
   const firstVideoId =
@@ -77,42 +85,26 @@ const Community = () => {
   // 보여줄 영상의 디테일
   const { data: videoDetailData, isSuccess: isVideoDetailDataSuccess } =
     useQuery({
-      queryKey: ['video_detail', isVideoId],
+      queryKey: ['videoDetail', isVideoId],
       queryFn: () => getVideoDetail(isVideoId),
-      enabled: !!isVideoId, // isVideoId가 존재할 때만 쿼리 실행
-      initialData: null,
+      enabled: !!isVideoId, // isVideoId가 설정된 후에만 실행
     });
 
-  useEffect(() => {
-    if (
-      setVideoId != null &&
-      popularVideoData != null &&
-      popularVideoData.length > 0
-    ) {
-      setVideoId(popularVideoData[0].videoId);
-    }
-  }, [popularVideoData]);
+  // useEffect(() => {
+  //   if (
+  //     isVideoId != null &&
+  //     popularVideoData != null &&
+  //     popularVideoData.length > 0
+  //   ) {
+  //     setVideoId(popularVideoData[0].videoId);
+  //   }
+  // }, [popularVideoData]);
 
   useEffect(() => {
     if (isVideoId) {
-      queryClient.invalidateQueries({ queryKey: ['video_detail', isVideoId] });
+      queryClient.invalidateQueries({ queryKey: ['videoDetail', isVideoId] });
     }
-
-    // if (
-    //   setVideoId != null &&
-    //   popularVideoData != null &&
-    //   popularVideoData.length > 0
-    // ) {
-    //   setVideoId(popularVideoData[0].videoId);
-    // }
   }, [isVideoId, queryClient]);
-
-  // onToggleLike 함수 정의
-  // const handleToggleLike = (videoId: number) => {
-  //   // 성공적으로 API 호출 후 데이터 갱신
-  //   queryClient.invalidateQueries({ queryKey: ['popular_videos'] });
-  //   queryClient.invalidateQueries({ queryKey: ['video_detail', videoId] });
-  // };
 
   const handleToggleLike = (isLiked: boolean) => {
     if (videoDetailData && !isLiked) {
@@ -133,7 +125,7 @@ const Community = () => {
     onSuccess: () => {
       // 비디오 상세 정보 갱신
       queryClient.invalidateQueries({
-        queryKey: ['video_detail', isVideoId],
+        queryKey: ['videoDetail', isVideoId],
       });
     },
     onError: error => {
@@ -152,7 +144,7 @@ const Community = () => {
     onSuccess: () => {
       // 비디오 상세 정보 갱신
       queryClient.invalidateQueries({
-        queryKey: ['video_detail', isVideoId],
+        queryKey: ['videoDetail', isVideoId],
       });
     },
     onError: error => {
@@ -207,16 +199,6 @@ const Community = () => {
   //   }
   // };
 
-  // 북마크를 눌렀을 때 처리
-  const handleToggleStore = (isStore: boolean) => {
-    if (videoDetailData && !isStore) {
-      toggleStore(isVideoId);
-    } else if (videoDetailData && isStore) {
-      toggleUnStore(isVideoId);
-    }
-  };
-
-  // useMutation 훅을 사용하여 영상 저장/해제 처리
   const { mutate: toggleStore } = useMutation({
     mutationFn: async (videoId: number) => {
       const res = await storeVideo(videoId);
@@ -252,6 +234,15 @@ const Community = () => {
       console.error('영상 저장 해제 중 오류가 발생했습니다.', error);
     },
   });
+
+  // 북마크를 눌렀을 때 처리
+  const handleToggleStore = (isStore: boolean) => {
+    if (videoDetailData && !isStore) {
+      toggleStore(isVideoId);
+    } else if (videoDetailData && isStore) {
+      toggleUnStore(isVideoId);
+    }
+  };
 
   // 다운로드 기능
   const handleDownloadClick = async () => {
@@ -397,7 +388,7 @@ const Community = () => {
                     <img src={locationImg} alt="" width="20px" height="20px" />
 
                     <div className={styles.info}>
-                      {videoDetailData.stadium.location}
+                      {/* {videoDetailData.stadium.location} */}
                     </div>
                   </div>
 

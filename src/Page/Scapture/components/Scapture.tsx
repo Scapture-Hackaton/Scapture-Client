@@ -16,7 +16,7 @@ import { Stadium } from '../../../apis/dto/scapture.dto';
 import Stadiums from './Stadiums';
 
 const Scapture = () => {
-  const selectCity = ['서울시', '경기도'];
+  const selectCity = ['경기도'];
   // const selectState: Record<string, string[]> = {
   //   서울시: [
   //     // '성북구',
@@ -83,7 +83,6 @@ const Scapture = () => {
 
   const selectState: Record<string, string[]> = {
     // 서울시: ['성북구', '강서구', '영등포구', '강남구', '노원구', '동대문구'],
-    서울시: ['관악구'],
     경기도: ['이천시'],
   };
 

@@ -14,8 +14,9 @@ import iphoneMockup from '../image/iphoneMockup.svg';
 import videoTopGradient from '../image/videoTopGradient.svg';
 
 import inqyireLogo from '../image/inqyireLogo.svg';
+import mockupVideo from '../image/mockupVideo.mp4';
 
-import Vector from '../image/Vector.svg';
+// import Vector from '../image/Vector.svg';
 import location from '../../../assets/Icon/location.svg';
 import clock from '../../../assets/Icon/Clock.svg';
 import parking from '../../../assets/Icon/parking.svg';
@@ -43,7 +44,7 @@ const Main = () => {
   };
 
   const iphoneMockupRef = useRef<HTMLImageElement>(null);
-  const iphoneScreenRef = useRef<HTMLImageElement>(null);
+  const iphoneScreenRef = useRef<HTMLVideoElement>(null);
 
   const backgrdoundRef = useRef<HTMLImageElement>(null);
 
@@ -55,6 +56,13 @@ const Main = () => {
         entries.forEach(entry => {
           if (entry.isIntersecting) {
             entry.target.classList.add(styles.show);
+            if (iphoneScreenRef.current) {
+              iphoneScreenRef.current.play(); // 화면에 보일 때 재생
+            }
+          } else {
+            if (iphoneScreenRef.current) {
+              iphoneScreenRef.current.pause(); // 화면에서 벗어나면 일시 정지
+            }
           }
         });
       },
@@ -153,13 +161,21 @@ const Main = () => {
             loading="lazy"
             alt=""
           />
-          <img
+          {/* <img
             ref={iphoneScreenRef}
             src={Vector}
             className={styles.iphoneScreen}
             alt=""
             loading="lazy"
-          />
+          /> */}
+          <video
+            muted
+            preload="none"
+            ref={iphoneScreenRef}
+            className={styles.iphoneScreen}
+          >
+            <source src={mockupVideo} />
+          </video>
         </div>
 
         <div className={styles.explainContainer}>

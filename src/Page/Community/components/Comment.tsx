@@ -24,6 +24,9 @@ import {
 } from '../../../apis/config/login.config';
 import { LoginModal } from '../../Header/components/LoginModal';
 import modal from '../../Header/scss/login-modal.module.scss';
+import { userDataAtom } from '../../MyPage/Atom/atom';
+import { userData } from '../../MyPage/dto/atom.interface';
+import { useRecoilValue } from 'recoil';
 
 interface CommentProps {
   videoId: number;
@@ -180,6 +183,8 @@ const Comment: React.FC<CommentProps> = ({ videoId }) => {
     }
   }, [videoId]);
 
+  const isProfile = useRecoilValue<userData>(userDataAtom);
+
   return (
     <>
       <div className={styles.title}>
@@ -200,7 +205,11 @@ const Comment: React.FC<CommentProps> = ({ videoId }) => {
         <div ref={commentBoxRef} className={`${styles.commentBox} test`}>
           <div className={styles.inputContainer}>
             <div className={styles.myImg}>
-              <img src={testImg} alt="" width="32px" height="32px" />
+              {isProfile ? (
+                <img src={isProfile.image} alt="" width="32px" height="32px" />
+              ) : (
+                <img src={testImg} alt="" width="32px" height="32px" />
+              )}
             </div>
             <div
               className={`${styles.inputGroup} ${isComments == false && isCommentCnt == '00' ? styles.hidden : ''}`}
