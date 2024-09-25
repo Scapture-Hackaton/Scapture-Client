@@ -44,12 +44,6 @@ const AllianceStadium: React.FC<AllianceStadiumProps> = ({ stadiumList }) => {
               <div>{allianceStadium.name}</div>
             </div>
           ))}
-          <>
-            <div className={styles.item}>
-              <img alt="" loading="lazy" />
-              <div>테스트</div>
-            </div>
-          </>
         </Slider>
       ) : null}
     </>

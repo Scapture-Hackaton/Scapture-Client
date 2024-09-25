@@ -178,7 +178,7 @@ const Stadium = () => {
   }, [selectedFieldId, formattedDate]);
 
   // 운영 시간 아이디
-  const [isScheduleId, setScheduleId] = useState<number>();
+  const [isScheduleId, setScheduleId] = useState<number>(0);
   const chooseSchedule = (scheduleId: number) => {
     setScheduleId(scheduleId);
   };
@@ -195,13 +195,13 @@ const Stadium = () => {
   };
 
   // 옵션 버튼을 눌렀는지에 대한 상태
-  const [isOpenOption, setOpenOption] = useState(false);
+  // const [isOpenOption, setOpenOption] = useState(false);
 
   const optionRef = useRef<HTMLDivElement>(null);
 
-  const toggleDropdownOption = () => {
-    setOpenOption(!isOpenOption);
-  };
+  // const toggleDropdownOption = () => {
+  //   setOpenOption(!isOpenOption);
+  // };
 
   // 예약 페이지로 이동
   const navigate = useNavigate();
@@ -300,15 +300,12 @@ const Stadium = () => {
             </div>
           </>
         ) : null}
-        <div
-          className={`${styles.option}  ${isOpenOption ? styles.openOption : ''}`}
-          ref={optionRef}
-        >
+        <div className={styles.option} ref={optionRef}>
           <div className={styles.container}>
             <div className={styles.title}>
               <div id={styles.mainTitle}>
                 <div>내 영상 빠르게 찾기</div>
-                {isOpenOption ? (
+                {/* {isOpenOption ? (
                   <img
                     src={upArrow}
                     alt=""
@@ -324,7 +321,7 @@ const Stadium = () => {
                     height="20px"
                     onClick={toggleDropdownOption}
                   ></img>
-                )}
+                )} */}
               </div>
               <div id={styles.subTitle}>
                 내가 운동했던 조건을 선택하면 빠르게 내 영상을 찾을 수 있어요!
@@ -332,27 +329,6 @@ const Stadium = () => {
             </div>
 
             <div className={styles.selectBox}>
-              {/* <div className={styles.select}>
-                <SelectBtn
-                  selectList={fieldList}
-                  selectedOption={isField || ''}
-                  onOptionChange={handleFieldChange}
-                  type="field"
-                />
-                <SelectBtn
-                  selectList={monthList}
-                  selectedOption={isMonth}
-                  onOptionChange={handleMonthChange}
-                  type="month"
-                />
-                <SelectBtn
-                  selectList={dayMap.get(isMonth) || []}
-                  selectedOption={isDay}
-                  onOptionChange={handleDayChange}
-                  type="day"
-                />
-              </div> */}
-
               <div className={styles.selectGroup}>
                 <div className={styles.options}>
                   <div className={styles.subTitle}>
@@ -391,6 +367,7 @@ const Stadium = () => {
                       <StadiumHours
                         stadiumHourList={isStadiumHourList}
                         chooseSchedule={chooseSchedule}
+                        isScheduleId={isScheduleId}
                       />
                     ) : (
                       <div id={styles.noHours}>

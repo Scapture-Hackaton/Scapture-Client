@@ -46,6 +46,8 @@ import {
   NAVER_AUTH_URL,
 } from '../../../apis/config/login.config';
 import { LoginModal } from '../../Header/components/LoginModal';
+import { useRecoilValue } from 'recoil';
+import { loginData, loginDataAtom } from '../../Header/Atom/atom';
 
 const Video = () => {
   //Object
@@ -187,6 +189,8 @@ const Video = () => {
     modalNotice(modalRef);
   };
 
+  const isLoginState = useRecoilValue<loginData>(loginDataAtom);
+
   // 다운로드 기능
   const handleDownloadClick = async () => {
     try {
@@ -220,7 +224,11 @@ const Video = () => {
           modalNotice(loginModalRef);
         }
       } else {
-        modalNotice(loginModalRef);
+        if (isLoginState.state) {
+          alert('버내너가 부족합니다!');
+        } else {
+          modalNotice(loginModalRef);
+        }
       }
     } catch (error) {
       console.error('비디오 다운로드 중 오류가 발생했습니다.', error);

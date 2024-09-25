@@ -46,6 +46,11 @@
               animation: heartAnimation 0.5s ease;
             }
 
+            img {
+              width: 20px;
+              height: 20px;
+            }
+
             @keyframes heartAnimation {
               0% {
                 transform: scale(1);

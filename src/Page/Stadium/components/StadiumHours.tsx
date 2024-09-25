@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styles from '../scss/stadium.module.scss';
 import { StadiumHoursData } from '../../../apis/dto/scapture.dto';
 
@@ -9,11 +9,13 @@ import 'slick-carousel/slick/slick-theme.css';
 interface StadiumHoursProps {
   stadiumHourList: StadiumHoursData[];
   chooseSchedule: (scheduleId: number) => void;
+  isScheduleId: number;
 }
 
 const StadiumHours: React.FC<StadiumHoursProps> = ({
   stadiumHourList,
   chooseSchedule,
+  isScheduleId,
 }) => {
   const settings = {
     // dots: true,
@@ -25,11 +27,11 @@ const StadiumHours: React.FC<StadiumHoursProps> = ({
   };
 
   // 기본값을 리스트의 마지막 요소(오늘)로 설정
-  const [selectedSchedule, setSelectedShcedule] = useState<number | null>(null);
+  // const [selectedSchedule, setSelectedShcedule] = useState<number | null>(null);
 
   // // 날짜 선택 핸들러
   const handleScheduleClick = (index: number) => {
-    setSelectedShcedule(index); // 클릭된 요소의 index를 상태로 설정
+    // setSelectedShcedule(index); // 클릭된 요소의 index를 상태로 설정
     chooseSchedule(index);
   };
 
@@ -41,9 +43,7 @@ const StadiumHours: React.FC<StadiumHoursProps> = ({
             <div className={styles.test} key={stadiumHour.scheduleId}>
               <div
                 className={`${styles.scheduleGroup} ${
-                  selectedSchedule === stadiumHour.scheduleId
-                    ? styles.selected
-                    : ''
+                  isScheduleId === stadiumHour.scheduleId ? styles.selected : ''
                 }`}
                 key={stadiumHour.scheduleId}
                 onClick={() => handleScheduleClick(stadiumHour.scheduleId)}
