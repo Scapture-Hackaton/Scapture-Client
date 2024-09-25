@@ -18,9 +18,9 @@ const StadiumHours: React.FC<StadiumHoursProps> = ({
   const settings = {
     // dots: true,
     infinite: false,
-    speed: 500,
+    // speed: 500,
     slidesToShow: 3,
-    slidesToScroll: 1,
+    // slidesToScroll: 1,
     arrows: false,
   };
 
@@ -38,9 +38,8 @@ const StadiumHours: React.FC<StadiumHoursProps> = ({
       {stadiumHourList && stadiumHourList.length > 0 ? (
         <Slider {...settings} className={styles.housrsList}>
           {stadiumHourList.map((stadiumHour: StadiumHoursData) => (
-            <div className={styles.test}>
+            <div className={styles.test} key={stadiumHour.scheduleId}>
               <div
-                // className={styles.scheduleGroup}
                 className={`${styles.scheduleGroup} ${
                   selectedSchedule === stadiumHour.scheduleId
                     ? styles.selected

@@ -31,18 +31,28 @@ const AllianceStadium: React.FC<AllianceStadiumProps> = ({ stadiumList }) => {
   };
 
   return (
-    <Slider {...settings} className={styles.stadiumList}>
-      {stadiumList.map((allianceStadium: AllianceStadiumDto) => (
-        <div
-          className={styles.item}
-          key={allianceStadium.stadiumId}
-          onClick={() => toStadium(allianceStadium.stadiumId)}
-        >
-          <img src={allianceStadium.image} alt="" loading="lazy" />
-          <div>{allianceStadium.name}</div>
-        </div>
-      ))}
-    </Slider>
+    <>
+      {stadiumList ? (
+        <Slider {...settings} className={styles.stadiumList}>
+          {stadiumList.map((allianceStadium: AllianceStadiumDto) => (
+            <div
+              className={styles.item}
+              key={allianceStadium.stadiumId}
+              onClick={() => toStadium(allianceStadium.stadiumId)}
+            >
+              <img src={allianceStadium.image} alt="" loading="lazy" />
+              <div>{allianceStadium.name}</div>
+            </div>
+          ))}
+          <>
+            <div className={styles.item}>
+              <img alt="" loading="lazy" />
+              <div>테스트</div>
+            </div>
+          </>
+        </Slider>
+      ) : null}
+    </>
   );
 };
 
