@@ -16,7 +16,7 @@ import useAuth from '../Hook/useAuth';
 import { LoginToken } from '../../../apis/api/login.api';
 
 import { useNavigate } from 'react-router-dom';
-import { useRecoilState, useRecoilValue } from 'recoil';
+import { useRecoilState } from 'recoil';
 import { loginData, loginDataAtom } from '../Atom/atom';
 import { userData } from '../../MyPage/dto/atom.interface';
 import { userDataAtom } from '../../MyPage/Atom/atom';
@@ -45,7 +45,9 @@ const Header: React.FC<HeaderProps> = ({ index }) => {
   useAuth(LoginToken, loginType);
 
   //recoil
-  const isLoginState = useRecoilValue<loginData>(loginDataAtom);
+  const [isLoginState, setLoginState] =
+    useRecoilState<loginData>(loginDataAtom);
+
   const [isProfile, setProfile] = useRecoilState<userData>(userDataAtom);
 
   //modal function -> move to function
@@ -61,7 +63,7 @@ const Header: React.FC<HeaderProps> = ({ index }) => {
   };
 
   useEffect(() => {
-    console.log(isLoginState);
+    // console.log(isLoginState);
     //getprofile을 TOKEN과 LOGINTYPE이 정해지는 곳에서 다시 수행 또는 localstorage 변수를 useState로 변경
     const fetchProfileInfo = async () => {
       const res = await getProfile();
@@ -76,6 +78,7 @@ const Header: React.FC<HeaderProps> = ({ index }) => {
         role: res?.data.role,
         team: res?.data.team,
       }));
+      setLoginState({ state: true });
       // }
     };
     if (TOKEN && loginType) {

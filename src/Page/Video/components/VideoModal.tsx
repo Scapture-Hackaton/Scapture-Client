@@ -1,7 +1,10 @@
-import { forwardRef, Ref } from 'react';
+import { forwardRef, Ref, useEffect, useState } from 'react';
 // import { modalNotice } from '../functions/ModalFunction';
 
 import cancelIcon from '../../../assets/Icon/Cancel.svg';
+
+import { useQuery } from '@tanstack/react-query';
+import { getBananaCnt } from '../../../apis/api/user.api';
 
 interface ModalProps {
   styles: { [key: string]: string };
@@ -30,6 +33,19 @@ export const VideoModal = forwardRef<HTMLDialogElement, ModalProps>(
       }
     };
 
+    const { data: bananaCnt } = useQuery({
+      queryKey: ['bananaCnt'],
+      queryFn: () => getBananaCnt(),
+    });
+
+    const [isCnt, setCnt] = useState(0);
+
+    useEffect(() => {
+      if (bananaCnt && bananaCnt.data) {
+        setCnt(bananaCnt.data.balance);
+      }
+    }, [bananaCnt]);
+
     return (
       <dialog ref={ref} id={styles.videoModal} onClick={handleDialogClick}>
         <div className={styles.header}>
@@ -54,17 +70,11 @@ export const VideoModal = forwardRef<HTMLDialogElement, ModalProps>(
 
           <div className={styles.group}>
             <div>
-              보유한 버내너<span>10개</span>
+              보유한 버내너
+              <span>{isCnt}개</span>
             </div>
 
-            <button
-              onClick={() =>
-                // (ref as React.RefObject<HTMLDialogElement>).current?.close()
-                handleDownloadClick()
-              }
-            >
-              사용하기
-            </button>
+            <button onClick={() => handleDownloadClick()}>사용하기</button>
           </div>
         </div>
       </dialog>

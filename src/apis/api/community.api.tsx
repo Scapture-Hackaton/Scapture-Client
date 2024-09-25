@@ -54,7 +54,6 @@ export const writeComment = async (videoId: number, content: string) => {
 
     return res.data;
   } catch (e: any) {
-    console.log(e);
     return {
       status: e.response.status,
     };
@@ -70,7 +69,6 @@ export const likesComment = async (commentId: number) => {
 
     return res.data;
   } catch (e: any) {
-    console.log(e);
     return {
       status: e.response.status,
     };
@@ -86,7 +84,6 @@ export const unLikeComment = async (commentId: number) => {
 
     return res.data;
   } catch (e: any) {
-    console.log(e);
     return {
       status: e.response.status,
     };
@@ -102,7 +99,6 @@ export const likesVideo = async (videoId: number) => {
 
     return res.data;
   } catch (e: any) {
-    console.log(e);
     return {
       status: e.response.status,
     };
@@ -118,7 +114,6 @@ export const unLikeVideo = async (videoId: number) => {
 
     return res.data;
   } catch (e: any) {
-    console.log(e);
     return {
       status: e.response.status,
     };

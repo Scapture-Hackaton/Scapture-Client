@@ -212,7 +212,7 @@
         }
 
         .selectBox {
-          display: none;
+          // display: none;
 
           // .select {
           //   display: flex;
@@ -576,10 +576,6 @@
             }
           }
         }
-      }
-
-      &.openOption .selectBox {
-        display: block;
       }
     }
 

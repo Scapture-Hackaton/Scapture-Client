@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import styles from '../scss/video.module.scss';
-import fullHeart from '../image/fullHeart.png';
+import fullHeart from '../image/fullHeart.svg';
 import emptyHeart from '../../../assets/Icon/heartIcon.svg';
 
 interface HeartProps {
