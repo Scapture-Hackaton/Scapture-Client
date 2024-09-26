@@ -10,7 +10,7 @@ import peopleIcon from '../image/peopleIcon.svg';
 import successReserveIcon from '../image/successReserveIcon.svg';
 
 interface ModalProps extends ModalCheckProps {
-  onSuccess: () => void;
+  // onSuccess: () => void;
   onConfirm: (scheduleId: number) => void;
 }
 
@@ -21,7 +21,7 @@ interface ModalCheckProps {
 }
 
 export const ReservationModal = forwardRef<HTMLDialogElement, ModalProps>(
-  ({ styles, reservation, onSuccess, onConfirm }, ref) => {
+  ({ styles, reservation, onConfirm }, ref) => {
     const closeModal = () => {
       // ref가 MutableRefObject이면 current 속성에 접근하고, 함수 형태이면 호출하여 사용
       if (ref && typeof ref !== 'function' && ref.current) {
@@ -102,7 +102,7 @@ export const ReservationModal = forwardRef<HTMLDialogElement, ModalProps>(
                 height="20px"
                 loading="lazy"
               />
-              <div>{reservation?.hours}</div>
+              <div>{reservation?.type}</div>
               {/* <div>00 vs 00</div> */}
             </li>
           </ul>
@@ -118,13 +118,11 @@ export const ReservationModal = forwardRef<HTMLDialogElement, ModalProps>(
               // if (reservation) {
               //   onConfirm(reservation.scheduleId);
               // }
-              closeModal();
-              onSuccess();
+              // closeModal();
+              // onSuccess();
               if (reservation) {
                 onConfirm(reservation.scheduleId);
               }
-
-              console.log('test');
             }}
           >
             예약하기
@@ -228,7 +226,7 @@ export const ReservationCheckModal = forwardRef<
               height="20px"
               loading="lazy"
             />
-            <div>{reservation?.hours}</div>
+            <div>{reservation?.type}</div>
             {/* <div>00 vs 00</div> */}
           </li>
         </ul>

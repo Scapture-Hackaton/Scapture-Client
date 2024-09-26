@@ -54,7 +54,7 @@ const VideoList: React.FC<VideoListProps> = ({ scheduleId, stadiumId }) => {
               <div className={styles.subDes}>
                 <div>{video.stadiumName}</div>
                 <div>
-                  {video.date} / {video.hours}
+                  {video.date} | {video.hours}
                 </div>
               </div>
             </div>

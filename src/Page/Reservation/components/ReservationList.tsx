@@ -78,9 +78,9 @@ const ReservationList: React.FC<ReservationListProps> = ({
     naver: NAVER_AUTH_URL,
   };
 
-  const successReserve = () => {
-    modalNotice(modalCheckRef);
-  };
+  // const successReserve = () => {
+  //   modalNotice(modalCheckRef);
+  // };
 
   const handleReserveConfirm = (scheduleId: number) => {
     mutation.mutate(scheduleId);
@@ -92,11 +92,13 @@ const ReservationList: React.FC<ReservationListProps> = ({
           <div className={styles.group} key={groupIndex}>
             {list.map((item: ReservationDto) => (
               <div className={styles.compontent} key={item.scheduleId}>
-                <div className={styles.info}>
+                <div className={styles.title}>
                   <div className={styles.field}>{item.name}</div>
-                  <div className={styles.versus}>{item.type}</div>
                 </div>
-                <div className={styles.date}>{item.hours}</div>
+                <div className={styles.info}>
+                  <div>{item.hours}</div>
+                  <div>{item.type}</div>
+                </div>
                 {item.isReserved ? (
                   <div className={styles.booked}>예약마감</div>
                 ) : (
@@ -166,7 +168,7 @@ const ReservationList: React.FC<ReservationListProps> = ({
         styles={modal}
         ref={modalRef}
         reservation={selectedReservation}
-        onSuccess={successReserve}
+        // onSuccess={successReserve}
         onConfirm={handleReserveConfirm}
       />
       {/* modalCheckRef */}
