@@ -276,10 +276,14 @@ const Video = () => {
 
   // 좋아요를 눌렀을 때 처리
   const handleToggleLike = (isLiked: boolean) => {
-    if (videoDetail && !isLiked) {
-      toggleLike(videoId);
-    } else if (videoDetail && isLiked) {
-      toggleUnLike(videoId);
+    if (isLoginState) {
+      modalNotice(loginModalRef);
+    } else {
+      if (videoDetail && !isLiked) {
+        toggleLike(videoId);
+      } else if (videoDetail && isLiked) {
+        toggleUnLike(videoId);
+      }
     }
   };
 
@@ -322,10 +326,14 @@ const Video = () => {
 
   // 북마크를 눌렀을 때 처리
   const handleToggleStore = (isStore: boolean) => {
-    if (videoDetail && !isStore) {
-      toggleStore(videoId);
-    } else if (videoDetail && isStore) {
-      toggleUnStore(videoId);
+    if (isLoginState) {
+      modalNotice(loginModalRef);
+    } else {
+      if (videoDetail && !isStore) {
+        toggleStore(videoId);
+      } else if (videoDetail && isStore) {
+        toggleUnStore(videoId);
+      }
     }
   };
 

@@ -41,11 +41,16 @@ import parking from '../../../assets/Icon/parking.svg';
 
 import dropDown from '../../../assets/Icon/dropDown.svg';
 import upArrow from '../../../assets/Icon/upArrow.svg';
+import Share from '../../../common/functions/Share';
+import { loginData, loginDataAtom } from '../../Header/Atom/atom';
+import { useRecoilValue } from 'recoil';
 
 const Community = () => {
   //DOM
   const modalRef = useRef<HTMLDialogElement>(null);
   const loginModalRef = useRef<HTMLDialogElement>(null);
+
+  const isLoginState = useRecoilValue<loginData>(loginDataAtom);
 
   //Object
   const AUTH_URLS = {
@@ -107,10 +112,14 @@ const Community = () => {
   }, [isVideoId, queryClient]);
 
   const handleToggleLike = (isLiked: boolean) => {
-    if (videoDetailData && !isLiked) {
-      toggleLikeVideo(isVideoId);
-    } else if (videoDetailData && isLiked) {
-      toggleUnLikeVideo(isVideoId);
+    if (isLoginState) {
+      modalNotice(loginModalRef);
+    } else {
+      if (videoDetailData && !isLiked) {
+        toggleLikeVideo(isVideoId);
+      } else if (videoDetailData && isLiked) {
+        toggleUnLikeVideo(isVideoId);
+      }
     }
   };
 
@@ -237,10 +246,14 @@ const Community = () => {
 
   // 북마크를 눌렀을 때 처리
   const handleToggleStore = (isStore: boolean) => {
-    if (videoDetailData && !isStore) {
-      toggleStore(isVideoId);
-    } else if (videoDetailData && isStore) {
-      toggleUnStore(isVideoId);
+    if (isLoginState) {
+      modalNotice(loginModalRef);
+    } else {
+      if (videoDetailData && !isStore) {
+        toggleStore(isVideoId);
+      } else if (videoDetailData && isStore) {
+        toggleUnStore(isVideoId);
+      }
     }
   };
 
@@ -305,6 +318,14 @@ const Community = () => {
     setOpen(!open);
   };
 
+  const handleShare = async () => {
+    await Share({
+      title: '테스트',
+      text: 'Hello World',
+      url: 'https://scaptrue.co.kr',
+    });
+  };
+
   return (
     <div className={styles.test}>
       <Header index={3} />
@@ -341,7 +362,7 @@ const Community = () => {
                     <img src={download} alt="" width="20px" height="20px"></img>
                     <p>다운로드</p>
                   </li>
-                  <li>
+                  <li onClick={handleShare}>
                     <img src={share} alt="" width="20px" height="20px"></img>
                     <p>공유</p>
                   </li>
