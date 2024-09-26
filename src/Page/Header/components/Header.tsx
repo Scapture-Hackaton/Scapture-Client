@@ -67,8 +67,10 @@ const Header: React.FC<HeaderProps> = ({ index }) => {
     //getprofile을 TOKEN과 LOGINTYPE이 정해지는 곳에서 다시 수행 또는 localstorage 변수를 useState로 변경
     const fetchProfileInfo = async () => {
       const res = await getProfile();
+
       // if (res?.data) {
       localStorage.setItem('name', res?.data.name);
+
       setProfile(prev => ({
         ...prev,
         endDate: res?.data.endDate,
@@ -84,7 +86,7 @@ const Header: React.FC<HeaderProps> = ({ index }) => {
     if (TOKEN && loginType) {
       fetchProfileInfo();
     }
-  }, [isLoginState, setProfile, loginType, TOKEN]);
+  }, [loginType, TOKEN]);
 
   const navigate = useNavigate();
 
