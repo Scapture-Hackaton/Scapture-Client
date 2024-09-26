@@ -362,7 +362,7 @@ const Main = () => {
                       {mainData.popular.stadiumName}
                     </div>
                     <div className={styles.videoDetail}>
-                      <p>{mainData.popular.stadiumName}</p>
+                      <p>{mainData.popular.location}</p>
                       <p>
                         {mainData.popular.date} | {mainData.popular.hours}
                       </p>

@@ -331,7 +331,7 @@
       }
 
       .group {
-        margin-bottom: 2rem;
+        padding-bottom: 0.7rem;
 
         .compontent {
           height: 54px;
@@ -341,7 +341,7 @@
           justify-content: space-between;
 
           margin: 0 1.8rem;
-          padding: 0 0.5rem;
+          padding: 0 0.6rem;
 
           .field {
             color: var(--font-color-gray-main);
@@ -349,12 +349,23 @@
             font-size: var(--font-size-m);
           }
 
+          .title {
+            div {
+              margin-right: 1.5rem;
+
+              color: var(--font-color-gray-main);
+              font-weight: 700;
+              font-size: var(--font-size-m);
+            }
+          }
+
           .info {
             display: flex;
             align-items: center;
+            justify-content: space-between;
 
             div {
-              margin-right: 1.5rem;
+              margin-right: 1rem;
 
               color: var(--font-color-gray-400);
               font-weight: 500;
@@ -378,6 +389,10 @@
           .booked {
             width: 84px;
             height: 32px;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
 
             background: var(--color-grayscale-input-700);
 
