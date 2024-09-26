@@ -409,7 +409,7 @@ const Community = () => {
                     <img src={locationImg} alt="" width="20px" height="20px" />
 
                     <div className={styles.info}>
-                      {/* {videoDetailData.stadium.location} */}
+                      {videoDetailData.stadium.location}
                     </div>
                   </div>
 
