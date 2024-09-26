@@ -27,6 +27,7 @@ import modal from '../../Header/scss/login-modal.module.scss';
 import { userDataAtom } from '../../MyPage/Atom/atom';
 import { userData } from '../../MyPage/dto/atom.interface';
 import { useRecoilValue } from 'recoil';
+import { loginData, loginDataAtom } from '../../Header/Atom/atom';
 
 interface CommentProps {
   videoId: number;
@@ -96,7 +97,12 @@ const Comment: React.FC<CommentProps> = ({ videoId }) => {
   // 엔터를 눌렀을 경우에도 댓글 작성이 가능하도록
   const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
-      sendComment();
+      if (isLoginState.state) {
+        sendComment();
+      } else {
+        setInput('');
+        modalRef.current?.showModal();
+      }
     }
   };
 
@@ -184,6 +190,7 @@ const Comment: React.FC<CommentProps> = ({ videoId }) => {
   }, [videoId]);
 
   const isProfile = useRecoilValue<userData>(userDataAtom);
+  const isLoginState = useRecoilValue<loginData>(loginDataAtom);
 
   return (
     <>
@@ -205,7 +212,7 @@ const Comment: React.FC<CommentProps> = ({ videoId }) => {
         <div ref={commentBoxRef} className={`${styles.commentBox} test`}>
           <div className={styles.inputContainer}>
             <div className={styles.myImg}>
-              {isProfile ? (
+              {isLoginState.state ? (
                 <img src={isProfile.image} alt="" width="32px" height="32px" />
               ) : (
                 <img src={testImg} alt="" width="32px" height="32px" />
