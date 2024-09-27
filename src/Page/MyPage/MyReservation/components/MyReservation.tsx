@@ -49,7 +49,7 @@ const MyReservation = () => {
   useEffect(() => {
     const fetchReservationInfo = async () => {
       const res = await getReservation();
-      console.log(res?.data);
+      // console.log(res?.data);
 
       if (res?.data) {
         // setReservationState({
