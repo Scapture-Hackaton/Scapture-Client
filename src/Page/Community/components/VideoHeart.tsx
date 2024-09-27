@@ -38,7 +38,7 @@ const VideoHeart: React.FC<HeartProps> = ({
         ) : (
           <img src={emptyHeart} alt="not liked" width="20px" height="20px" />
         )}
-        <p className={styles.cnt}>{isCnt}</p>
+        <p className={styles.cnt}>{isCnt.toString().padStart(2, '0')}</p>
       </li>
     </>
   );
