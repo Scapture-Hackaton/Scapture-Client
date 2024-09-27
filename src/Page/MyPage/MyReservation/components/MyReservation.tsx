@@ -32,124 +32,129 @@ const MyReservation = () => {
   }, []);
 
   //어떻게 나눌지 고민...
-  const reservationObject = {
-    data: '',
-    date: '',
-    name: '',
-    hours: '',
-    message: '',
-  };
+  // const reservationObject = [
+  //   {
+  //     date: '2024.07.18',
+  //     StadiumName: 'LBFS 트레이닝 센터',
+  //     fieldName: '실내 구장',
+  //     hours: '20:00 ~ 22:00',
+  //     fieldType: '6 vs 6',
+  //     isAvailable: true, // 시간 지났는지 안지났는지
+  //   },
+  // ];
 
   const [isReservationState, setReservationState] =
-    useState<reservationData>(reservationObject);
-
-  console.log(isReservationState);
+    useState<reservationData[]>();
 
   useEffect(() => {
     const fetchReservationInfo = async () => {
       const res = await getReservation();
+      console.log(res?.data);
 
       if (res?.data) {
-        setReservationState(prev => ({
-          ...prev,
-          data: res.data,
-          date: res.data.date,
-          name: res.data.name,
-          hours: res.data.hours,
-          message: res.message,
-        }));
+        // setReservationState({
+        //   date: res.data.date,
+        //   StadiumName: res.data.StadiumName,
+        //   fieldName: res.data.fieldName,
+        //   hours: res.data.hours,
+        //   fieldType: res.data.fieldType,
+        //   isAvailable: res.data.isAvailable,
+        // });
+        setReservationState(res?.data);
       }
     };
     fetchReservationInfo();
-  });
+  }, []);
 
   //로그인이 안되기때문에 임의로 예약내역 여부 판단
   const isReservation = true;
-  const reservations = [
-    {
-      id: 1,
-      status: 'upcoming',
-      date: '0000.00.00',
-      location: '선택 구역명',
-      time: '00:00~00:00',
-      teams: '00 vs 00',
-    },
-    {
-      id: 2,
-      status: 'upcoming',
-      date: '0000.00.00',
-      location: '선택 구역명',
-      time: '00:00~00:00',
-      teams: '00 vs 00',
-    },
-    {
-      id: 3,
-      status: 'completed',
-      date: '0000.00.00',
-      location: '선택 구역명',
-      time: '00:00~00:00',
-      teams: '00 vs 00',
-    },
-    {
-      id: 4,
-      status: 'completed',
-      date: '0000.00.00',
-      location: '선택 구역명',
-      time: '00:00~00:00',
-      teams: '00 vs 00',
-    },
-    {
-      id: 5,
-      status: 'completed',
-      date: '0000.00.00',
-      location: '선택 구역명',
-      time: '00:00~00:00',
-      teams: '00 vs 00',
-    },
-    {
-      id: 6,
-      status: 'completed',
-      date: '0000.00.00',
-      location: '선택 구역명',
-      time: '00:00~00:00',
-      teams: '00 vs 00',
-    },
-  ];
+  // const reservations = [
+  //   {
+  //     id: 1,
+  //     status: 'upcoming',
+  //     date: '0000.00.00',
+  //     location: '선택 구역명',
+  //     time: '00:00~00:00',
+  //     teams: '00 vs 00',
+  //   },
+  //   {
+  //     id: 2,
+  //     status: 'upcoming',
+  //     date: '0000.00.00',
+  //     location: '선택 구역명',
+  //     time: '00:00~00:00',
+  //     teams: '00 vs 00',
+  //   },
+  //   {
+  //     id: 3,
+  //     status: 'completed',
+  //     date: '0000.00.00',
+  //     location: '선택 구역명',
+  //     time: '00:00~00:00',
+  //     teams: '00 vs 00',
+  //   },
+  //   {
+  //     id: 4,
+  //     status: 'completed',
+  //     date: '0000.00.00',
+  //     location: '선택 구역명',
+  //     time: '00:00~00:00',
+  //     teams: '00 vs 00',
+  //   },
+  //   {
+  //     id: 5,
+  //     status: 'completed',
+  //     date: '0000.00.00',
+  //     location: '선택 구역명',
+  //     time: '00:00~00:00',
+  //     teams: '00 vs 00',
+  //   },
+  //   {
+  //     id: 6,
+  //     status: 'completed',
+  //     date: '0000.00.00',
+  //     location: '선택 구역명',
+  //     time: '00:00~00:00',
+  //     teams: '00 vs 00',
+  //   },
+  // ];
 
   return (
     <div className={styles.test}>
-      <Header index={1}></Header>
-      {isReservation ? (
+      <Header index={0}></Header>
+      {isReservationState ? (
         <div className={styles.reservationContainer}>
-          {reservations.map(reservation => (
-            <div
-              key={reservation.id}
-              className={`${styles.reserve} ${reservation.status === 'completed' ? styles.completed : ''}`}
-            >
-              <div className={styles.badge}>
-                {reservation.status === 'completed' ? '진행 완료' : '진행 예정'}
+          {isReservationState.map(
+            (reservation: reservationData, idx: number) => (
+              <div
+                key={idx}
+                className={`${styles.reserve} ${reservation.isAvailable ? styles.completed : ''}`}
+              >
+                <div className={styles.badge}>
+                  {reservation.isAvailable ? '진행 완료' : '진행 예정'}
+                </div>
+                <div className={styles.stadium}>{reservation.stadiumName}</div>
+                <div className={styles.detailContainer}>
+                  <div className={styles.detail}>
+                    <img className={styles.img} src={Calendar}></img>
+                    <div className={styles.text}>{reservation.date}</div>
+                  </div>
+                  <div className={styles.detail}>
+                    <img className={styles.img} src={Point}></img>
+                    <div className={styles.text}>{reservation.fieldName}</div>
+                  </div>
+                  <div className={styles.detail}>
+                    <img className={styles.img} src={Clockk}></img>
+                    <div className={styles.text}>{reservation.hours}</div>
+                  </div>
+                  <div className={styles.detail}>
+                    <img className={styles.img} src={People}></img>
+                    <div className={styles.text}>{reservation.fieldType}</div>
+                  </div>
+                </div>
               </div>
-              <div className={styles.stadium}>예약 구장명 입력 공간</div>
-              <div className={styles.detailContainer}>
-                <div className={styles.detail}>
-                  <img className={styles.img} src={Calendar}></img>
-                  <div className={styles.text}>{reservation.date}</div>
-                </div>
-                <div className={styles.detail}>
-                  <img className={styles.img} src={Point}></img>
-                  <div className={styles.text}>{reservation.location}</div>
-                </div>
-                <div className={styles.detail}>
-                  <img className={styles.img} src={Clockk}></img>
-                  <div className={styles.text}>{reservation.time}</div>
-                </div>
-                <div className={styles.detail}>
-                  <img className={styles.img} src={People}></img>
-                  <div className={styles.text}>{reservation.teams}</div>
-                </div>
-              </div>
-            </div>
-          ))}
+            ),
+          )}
           {/* <ReactPaginate
             previousLabel={'<'}
             nextLabel={'>'}

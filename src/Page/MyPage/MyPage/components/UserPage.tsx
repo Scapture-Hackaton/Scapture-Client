@@ -8,6 +8,7 @@ import Vector from '../image/Vector9.svg';
 import benefit1 from '../image/benefit1.svg';
 import benefit2 from '../image/benefit2.svg';
 import benefit3 from '../image/benefit3.svg';
+import Ground from '../image/Ground.svg';
 // import Button from '../image/Radiobutton.svg';
 // import Footer from '../../../Footer/components/Footer';
 // import AllianceStadium from '../../../Main/components/AllianceStadium';
@@ -33,11 +34,13 @@ import {
   getBanana,
   getProfile,
   getReservation,
+  getSortVideoLatest,
   putProfile,
 } from '../../../../apis/api/mypage.api';
 import { useResetRecoilState, useSetRecoilState } from 'recoil';
 import { loginDataAtom } from '../../../Header/Atom/atom';
 import { userDataAtom } from '../../Atom/atom';
+import { StoredVideoList } from '../../../../apis/dto/myPage.dto';
 // import { userDataAtom } from '../../Atom/atom';
 // import { userData } from '../../dto/atom.interface';
 // import { useRecoilValue } from 'recoil';
@@ -283,17 +286,25 @@ const UserPage = () => {
     return () => window.removeEventListener('keydown', escKeyModalClose);
   }, []);
 
+  // 버내너 잔액 조회
   const { data: bananaData } = useQuery({
     queryKey: ['bananaCnt'],
     queryFn: () => getBanana(),
   });
 
+  // 예약 리스트 가져오기
   const { data: reserveList } = useQuery({
     queryKey: ['reserveList'],
     queryFn: () => getReservation(),
   });
 
-  console.log(reserveList);
+  // 저장 영상 조회
+  const { data: storeVideoList } = useQuery({
+    queryKey: ['storeVideoList'],
+    queryFn: () => getSortVideoLatest(),
+  });
+
+  console.log(storeVideoList);
 
   return (
     <div className={styles.test}>
@@ -339,8 +350,11 @@ const UserPage = () => {
               ></img>
               <div className={styles.profile}>
                 <div className={styles.subscribe}>
-                  <div className={styles.sub}>구독</div>
-                  <div className={styles.noSub}>비구독</div>
+                  {myProfileData && myProfileData?.data?.isSubscribe ? (
+                    <div className={styles.sub}>구독</div>
+                  ) : (
+                    <div className={styles.noSub}>비구독</div>
+                  )}
 
                   {myProfileData ? myProfileData.data.endDate : ''}
                   {/* <div className={styles.date}>0000.00.00 까지 이용</div> */}
@@ -490,20 +504,54 @@ const UserPage = () => {
           </div>
           <div className={styles.saveContainer}>
             <div className={styles.title}>저장한 영상</div>
-            <div className={styles.videoGrid}>
-              {/* {currentItems.map((item, index) => (
-                <div className={styles.videoCard} key={index}>
-                  <div className={styles.thumbnail}></div>
-                  <div className={styles.videoInfo}>
-                    <div className={styles.videoTitle}>{item.title}</div>
-                    <div className={styles.videoDetails}>
-                      <div className={styles.videoField}>{item.field}</div>
-                      <div className={styles.videoTime}>{item.time}</div>
+            {storeVideoList?.data ? (
+              <div className={styles.videoGrid}>
+                {storeVideoList.data.map((item: StoredVideoList) => (
+                  <div
+                    className={styles.videoCard}
+                    key={item.videoId}
+                    onClick={() => {
+                      navigate('/video', {
+                        state: {
+                          videoId: item.videoId,
+                        },
+                      });
+                    }}
+                  >
+                    {/* <div className={styles.thumbnail}></div> */}
+                    <img
+                      className={styles.thumbnail}
+                      src={item.image}
+                      alt=""
+                      width="199px"
+                      height="112px"
+                    />
+                    <div className={styles.videoInfo}>
+                      <div className={styles.videoTitle}>{item.name}</div>
+                      <div className={styles.videoDetails}>
+                        <div className={styles.videoField}>
+                          {item.stadiumName}
+                        </div>
+                        <div className={styles.videoTime}>
+                          {item.date} | {item.hours}
+                        </div>
+                      </div>
                     </div>
                   </div>
-                </div>
-              ))} */}
-            </div>
+                ))}
+              </div>
+            ) : (
+              <div className={styles.noReserve}>
+                <img
+                  src={Ground}
+                  className={styles.img}
+                  width="168px"
+                  height="108px"
+                ></img>
+                <div className={styles.title}>아직 저장된 영상이 없어요</div>
+              </div>
+            )}
+
             {/* <ReactPaginate
               previousLabel={'<'}
               nextLabel={'>'}

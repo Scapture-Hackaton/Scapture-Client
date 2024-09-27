@@ -17,9 +17,10 @@ export interface subscribedData {
 }
 
 export interface reservationData {
-  data: string;
   date: string;
-  name: string;
+  stadiumName: string;
+  fieldName: string;
   hours: string;
-  message: string;
+  fieldType: string;
+  isAvailable: boolean;
 }
