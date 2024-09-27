@@ -26,10 +26,18 @@ import styles from '../scss/my-page.module.scss';
 // import profileImg from '../image/profile.webp';
 
 // import { useEffect, useRef, useState } from 'react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
-import { getProfile } from '../../../../apis/api/mypage.api';
+import {
+  getBanana,
+  getProfile,
+  getReservation,
+  putProfile,
+} from '../../../../apis/api/mypage.api';
+import { useResetRecoilState, useSetRecoilState } from 'recoil';
+import { loginDataAtom } from '../../../Header/Atom/atom';
+import { userDataAtom } from '../../Atom/atom';
 // import { userDataAtom } from '../../Atom/atom';
 // import { userData } from '../../dto/atom.interface';
 // import { useRecoilValue } from 'recoil';
@@ -144,7 +152,20 @@ const UserPage = () => {
   // const handleClick = id => {
   //   setSelectedButtonId(id); // 클릭된 버튼의 ID를 상태로 설정
   // };
+
+  const setLoginState = useSetRecoilState(loginDataAtom);
+  const resetUserData = useResetRecoilState(userDataAtom);
+
   const toggleLogout = () => {
+    localStorage.removeItem('TOKEN');
+    localStorage.removeItem('LoginType');
+    setLoginState({ state: false });
+    resetUserData();
+
+    navigate('/');
+  };
+
+  const profileOption = () => {
     setLogout(!logout);
   };
 
@@ -211,10 +232,68 @@ const UserPage = () => {
   // const isProfile = useRecoilValue<userData>(userDataAtom);
   // console.log(isProfile);
 
+  // 프로필 데이터
   const { data: myProfileData } = useQuery({
     queryKey: ['myprofile'],
     queryFn: () => getProfile(),
   });
+
+  // 데이터 받아온 경우 소속팀에 넣어줄 팀 이름 지정
+  useEffect(() => {
+    setInput(myProfileData?.data?.team);
+  }, [myProfileData]);
+
+  // 사용자가 입력할 상태인지 확인
+  const [inputState, setInputState] = useState(false);
+
+  // 사용자의 소속팀 입력 값
+  const [isInput, setInput] = useState('');
+  const changeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setInput(e.target.value);
+  };
+
+  // 엔터를 눌렀을 경우에도 작성이 가능하도록
+  const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter' && isInput !== '') {
+      fetchSearchResults();
+
+      setInputState(false);
+    } else {
+      setInput(myProfileData?.data?.team);
+      setInputState(false);
+    }
+  };
+
+  // 사용자 프로필 수정
+  const fetchSearchResults = async () => {
+    const data = await putProfile({ team: isInput }, null);
+    // console.log(data);
+
+    console.log(data);
+  };
+
+  // ESC 를 누를 경우 수정 비활성화
+  useEffect(() => {
+    const escKeyModalClose = (e: KeyboardEvent) => {
+      if (e.keyCode === 27) {
+        setInputState(false);
+      }
+    };
+    window.addEventListener('keydown', escKeyModalClose);
+    return () => window.removeEventListener('keydown', escKeyModalClose);
+  }, []);
+
+  const { data: bananaData } = useQuery({
+    queryKey: ['bananaCnt'],
+    queryFn: () => getBanana(),
+  });
+
+  const { data: reserveList } = useQuery({
+    queryKey: ['reserveList'],
+    queryFn: () => getReservation(),
+  });
+
+  console.log(reserveList);
 
   return (
     <div className={styles.test}>
@@ -228,12 +307,15 @@ const UserPage = () => {
                 className={styles.image}
                 src={Clock}
                 alt=""
-                onClick={toggleLogout}
+                onClick={profileOption}
               ></img>
               {logout && (
                 <div className={styles.dropDownContainer}>
                   {/* 로그아웃/회원탈퇴 로직추가 */}
-                  <div className={styles.dropDownItem} onClick={toggleLogout}>
+                  <div
+                    className={styles.dropDownItem}
+                    onClick={() => toggleLogout()}
+                  >
                     로그아웃
                   </div>
                   <div className={styles.dropDownItem} onClick={toggleLogout}>
@@ -248,13 +330,20 @@ const UserPage = () => {
             <div className={styles.profileContainer}>
               <img
                 className={styles.profileImg}
-                src={DefaultProfile}
+                src={
+                  myProfileData?.data?.image
+                    ? myProfileData?.data?.image
+                    : DefaultProfile
+                }
                 alt=""
               ></img>
               <div className={styles.profile}>
                 <div className={styles.subscribe}>
-                  <div className={styles.badge}>구독</div>
-                  <div className={styles.date}>0000.00.00 까지 이용</div>
+                  <div className={styles.sub}>구독</div>
+                  <div className={styles.noSub}>비구독</div>
+
+                  {myProfileData ? myProfileData.data.endDate : ''}
+                  {/* <div className={styles.date}>0000.00.00 까지 이용</div> */}
                 </div>
                 <div className={styles.profileId}>
                   {myProfileData ? myProfileData.data.name : '000'}님
@@ -264,7 +353,28 @@ const UserPage = () => {
             <div className={styles.infoContainer}>
               <div className={styles.teamContainer}>
                 <div className={styles.title}>소속팀</div>
-                <div className={styles.description}>스캡쳐</div>
+                {myProfileData?.data?.team && !inputState ? (
+                  <div
+                    className={styles.description}
+                    onClick={() => {
+                      setInputState(true);
+                      setInput(isInput);
+                    }}
+                  >
+                    {isInput}
+                  </div>
+                ) : (
+                  <div className={styles.description}>
+                    <input
+                      type="text"
+                      placeholder="소속팀을 입력해주세요."
+                      onChange={changeInput}
+                      onKeyPress={handleKeyPress}
+                      value={isInput ?? ''}
+                    ></input>
+                  </div>
+                )}
+                {/* <div className={styles.description}>스캡쳐</div> */}
               </div>
               <div className={styles.regionContainer}>
                 <div className={styles.title}>활동 지역</div>
@@ -333,7 +443,12 @@ const UserPage = () => {
               <img className={styles.img} src={Banana} alt=""></img>
               <div className={styles.presentContainer}>
                 <div className={styles.present}>현재 버내너 보유갯수</div>
-                <div className={styles.count}>00개</div>
+                <div className={styles.count}>
+                  {bananaData?.data?.balance || bananaData?.data?.balance == 0
+                    ? bananaData?.data?.balance.toString().padStart(2, '0')
+                    : '00'}
+                  개
+                </div>
               </div>
             </div>
             <div className={styles.buttonContainer}>
@@ -344,7 +459,6 @@ const UserPage = () => {
                 className={styles.chargeButton}
                 onClick={() => {
                   toggleModal();
-                  navigate('/mypage/reservation');
                 }}
               >
                 버내너 충전하기
@@ -357,13 +471,22 @@ const UserPage = () => {
                 style={{ display: 'flex', gap: '4px', alignItems: 'center' }}
               >
                 <div className={styles.title}>예약내역</div>
-                <div className={styles.count}>1</div>
+                <div className={styles.count}>
+                  {reserveList?.data ? reserveList?.data?.length : '0'}
+                </div>
               </div>
               <div className={styles.subTitle}>
                 나의 예약정보를 확인할 수 있어요
               </div>
             </div>
-            <div className={styles.detail}>자세히 보기</div>
+            <div
+              className={styles.detail}
+              onClick={() => {
+                navigate('/mypage/reservation');
+              }}
+            >
+              자세히 보기
+            </div>
           </div>
           <div className={styles.saveContainer}>
             <div className={styles.title}>저장한 영상</div>

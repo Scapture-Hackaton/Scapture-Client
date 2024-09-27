@@ -69,7 +69,7 @@ const Header: React.FC<HeaderProps> = ({ index }) => {
       const res = await getProfile();
 
       // if (res?.data) {
-      localStorage.setItem('name', res?.data.name);
+      // localStorage.setItem('name', res?.data.name);
 
       setProfile(prev => ({
         ...prev,

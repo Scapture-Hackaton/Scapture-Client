@@ -12,7 +12,25 @@ import { getReservation } from '../../../../apis/api/mypage.api';
 import { reservationData } from '../../dto/atom.interface';
 import Header from '../../../Header/components/Header';
 import Footer from '../../../Footer/components/Footer';
+import { loginData, loginDataAtom } from '../../../Header/Atom/atom';
+import { useRecoilState } from 'recoil';
+import { useNavigate } from 'react-router-dom';
+
 const MyReservation = () => {
+  const [isLoginState, setLoginState] =
+    useRecoilState<loginData>(loginDataAtom);
+
+  const navigate = useNavigate();
+  // 리다이렉션을 useEffect 안에서 처리
+  useEffect(() => {
+    if (localStorage.getItem('TOKEN') && localStorage.getItem('LoginType')) {
+      setLoginState({ state: true });
+    }
+    if (!isLoginState.state) {
+      navigate('/');
+    }
+  }, []);
+
   //어떻게 나눌지 고민...
   const reservationObject = {
     data: '',
@@ -21,6 +39,7 @@ const MyReservation = () => {
     hours: '',
     message: '',
   };
+
   const [isReservationState, setReservationState] =
     useState<reservationData>(reservationObject);
 
@@ -29,7 +48,7 @@ const MyReservation = () => {
   useEffect(() => {
     const fetchReservationInfo = async () => {
       const res = await getReservation();
-      console.log(res?.message);
+
       if (res?.data) {
         setReservationState(prev => ({
           ...prev,
