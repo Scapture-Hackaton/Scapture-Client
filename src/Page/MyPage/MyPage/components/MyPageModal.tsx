@@ -1,5 +1,6 @@
 import React, { forwardRef, useState } from 'react';
-import { bananaDataAtom, subscribedAtom } from '../../Atom/atom';
+// import { bananaDataAtom, subscribedAtom } from '../../Atom/atom';
+import { bananaDataAtom } from '../../Atom/atom';
 import cancel from '../image/cancel.svg';
 import checkBanana from '../image/check-banana.svg';
 import {
@@ -7,7 +8,8 @@ import {
   postSubscribe,
   // putSubscribe,  //추후 추가 예정
 } from '../../../../apis/api/mypage.api';
-import { useRecoilState, useSetRecoilState } from 'recoil';
+// import { useRecoilState, useSetRecoilState } from 'recoil';
+import { useSetRecoilState } from 'recoil';
 // import { bananaData } from '../../dto/atom.interface';
 interface ModalProps {
   styles: { [key: string]: string };
@@ -127,7 +129,7 @@ export const BananaModal = forwardRef<HTMLDialogElement, ModalProps>(
 export const SubscribeModal = forwardRef<HTMLDialogElement, ModalProps>(
   ({ styles }, ref) => {
     // Recoil
-    const [isSubscribed, setSubscribed] = useRecoilState(subscribedAtom);
+    // const [isSubscribed, setSubscribed] = useRecoilState(subscribedAtom);
 
     return (
       <dialog ref={ref} id={styles.subModal}>
@@ -147,7 +149,7 @@ export const SubscribeModal = forwardRef<HTMLDialogElement, ModalProps>(
                 (ref as React.RefObject<HTMLDialogElement>).current?.close();
                 // subscribe API
                 postSubscribe(subscribeData);
-                setSubscribed(prev => ({ ...prev, subscribed: true }));
+                // setSubscribed(prev => ({ ...prev, subscribed: true }));
                 // console.log(isSubscribed);
               }}
             >

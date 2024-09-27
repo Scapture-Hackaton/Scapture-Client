@@ -67,7 +67,7 @@ const MyReservation = () => {
   }, []);
 
   //로그인이 안되기때문에 임의로 예약내역 여부 판단
-  const isReservation = true;
+  // const isReservation = true;
   // const reservations = [
   //   {
   //     id: 1,
