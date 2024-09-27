@@ -18,7 +18,7 @@ import check from '../scss/reservation-check-modal.module.scss';
 import noDataIcon from '../../../assets/Icon/noDataIcon.svg';
 
 interface ReservationListProps {
-  reserveList: ReservationDto[][];
+  reserveList: ReservationDto[];
   queryClient: any;
   stadiumId: number;
   selectedFieldId: number | undefined;
@@ -87,46 +87,43 @@ const ReservationList: React.FC<ReservationListProps> = ({
   };
   return (
     <>
-      {Array.isArray(reserveList) && reserveList.length > 0 ? (
-        reserveList.map((list: ReservationDto[], groupIndex: number) => (
-          <div className={styles.group} key={groupIndex}>
-            {list.map((item: ReservationDto) => (
-              <div className={styles.compontent} key={item.scheduleId}>
-                <div className={styles.title}>
-                  <div className={styles.field}>{item.name}</div>
-                </div>
-                <div className={styles.info}>
-                  <div>{item.hours}</div>
-                  <div>{item.type}</div>
-                </div>
-                {item.isReserved ? (
-                  <div className={styles.booked}>예약마감</div>
-                ) : (
-                  <button
-                    onClick={() => {
-                      reserve(item);
-                    }}
-                  >
-                    예약하기
-                  </button>
-                )}
+      <div className={styles.group}>
+        {Array.isArray(reserveList) && reserveList.length > 0 ? (
+          reserveList.map((list: ReservationDto) => (
+            <div className={styles.compontent} key={list.scheduleId}>
+              <div className={styles.title}>
+                <div className={styles.field}>{list.name}</div>
               </div>
-            ))}
+              <div className={styles.info}>
+                <div>{list.hours}</div>
+                <div>{list.type}</div>
+              </div>
+              {list.isReserved ? (
+                <div className={styles.booked}>예약마감</div>
+              ) : (
+                <button
+                  onClick={() => {
+                    reserve(list);
+                  }}
+                >
+                  예약하기
+                </button>
+              )}
+            </div>
+          ))
+        ) : (
+          <div className={styles.noData}>
+            <img
+              src={noDataIcon}
+              alt="검색 결과가 없습니다."
+              width="180px"
+              height="180px"
+            />
+            <div>검색 결과가 없어요</div>
           </div>
-        ))
-      ) : (
-        <div className={styles.noData}>
-          <img
-            src={noDataIcon}
-            alt="검색 결과가 없습니다."
-            width="180px"
-            height="180px"
-          />
-          <div>검색 결과가 없어요</div>
-        </div>
-      )}
+        )}
 
-      {/* <div className={styles.group}>
+        {/* <div className={styles.group}>
         <div className={styles.compontent}>
           <div className={styles.field}>A구장장장장장장</div>
 
@@ -158,25 +155,26 @@ const ReservationList: React.FC<ReservationListProps> = ({
         </div>
       </div> */}
 
-      <LoginModal
-        styles={loginModal}
-        AUTH_URLS={AUTH_URLS}
-        modalRef={loginModalRef}
-      ></LoginModal>
-      {/* modalRef */}
-      <ReservationModal
-        styles={modal}
-        ref={modalRef}
-        reservation={selectedReservation}
-        // onSuccess={successReserve}
-        onConfirm={handleReserveConfirm}
-      />
-      {/* modalCheckRef */}
-      <ReservationCheckModal
-        styles={check}
-        ref={modalCheckRef}
-        reservation={selectedReservation}
-      />
+        <LoginModal
+          styles={loginModal}
+          AUTH_URLS={AUTH_URLS}
+          modalRef={loginModalRef}
+        ></LoginModal>
+        {/* modalRef */}
+        <ReservationModal
+          styles={modal}
+          ref={modalRef}
+          reservation={selectedReservation}
+          // onSuccess={successReserve}
+          onConfirm={handleReserveConfirm}
+        />
+        {/* modalCheckRef */}
+        <ReservationCheckModal
+          styles={check}
+          ref={modalCheckRef}
+          reservation={selectedReservation}
+        />
+      </div>
     </>
   );
 };

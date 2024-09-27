@@ -6,7 +6,7 @@ import Scapture from './Page/Scapture/components/Scapture';
 import Stadium from './Page/Stadium/components/Stadium';
 import Reservation from './Page/Reservation/components/Reservation';
 import Video from './Page/Video/components/Video';
-import MyPage from './Page/MyPage/MyPage/components/MyPage';
+import MyPage from './Page/MyPage/components/MyPage';
 import EditProfile from './Page/MyPage/EditProfile/components/EditProfile';
 import MyReservation from './Page/MyPage/MyReservation/components/MyReservation';
 import Header from './Page/Header/components/Header';

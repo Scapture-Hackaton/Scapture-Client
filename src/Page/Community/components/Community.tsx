@@ -113,13 +113,13 @@ const Community = () => {
 
   const handleToggleLike = (isLiked: boolean) => {
     if (isLoginState) {
-      modalNotice(loginModalRef);
-    } else {
       if (videoDetailData && !isLiked) {
         toggleLikeVideo(isVideoId);
       } else if (videoDetailData && isLiked) {
         toggleUnLikeVideo(isVideoId);
       }
+    } else {
+      modalNotice(loginModalRef);
     }
   };
 
@@ -247,13 +247,13 @@ const Community = () => {
   // 북마크를 눌렀을 때 처리
   const handleToggleStore = (isStore: boolean) => {
     if (isLoginState) {
-      modalNotice(loginModalRef);
-    } else {
       if (videoDetailData && !isStore) {
         toggleStore(isVideoId);
       } else if (videoDetailData && isStore) {
         toggleUnStore(isVideoId);
       }
+    } else {
+      modalNotice(loginModalRef);
     }
   };
 

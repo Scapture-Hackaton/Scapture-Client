@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { loginData, loginDataAtom } from '../../Page/Header/Atom/atom';
-import { useSetRecoilState } from 'recoil';
+import { useResetRecoilState, useSetRecoilState } from 'recoil';
+import { userDataAtom } from '../../Page/MyPage/Atom/atom';
 
 const BASE_URL = `http://${import.meta.env.VITE_SERVER_URL}:${import.meta.env.VITE_SERVER_PORT}/`;
 
@@ -42,6 +43,8 @@ authApi.interceptors.response.use(
       localStorage.removeItem('LoginType');
       const setLoginState = useSetRecoilState<loginData>(loginDataAtom);
       setLoginState({ state: false });
+
+      useResetRecoilState(userDataAtom);
 
       return Promise.reject(
         new Error('토큰이 만료되었습니다. 다시 로그인해 주세요.'),

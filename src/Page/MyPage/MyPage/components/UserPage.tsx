@@ -55,7 +55,7 @@ const selectState = {
   경기도: ['고양'],
 };
 
-const MyPage = () => {
+const UserPage = () => {
   const navigate = useNavigate();
   // const modalRef = useRef<HTMLDialogElement>(null);
   // const modalSubRef = useRef<HTMLDialogElement>(null);
@@ -657,4 +657,4 @@ const MyPage = () => {
   );
 };
 
-export default MyPage;
+export default UserPage;
