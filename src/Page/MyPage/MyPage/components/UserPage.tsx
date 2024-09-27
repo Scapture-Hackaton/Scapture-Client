@@ -272,7 +272,9 @@ const UserPage = () => {
     const data = await putProfile({ team: isInput }, null);
     // console.log(data);
 
-    console.log(data);
+    if (data?.status == 200) {
+      console.log('수정 완료');
+    }
   };
 
   // ESC 를 누를 경우 수정 비활성화
@@ -304,7 +306,7 @@ const UserPage = () => {
     queryFn: () => getSortVideoLatest(),
   });
 
-  console.log(storeVideoList);
+  //   console.log(storeVideoList);
 
   return (
     <div className={styles.test}>
@@ -356,11 +358,16 @@ const UserPage = () => {
                     <div className={styles.noSub}>비구독</div>
                   )}
 
-                  {myProfileData ? myProfileData.data.endDate : ''}
+                  {myProfileData && myProfileData?.data?.endDate
+                    ? myProfileData.data.endDate
+                    : ''}
                   {/* <div className={styles.date}>0000.00.00 까지 이용</div> */}
                 </div>
                 <div className={styles.profileId}>
-                  {myProfileData ? myProfileData.data.name : '000'}님
+                  {myProfileData && myProfileData?.data?.name
+                    ? myProfileData.data.name
+                    : '000'}
+                  님
                 </div>
               </div>
             </div>
