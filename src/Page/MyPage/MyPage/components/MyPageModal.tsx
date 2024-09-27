@@ -148,7 +148,7 @@ export const SubscribeModal = forwardRef<HTMLDialogElement, ModalProps>(
                 // subscribe API
                 postSubscribe(subscribeData);
                 setSubscribed(prev => ({ ...prev, subscribed: true }));
-                console.log(isSubscribed);
+                // console.log(isSubscribed);
               }}
             >
               구독하러 가기

@@ -1,19 +1,18 @@
-import Header from '../../../Header/components/Header';
-import Clock from '../image/Clock.svg';
-import DefaultProfile from '../image/DefaultProfile.svg';
-import DownArrow from '../image/downArrow.svg';
-import Banana from '../image/banana.svg';
-import Cancel from '../image/cancel.svg';
-import Vector from '../image/Vector9.svg';
-import benefit1 from '../image/benefit1.svg';
-import benefit2 from '../image/benefit2.svg';
-import benefit3 from '../image/benefit3.svg';
+import Clock from '../MyPage/image/Clock.svg';
+import DefaultProfile from '../MyPage/image/DefaultProfile.svg';
+import DownArrow from '../MyPage/image/downArrow.svg';
+import Banana from '../MyPage/image/banana.svg';
+import Cancel from '../MyPage/image/cancel.svg';
+import Vector from '../MyPage/image/Vector9.svg';
+import benefit1 from '../MyPage/image/benefit1.svg';
+import benefit2 from '../MyPage/image/benefit2.svg';
+import benefit3 from '../MyPage/image/benefit3.svg';
 // import Button from '../image/Radiobutton.svg';
-import Footer from '../../../Footer/components/Footer';
+
 // import AllianceStadium from '../../../Main/components/AllianceStadium';
 // import { userData, bananaData, subscribedData } from '../../dto/atom.interface';
 
-import styles from '../scss/my-page.module.scss';
+import styles from '../MyPage/scss/my-page.module.scss';
 // import modal from '../scss/my-page-modal.module.scss';
 // import sub from '../scss/my-page-sub-modal.module.scss';
 
@@ -28,6 +27,11 @@ import styles from '../scss/my-page.module.scss';
 // import { useEffect, useRef, useState } from 'react';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+// import { useQuery } from '@tanstack/react-query';
+// import { getProfile } from '../../../../apis/api/mypage.api';
+// import { userDataAtom } from '../../Atom/atom';
+// import { userData } from '../../dto/atom.interface';
+// import { useRecoilValue } from 'recoil';
 
 // import ReactPaginate from 'react-paginate';
 
@@ -50,7 +54,7 @@ const selectState = {
   경기도: ['고양'],
 };
 
-const MyPage = () => {
+const AdminPage = () => {
   const navigate = useNavigate();
   // const modalRef = useRef<HTMLDialogElement>(null);
   // const modalSubRef = useRef<HTMLDialogElement>(null);
@@ -131,7 +135,7 @@ const MyPage = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isOpen2, setIsOpen2] = useState(false);
   const [selectedButtonId, setSelectedButtonId] = useState(null);
-  console.log(selectedButtonId);
+  // console.log(selectedButtonId);
 
   // const [selected, setSelected] = useState('최신순');
   // const selectRef = useRef<HTMLDivElement>(null);
@@ -202,9 +206,17 @@ const MyPage = () => {
     { id: 2, quantity: '5개', price: '9,990원' },
     { id: 3, quantity: '10개', price: '19,990원' },
   ];
+
+  // const isProfile = useRecoilValue<userData>(userDataAtom);
+  // console.log(isProfile);
+
+  //   const { data: myProfileData } = useQuery({
+  //     queryKey: ['myprofile'],
+  //     queryFn: () => getProfile(),
+  //   });
+
   return (
     <div className={styles.test}>
-      <Header index={0} />
       <div className={styles.myPageContainer}>
         <div className={styles.centerContainer}>
           <div className={styles.baseInformation}>
@@ -242,7 +254,9 @@ const MyPage = () => {
                   <div className={styles.badge}>구독</div>
                   <div className={styles.date}>0000.00.00 까지 이용</div>
                 </div>
-                <div className={styles.profileId}>000님</div>
+                <div className={styles.profileId}>
+                  {/* {myProfileData ? myProfileData.data.name : '000'}님 */}
+                </div>
               </div>
             </div>
             <div className={styles.infoContainer}>
@@ -458,7 +472,7 @@ const MyPage = () => {
           </div>
         )}
       </div>
-      <Footer></Footer>
+
       {/* <div className={styles.myPage}>
         <div className={styles.profile}>
           <div className={styles.bar}></div>
@@ -641,4 +655,4 @@ const MyPage = () => {
   );
 };
 
-export default MyPage;
+export default AdminPage;

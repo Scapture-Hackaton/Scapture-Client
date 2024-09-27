@@ -123,7 +123,7 @@ const Scapture = () => {
   //   initialData: [] as Stadium[],
   // });
 
-  // 댓글 창의 입력 감지
+  // 검색 창의 입력 감지
   const [isInput, setInput] = useState('');
   const changeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInput(e.target.value);

@@ -115,7 +115,7 @@ const Reservation = () => {
   const formattedDate = selectedDate.toISOString().split('T')[0];
 
   // 예약시간 리스트
-  const [isReservationList, setReservationList] = useState<ReservationDto[][]>(
+  const [isReservationList, setReservationList] = useState<ReservationDto[]>(
     [],
   );
 
@@ -123,11 +123,7 @@ const Reservation = () => {
   useEffect(() => {
     if (selectedFieldId && formattedDate) {
       const fetchData = async () => {
-        const data = await getReservationList(
-          stadiumId,
-          selectedFieldId,
-          formattedDate,
-        );
+        const data = await getReservationList(selectedFieldId, formattedDate);
 
         setReservationList(data);
       };
@@ -137,8 +133,7 @@ const Reservation = () => {
 
   const { data: reservationList } = useQuery({
     queryKey: ['reservations', stadiumId, selectedFieldId, formattedDate],
-    queryFn: () =>
-      getReservationList(stadiumId, selectedFieldId, formattedDate),
+    queryFn: () => getReservationList(selectedFieldId, formattedDate),
     enabled: !!selectedFieldId && !!formattedDate, // 조건부 요청
   });
 

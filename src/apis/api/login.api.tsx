@@ -21,7 +21,7 @@ export const LoginToken = async (code: string, type: string) => {
     const res: CommonResponse = await defaultInstance.post(url);
     const TOKEN = res.data.data.token || res.data.token;
     localStorage.setItem('TOKEN', TOKEN);
-    console.log('Response:', res);
+
     window.location.reload();
     // if (!localStorage.getItem('RELOADED')) {
     //   localStorage.setItem('RELOADED', 'true');

@@ -64,7 +64,16 @@ const Footer = () => {
             </div>
 
             <div className={styles.shortcut}>
-              <img src={instagramIcon} loading="lazy" alt="" />
+              <img
+                src={instagramIcon}
+                loading="lazy"
+                alt=""
+                onClick={() => {
+                  window.location.href =
+                    'https://www.instagram.com/scapture_official/';
+                }}
+              ></img>
+
               <img src={kakaotalkIcon} loading="lazy" alt="" />
             </div>
           </div>

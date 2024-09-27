@@ -104,7 +104,7 @@ export const getSortVideoLatest = async (): Promise<
   CommonResponse | undefined
 > => {
   try {
-    const res = await authInstance.get(`api/videos/store?sort=latest`);
+    const res = await authInstance.get(`api/videos/store`);
     return res.data;
   } catch (error) {
     console.error('Error: ', error);
