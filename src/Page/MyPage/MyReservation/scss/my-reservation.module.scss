@@ -1,12 +1,15 @@
 .test {
   margin: 0 auto;
-  width: 450px;
+  width: 100%;
   height: 100%;
   flex-shrink: 0;
 
   .reservationContainer {
     width: 100%;
-    padding: 20px;
+
+    padding: 1.5rem 0;
+    margin: 0 auto;
+    // padding: 20px;
     gap: 16px;
     background: var(--GRAY-SCALE-Black_BG, #1a1b1e);
     display: flex;
@@ -15,8 +18,11 @@
     align-items: center;
 
     .reserve {
-      width: 390px;
+      width: 90%;
       height: 221px;
+
+      margin: 0 auto;
+
       align-self: stretch;
       border-radius: 12px;
       background: var(--GRAY-SCALE-Gray-900_CARD, #2b2c31);

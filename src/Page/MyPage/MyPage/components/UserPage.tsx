@@ -62,9 +62,30 @@ import SubscribeModal from './SubscribeModal';
 
 // const itemsPerPage = 8; // 페이지당 보여줄 아이템 수
 
-const selectState = {
+interface SelectStateType {
+  서울시: string[];
+  경기도: string[];
+  강원도: string[];
+  충청북도: string[];
+  충청남도: string[];
+  경상북도: string[];
+  경상남도: string[];
+  전라북도: string[];
+  전라남도: string[];
+  제주도: string[];
+}
+
+const selectState: SelectStateType = {
   서울시: ['성북구', '강서구', '영등포구', '강남구', '노원구', '동대문구'],
-  경기도: ['고양'],
+  경기도: ['수원시', '고양시', '용인시', '성남시', '부천시', '남양주시'],
+  강원도: ['춘천시', '원주시', '강릉시', '동해시', '속초시'],
+  충청북도: ['청주시', '충주시', '제천시', '보은군', '옥천군'],
+  충청남도: ['천안시', '공주시', '보령시', '아산시', '서산시'],
+  경상북도: ['포항시', '경주시', '김천시', '안동시', '구미시'],
+  경상남도: ['창원시', '진주시', '통영시', '김해시', '양산시'],
+  전라북도: ['전주시', '군산시', '익산시', '정읍시', '남원시'],
+  전라남도: ['목포시', '여수시', '순천시', '광양시', '나주시'],
+  제주도: ['제주시', '서귀포시'],
 };
 
 const UserPage = () => {
@@ -141,8 +162,10 @@ const UserPage = () => {
   // }, [setProfile, setBanana]);
 
   const [logout, setLogout] = useState(false);
-  // const [selectedCity, setSelectedCity] = useState('');
-  // const [selectedRegion, setSelectedRegion] = useState('');
+  const [selectedCity, setSelectedCity] = useState<keyof SelectStateType | ''>(
+    '',
+  );
+  const [selectedRegion, setSelectedRegion] = useState('');
   const [cityDropdownOpen, setCityDropdownOpen] = useState(false);
   const [regionDropdownOpen, setRegionDropdownOpen] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
@@ -173,16 +196,16 @@ const UserPage = () => {
     setLogout(!logout);
   };
 
-  // const handleCityChange = city => {
-  //   setSelectedCity(city);
-  //   setSelectedRegion(''); // 도시를 변경시 지역 초기화
-  //   setCityDropdownOpen(false);
-  // };
+  const handleCityChange = (city: keyof SelectStateType) => {
+    setSelectedCity(city);
+    setSelectedRegion(''); // 도시를 변경시 지역 초기화
+    setCityDropdownOpen(false);
+  };
 
-  // const handleRegionChange = region => {
-  //   setSelectedRegion(region);
-  //   setRegionDropdownOpen(false);
-  // };
+  const handleRegionChange = (region: string) => {
+    setSelectedRegion(region);
+    setRegionDropdownOpen(false);
+  };
 
   const toggleCityDropdown = () => {
     setCityDropdownOpen(!cityDropdownOpen);
@@ -400,24 +423,27 @@ const UserPage = () => {
               </div>
               <div className={styles.regionContainer}>
                 <div className={styles.title}>활동 지역</div>
-                <div style={{ display: 'flex', gap: '8px' }}>
+                <div className={styles.regionDropDown}>
                   <div className={styles.dropdown} onClick={toggleCityDropdown}>
                     <div className={styles.dropdownTitle}>
-                      {/* {selectedCity || '도시'} */}
-                      '도시'
+                      {selectedCity === '' ? '도시' : selectedCity}
                     </div>
                     <img className={styles.dropdownImg} src={DownArrow}></img>
                     {cityDropdownOpen && (
                       <div className={styles.dropdownMenu}>
-                        {Object.keys(selectState).map(city => (
-                          <div
-                            key={city}
-                            className={styles.dropdownItem}
-                            // onClick={() => handleCityChange(city)}
-                          >
-                            {city}
-                          </div>
-                        ))}
+                        {Object.keys(selectState).map(
+                          (city: string, idx: number) => (
+                            <div
+                              key={idx}
+                              className={styles.dropdownItem}
+                              onClick={() =>
+                                handleCityChange(city as keyof SelectStateType)
+                              }
+                            >
+                              {city}
+                            </div>
+                          ),
+                        )}
                       </div>
                     )}
                   </div>
@@ -428,20 +454,22 @@ const UserPage = () => {
                   >
                     <div className={styles.dropdownTitle}>
                       {/* {selectedRegion || '지역'} */}
-                      지역
+                      {selectedRegion === '' ? '지역' : selectedRegion}
                     </div>
                     <img className={styles.dropdownImg} src={DownArrow}></img>
                     {regionDropdownOpen && (
                       <div className={styles.dropdownMenu}>
-                        {/* {selectState[selectedCity].map(region => (
-                          <div
-                            key={region}
-                            className={styles.dropdownItem}
-                            onClick={() => handleRegionChange(region)}
-                          >
-                            {region}
-                          </div>
-                        ))} */}
+                        {selectedCity !== '' &&
+                          selectState[selectedCity].length > 0 &&
+                          selectState[selectedCity].map((region: string) => (
+                            <div
+                              key={region}
+                              className={styles.dropdownItem}
+                              onClick={() => handleRegionChange(region)}
+                            >
+                              {region}
+                            </div>
+                          ))}
                       </div>
                     )}
                   </div>
@@ -475,7 +503,7 @@ const UserPage = () => {
             </div>
             <div className={styles.buttonContainer}>
               <div className={styles.inviteButton}>
-                친구 초대하고 버내너 3개 받기
+                <div>친구 초대하고</div> <div>버내너 3개 받기</div>
               </div>
               <div
                 className={styles.chargeButton}
@@ -501,14 +529,18 @@ const UserPage = () => {
                 나의 예약정보를 확인할 수 있어요
               </div>
             </div>
-            <div
-              className={styles.detail}
-              onClick={() => {
-                navigate('/mypage/reservation');
-              }}
-            >
-              자세히 보기
-            </div>
+            {reserveList?.data && reserveList?.data?.length ? (
+              <div
+                className={styles.detail}
+                onClick={() => {
+                  navigate('/mypage/reservation', { state: { reserveList } });
+                }}
+              >
+                자세히 보기
+              </div>
+            ) : (
+              <div className={styles.noDetail}>자세히 보기</div>
+            )}
           </div>
           <div className={styles.saveContainer}>
             <div className={styles.title}>저장한 영상</div>
