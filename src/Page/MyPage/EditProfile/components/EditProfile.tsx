@@ -144,7 +144,7 @@ const EditProfile = () => {
                     className={styles.value}
                     type="text"
                     // placeholder="이름"
-                    placeholder={isProfile.name}
+                    placeholder={isProfile?.name ? isProfile.name : '이름'}
                     // value={isProfile.name}
                     onInput={e => {
                       setProfile(prev => ({
@@ -168,7 +168,7 @@ const EditProfile = () => {
                     className={styles.value}
                     type="text"
                     // placeholder="소속팀"
-                    placeholder={isProfile.team}
+                    placeholder={isProfile?.team ? isProfile.team : '소속팀'}
                     // value={isProfile.team}
                     onInput={e => {
                       setProfile(prev => ({
@@ -192,7 +192,9 @@ const EditProfile = () => {
                     className={styles.value}
                     type="text"
                     // placeholder="활동지역"
-                    placeholder={isProfile.location}
+                    placeholder={
+                      isProfile?.location ? isProfile.location : '위치'
+                    }
                     // value={isProfile.location}
                     onInput={e => {
                       setProfile(prev => ({
