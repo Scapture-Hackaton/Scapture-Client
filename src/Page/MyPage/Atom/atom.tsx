@@ -8,7 +8,7 @@ import {
 export const userDataAtom = atom<userData>({
   key: 'userData',
   default: {
-    endDate: null,
+    endDate: 'undefined',
     image: undefined,
     location: 'KOREA',
     name: 'undefined',
