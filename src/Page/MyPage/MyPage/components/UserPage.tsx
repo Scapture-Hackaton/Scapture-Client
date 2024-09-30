@@ -5,9 +5,9 @@ import DownArrow from '../image/downArrow.svg';
 import Banana from '../image/banana.svg';
 import Cancel from '../image/cancel.svg';
 import Vector from '../image/Vector9.svg';
-import benefit1 from '../image/benefit1.svg';
-import benefit2 from '../image/benefit2.svg';
-import benefit3 from '../image/benefit3.svg';
+// import benefit1 from '../image/benefit1.svg';
+// import benefit2 from '../image/benefit2.svg';
+// import benefit3 from '../image/benefit3.svg';
 import Ground from '../image/Ground.svg';
 // import Button from '../image/Radiobutton.svg';
 // import Footer from '../../../Footer/components/Footer';
@@ -41,6 +41,7 @@ import { useResetRecoilState, useSetRecoilState } from 'recoil';
 import { loginDataAtom } from '../../../Header/Atom/atom';
 import { userDataAtom } from '../../Atom/atom';
 import { StoredVideoList } from '../../../../apis/dto/myPage.dto';
+import SubscribeModal from './SubscribeModal';
 // import { userDataAtom } from '../../Atom/atom';
 // import { userData } from '../../dto/atom.interface';
 // import { useRecoilValue } from 'recoil';
@@ -146,7 +147,7 @@ const UserPage = () => {
   const [regionDropdownOpen, setRegionDropdownOpen] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const [isOpen2, setIsOpen2] = useState(false);
-  const [selectedButtonId, setSelectedButtonId] = useState(null);
+  const [selectedButtonId, setSelectedButtonId] = useState<number | null>(null);
   // console.log(selectedButtonId);
 
   // const [selected, setSelected] = useState('최신순');
@@ -518,9 +519,12 @@ const UserPage = () => {
                     className={styles.videoCard}
                     key={item.videoId}
                     onClick={() => {
+                      console.log(item.videoId);
+
                       navigate('/video', {
                         state: {
                           videoId: item.videoId,
+                          stadiumId: item.stadiumId,
                         },
                       });
                     }}
@@ -537,7 +541,7 @@ const UserPage = () => {
                       <div className={styles.videoTitle}>{item.name}</div>
                       <div className={styles.videoDetails}>
                         <div className={styles.videoField}>
-                          {item.stadiumName}
+                          {item.stadiumName} | {item.fieldName}
                         </div>
                         <div className={styles.videoTime}>
                           {item.date} | {item.hours}
@@ -619,37 +623,41 @@ const UserPage = () => {
         )}
         {/* 구독혜택 모달 */}
         {isOpen2 && (
-          <div className={styles.benefitContainer}>
-            <div className={styles.benefit}>
-              <div className={styles.modalHeader}>
-                <div className={styles.modalHeaderText}>구독 혜택</div>
-                <img
-                  className={styles.close}
-                  src={Cancel}
-                  onClick={() => {
-                    toggleModal2();
-                    setSelectedButtonId(null);
-                  }}
-                ></img>
-              </div>
-              <img src={Vector} />
-              <div className={styles.detailContainer}>
-                <div className={styles.detail}>
-                  <img src={benefit1} alt="" className={styles.img}></img>
-                  <div className={styles.text}>영상 무료 다운로드</div>
-                </div>
-                <div className={styles.detail}>
-                  <img src={benefit2} alt="" className={styles.img}></img>
-                  <div className={styles.text}>영상 무제한 저장</div>
-                </div>
-                <div className={styles.detail}>
-                  <img src={benefit3} alt="" className={styles.img}></img>
-                  <div className={styles.text}>월 19,900원</div>
-                </div>
-                <div className={styles.button}>구독하러 가기</div>
-              </div>
-            </div>
-          </div>
+          <SubscribeModal
+            toggleModal2={toggleModal2}
+            setSelectedButtonId={setSelectedButtonId}
+          ></SubscribeModal>
+          //   <div className={styles.benefitContainer}>
+          //     <div className={styles.benefit}>
+          //       <div className={styles.modalHeader}>
+          //         <div className={styles.modalHeaderText}>구독 혜택</div>
+          //         <img
+          //           className={styles.close}
+          //           src={Cancel}
+          //           onClick={() => {
+          //             toggleModal2();
+          //             setSelectedButtonId(null);
+          //           }}
+          //         ></img>
+          //       </div>
+          //       <img src={Vector} />
+          //       <div className={styles.detailContainer}>
+          //         <div className={styles.detail}>
+          //           <img src={benefit1} alt="" className={styles.img}></img>
+          //           <div className={styles.text}>영상 무료 다운로드</div>
+          //         </div>
+          //         <div className={styles.detail}>
+          //           <img src={benefit2} alt="" className={styles.img}></img>
+          //           <div className={styles.text}>영상 무제한 저장</div>
+          //         </div>
+          //         <div className={styles.detail}>
+          //           <img src={benefit3} alt="" className={styles.img}></img>
+          //           <div className={styles.text}>월 19,900원</div>
+          //         </div>
+          //         <div className={styles.button}>구독하러 가기</div>
+          //       </div>
+          //     </div>
+          //   </div>
         )}
       </div>
       {/* <Footer></Footer> */}
