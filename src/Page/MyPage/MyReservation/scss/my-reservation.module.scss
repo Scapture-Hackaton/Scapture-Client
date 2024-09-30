@@ -21,9 +21,11 @@
       border-radius: 12px;
       background: var(--GRAY-SCALE-Gray-900_CARD, #2b2c31);
       padding: 20px 18px;
+
       &.completed {
         opacity: 0.5;
       }
+
       .badge {
         display: flex;
         padding: 0px 8px;

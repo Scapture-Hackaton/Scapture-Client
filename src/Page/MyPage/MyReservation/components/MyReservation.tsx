@@ -26,41 +26,29 @@ const MyReservation = () => {
     if (localStorage.getItem('TOKEN') && localStorage.getItem('LoginType')) {
       setLoginState({ state: true });
     }
+  }, []);
+
+  useEffect(() => {
     if (!isLoginState.state) {
       navigate('/');
     }
-  }, []);
-
-  //어떻게 나눌지 고민...
-  // const reservationObject = [
-  //   {
-  //     date: '2024.07.18',
-  //     StadiumName: 'LBFS 트레이닝 센터',
-  //     fieldName: '실내 구장',
-  //     hours: '20:00 ~ 22:00',
-  //     fieldType: '6 vs 6',
-  //     isAvailable: true, // 시간 지났는지 안지났는지
-  //   },
-  // ];
+  }, [isLoginState.state]); // isLoginState가 업데이트된 후 동작
 
   const [isReservationState, setReservationState] =
     useState<reservationData[]>();
 
   useEffect(() => {
     const fetchReservationInfo = async () => {
-      const res = await getReservation();
-      // console.log(res?.data);
-
-      if (res?.data) {
-        // setReservationState({
-        //   date: res.data.date,
-        //   StadiumName: res.data.StadiumName,
-        //   fieldName: res.data.fieldName,
-        //   hours: res.data.hours,
-        //   fieldType: res.data.fieldType,
-        //   isAvailable: res.data.isAvailable,
-        // });
-        setReservationState(res?.data);
+      try {
+        const res = await getReservation();
+        if (res?.data) {
+          setReservationState(res.data); // 여기서 ?. 대신 직접 확인
+        } else {
+          setReservationState([]); // 빈 배열을 할당하여 에러 방지
+        }
+      } catch (error) {
+        console.error('API 요청 실패:', error);
+        setReservationState([]); // 에러 발생 시에도 빈 배열 할당
       }
     };
     fetchReservationInfo();
@@ -122,34 +110,44 @@ const MyReservation = () => {
   return (
     <div className={styles.test}>
       <Header index={0}></Header>
-      {isReservationState ? (
+      {isReservationState && isReservationState.length > 0 ? (
         <div className={styles.reservationContainer}>
           {isReservationState.map(
             (reservation: reservationData, idx: number) => (
               <div
                 key={idx}
-                className={`${styles.reserve} ${reservation.isAvailable ? styles.completed : ''}`}
+                className={`${styles.reserve} ${reservation.isAvailable ? '' : styles.completed}`}
               >
                 <div className={styles.badge}>
-                  {reservation.isAvailable ? '진행 완료' : '진행 예정'}
+                  {reservation.isAvailable ? '진행 예정' : '진행 완료'}
                 </div>
-                <div className={styles.stadium}>{reservation.stadiumName}</div>
+                <div className={styles.stadium}>
+                  {reservation.stadiumName || '-'}
+                </div>
                 <div className={styles.detailContainer}>
                   <div className={styles.detail}>
                     <img className={styles.img} src={Calendar}></img>
-                    <div className={styles.text}>{reservation.date}</div>
+                    <div className={styles.text}>
+                      {reservation.date || '날짜 정보 없음'}
+                    </div>
                   </div>
                   <div className={styles.detail}>
                     <img className={styles.img} src={Point}></img>
-                    <div className={styles.text}>{reservation.fieldName}</div>
+                    <div className={styles.text}>
+                      {reservation.fieldName || '구장 정보 없음'}
+                    </div>
                   </div>
                   <div className={styles.detail}>
                     <img className={styles.img} src={Clockk}></img>
-                    <div className={styles.text}>{reservation.hours}</div>
+                    <div className={styles.text}>
+                      {reservation.hours || '운영 시간 정보 없음'}
+                    </div>
                   </div>
                   <div className={styles.detail}>
                     <img className={styles.img} src={People}></img>
-                    <div className={styles.text}>{reservation.fieldType}</div>
+                    <div className={styles.text}>
+                      {reservation.fieldType || '-'}
+                    </div>
                   </div>
                 </div>
               </div>
@@ -177,44 +175,6 @@ const MyReservation = () => {
       )}
       <Footer></Footer>
     </div>
-    // <div className={styles.test}>
-    //   <div className={styles.myReserve}>
-    //     <div className={styles.backBtn}>
-    //       <Link
-    //         className={styles.reservation}
-    //         style={{ textDecoration: 'none' }}
-    //         to="/mypage"
-    //       >
-    //         <div>
-    //           <img src={backArrow} alt=""></img>
-    //           <p>예약 내역 확인하기</p>
-    //         </div>
-    //       </Link>
-    //     </div>
-    //     {isReservationState.data ? (
-    //       <div className={styles.container}>
-    //         <div className={styles.header}>나의 예약</div>
-
-    //         <div className={styles.row}>
-    //           <p>예약 날짜</p>
-    //           <p>2024.08.03.토/{isReservationState.date}</p>
-    //         </div>
-    //         <div className={styles.row}>
-    //           <p>구장 명</p>
-    //           <p>A구장/{isReservationState.name}</p>
-    //         </div>
-    //         <div className={styles.row}>
-    //           <p>사용 시간</p>
-    //           <p>20:00 ~ 22:00/{isReservationState.hours}</p>
-    //         </div>
-    //       </div>
-    //     ) : (
-    //       <div className={styles.noData}>
-    //         <p>아직 예약 내역이 없음</p>
-    //       </div>
-    //     )}
-    //   </div>
-    // </div>
   );
 };
 

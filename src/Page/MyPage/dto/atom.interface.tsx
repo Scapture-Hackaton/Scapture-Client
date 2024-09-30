@@ -1,5 +1,5 @@
 export interface userData {
-  endDate: string | null;
+  endDate: string;
   image: string | undefined;
   location: string;
   name: string;
