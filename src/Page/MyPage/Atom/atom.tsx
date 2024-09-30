@@ -8,10 +8,10 @@ import {
 export const userDataAtom = atom<userData>({
   key: 'userData',
   default: {
-    endDate: 'undefined',
+    endDate: null, // null로 초기화하여 명확하게 처리
     image: undefined,
     location: 'KOREA',
-    name: 'undefined',
+    name: 'undefined', // string 타입을 유지
     role: 'undefined',
     team: 'SCAPTURE',
   },

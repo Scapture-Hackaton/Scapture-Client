@@ -63,29 +63,36 @@ const Header: React.FC<HeaderProps> = ({ index }) => {
   };
 
   useEffect(() => {
-    // console.log(isLoginState);
-    //getprofile을 TOKEN과 LOGINTYPE이 정해지는 곳에서 다시 수행 또는 localstorage 변수를 useState로 변경
+    let isMounted = true; // 컴포넌트가 마운트된 상태인지 확인하는 플래그
+
     const fetchProfileInfo = async () => {
-      const res = await getProfile();
-
-      // if (res?.data) {
-      // localStorage.setItem('name', res?.data.name);
-
-      setProfile(prev => ({
-        ...prev,
-        endDate: res?.data.endDate,
-        image: res?.data.image,
-        location: res?.data.location,
-        name: res?.data.name,
-        role: res?.data.role,
-        team: res?.data.team,
-      }));
-      setLoginState({ state: true });
-      // }
+      try {
+        const res = await getProfile();
+        if (isMounted && res?.data) {
+          // 컴포넌트가 마운트되어 있을 때만 상태 업데이트
+          setProfile(prev => ({
+            ...prev,
+            endDate: res?.data.endDate || 'unknown', // 데이터가 없을 경우 대비
+            image: res?.data.image,
+            location: res?.data.location || 'unknown',
+            name: res?.data.name || 'unknown',
+            role: res?.data.role || 'unknown',
+            team: res?.data.team || 'unknown',
+          }));
+          setLoginState({ state: true });
+        }
+      } catch (error) {
+        console.error('Failed to fetch profile:', error);
+      }
     };
+
     if (TOKEN && loginType) {
       fetchProfileInfo();
     }
+
+    return () => {
+      isMounted = false; // 컴포넌트 언마운트 시 플래그를 false로 설정
+    };
   }, [loginType, TOKEN]);
 
   const navigate = useNavigate();
