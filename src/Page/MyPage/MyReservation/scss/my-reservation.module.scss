@@ -32,25 +32,38 @@
         opacity: 0.5;
       }
 
-      .badge {
+      .badgeInfo {
         display: flex;
-        padding: 0px 8px;
-        width: 61px;
-        height: 19px;
-        justify-content: center;
         align-items: center;
         gap: 10px;
-        border-radius: 4px;
-        background: #4aff9d;
-        color: #2c6546;
 
-        /* BODY/12_medium */
-        font-family: Pretendard;
-        font-size: 12px;
-        font-style: normal;
-        font-weight: 500;
-        line-height: 160%; /* 19.2px */
+        .badge {
+          display: flex;
+          padding: 0px 8px;
+          width: 61px;
+          height: 19px;
+          justify-content: center;
+          align-items: center;
+          gap: 10px;
+          border-radius: 4px;
+          background: #4aff9d;
+          color: #2c6546;
+
+          /* BODY/12_medium */
+          font-family: Pretendard;
+          font-size: 12px;
+          font-style: normal;
+          font-weight: 500;
+          line-height: 160%; /* 19.2px */
+        }
+
+        .dDayInfo {
+          font-weight: 700;
+          font-size: var(--font-size-s);
+          color: var(--font-color-green);
+        }
       }
+
       .stadium {
         color: #fff;
 

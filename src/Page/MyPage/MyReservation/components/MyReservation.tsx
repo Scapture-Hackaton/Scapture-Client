@@ -110,9 +110,17 @@ const MyReservation = () => {
                 key={idx}
                 className={`${styles.reserve} ${reservation.isAvailable ? '' : styles.completed}`}
               >
-                <div className={styles.badge}>
-                  {reservation.isAvailable ? '진행 예정' : '진행 완료'}
+                <div className={styles.badgeInfo}>
+                  <div className={styles.badge}>
+                    {reservation.isAvailable ? '진행 예정' : '진행 완료'}
+                  </div>
+                  <div className={styles.dDayInfo}>
+                    {reservation.decisionDay > 0
+                      ? `D-${reservation.decisionDay}`
+                      : `D+${reservation.decisionDay}`}
+                  </div>
                 </div>
+
                 <div className={styles.stadium}>
                   {reservation.stadiumName || '-'}
                 </div>
