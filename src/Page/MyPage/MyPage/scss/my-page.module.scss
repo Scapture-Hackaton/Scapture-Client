@@ -21,19 +21,41 @@
       // padding: 0 1rem;
 
       .baseInformation {
+        // display: flex;
+        // flex-direction: column;
         // width: 410px;
+
         width: 90%;
         margin: 0 auto;
 
-        height: 403px;
+        // height: 403px;
         padding: 32px 20px 32px 20px;
 
         margin-bottom: 24px;
-        flex-shrink: 0;
+        // flex-shrink: 0;
         border-radius: 12px;
         background: var(--GRAY-SCALE-Gray-900_CARD, #2b2c31);
-        display: flex;
-        flex-direction: column;
+
+        .changeInfo {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+
+          width: 100%;
+          height: 38px;
+
+          margin: 2rem auto 0 auto;
+
+          text-align: center;
+
+          border-radius: 5px;
+
+          cursor: pointer;
+
+          background: var(--main-color-blue-04);
+          font-weight: 700;
+          font-size: var(--font-size-xm);
+        }
 
         .mainTitle {
           // width: 370px;
@@ -70,15 +92,19 @@
         }
 
         .profileContainer {
+          display: flex;
+          align-items: center;
+
           // width: 370px;
           height: 168px;
+
           padding: 0 16px 0 16px;
           flex-shrink: 0;
+
           border-radius: 8px;
           opacity: 0.8;
           background: var(--GRAY-SCALE-Gray-800_-INPUT-FIELD, #323339);
-          display: flex;
-          align-items: center;
+
           .profileImg {
             width: 120px;
             height: 120px;
@@ -92,15 +118,17 @@
           .profile {
             display: flex;
             flex-direction: column;
+            align-items: start;
+
             .subscribe {
               display: flex;
+              align-items: center;
+              justify-content: center;
               gap: 8px;
 
               @mixin badge {
-                display: flex;
-                padding: 0px 8px;
-                justify-content: center;
-                align-items: center;
+                padding: 1px 8px 0 8px;
+
                 gap: 10px;
                 border-radius: 4px;
                 background: #00b9d3;
@@ -167,7 +195,7 @@
               line-height: 160%; /* 25.6px */
             }
 
-            .description {
+            @mixin description {
               display: flex;
               align-items: center;
 
@@ -189,6 +217,18 @@
               font-style: normal;
               font-weight: 500;
               line-height: 160%; /* 22.4px */
+            }
+
+            .des {
+              @include description;
+            }
+
+            .noTeam {
+              color: var(--font-color-gray-sub);
+            }
+
+            .editDes {
+              @include description;
 
               &:hover {
                 border: 1px solid var(--Blue-Blue-400, #2458ec);
@@ -201,6 +241,7 @@
               }
             }
           }
+
           .regionContainer {
             display: flex;
             justify-content: space-between;
@@ -228,7 +269,7 @@
 
               gap: 0.5rem;
 
-              .dropdown {
+              @mixin dropdown {
                 position: relative;
 
                 display: flex;
@@ -243,11 +284,10 @@
                 border-radius: 6px;
                 border: 1px solid var(--GRAY-SCALE-Gray-700_DISABLE, #37383e);
                 background: var(--GRAY-SCALE-Gray-800_-INPUT-FIELD, #323339);
-                cursor: pointer;
+              }
 
-                &:hover {
-                  border: 1px solid var(--Blue-Blue-400, #2458ec);
-                }
+              .userRegion {
+                @include dropdown;
 
                 .dropdownTitle {
                   text-wrap: nowrap;
@@ -260,11 +300,37 @@
                   font-weight: 500;
                   line-height: 160%; /* 22.4px */
                 }
+
+                .noInfo {
+                  color: var(--font-color-gray-sub);
+                }
+              }
+
+              .editRegion {
+                @include dropdown;
+
+                cursor: pointer;
+
+                &:hover {
+                  border: 1px solid var(--Blue-Blue-400, #2458ec);
+                }
+
                 .dropdownImg {
                   width: 16px;
                   height: 16px;
                   flex-shrink: 0;
-                  cursor: pointer;
+                }
+
+                .dropdownTitle {
+                  text-wrap: nowrap;
+                  color: var(--GRAY-SCALE-Gray-400, #c5c6cb);
+
+                  /* BODY/14_medium */
+                  font-family: Pretendard;
+                  font-size: 14px;
+                  font-style: normal;
+                  font-weight: 500;
+                  line-height: 160%; /* 22.4px */
                 }
               }
             }
@@ -718,7 +784,7 @@
 .dropDownContainer {
   display: flex;
   width: 120px;
-  height: 70px;
+  height: 100px;
   padding: 8px;
   flex-direction: column;
   justify-content: center;
@@ -766,13 +832,16 @@
   right: 0px;
   display: flex;
 
-  padding: 0px 8px;
+  padding: 0 8px;
   flex-direction: column;
   align-items: flex-start;
   align-self: stretch;
   background: var(--GRAY-SCALE-Gray-900_CARD, #2b2c31);
 
   box-shadow: 5px 5px 8px 0px rgba(0, 0, 0, 0.35);
+
+  max-height: 160px;
+  overflow-y: auto;
 
   .dropdownItem {
     display: flex;

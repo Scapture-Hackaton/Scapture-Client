@@ -132,3 +132,12 @@ export const getSortVideo = async (
     console.error('Error: ', error);
   }
 };
+
+export const deleteUser = async (): Promise<CommonResponse | undefined> => {
+  try {
+    const res = await authInstance.delete(`api/user`);
+    return res.data;
+  } catch (error) {
+    console.error('Error: ', error);
+  }
+};

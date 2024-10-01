@@ -1,7 +1,5 @@
 // import Header from '../../../Header/components/Header';
-import Clock from '../image/Clock.svg';
-import DefaultProfile from '../image/DefaultProfile.svg';
-import DownArrow from '../image/downArrow.svg';
+
 import Banana from '../image/banana.svg';
 import Cancel from '../image/cancel.svg';
 import Vector from '../image/Vector9.svg';
@@ -27,7 +25,7 @@ import styles from '../scss/my-page.module.scss';
 // import profileImg from '../image/profile.webp';
 
 // import { useEffect, useRef, useState } from 'react';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import {
@@ -35,13 +33,12 @@ import {
   getProfile,
   getReservation,
   getSortVideoLatest,
-  putProfile,
 } from '../../../../apis/api/mypage.api';
-import { useResetRecoilState, useSetRecoilState } from 'recoil';
-import { loginDataAtom } from '../../../Header/Atom/atom';
-import { userDataAtom } from '../../Atom/atom';
+
 import { StoredVideoList } from '../../../../apis/dto/myPage.dto';
 import SubscribeModal from './SubscribeModal';
+import EditProfile from './EditProfile';
+import UserInfo from './UserInfo';
 // import { userDataAtom } from '../../Atom/atom';
 // import { userData } from '../../dto/atom.interface';
 // import { useRecoilValue } from 'recoil';
@@ -61,32 +58,6 @@ import SubscribeModal from './SubscribeModal';
 // import { useLocation } from 'react-router-dom';
 
 // const itemsPerPage = 8; // 페이지당 보여줄 아이템 수
-
-interface SelectStateType {
-  서울시: string[];
-  경기도: string[];
-  강원도: string[];
-  충청북도: string[];
-  충청남도: string[];
-  경상북도: string[];
-  경상남도: string[];
-  전라북도: string[];
-  전라남도: string[];
-  제주도: string[];
-}
-
-const selectState: SelectStateType = {
-  서울시: ['성북구', '강서구', '영등포구', '강남구', '노원구', '동대문구'],
-  경기도: ['수원시', '고양시', '용인시', '성남시', '부천시', '남양주시'],
-  강원도: ['춘천시', '원주시', '강릉시', '동해시', '속초시'],
-  충청북도: ['청주시', '충주시', '제천시', '보은군', '옥천군'],
-  충청남도: ['천안시', '공주시', '보령시', '아산시', '서산시'],
-  경상북도: ['포항시', '경주시', '김천시', '안동시', '구미시'],
-  경상남도: ['창원시', '진주시', '통영시', '김해시', '양산시'],
-  전라북도: ['전주시', '군산시', '익산시', '정읍시', '남원시'],
-  전라남도: ['목포시', '여수시', '순천시', '광양시', '나주시'],
-  제주도: ['제주시', '서귀포시'],
-};
 
 const UserPage = () => {
   const navigate = useNavigate();
@@ -161,13 +132,6 @@ const UserPage = () => {
   //   fetchProfileInfo();
   // }, [setProfile, setBanana]);
 
-  const [logout, setLogout] = useState(false);
-  const [selectedCity, setSelectedCity] = useState<keyof SelectStateType | ''>(
-    '',
-  );
-  const [selectedRegion, setSelectedRegion] = useState('');
-  const [cityDropdownOpen, setCityDropdownOpen] = useState(false);
-  const [regionDropdownOpen, setRegionDropdownOpen] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const [isOpen2, setIsOpen2] = useState(false);
   const [selectedButtonId, setSelectedButtonId] = useState<number | null>(null);
@@ -179,41 +143,6 @@ const UserPage = () => {
   // const handleClick = id => {
   //   setSelectedButtonId(id); // 클릭된 버튼의 ID를 상태로 설정
   // };
-
-  const setLoginState = useSetRecoilState(loginDataAtom);
-  const resetUserData = useResetRecoilState(userDataAtom);
-
-  const toggleLogout = () => {
-    localStorage.removeItem('TOKEN');
-    localStorage.removeItem('LoginType');
-    setLoginState({ state: false });
-    resetUserData();
-
-    navigate('/');
-  };
-
-  const profileOption = () => {
-    setLogout(!logout);
-  };
-
-  const handleCityChange = (city: keyof SelectStateType) => {
-    setSelectedCity(city);
-    setSelectedRegion(''); // 도시를 변경시 지역 초기화
-    setCityDropdownOpen(false);
-  };
-
-  const handleRegionChange = (region: string) => {
-    setSelectedRegion(region);
-    setRegionDropdownOpen(false);
-  };
-
-  const toggleCityDropdown = () => {
-    setCityDropdownOpen(!cityDropdownOpen);
-  };
-
-  const toggleRegionDropdown = () => {
-    setRegionDropdownOpen(!regionDropdownOpen);
-  };
 
   const toggleModal = () => {
     setIsOpen(!isOpen);
@@ -260,57 +189,18 @@ const UserPage = () => {
   // console.log(isProfile);
 
   // 프로필 데이터
-  const { data: myProfileData } = useQuery({
+  const { data: myProfileData, refetch } = useQuery({
     queryKey: ['myprofile'],
     queryFn: () => getProfile(),
   });
 
-  // 데이터 받아온 경우 소속팀에 넣어줄 팀 이름 지정
-  useEffect(() => {
-    setInput(myProfileData?.data?.team);
-  }, [myProfileData]);
+  const [isEdit, setEdit] = useState<boolean>(false);
 
-  // 사용자가 입력할 상태인지 확인
-  const [inputState, setInputState] = useState(false);
-
-  // 사용자의 소속팀 입력 값
-  const [isInput, setInput] = useState('');
-  const changeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setInput(e.target.value);
+  // 프로필 변경 함수
+  const changeUserInfo = async () => {
+    setEdit(!isEdit);
+    await refetch();
   };
-
-  // 엔터를 눌렀을 경우에도 작성이 가능하도록
-  const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === 'Enter' && isInput !== '') {
-      fetchSearchResults();
-
-      setInputState(false);
-    } else {
-      setInput(myProfileData?.data?.team);
-      setInputState(false);
-    }
-  };
-
-  // 사용자 프로필 수정
-  const fetchSearchResults = async () => {
-    const data = await putProfile({ team: isInput }, null);
-    // console.log(data);
-
-    if (data?.status == 200) {
-      console.log('수정 완료');
-    }
-  };
-
-  // ESC 를 누를 경우 수정 비활성화
-  useEffect(() => {
-    const escKeyModalClose = (e: KeyboardEvent) => {
-      if (e.keyCode === 27) {
-        setInputState(false);
-      }
-    };
-    window.addEventListener('keydown', escKeyModalClose);
-    return () => window.removeEventListener('keydown', escKeyModalClose);
-  }, []);
 
   // 버내너 잔액 조회
   const { data: bananaData } = useQuery({
@@ -337,153 +227,28 @@ const UserPage = () => {
       {/* <Header index={0} /> */}
       <div className={styles.myPageContainer}>
         <div className={styles.centerContainer}>
-          <div className={styles.baseInformation}>
-            <div className={styles.mainTitle}>
-              <div className={styles.boldText}>기본 정보</div>
-              <img
-                className={styles.image}
-                src={Clock}
-                alt=""
-                onClick={profileOption}
-              ></img>
-              {logout && (
-                <div className={styles.dropDownContainer}>
-                  {/* 로그아웃/회원탈퇴 로직추가 */}
-                  <div
-                    className={styles.dropDownItem}
-                    onClick={() => toggleLogout()}
-                  >
-                    로그아웃
-                  </div>
-                  <div className={styles.dropDownItem} onClick={toggleLogout}>
-                    회원탈퇴
-                  </div>
-                </div>
-              )}
-            </div>
-            <div className={styles.subTitle}>
-              서비스에 이용되는 프로필을 설정해주세요
-            </div>
-            <div className={styles.profileContainer}>
-              <img
-                className={styles.profileImg}
-                src={
-                  myProfileData?.data?.image
-                    ? myProfileData?.data?.image
-                    : DefaultProfile
-                }
-                alt=""
-              ></img>
-              <div className={styles.profile}>
-                <div className={styles.subscribe}>
-                  {myProfileData && myProfileData?.data?.isSubscribe ? (
-                    <div className={styles.sub}>구독</div>
-                  ) : (
-                    <div className={styles.noSub}>비구독</div>
-                  )}
+          {isEdit ? (
+            <EditProfile
+              myProfileData={myProfileData}
+              changeUserInfo={changeUserInfo}
+            ></EditProfile>
+          ) : (
+            <UserInfo
+              myProfileData={myProfileData}
+              changeUserInfo={changeUserInfo}
+            ></UserInfo>
+          )}
 
-                  {myProfileData && myProfileData?.data?.endDate
-                    ? myProfileData.data.endDate
-                    : ''}
-                  {/* <div className={styles.date}>0000.00.00 까지 이용</div> */}
-                </div>
-                <div className={styles.profileId}>
-                  {myProfileData && myProfileData?.data?.name
-                    ? myProfileData.data.name
-                    : '000'}
-                  님
-                </div>
-              </div>
-            </div>
-            <div className={styles.infoContainer}>
-              <div className={styles.teamContainer}>
-                <div className={styles.title}>소속팀</div>
-                {myProfileData?.data?.team && !inputState ? (
-                  <div
-                    className={styles.description}
-                    onClick={() => {
-                      setInputState(true);
-                      setInput(isInput);
-                    }}
-                  >
-                    {isInput}
-                  </div>
-                ) : (
-                  <div className={styles.description}>
-                    <input
-                      type="text"
-                      placeholder="소속팀을 입력해주세요."
-                      onChange={changeInput}
-                      onKeyPress={handleKeyPress}
-                      value={isInput ?? ''}
-                    ></input>
-                  </div>
-                )}
-                {/* <div className={styles.description}>스캡쳐</div> */}
-              </div>
-              <div className={styles.regionContainer}>
-                <div className={styles.title}>활동 지역</div>
-                <div className={styles.regionDropDown}>
-                  <div className={styles.dropdown} onClick={toggleCityDropdown}>
-                    <div className={styles.dropdownTitle}>
-                      {selectedCity === '' ? '도시' : selectedCity}
-                    </div>
-                    <img className={styles.dropdownImg} src={DownArrow}></img>
-                    {cityDropdownOpen && (
-                      <div className={styles.dropdownMenu}>
-                        {Object.keys(selectState).map(
-                          (city: string, idx: number) => (
-                            <div
-                              key={idx}
-                              className={styles.dropdownItem}
-                              onClick={() =>
-                                handleCityChange(city as keyof SelectStateType)
-                              }
-                            >
-                              {city}
-                            </div>
-                          ),
-                        )}
-                      </div>
-                    )}
-                  </div>
-                  <div
-                    className={styles.dropdown}
-                    onClick={toggleRegionDropdown}
-                    // disabled={!selectedCity}
-                  >
-                    <div className={styles.dropdownTitle}>
-                      {/* {selectedRegion || '지역'} */}
-                      {selectedRegion === '' ? '지역' : selectedRegion}
-                    </div>
-                    <img className={styles.dropdownImg} src={DownArrow}></img>
-                    {regionDropdownOpen && (
-                      <div className={styles.dropdownMenu}>
-                        {selectedCity !== '' &&
-                          selectState[selectedCity].length > 0 &&
-                          selectState[selectedCity].map((region: string) => (
-                            <div
-                              key={region}
-                              className={styles.dropdownItem}
-                              onClick={() => handleRegionChange(region)}
-                            >
-                              {region}
-                            </div>
-                          ))}
-                      </div>
-                    )}
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
           {/* 비구독 배너 비구독일때 제거 필요 */}
-          <div className={styles.banner} onClick={toggleModal2}>
-            <div className={styles.mainTitle}>구독혜택 구경하기</div>
-            <div className={styles.subTitle}>
-              구독시 받을 수 있는 혜택을 살펴보세요!
+          {myProfileData && myProfileData?.data?.isSubscribe ? null : (
+            <div className={styles.banner} onClick={toggleModal2}>
+              <div className={styles.mainTitle}>구독혜택 구경하기</div>
+              <div className={styles.subTitle}>
+                구독시 받을 수 있는 혜택을 살펴보세요!
+              </div>
             </div>
-          </div>
+          )}
+
           <div className={styles.bananaContainer}>
             <div className={styles.mainTitle}>버내너 관리</div>
             <div className={styles.subTitle}>
