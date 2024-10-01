@@ -103,36 +103,18 @@ const EditProfile: React.FC<EditProfileProps> = ({
     state?: string;
   }>({});
 
-  // 사용자 프로필 수정
-  //   const fetchSearchResults = async () => {
-  //     const data = await putProfile({ team: isInput }, null);
-  //     // console.log(data);
-
-  //     if (data?.status == 200) {
-  //       console.log('수정 완료');
-  //     }
-  //   };
-
   const fetchSearchResults = async () => {
     if (Object.keys(profileChanges).length > 0) {
       const data = await putProfile(profileChanges, null);
 
-      console.log(profileChanges);
-
       if (data?.status == 200) {
-        console.log('수정 완료');
         changeUserInfo();
       }
     } else {
-      console.log('변경 사항이 없습니다.');
+      alert('변경 사항이 없습니다.');
     }
   };
 
-  //   const handleCityChange = (city: keyof SelectStateType) => {
-  //     setSelectedCity(city);
-  //     setSelectedRegion(''); // 도시를 변경시 지역 초기화
-  //     setCityDropdownOpen(false);
-  //   };
   // 도시 변경
   const handleCityChange = (city: keyof SelectStateType) => {
     setSelectedCity(city);

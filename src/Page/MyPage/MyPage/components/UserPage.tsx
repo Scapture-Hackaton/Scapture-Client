@@ -316,8 +316,6 @@ const UserPage = () => {
                     className={styles.videoCard}
                     key={item.videoId}
                     onClick={() => {
-                      console.log(item.videoId);
-
                       navigate('/video', {
                         state: {
                           videoId: item.videoId,
