@@ -33,7 +33,7 @@ export const putProfile = async (
         'Content-Type': 'multipart/form-data',
       },
     });
-    console.log('Response:', res);
+
     return res.data;
   } catch (error) {
     console.error('Error: ', error);

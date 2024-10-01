@@ -115,9 +115,10 @@ const MyReservation = () => {
                     {reservation.isAvailable ? '진행 예정' : '진행 완료'}
                   </div>
                   <div className={styles.dDayInfo}>
-                    {reservation.decisionDay > 0
+                    {reservation.decisionDay > 0 &&
+                    typeof reservation.decisionDay === 'number'
                       ? `D-${reservation.decisionDay}`
-                      : `D+${reservation.decisionDay}`}
+                      : `D+${Math.abs(reservation.decisionDay)}`}
                   </div>
                 </div>
 
