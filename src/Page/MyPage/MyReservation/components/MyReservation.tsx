@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import styles from '../scss/my-reservation.module.scss';
 // import backArrow from '../image/backArrow.png';
 import Ground from '../image/Ground.svg';
@@ -7,16 +7,20 @@ import Clockk from '../image/Clockk.svg';
 import Calendar from '../image/Calendar.svg';
 import Point from '../image/Point.svg';
 // import ReactPaginate from 'react-paginate';
-import { getReservation } from '../../../../apis/api/mypage.api';
+// import { getReservation } from '../../../../apis/api/mypage.api';
 // import { Link } from 'react-router-dom';
 import { reservationData } from '../../dto/atom.interface';
 import Header from '../../../Header/components/Header';
 import Footer from '../../../Footer/components/Footer';
 import { loginData, loginDataAtom } from '../../../Header/Atom/atom';
 import { useRecoilState } from 'recoil';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
+// import { useQuery } from '@tanstack/react-query';
 
 const MyReservation = () => {
+  const location = useLocation();
+  const isReservationState = location.state.reserveList;
+
   const [isLoginState, setLoginState] =
     useRecoilState<loginData>(loginDataAtom);
 
@@ -34,25 +38,13 @@ const MyReservation = () => {
     }
   }, [isLoginState.state]); // isLoginState가 업데이트된 후 동작
 
-  const [isReservationState, setReservationState] =
-    useState<reservationData[]>();
+  // const { data: isReservationState } = useQuery({
+  //   queryKey: ['reserveList'],
+  //   queryFn: () => getReservation(),
+  // });
 
-  useEffect(() => {
-    const fetchReservationInfo = async () => {
-      try {
-        const res = await getReservation();
-        if (res?.data) {
-          setReservationState(res.data); // 여기서 ?. 대신 직접 확인
-        } else {
-          setReservationState([]); // 빈 배열을 할당하여 에러 방지
-        }
-      } catch (error) {
-        console.error('API 요청 실패:', error);
-        setReservationState([]); // 에러 발생 시에도 빈 배열 할당
-      }
-    };
-    fetchReservationInfo();
-  }, []);
+  // const [isReservationState, setReservationState] =
+  //   useState<reservationData[]>();
 
   //로그인이 안되기때문에 임의로 예약내역 여부 판단
   // const isReservation = true;
@@ -110,17 +102,25 @@ const MyReservation = () => {
   return (
     <div className={styles.test}>
       <Header index={0}></Header>
-      {isReservationState && isReservationState.length > 0 ? (
+      {isReservationState?.data && isReservationState?.data?.length > 0 ? (
         <div className={styles.reservationContainer}>
-          {isReservationState.map(
+          {isReservationState.data.map(
             (reservation: reservationData, idx: number) => (
               <div
                 key={idx}
                 className={`${styles.reserve} ${reservation.isAvailable ? '' : styles.completed}`}
               >
-                <div className={styles.badge}>
-                  {reservation.isAvailable ? '진행 예정' : '진행 완료'}
+                <div className={styles.badgeInfo}>
+                  <div className={styles.badge}>
+                    {reservation.isAvailable ? '진행 예정' : '진행 완료'}
+                  </div>
+                  <div className={styles.dDayInfo}>
+                    {reservation.decisionDay > 0
+                      ? `D-${reservation.decisionDay}`
+                      : `D+${reservation.decisionDay}`}
+                  </div>
                 </div>
+
                 <div className={styles.stadium}>
                   {reservation.stadiumName || '-'}
                 </div>

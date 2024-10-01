@@ -47,9 +47,17 @@ const Stadiums: React.FC<StadiumsProps> = ({ stadiumData }) => {
               <div className={styles.stadiumInfo}>
                 <div className={styles.stadium}>
                   <div className={styles.topInfo}>
-                    <div className={styles.isOutside}>
-                      {stadium.isOutside ? '실외' : '실내'}
-                    </div>
+                    {stadium.condition === 'OVERALL' ? (
+                      <>
+                        <div className={styles.isOutside}>실내</div>
+                        <div className={styles.isOutside}>실외</div>
+                      </>
+                    ) : stadium.condition === 'INDOOR' ? (
+                      <div className={styles.isOutside}>실내</div>
+                    ) : (
+                      <div className={styles.isOutside}>실외</div>
+                    )}
+
                     <div className={styles.isParking}>
                       {stadium.isParking ? '주차 가능' : '주차 불가능'}
                     </div>

@@ -204,9 +204,16 @@ const Reservation = () => {
 
               <div className={styles.infoGroup}>
                 <div className={styles.topInfo}>
-                  <div className={styles.isOutside}>
-                    {stadiumDetail.isOutside ? '실외' : '실내'}
-                  </div>
+                  {stadiumDetail.condition === 'OVERALL' ? (
+                    <>
+                      <div className={styles.isOutside}>실내</div>
+                      <div className={styles.isOutside}>실외</div>
+                    </>
+                  ) : stadiumDetail.condition === 'INDOOR' ? (
+                    <div className={styles.isOutside}>실내</div>
+                  ) : (
+                    <div className={styles.isOutside}>실외</div>
+                  )}
                   <div className={styles.isParking}>
                     {stadiumDetail.isParking ? '주차 가능' : '주차 불가능'}
                   </div>

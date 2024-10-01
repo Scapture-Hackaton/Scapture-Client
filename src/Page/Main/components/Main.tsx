@@ -211,9 +211,17 @@ const Main = () => {
                 <div className={styles.stadiumInfo}>
                   <div className={styles.stadium}>
                     <div className={styles.topInfo}>
-                      <div className={styles.isOutside}>
-                        {mainData.randomStadium.isOutside ? '실외' : '실내'}
-                      </div>
+                      {mainData.randomStadium.condition === 'OVERALL' ? (
+                        <>
+                          <div className={styles.isOutside}>실내</div>
+                          <div className={styles.isOutside}>실외</div>
+                        </>
+                      ) : mainData.randomStadium.condition === 'INDOOR' ? (
+                        <div className={styles.isOutside}>실내</div>
+                      ) : (
+                        <div className={styles.isOutside}>실외</div>
+                      )}
+
                       <div className={styles.isParking}>
                         {mainData.randomStadium.isParking
                           ? '주차 가능'

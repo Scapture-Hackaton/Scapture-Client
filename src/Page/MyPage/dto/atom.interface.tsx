@@ -23,4 +23,5 @@ export interface reservationData {
   hours: string;
   fieldType: string;
   isAvailable: boolean;
+  decisionDay: number;
 }
