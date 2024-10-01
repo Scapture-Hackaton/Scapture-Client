@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import styles from '../scss/my-page.module.scss';
 
 import DefaultProfile from '../image/DefaultProfile.svg';
@@ -46,13 +46,13 @@ const UserInfo: React.FC<UserInfoProps> = ({
     navigate('/');
   };
 
-  // 사용자의 소속팀 입력 값
-  const [isInput, setInput] = useState('');
+  // // 사용자의 소속팀 입력 값
+  // const [isInput, setInput] = useState('');
 
-  // 데이터 받아온 경우 소속팀에 넣어줄 팀 이름 지정
-  useEffect(() => {
-    setInput(myProfileData?.data?.team);
-  }, [myProfileData]);
+  // // 데이터 받아온 경우 소속팀에 넣어줄 팀 이름 지정
+  // useEffect(() => {
+  //   setInput(myProfileData?.data?.team);
+  // }, [myProfileData]);
 
   const profileOption = () => {
     setLogout(!logout);
