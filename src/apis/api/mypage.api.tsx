@@ -13,20 +13,35 @@ export const getProfile = async (): Promise<CommonResponse | undefined> => {
 };
 
 //프로필 편집(put)
+// export const putProfile = async (
+//   profileData: { [key: string]: any },
+//   imageFile: File | null,
+// ): Promise<CommonResponse | undefined> => {
+//   const formData = new FormData();
+//   formData.append(
+//     'data',
+//     new Blob([JSON.stringify(profileData)], { type: 'application/json' }),
+//   );
+
+//   if (imageFile) {
+//     formData.append('image', imageFile);
+//   }
+
+//   try {
+//     const res = await authInstance.put('api/user/profile', formData, {
+//       headers: {
+//         'Content-Type': 'multipart/form-data',
+//       },
+//     });
+
+//     return res.data;
+//   } catch (error) {
+//     console.error('Error: ', error);
+//   }
+// };
 export const putProfile = async (
-  profileData: { [key: string]: any },
-  imageFile: File | null,
+  formData: FormData,
 ): Promise<CommonResponse | undefined> => {
-  const formData = new FormData();
-  formData.append(
-    'data',
-    new Blob([JSON.stringify(profileData)], { type: 'application/json' }),
-  );
-
-  if (imageFile) {
-    formData.append('image', imageFile);
-  }
-
   try {
     const res = await authInstance.put('api/user/profile', formData, {
       headers: {
