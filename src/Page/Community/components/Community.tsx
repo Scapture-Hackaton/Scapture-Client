@@ -336,11 +336,12 @@ const Community = () => {
               <div className={styles.video}>
                 <video
                   id="videoPlayer"
+                  src={videoDetailData.video}
                   controls
                   controlsList="nodownload"
                   onContextMenu={e => e.preventDefault()}
                 >
-                  <source src={videoDetailData.video} type="video/mp4" />
+                  {/* <source src={videoDetailData.video} type="video/mp4" /> */}
                 </video>
               </div>
               <div className={styles.group}>
