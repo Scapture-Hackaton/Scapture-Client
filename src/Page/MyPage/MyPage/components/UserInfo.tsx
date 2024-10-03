@@ -113,15 +113,17 @@ const UserInfo: React.FC<UserInfoProps> = ({
         서비스에 이용되는 프로필을 설정해주세요
       </div>
       <div className={styles.profileContainer}>
-        <img
-          className={styles.profileImg}
-          src={
-            myProfileData?.data?.image
-              ? myProfileData?.data?.image
-              : DefaultProfile
-          }
-          alt=""
-        ></img>
+        <div className={styles.profileGroup}>
+          <img
+            className={styles.profileImg}
+            src={
+              myProfileData?.data?.image
+                ? `${myProfileData.data.image}?timestamp=${new Date().getTime()}`
+                : DefaultProfile
+            }
+            alt=""
+          ></img>
+        </div>
         <div className={styles.profile}>
           <div className={styles.subscribe}>
             {myProfileData && myProfileData?.data?.isSubscribe ? (

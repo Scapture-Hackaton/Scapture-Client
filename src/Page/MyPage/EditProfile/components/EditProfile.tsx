@@ -10,9 +10,8 @@ import {
   getBanana,
   getProfile,
   getSortVideo,
-  putProfile,
 } from '../../../../apis/api/mypage.api';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import React, { useEffect, useState } from 'react';
 import Header from '../../../Header/components/Header';
 
@@ -69,14 +68,14 @@ const EditProfile = () => {
   const [isViewImage, setViewImage] = useState<string>(
     isProfile.image || profileImgDefault,
   );
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
-  const handleSave = async () => {
-    const res = await putProfile(isProfile, isSelectedFile);
-    if (res?.status === 200) {
-      navigate('/mypage');
-    }
-  };
+  // const handleSave = async () => {
+  //   const res = await putProfile(isProfile, isSelectedFile);
+  //   if (res?.status === 200) {
+  //     navigate('/mypage');
+  //   }
+  // };
 
   const onSelectedFile = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
@@ -213,11 +212,7 @@ const EditProfile = () => {
               <Link to="/mypage" style={{ textDecoration: 'none' }}>
                 <div className={styles.cancel}>취소</div>
               </Link>
-              <div
-                className={styles.save}
-                style={{ textDecoration: 'none' }}
-                onClick={handleSave}
-              >
+              <div className={styles.save} style={{ textDecoration: 'none' }}>
                 <Link to="/mypage">저장하기</Link>
               </div>
             </div>
