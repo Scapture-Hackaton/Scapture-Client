@@ -179,7 +179,11 @@ const Header: React.FC<HeaderProps> = ({ index }) => {
             // </button>
 
             <img
-              src={isProfile.image ? isProfile.image : noProfile}
+              src={
+                isProfile.image
+                  ? `${isProfile.image}?timestamp=${new Date().getTime()}`
+                  : noProfile
+              }
               alt=""
               width="29px"
               height="29px"

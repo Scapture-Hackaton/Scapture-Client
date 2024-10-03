@@ -7,6 +7,9 @@ import EditIcon from '../../image/EditIcon.png';
 
 import { putProfile } from '../../../../apis/api/mypage.api';
 import { selectState, SelectStateType } from '../const/select.const';
+import { useSetRecoilState } from 'recoil';
+import { userData } from '../../dto/atom.interface';
+import { userDataAtom } from '../../Atom/atom';
 
 interface EditProfileProps {
   myProfileData: any;
@@ -28,7 +31,8 @@ const EditProfile: React.FC<EditProfileProps> = ({
 
   // 이미지 미리보기
   const [previewImage, setPreviewImage] = useState<string | null>(
-    myProfileData?.data?.image || DefaultProfile,
+    `${myProfileData.data.image}?timestamp=${new Date().getTime()}` ||
+      DefaultProfile,
   );
 
   // 파일 선택 시 미리보기 업데이트
@@ -139,7 +143,7 @@ const EditProfile: React.FC<EditProfileProps> = ({
     team?: string;
     city?: keyof SelectStateType;
     state?: string;
-    image?: File;
+    image?: File | string;
   }>({});
 
   // 수정하기
@@ -165,6 +169,8 @@ const EditProfile: React.FC<EditProfileProps> = ({
   //       alert('변경 사항이 없습니다.');
   //     }
   //   };
+  const setProfile = useSetRecoilState<userData>(userDataAtom);
+
   const fetchSearchResults = async () => {
     if (Object.keys(profileChanges).length > 0) {
       const formData = new FormData();
@@ -179,6 +185,10 @@ const EditProfile: React.FC<EditProfileProps> = ({
 
       if (data?.status === 200) {
         changeUserInfo(); // 프로필 변경사항 반영
+        setProfile(prev => ({
+          ...prev,
+          image: data?.data?.image || prev.image, // 서버에서 반환된 새로운 이미지 URL로 상태 업데이트
+        }));
       }
     } else {
       alert('변경 사항이 없습니다.');
