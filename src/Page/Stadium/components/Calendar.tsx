@@ -3,7 +3,7 @@ import styles from '../scss/stadium.module.scss';
 
 interface SelectProps {
   dayList: { day: string; weekday: string }[];
-  onOptionChange: (option: string) => void;
+  onOptionChange: (option: any) => void;
 }
 
 const Calendar: React.FC<SelectProps> = ({ dayList, onOptionChange }) => {
@@ -17,13 +17,16 @@ const Calendar: React.FC<SelectProps> = ({ dayList, onOptionChange }) => {
     formattedDayList[formattedDayList.length - 1].day,
   );
 
+  const [selectedIdx, setselectedIdx] = useState(0);
+
   // 날짜 선택 핸들러
-  const handleDayClick = (index: string) => {
-    setSelectedDay(index); // 클릭된 요소의 index를 상태로 설정
+  const handleDayClick = (index: number) => {
+    setSelectedDay(formattedDayList[index].day); // 클릭된 요소의 index를 상태로 설정
+    setselectedIdx(index);
   };
 
   useEffect(() => {
-    onOptionChange(selectedDay.toString());
+    onOptionChange(dayList[selectedIdx]);
   }, [selectedDay]);
   // console.log(dayList);
 
@@ -35,7 +38,7 @@ const Calendar: React.FC<SelectProps> = ({ dayList, onOptionChange }) => {
           className={`${styles.block} ${
             selectedDay === day.day ? styles.selected : ''
           }`}
-          onClick={() => handleDayClick(day.day)}
+          onClick={() => handleDayClick(idx)}
         >
           <div>{day.day}</div>
           <div>{day.weekday}</div>
