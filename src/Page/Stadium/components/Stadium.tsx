@@ -80,7 +80,7 @@ const Stadium = () => {
   // const [isDay, setDay] = useState(dayMap.get(isMonth)?.[0] || '');
 
   // const [isMonth, setMonth] = useState(dayList[dayList.length - 1].month);
-  const isMonth = dayList[dayList.length - 1].month;
+  const [isMonth, setMonth] = useState(dayList[dayList.length - 1].month || '');
   const [isDay, setDay] = useState(dayList[dayList.length - 1].day || '');
 
   // const handleMonthChange = (month: string) => {
@@ -91,8 +91,9 @@ const Stadium = () => {
   //   }
   // };
 
-  const handleDayChange = (day: string) => {
-    setDay(day);
+  const handleDayChange = (dayInfo: any) => {
+    setDay(dayInfo.day);
+    setMonth(dayInfo.month);
   };
 
   // 기본 구장 설정
