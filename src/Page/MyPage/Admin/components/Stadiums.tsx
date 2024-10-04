@@ -16,7 +16,7 @@ const Stadiums: React.FC<StadiumsProps> = ({ stadiumData }) => {
   const navigate = useNavigate();
 
   const toStadiumPage = (stadiumId: number) => {
-    navigate('/stadium', { state: { stadiumId } });
+    navigate('/admin/stadium', { state: { stadiumId } });
   };
 
   return (
