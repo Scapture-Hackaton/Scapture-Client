@@ -252,7 +252,9 @@ const Main = () => {
                         <img src={parking} alt="" width="16px" height="16px" />
 
                         <span className={styles.info}>
-                          {mainData.randomStadium.parking}
+                          {mainData?.randomStadium?.isParking
+                            ? '무료 주차장'
+                            : '유료 주차장'}
                         </span>
                         {/* <span className={styles.info}>유료 주차</span> */}
                       </div>
