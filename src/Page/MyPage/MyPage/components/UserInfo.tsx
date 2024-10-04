@@ -35,7 +35,7 @@ const UserInfo: React.FC<UserInfoProps> = ({
     navigate('/');
   };
 
-  const toggleWithraw = async () => {
+  const toggleWithdraw = async () => {
     await deleteUser();
 
     localStorage.removeItem('TOKEN');
@@ -102,7 +102,7 @@ const UserInfo: React.FC<UserInfoProps> = ({
 
             <div
               className={styles.dropDownItem}
-              onClick={() => toggleWithraw()}
+              onClick={() => toggleWithdraw()}
             >
               회원탈퇴
             </div>
