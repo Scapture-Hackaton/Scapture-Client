@@ -426,7 +426,9 @@ const Community = () => {
                     <img src={parking} alt="" width="20px" height="20px" />
 
                     <span className={styles.info}>
-                      {videoDetailData.stadium.parking}
+                      {videoDetailData?.stadium?.isFree
+                        ? '무료 주차장'
+                        : '유료 주차장'}
                     </span>
                   </div>
                 </div>
