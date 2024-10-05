@@ -56,6 +56,21 @@ const CreateStadium = () => {
             </div>
           </div>
 
+          <div className={styles.alert}>
+            <div className={`${styles.chapter} ${styles.active}`}>
+              <div className={styles.numIcon}>1</div>
+              <div className={styles.numInfo}>기본 정보</div>
+            </div>
+            <div className={styles.chapter}>
+              <div className={styles.numIcon}>2</div>
+              <div className={styles.numInfo}>구장 이미지</div>
+            </div>
+            <div className={styles.chapter}>
+              <div className={styles.numIcon}>3</div>
+              <div className={styles.numInfo}>보유 구역</div>
+            </div>
+          </div>
+
           <EditBasicInfo></EditBasicInfo>
         </div>
       </div>
