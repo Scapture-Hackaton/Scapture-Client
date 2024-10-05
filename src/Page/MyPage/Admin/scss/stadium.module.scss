@@ -91,5 +91,310 @@
         }
       }
     }
+
+    .container {
+      width: 90%;
+      margin: 0 auto 1.5rem auto;
+      padding: 2rem 1.5rem;
+
+      border-radius: 12px;
+
+      background: var(--color-grayscale-web-card);
+
+      .title {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        .mainTitle {
+          font-weight: 700;
+          font-size: var(--font-size-xm);
+          color: #fff;
+        }
+
+        .change {
+          cursor: pointer;
+
+          font-weight: 700;
+          font-size: var(--font-size-xm);
+          color: var(--font-color-blue-200);
+        }
+      }
+
+      .section {
+        margin-top: 2rem;
+
+        .subTitle {
+          font-weight: 500;
+          font-size: var(--font-size-m);
+          color: var(--font-color-gray-400);
+
+          margin-bottom: 0.7rem;
+        }
+
+        .description {
+          display: flex;
+          align-items: center;
+          justify-content: start;
+
+          font-weight: 500;
+          font-size: var(--font-size-xm);
+          color: var(--font-color-gray-main);
+          line-height: 25px;
+
+          white-space: pre-wrap;
+
+          flex-wrap: wrap;
+
+          .circle {
+            border-radius: 50px;
+            padding: 2px 12px 2px 12px;
+
+            margin-right: 0.5rem;
+            margin-bottom: 0.5rem;
+
+            background: var(--font-color-gray-700);
+          }
+        }
+      }
+
+      .imgSection {
+        margin-top: 2rem;
+
+        .subTitle {
+          font-weight: 700;
+          font-size: var(--font-size-m);
+          color: #fff;
+
+          margin-bottom: 0.7rem;
+        }
+
+        #representaion {
+          border-radius: 10px;
+          object-fit: cover;
+        }
+
+        // .images {
+        //   display: flex;
+        //   align-items: center;
+        //   justify-content: space-between;
+
+        //   flex-wrap: wrap;
+
+        //   img {
+        //     margin: 0 0rem 0.5rem 0;
+
+        //     width: 32%;
+
+        //     border-radius: 10px;
+
+        //     object-fit: cover;
+        //   }
+        // }
+
+        .images {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 0.5rem; /* 이미지 간의 간격 */
+        }
+
+        .images div {
+          position: relative;
+          width: 31%; /* 너비를 설정 */
+          padding-bottom: 31%; /* 1:1 비율 유지 */
+          border-radius: 10px;
+          overflow: hidden; /* 부모의 비율을 벗어나지 않도록 */
+
+          margin-bottom: 0.2rem;
+        }
+
+        .images img {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          object-fit: cover; /* 이미지가 비율에 맞춰 잘리게 표시 */
+        }
+      }
+    }
+
+    .fieldSection {
+      width: 90%;
+      margin: 0 auto;
+
+      .frameTitle {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        margin-bottom: 1rem;
+
+        #name {
+          display: flex;
+          align-items: center;
+          justify-content: start;
+
+          color: var(--font-color-gray-100);
+          font-size: var(--font-size-l);
+          font-weight: 700;
+
+          #fieldCnt {
+            color: var(--primary-color-defualt-01);
+            font-size: var(--font-size-xl);
+
+            margin-left: 0.6rem;
+          }
+        }
+
+        #change {
+          cursor: pointer;
+
+          font-weight: 700;
+          font-size: var(--font-size-xm);
+          color: var(--font-color-blue-200);
+        }
+      }
+
+      .noData {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+
+        padding: 7rem 0;
+
+        div {
+          font-weight: 500;
+          font-size: var(--font-size-sl);
+          color: var(--font-color-gray-400);
+        }
+      }
+
+      .stadiumList {
+        height: 160px;
+        min-height: 160px;
+
+        background-color: var(--color-grayscale-card-900);
+
+        font-size: var(--font-size-xs);
+
+        border-radius: 0.625rem;
+
+        cursor: pointer;
+
+        padding: 0.7rem;
+        margin-bottom: 1rem;
+
+        > .stadium {
+          // width: 100%;
+          display: flex;
+
+          overflow: hidden;
+
+          .stadiumImage {
+            border-radius: 10px;
+
+            margin: auto 0;
+
+            img {
+              width: 180px;
+              height: 140px;
+              object-fit: cover;
+
+              border-radius: 10px;
+            }
+          }
+
+          .stadiumInfo {
+            // width: 100%;
+            height: 100%;
+
+            margin-left: 1rem;
+
+            .topInfo {
+              display: flex;
+              justify-content: start;
+              align-items: center;
+
+              margin-bottom: 0.7rem;
+
+              .isOutside {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+
+                width: 37px;
+                height: 19px;
+
+                background: var(--color-ect-info);
+
+                border-radius: 4px;
+
+                color: var(--font-color-etc-info);
+                font-weight: 500;
+                font-size: var(--font-size-s);
+
+                margin-right: 0.4rem;
+              }
+            }
+
+            .stadium {
+              width: 100%;
+
+              max-width: 194px;
+
+              #name {
+                font-size: var(--font-size-xm);
+                font-weight: 700;
+
+                margin-bottom: 3rem;
+
+                text-overflow: ellipsis;
+                overflow: hidden;
+                white-space: nowrap;
+              }
+
+              #info {
+                width: 100%;
+
+                // min-height: 4.375rem;
+
+                .line {
+                  display: flex;
+                  justify-content: start;
+                  align-items: center;
+
+                  margin-top: 0.2rem;
+
+                  .info {
+                    color: var(--font-color-gray-sub);
+                    font-weight: 500;
+                    font-size: var(--font-size-s);
+                    margin-left: 0.3rem;
+
+                    text-overflow: ellipsis;
+                    overflow: hidden;
+                    white-space: nowrap;
+                  }
+                }
+              }
+
+              @media (max-width: 420px) {
+                width: 160px;
+              }
+
+              @media (max-width: 400px) {
+                width: 150px;
+              }
+
+              @media (max-width: 380px) {
+                width: 60%;
+              }
+            }
+          }
+        }
+      }
+    }
   }
 }

@@ -5,7 +5,7 @@ import cancelIcon from '../../../assets/Icon/Cancel.svg';
 import dateIcon from '../image/dateIcon.svg';
 import stadiumIcon from '../image/stadiumIcon.svg';
 import clockIcon from '../../../assets/Icon/Clock.svg';
-import peopleIcon from '../image/peopleIcon.svg';
+import peopleIcon from '../../../assets/Icon/peopleIcon.svg';
 
 import successReserveIcon from '../image/successReserveIcon.svg';
 
@@ -110,7 +110,7 @@ export const ReservationModal = forwardRef<HTMLDialogElement, ModalProps>(
         <div className={styles.footer}>
           <div className={styles.priceInfo}>
             <div id={styles.text}>총 금액</div>
-            <div>{reservation?.price.toLocaleString()}원</div>
+            <div>{reservation?.price?.toLocaleString()}원</div>
             {/* <div id={styles.price}>000,000</div> */}
           </div>
           <button

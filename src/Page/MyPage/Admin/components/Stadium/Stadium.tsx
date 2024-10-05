@@ -4,6 +4,10 @@ import { useLocation } from 'react-router-dom';
 import styles from '../../scss/stadium.module.scss';
 import Footer from '../../../../Footer/components/Footer';
 import Header from '../../../../Header/components/Header';
+import BaseInfo from './BaseInfo';
+import StadiumImgs from './StadiumImgs';
+import Fields from './Fields';
+import { dummy } from './test.const';
 
 const Stadium = () => {
   const location = useLocation();
@@ -51,6 +55,23 @@ const Stadium = () => {
             >
               카메라 제어
             </div>
+          </div>
+
+          <BaseInfo stadiumId={stadiumId}></BaseInfo>
+          <StadiumImgs></StadiumImgs>
+          <div className={styles.fieldSection}>
+            <div className={styles.frameTitle}>
+              <div id={styles.name}>
+                <div>보유 구역</div>
+                <div id={styles.fieldCnt}>
+                  {dummy?.data?.fields?.length
+                    ? `${dummy?.data?.fields?.length}`
+                    : '0'}
+                </div>
+              </div>
+              <div id={styles.change}>수정</div>
+            </div>
+            <Fields fieldData={dummy.data.fields}></Fields>
           </div>
         </div>
       </div>
