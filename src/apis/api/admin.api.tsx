@@ -96,3 +96,18 @@ export const postField = async (
     console.error('Error: ', error);
   }
 };
+
+export const startRecording = async (
+  fieldId: number,
+  time: string,
+): Promise<CommonResponse | undefined> => {
+  try {
+    const res = await authInstance.post(
+      `api/fields/${fieldId}/start?time=${time}`,
+    );
+
+    return res.data;
+  } catch (error) {
+    console.error('Error: ', error);
+  }
+};

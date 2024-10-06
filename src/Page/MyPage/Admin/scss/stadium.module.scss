@@ -92,6 +92,212 @@
       }
     }
 
+    .cameraFrame {
+      width: 90%;
+      margin: 0 auto;
+
+      @mixin dropdown {
+        position: relative;
+
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        height: 36px;
+
+        padding: 7px 9px 7px 17px;
+
+        border-radius: 6px;
+        border: 1px solid var(--GRAY-SCALE-Gray-700_DISABLE, #37383e);
+        background: var(--GRAY-SCALE-Gray-800_-INPUT-FIELD, #323339);
+      }
+
+      .cameraTitle {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        margin-bottom: 1rem;
+
+        width: 100%;
+
+        #expain {
+          width: 50%;
+
+          #title {
+            color: var(--font-color-gray-100);
+            font-size: var(--font-size-l);
+            font-weight: 700;
+
+            margin-bottom: 0.5rem;
+          }
+
+          #subTitle {
+            color: var(--font-color-gray-sub);
+            font-size: var(--font-size-s);
+            font-weight: 500;
+          }
+        }
+
+        .regionDropDown {
+          width: 50%;
+
+          display: flex;
+          align-items: center;
+          justify-content: end;
+
+          .editRegion {
+            @include dropdown;
+
+            cursor: pointer;
+            width: 70%;
+
+            &:hover {
+              border: 1px solid var(--Blue-Blue-400, #2458ec);
+            }
+
+            .dropdownImg {
+              width: 16px;
+              height: 16px;
+              flex-shrink: 0;
+            }
+
+            .dropdownTitle {
+              text-wrap: nowrap;
+              color: var(--GRAY-SCALE-Gray-400, #c5c6cb);
+
+              /* BODY/14_medium */
+              font-family: Pretendard;
+              font-size: 14px;
+              font-style: normal;
+              font-weight: 500;
+              line-height: 160%; /* 22.4px */
+            }
+          }
+        }
+      }
+
+      .cameraSection {
+        border-radius: 12px;
+        background: var(--color-grayscale-web-card);
+
+        padding: 1rem;
+
+        margin-bottom: 2rem;
+
+        .recordLine {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+
+          #recordTitle {
+            width: 50%;
+
+            display: flex;
+            align-items: center;
+            justify-content: start;
+
+            font-weight: 500;
+            font-size: var(--font-size-m);
+            color: var(--font-color-gray-400);
+
+            span {
+              margin-right: 0.5rem;
+              color: var(--color-ect-accent);
+            }
+
+            img {
+              cursor: pointer;
+              width: 16px;
+              height: 16px;
+            }
+          }
+
+          .regionDropDown {
+            width: 100%;
+
+            display: flex;
+            align-items: center;
+            justify-content: end;
+
+            .editField {
+              @include dropdown;
+
+              cursor: pointer;
+              width: 70%;
+
+              &:hover {
+                border: 1px solid var(--Blue-Blue-400, #2458ec);
+              }
+
+              .dropdownImg {
+                width: 16px;
+                height: 16px;
+                flex-shrink: 0;
+              }
+
+              .dropdownTitle {
+                text-wrap: nowrap;
+                color: var(--GRAY-SCALE-Gray-400, #c5c6cb);
+
+                /* BODY/14_medium */
+                font-family: Pretendard;
+                font-size: 14px;
+                font-style: normal;
+                font-weight: 500;
+                line-height: 160%; /* 22.4px */
+              }
+            }
+          }
+        }
+
+        #recordBtn {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+
+          margin-top: 1rem;
+
+          border-radius: 5px;
+
+          height: 38px;
+          background: var(--font-color-gray-700);
+          color: var(--font-color-gray-500);
+
+          &.active {
+            cursor: pointer;
+
+            font-weight: 500;
+            font-size: var(--font-size-xm);
+            color: var(--font-color-gray-100);
+
+            background: var(--primary-color-defualt-01);
+          }
+
+          &.recording {
+            color: var(--font-color-lemon-400);
+            font-weight: 700;
+            font-size: var(--font-size-xm);
+          }
+        }
+      }
+
+      .noData {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+
+        padding: 3rem 0;
+
+        div {
+          font-weight: 500;
+          font-size: var(--font-size-sl);
+          color: var(--font-color-gray-400);
+        }
+      }
+    }
+
     .container {
       width: 90%;
       margin: 0 auto 1.5rem auto;
@@ -174,6 +380,10 @@
           object-fit: cover;
         }
 
+        img {
+          border-radius: 10px;
+        }
+
         // .images {
         //   display: flex;
         //   align-items: center;
@@ -196,25 +406,25 @@
           display: flex;
           flex-wrap: wrap;
           gap: 0.5rem; /* 이미지 간의 간격 */
-        }
 
-        .images div {
-          position: relative;
-          width: 31%; /* 너비를 설정 */
-          padding-bottom: 31%; /* 1:1 비율 유지 */
-          border-radius: 10px;
-          overflow: hidden; /* 부모의 비율을 벗어나지 않도록 */
+          div {
+            position: relative;
+            width: 31%; /* 너비를 설정 */
+            padding-bottom: 31%; /* 1:1 비율 유지 */
+            border-radius: 10px;
+            overflow: hidden; /* 부모의 비율을 벗어나지 않도록 */
 
-          margin-bottom: 0.2rem;
-        }
+            margin-bottom: 0.2rem;
+          }
 
-        .images img {
-          position: absolute;
-          top: 0;
-          left: 0;
-          width: 100%;
-          height: 100%;
-          object-fit: cover; /* 이미지가 비율에 맞춰 잘리게 표시 */
+          img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* 이미지가 비율에 맞춰 잘리게 표시 */
+          }
         }
       }
     }
@@ -395,6 +605,54 @@
           }
         }
       }
+    }
+  }
+}
+
+.dropdownMenu {
+  width: 100%;
+
+  position: absolute;
+  top: 35px;
+  right: 0px;
+  display: flex;
+
+  padding: 0 8px;
+  flex-direction: column;
+  align-items: flex-start;
+  align-self: stretch;
+  background: var(--GRAY-SCALE-Gray-900_CARD, #2b2c31);
+
+  box-shadow: 5px 5px 8px 0px rgba(0, 0, 0, 0.35);
+
+  max-height: 160px;
+  overflow-y: auto;
+
+  z-index: 2;
+
+  .dropdownItem {
+    display: flex;
+    align-items: center;
+
+    width: 100%;
+    height: 32px;
+
+    padding: 7px 9px 7px 9px;
+
+    border-radius: 5px;
+
+    background: var(--GRAY-SCALE-Gray-900_CARD, #2b2c31);
+    color: var(--GRAY-SCALE-Gray-200_DEFAULT-MAIN-TEXT, #eff0f4);
+
+    /* BODY/14_medium */
+    font-family: Pretendard;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 160%; /* 22.4px */
+
+    &:hover {
+      background: var(--GRAY-SCALE-Gray-700_DISABLE, #37383e);
     }
   }
 }

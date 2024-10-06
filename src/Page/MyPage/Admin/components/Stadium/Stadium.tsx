@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 
 import styles from '../../scss/stadium.module.scss';
@@ -8,11 +8,27 @@ import BaseInfo from './BaseInfo';
 import StadiumImgs from './StadiumImgs';
 import Fields from './Fields';
 import { dummy } from './test.const';
+import { getManageStadiumDetail } from '../../../../../apis/api/admin.api';
+import { useQuery } from '@tanstack/react-query';
+import CameraControl from '../Camera/CameraControl';
 
 const Stadium = () => {
   const location = useLocation();
 
   const stadiumId = location.state.stadiumId;
+
+  const { data: stadiumDetail, refetch } = useQuery({
+    queryKey: ['stadiumDetail'],
+    queryFn: () => getManageStadiumDetail(stadiumId),
+  });
+
+  useEffect(() => {
+    const refreshData = async () => {
+      await refetch();
+    };
+
+    refreshData();
+  }, [stadiumId]);
 
   // 0 구장 관리 / 1 은 예약 관리
   const [isPageOpt, setPageOpt] = useState(0);
@@ -58,8 +74,10 @@ const Stadium = () => {
           </div>
           {isProfileAndCamera === 0 ? (
             <>
-              <BaseInfo stadiumId={stadiumId}></BaseInfo>
-              <StadiumImgs></StadiumImgs>
+              <BaseInfo stadiumDetail={stadiumDetail?.data?.stadium}></BaseInfo>
+              <StadiumImgs
+                stadiumImages={stadiumDetail?.data?.stadiumImages}
+              ></StadiumImgs>
               <div className={styles.fieldSection}>
                 <div className={styles.frameTitle}>
                   <div id={styles.name}>
@@ -72,10 +90,12 @@ const Stadium = () => {
                   </div>
                   <div id={styles.change}>수정</div>
                 </div>
-                <Fields fieldData={dummy.data.fields}></Fields>
+                <Fields fieldData={stadiumDetail?.data?.fields}></Fields>
               </div>
             </>
-          ) : null}
+          ) : (
+            <CameraControl fields={stadiumDetail?.data?.fields}></CameraControl>
+          )}
         </div>
       </div>
       <Footer></Footer>

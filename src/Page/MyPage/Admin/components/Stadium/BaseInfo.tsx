@@ -1,22 +1,17 @@
 import React from 'react';
 import styles from '../../scss/stadium.module.scss';
-import { dummy } from './test.const';
+// import { stadiumDetail } from './test.const';
 // import { getManageStadiumDetail } from '../../../../../apis/api/admin.api';
 // import { useQuery } from '@tanstack/react-query';
-// import { dummy } from './test.const';
+// import { Stadium } from '../../../../../apis/dto/scapture.dto';
+import { StadiumDto } from './dto/stadium.dto';
+// import { stadiumDetail? } from './test.const';
 
 interface BaseInfoProps {
-  stadiumId: number;
+  stadiumDetail: StadiumDto;
 }
 
-const BaseInfo: React.FC<BaseInfoProps> = ({ stadiumId }) => {
-  //   const { data: stadiumDetail } = useQuery({
-  //     queryKey: ['stadiumDetail'],
-  //     queryFn: () => getManageStadiumDetail(9),
-  //   });
-
-  console.log(stadiumId);
-
+const BaseInfo: React.FC<BaseInfoProps> = ({ stadiumDetail }) => {
   return (
     <div className={styles.container}>
       <div className={styles.title}>
@@ -26,31 +21,31 @@ const BaseInfo: React.FC<BaseInfoProps> = ({ stadiumId }) => {
 
       <div className={styles.section}>
         <div className={styles.subTitle}>구장명</div>
-        <div className={styles.description}>{dummy.data.stadium.name}</div>
+        <div className={styles.description}>{stadiumDetail?.name}</div>
       </div>
       <div className={styles.section}>
         <div className={styles.subTitle}>위치</div>
         <div className={styles.description}>
-          <div className={styles.circle}>{dummy.data.stadium.city}</div>
-          <div className={styles.circle}>{dummy.data.stadium.state}</div>
-          <div className={styles.circle}>{dummy.data.stadium.location}</div>
+          <div className={styles.circle}>{stadiumDetail?.city}</div>
+          <div className={styles.circle}>{stadiumDetail?.state}</div>
+          <div className={styles.circle}>{stadiumDetail?.location}</div>
         </div>
       </div>
       <div className={styles.section}>
         <div className={styles.subTitle}>운영시간</div>
         <div className={styles.description}>
-          {dummy.data.stadium.startTime}:00~{dummy.data.stadium.endTime}:00
+          {stadiumDetail?.startTime}~{stadiumDetail?.endTime}
         </div>
       </div>
       <div className={styles.section}>
         <div className={styles.subTitle}>주차</div>
         <div className={styles.description}>
-          {dummy?.data?.stadium?.isParking ? (
+          {stadiumDetail?.isParking ? (
             <div className={styles.circle}>가능</div>
           ) : (
             <div className={styles.circle}>불가능</div>
           )}
-          {dummy?.data?.stadium?.isFree ? (
+          {stadiumDetail?.isFree ? (
             <div className={styles.circle}>무료</div>
           ) : (
             <div className={styles.circle}>유료</div>
@@ -59,9 +54,7 @@ const BaseInfo: React.FC<BaseInfoProps> = ({ stadiumId }) => {
       </div>
       <div className={styles.section}>
         <div className={styles.subTitle}>소개글</div>
-        <div className={styles.description}>
-          {dummy.data.stadium.description}
-        </div>
+        <div className={styles.description}>{stadiumDetail?.description}</div>
       </div>
     </div>
   );
