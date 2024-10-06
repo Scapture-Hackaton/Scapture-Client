@@ -7,7 +7,6 @@ import Stadium from './Page/Stadium/components/Stadium';
 import Reservation from './Page/Reservation/components/Reservation';
 import Video from './Page/Video/components/Video';
 import MyPage from './Page/MyPage/components/MyPage';
-import EditProfile from './Page/MyPage/EditProfile/components/EditProfile';
 import MyReservation from './Page/MyPage/MyReservation/components/MyReservation';
 import Header from './Page/Header/components/Header';
 import Footer from './Page/Footer/components/Footer';
@@ -16,6 +15,8 @@ import DevTer from './DevTerminal';
 import './App.scss';
 import Community from './Page/Community/components/Community';
 import ScrollToTop from './utils/ScrollToTop';
+import ManageStadium from './Page/MyPage/Admin/components/Stadium/Stadium';
+import CreateStadium from './Page/MyPage/Admin/components/CreateStadium/CreateStadium';
 // import LoginCallBack from './Page/Header/test/LoginCallBack';
 
 const queryClient = new QueryClient();
@@ -32,7 +33,8 @@ const App = () => {
           <Route path="/reservation" element={<Reservation />} />
           <Route path="/video" element={<Video />} />
           <Route path="/mypage" element={<MyPage />} />
-          <Route path="/mypage/edit" element={<EditProfile />} />
+          <Route path="/admin/stadium" element={<ManageStadium />} />
+          <Route path="/admin/create" element={<CreateStadium />} />
           <Route path="/mypage/reservation" element={<MyReservation />} />
           <Route path="/community" element={<Community />} />
           <Route path="/header" element={<Header index={0} />} />

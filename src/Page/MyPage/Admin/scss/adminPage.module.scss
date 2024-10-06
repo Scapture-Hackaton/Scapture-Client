@@ -1,0 +1,698 @@
+.test {
+  margin: 0 auto;
+  width: 100%;
+  // height: 2339px;
+  padding-bottom: 3rem;
+
+  background: var(--GRAY-SCALE-Black_BG, #1a1b1e);
+
+  flex-shrink: 0;
+
+  .myPageContainer {
+    width: 100%;
+
+    #nav {
+      height: 64px;
+
+      margin-bottom: 1.5rem;
+
+      border-bottom: 1px solid var(--color-grayscale-input-700);
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      #option {
+        width: 90%;
+        margin: 0 auto;
+
+        display: flex;
+        align-items: center;
+        justify-content: start;
+
+        div {
+          color: var(--font-color-gray-700);
+
+          font-size: var(--font-size-l);
+          font-weight: 700;
+
+          cursor: pointer;
+
+          margin-right: 1rem;
+
+          &.selected {
+            color: var(--font-color-gray-100);
+          }
+        }
+      }
+    }
+
+    #profileAndCamera {
+      width: 90%;
+      height: 54px;
+
+      margin: 0 auto 1.5rem auto;
+      padding: 0 0.4rem;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      background: var(--color-grayscale-web-card);
+
+      border-radius: 10px;
+
+      div {
+        width: 50%;
+        height: 38px;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        cursor: pointer;
+
+        border-radius: 8px;
+
+        color: var(--font-color-gray-100);
+        font-size: var(--font-size-m);
+        font-weight: 700;
+
+        color: var(--font-color-gray-sub);
+        font-size: var(--font-size-m);
+        font-weight: 700;
+
+        &.selected {
+          background: var(--color-grayscale-input-700);
+
+          color: var(--font-color-gray-100);
+          font-size: var(--font-size-m);
+          font-weight: 700;
+        }
+      }
+    }
+
+    // 1. 프로필
+    .container {
+      width: 90%;
+      margin: 0 auto 2.5rem auto;
+
+      .frameTitle {
+        display: flex;
+        align-items: center;
+        justify-content: start;
+
+        color: var(--font-color-gray-100);
+        font-size: var(--font-size-l);
+        font-weight: 700;
+
+        margin-bottom: 1rem;
+
+        div {
+          color: var(--primary-color-defualt-01);
+          font-size: var(--font-size-xl);
+
+          margin-left: 0.6rem;
+        }
+      }
+
+      .baseInformation {
+        // height: 403px;
+        padding: 32px 20px 32px 20px;
+
+        // margin-bottom: 24px;
+        // flex-shrink: 0;
+        border-radius: 12px;
+        background: var(--GRAY-SCALE-Gray-900_CARD, #2b2c31);
+
+        .mainTitle {
+          // width: 370px;
+          display: flex;
+          justify-content: space-between;
+          position: relative;
+
+          .boldText {
+            align-self: stretch;
+            color: var(--GRAY-SCALE-Gray-100, #f9fafe);
+            font-family: Pretendard;
+            font-size: 20px;
+            font-style: normal;
+            font-weight: 700;
+            line-height: 150%; /* 30px */
+          }
+
+          .image {
+            width: 28px;
+            height: 28px;
+            flex-shrink: 0;
+            cursor: pointer;
+          }
+
+          #complete {
+            cursor: pointer;
+
+            font-weight: 700;
+            font-size: var(--font-size-xm);
+            color: var(--font-color-blue-200);
+          }
+        }
+
+        .subTitle {
+          align-self: stretch;
+          color: var(--grayscale-gray-600-iconsubtext, #75777f);
+          font-family: Pretendard;
+          font-size: 12px;
+          font-style: normal;
+          font-weight: 500;
+          line-height: 160%;
+          margin-bottom: 16px;
+        }
+
+        .profileContainer {
+          display: flex;
+          align-items: center;
+
+          height: 168px;
+
+          flex-shrink: 0;
+
+          border-radius: 8px;
+          opacity: 0.8;
+
+          .profileGroup {
+            position: relative;
+
+            .profileImg {
+              width: 120px;
+              height: 120px;
+
+              margin-right: 2.3rem;
+
+              border-radius: 50%;
+              flex-shrink: 0;
+
+              object-fit: cover;
+            }
+
+            .editProfileImg {
+              width: 120px;
+              height: 120px;
+              flex-shrink: 0;
+              margin-right: 2.3rem;
+
+              border-radius: 50%;
+
+              object-fit: cover;
+
+              &:hover {
+                opacity: 0.7; // 이미지가 살짝 투명해짐
+              }
+            }
+
+            .overlay {
+              position: absolute;
+              top: 0;
+              left: 0;
+
+              display: flex;
+              align-items: center;
+              justify-content: center;
+
+              width: 120px;
+              height: 120px;
+
+              background-color: rgba(0, 0, 0, 0.8); // 검정색 반투명 배경
+
+              border-radius: 50%;
+
+              opacity: 0; // 기본적으로 보이지 않도록 설정
+              transition: opacity 0.3s ease; // hover 시 나타나는 애니메이션
+
+              cursor: pointer;
+
+              &:hover {
+                opacity: 1; // hover 시 보이게 설정
+              }
+
+              .editButton {
+                width: 24px;
+                height: 24px;
+                opacity: 0.8;
+                transition:
+                  transform 0.3s ease,
+                  opacity 0.3s ease;
+
+                &:hover {
+                  opacity: 1; // hover 시 버튼이 더 뚜렷하게 보임
+                  transform: scale(1.1); // hover 시 아이콘 약간 확대
+                }
+              }
+            }
+          }
+
+          .profile {
+            display: flex;
+            flex-direction: column;
+            align-items: start;
+
+            .subscribe {
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              gap: 8px;
+
+              .badge {
+                padding: 1px 8px 0 8px;
+
+                gap: 10px;
+                border-radius: 4px;
+                background: #ff5c97;
+
+                color: var(--GRAY-SCALE-White, #fff);
+                font-family: Pretendard;
+                font-size: 12px;
+                font-style: normal;
+                font-weight: 500;
+                line-height: 160%; /* 19.2px */
+              }
+            }
+
+            .profileId {
+              align-self: stretch;
+              color: #fff;
+              font-family: Pretendard;
+              font-size: 24px;
+              font-style: normal;
+              font-weight: 700;
+              line-height: 150%; /* 36px */
+
+              margin-top: 1rem;
+
+              border-radius: 1px;
+
+              background-color: var(--color-grayscale-input-800);
+
+              .editDes {
+                display: flex;
+                align-items: center;
+
+                width: 100%;
+                height: 38px;
+
+                padding: 8px 16px;
+
+                flex-shrink: 0;
+                border-radius: 5px;
+                border: 1px solid var(--font-color-gray-700, #37383e);
+
+                color: var(--GRAY-SCALE-Gray-200_DEFAULT-MAIN-TEXT, #eff0f4);
+
+                &:hover {
+                  border: 1px solid var(--Blue-Blue-400, #2458ec);
+                }
+
+                input {
+                  color: var(--font-color-gray-100);
+
+                  width: 80%;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+
+    // 2. 보유 구장
+    .section {
+      .noData {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+
+        padding: 7rem 0;
+
+        div {
+          font-weight: 500;
+          font-size: var(--font-size-sl);
+          color: var(--font-color-gray-400);
+        }
+      }
+
+      .option {
+        // background-color: aqua;
+        display: flex;
+        width: 100%;
+        font-size: var(--font-size-m);
+
+        > .container {
+          width: 100%;
+          margin-bottom: 2rem;
+
+          #search {
+            width: 100%;
+            height: 48px;
+
+            margin-top: 1rem;
+            margin-bottom: 1.3rem;
+            padding: 0 1rem;
+
+            background-color: var(--color-grayscale-input-800);
+
+            color: var(--font-color-gray-100);
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            border-radius: 8px;
+            border: 1px solid var(--color-grayscale-input-700);
+
+            > input {
+              color: var(--font-color-gray-100);
+              width: 80%;
+            }
+          }
+
+          .select {
+            display: flex;
+            align-items: center;
+
+            .selectbox {
+              position: relative;
+              min-width: 128px;
+              height: 36px;
+
+              display: flex;
+              align-items: center;
+              justify-content: center;
+
+              margin-right: 0.6rem;
+
+              button {
+                width: 100%;
+                height: 100%;
+
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+
+                border-radius: 6px;
+                background: rgba(37, 37, 37, 1);
+                background: var(--color-grayscale-input-700);
+
+                cursor: pointer;
+
+                span {
+                  color: var(--font-color-gray-400);
+                  font-weight: 500;
+                  font-size: var(--font-size-m);
+
+                  margin-left: 1rem;
+                  margin-right: 0.5rem;
+                }
+
+                img {
+                  margin-right: 0.6rem;
+                }
+              }
+
+              ul {
+                margin: 0;
+                padding: 0;
+                position: absolute;
+                top: 100%;
+                left: 0;
+
+                max-height: 160px; // 최대 높이를 설정
+                overflow-y: auto; // 내용이 넘칠 경우 스크롤 생성
+
+                width: 100%;
+                background: rgba(37, 37, 37, 1);
+                border-bottom-left-radius: 5px;
+                border-bottom-right-radius: 5px;
+                display: none;
+                z-index: 1000;
+
+                li {
+                  button {
+                    width: 100%;
+                    padding: 0.5rem 0;
+                    border: none;
+                    background: rgba(37, 37, 37, 1);
+                    color: white;
+                    text-align: left;
+                    cursor: pointer;
+
+                    p {
+                      margin-left: 1rem;
+                    }
+
+                    &:hover {
+                      background: rgba(57, 57, 57, 1);
+                    }
+
+                    &.selected {
+                      background: rgba(77, 77, 77, 1);
+                    }
+                  }
+                }
+              }
+
+              &.open ul {
+                display: block;
+              }
+            }
+          }
+
+          #city,
+          #local {
+            margin-right: 0.5rem;
+          }
+
+          #searchImage {
+            display: flex;
+            justify-content: flex-end;
+            width: 2.5rem;
+            // width: 20px;
+
+            cursor: pointer;
+          }
+        }
+      }
+
+      .noData {
+        color: var(--grey-color-grey-03);
+        text-align: center;
+        font-size: var(--font-size-xm);
+
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+
+        min-height: 160px;
+
+        width: 100%;
+
+        border-radius: 0.625rem;
+      }
+
+      .stadiumList {
+        // width: 100%;
+        height: 160px;
+
+        background-color: var(--color-grayscale-card-900);
+
+        font-size: var(--font-size-xs);
+
+        display: flex;
+        // justify-content: center;
+        // align-items: center;
+
+        min-height: 160px;
+
+        border-radius: 0.625rem;
+
+        cursor: pointer;
+
+        padding: 0.7rem;
+        margin-bottom: 1rem;
+
+        > .stadium {
+          // width: 100%;
+          display: flex;
+
+          overflow: hidden;
+
+          .stadiumImage {
+            border-radius: 10px;
+
+            margin: auto 0;
+
+            img {
+              width: 180px;
+              height: 140px;
+              object-fit: cover;
+
+              border-radius: 10px;
+            }
+          }
+
+          .stadiumInfo {
+            // width: 100%;
+
+            margin-left: 1rem;
+
+            .topInfo {
+              display: flex;
+              justify-content: start;
+              align-items: center;
+
+              margin-bottom: 0.7rem;
+
+              .isOutside {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+
+                width: 37px;
+                height: 19px;
+
+                background: var(--color-ect-info);
+
+                border-radius: 4px;
+
+                color: var(--font-color-gray-700);
+                font-weight: 500;
+                font-size: var(--font-size-s);
+
+                margin-right: 0.4rem;
+              }
+
+              .isParking {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+
+                min-width: 61px;
+                height: 19px;
+
+                background: var(--color-ect-accent);
+
+                border-radius: 4px;
+
+                color: var(--white-color);
+                font-weight: 500;
+                font-size: var(--font-size-s);
+
+                margin-right: 1rem;
+              }
+            }
+
+            .stadium {
+              width: 100%;
+              max-width: 194px;
+
+              display: flex;
+              flex-direction: column;
+
+              #name {
+                font-size: var(--font-size-xm);
+                font-weight: 700;
+
+                margin-bottom: 1.8rem;
+
+                text-overflow: ellipsis;
+                overflow: hidden;
+                white-space: nowrap;
+              }
+
+              #info {
+                width: 100%;
+
+                min-height: 4.375rem;
+
+                .line {
+                  display: flex;
+                  justify-content: start;
+                  align-items: center;
+
+                  margin-top: 0.2rem;
+
+                  .info {
+                    color: var(--font-color-gray-sub);
+                    font-weight: 500;
+                    font-size: var(--font-size-s);
+                    margin-left: 0.3rem;
+
+                    text-overflow: ellipsis;
+                    overflow: hidden;
+                    white-space: nowrap;
+                  }
+                }
+              }
+
+              @media (max-width: 420px) {
+                width: 160px;
+              }
+
+              @media (max-width: 400px) {
+                width: 150px;
+              }
+
+              @media (max-width: 380px) {
+                width: 60%;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+// 로그아웃 드롭다운
+
+.dropDownContainer {
+  display: flex;
+  width: 120px;
+  height: 100px;
+  padding: 8px;
+  flex-direction: column;
+  justify-content: center;
+  position: absolute;
+  top: 35px;
+  right: 0px;
+  z-index: 3;
+  flex-shrink: 0;
+  gap: 2px;
+  border-radius: 5px;
+  background: var(--GRAY-SCALE-Gray-900_CARD, #2b2c31);
+
+  /* shadow2 */
+  box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.4);
+  .dropDownItem {
+    display: flex;
+    padding: 4px 10px;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    align-self: stretch;
+    border-radius: 5px;
+    color: var(--GRAY-SCALE-Gray-400, #c5c6cb);
+
+    /* BODY/12_medium */
+    font-family: Pretendard;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 160%; /* 19.2px */
+
+    &:hover {
+      background: var(--GRAY-SCALE-Gray-700_DISABLE, #37383e);
+      color: white;
+      cursor: pointer;
+    }
+  }
+}

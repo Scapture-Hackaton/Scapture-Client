@@ -1,7 +1,7 @@
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { userData } from '../dto/atom.interface';
 import { userDataAtom } from '../Atom/atom';
-import AdminPage from '../\bAdmin/AdminPage';
+import AdminPage from '../Admin/components/AdminPage';
 import UserPage from '../MyPage/components/UserPage';
 import Header from '../../Header/components/Header';
 import Footer from '../../Footer/components/Footer';
