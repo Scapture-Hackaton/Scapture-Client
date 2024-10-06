@@ -6,6 +6,10 @@ import Footer from '../../../../Footer/components/Footer';
 import Header from '../../../../Header/components/Header';
 import EditBasicInfo from '../EditStadium/EditBasicInfo';
 
+import DoneIcon from '../../../../../assets/Icon/doneIcon.png';
+import EditImage from '../EditStadium/EditImage';
+import EditField from '../EditStadium/EditField';
+
 // import { dummy } from '../Stadium/test.const';
 
 const CreateStadium = () => {
@@ -18,6 +22,42 @@ const CreateStadium = () => {
 
   // 0 프로필 관리 / 1 카메라 제어
   const [isProfileAndCamera, setProfileAndCamera] = useState(0);
+
+  const [isStadiumId, setStadiumId] = useState<number | null>(null);
+
+  const createdStadiumId = (stadiumId: number) => {
+    setStadiumId(stadiumId);
+  };
+
+  // 생성 완료 여부를 위한 state
+  const [isProgress, setProgress] = useState({
+    first: false,
+    second: false,
+    third: false,
+  });
+
+  const [isNow, setNow] = useState('first');
+
+  const nextStep = (chapter: string) => {
+    if (chapter === 'first') {
+      setProgress((prev: any) => ({
+        ...prev,
+        first: true,
+      }));
+      setNow('second');
+    } else if (chapter === 'second') {
+      setProgress((prev: any) => ({
+        ...prev,
+        second: true,
+      }));
+      setNow('third');
+    } else {
+      setProgress((prev: any) => ({
+        ...prev,
+        third: true,
+      }));
+    }
+  };
 
   return (
     <>
@@ -57,21 +97,64 @@ const CreateStadium = () => {
           </div>
 
           <div className={styles.alert}>
-            <div className={`${styles.chapter} ${styles.active}`}>
-              <div className={styles.numIcon}>1</div>
+            <div
+              className={`${styles.chapter} ${isProgress.first ? styles.done : isNow === 'first' ? styles.active : ''}`}
+            >
+              <div className={styles.numIcon}>
+                {isProgress.first ? (
+                  <img src={DoneIcon} alt="" width="13px" height="10px"></img>
+                ) : (
+                  '1'
+                )}
+              </div>
               <div className={styles.numInfo}>기본 정보</div>
             </div>
-            <div className={styles.chapter}>
-              <div className={styles.numIcon}>2</div>
+            <div
+              className={`${styles.chapter} ${isProgress.second ? styles.done : isNow === 'second' ? styles.active : ''}`}
+            >
+              <div className={styles.numIcon}>
+                {isProgress.second ? (
+                  <img src={DoneIcon} alt="" width="13px" height="10px"></img>
+                ) : (
+                  '2'
+                )}
+              </div>
               <div className={styles.numInfo}>구장 이미지</div>
             </div>
-            <div className={styles.chapter}>
-              <div className={styles.numIcon}>3</div>
+            <div
+              className={`${styles.chapter} ${isProgress.third ? styles.done : isNow === 'third' ? styles.active : ''}`}
+            >
+              <div className={styles.numIcon}>
+                {isProgress.third ? (
+                  <img src={DoneIcon} alt="" width="13px" height="10px"></img>
+                ) : (
+                  '3'
+                )}
+              </div>
               <div className={styles.numInfo}>보유 구역</div>
             </div>
           </div>
 
-          <EditBasicInfo></EditBasicInfo>
+          {isNow === 'first' ? (
+            <EditBasicInfo
+              nextStep={nextStep}
+              createdStadiumId={createdStadiumId}
+            ></EditBasicInfo>
+          ) : null}
+
+          {isNow === 'second' ? (
+            <EditImage
+              nextStep={nextStep}
+              isStadiumId={isStadiumId}
+            ></EditImage>
+          ) : null}
+
+          {isNow === 'third' ? (
+            <EditField
+              nextStep={nextStep}
+              isStadiumId={isStadiumId}
+            ></EditField>
+          ) : null}
         </div>
       </div>
       <Footer></Footer>

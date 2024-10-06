@@ -6,8 +6,96 @@ import {
 } from '../../../MyPage/const/select.const';
 
 import DownArrow from '../../../../../assets/Icon/dropDown.svg';
+import { postStadium } from '../../../../../apis/api/admin.api';
+import { StadiumBasicInfoDto } from '../../../../../apis/dto/admin.dto';
 
-const EditBasicInfo = () => {
+interface EditBasicInfoProps {
+  nextStep: (chapter: string) => void;
+  createdStadiumId: (stadiumId: number) => void;
+}
+
+interface StadiumBasicInfo {
+  name: string;
+  description: string;
+  location: string;
+  city: string;
+  state: string;
+  // hours: string;
+  startTime: string;
+  endTime: string | null;
+  isParking: string;
+  isFree: string;
+}
+
+const EditBasicInfo: React.FC<EditBasicInfoProps> = ({
+  nextStep,
+  createdStadiumId,
+}) => {
+  const [stadiumInfo, setStadiumInfo] = useState<StadiumBasicInfo>({
+    name: '',
+    description: '',
+    location: '',
+    city: '',
+    state: '',
+    startTime: '',
+    endTime: '',
+    isParking: '',
+    isFree: '',
+  });
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+
+    setStadiumInfo(prevInfo => ({
+      ...prevInfo,
+      [name]: value,
+    }));
+  };
+
+  const handleSelectChange = (
+    name: keyof StadiumBasicInfo,
+    value: string | boolean,
+  ) => {
+    if (name === 'city') {
+      // 도시 변경시 state 초기화
+      setStadiumInfo(prevInfo => ({
+        ...prevInfo,
+        state: selectState[value as keyof SelectStateType][0],
+      }));
+
+      setCityDropdownOpen(false);
+    } else if (name === 'state') {
+      setRegionDropdownOpen(false);
+    } else if (name === 'startTime') {
+      // 시작시간 변경시 마감시간 초기화
+      setStadiumInfo(prevInfo => ({
+        ...prevInfo,
+        endTime: null,
+      }));
+      setStartDropdownOpen(false);
+    } else if (name === 'endTime') {
+      setEndDropdownOpen(false);
+    } else if (name === 'isParking') {
+      setAvailDropdownOpen(false);
+    } else if (name === 'isFree') {
+      setisFreeDropdownOpen(false);
+    }
+
+    setStadiumInfo(prevInfo => ({
+      ...prevInfo,
+      [name]: value,
+    }));
+  };
+
+  const handleDescriptionChange = (
+    e: React.ChangeEvent<HTMLTextAreaElement>,
+  ) => {
+    setStadiumInfo(prevInfo => ({
+      ...prevInfo,
+      description: e.target.value,
+    }));
+  };
+
   /**
    *
    *
@@ -15,10 +103,6 @@ const EditBasicInfo = () => {
    *
    *
    */
-  const [selectedCity, setSelectedCity] = useState<keyof SelectStateType | ''>(
-    '',
-  );
-  const [selectedRegion, setSelectedRegion] = useState('');
 
   // 위치 정보
   const [cityDropdownOpen, setCityDropdownOpen] = useState(false);
@@ -58,6 +142,10 @@ const EditBasicInfo = () => {
       if (event.key === 'Escape') {
         setCityDropdownOpen(false);
         setRegionDropdownOpen(false);
+        setStartDropdownOpen(false);
+        setEndDropdownOpen(false);
+        setAvailDropdownOpen(false);
+        setisFreeDropdownOpen(false);
       }
     };
 
@@ -66,38 +154,6 @@ const EditBasicInfo = () => {
       document.removeEventListener('keydown', handleEscPress);
     };
   }, []);
-
-  // 도시 변경
-  const handleCityChange = (city: keyof SelectStateType) => {
-    setSelectedCity(city);
-    setSelectedRegion(selectState[city][0]); // 도시를 변경시 지역 초기화
-    setCityDropdownOpen(false);
-    // if (city !== myProfileData?.data?.city) {
-    //   setProfileChanges(prev => ({
-    //     ...prev,
-    //     city,
-    //     state: selectState[city][0],
-    //   }));
-    // } else {
-    //   setProfileChanges(prev => {
-    //     const { city, ...rest } = prev;
-    //     return rest;
-    //   });
-    // }
-  };
-
-  const handleRegionChange = (state: string) => {
-    setSelectedRegion(state);
-    setRegionDropdownOpen(false);
-    // if (state !== myProfileData?.data?.state) {
-    //   setProfileChanges(prev => ({ ...prev, state }));
-    // } else {
-    //   setProfileChanges(prev => {
-    //     const { state, ...rest } = prev;
-    //     return rest;
-    //   });
-    // }
-  };
 
   const toggleCityDropdown = () => {
     setCityDropdownOpen(!cityDropdownOpen);
@@ -119,53 +175,34 @@ const EditBasicInfo = () => {
     (_, i) => `${i.toString().padStart(2, '0')}:00`,
   );
 
-  const [selectedStartTime, setSelectedStartTime] = useState<string | null>(
-    null,
-  );
-  const [selectedEndTime, setSelectedEndTime] = useState<string | null>(null);
-
   const [startDropdownOpen, setStartDropdownOpen] = useState(false);
   const [endDropdownOpen, setEndDropdownOpen] = useState(false);
 
-  // 시작 시간 선택 핸들러
-  const handleStartTimeChange = (time: string) => {
-    setSelectedStartTime(time);
-    setSelectedEndTime(null); // 시작 시간을 변경하면 마감 시간을 초기화
-    setStartDropdownOpen(false);
-  };
-
-  // 마감 시간 선택 핸들러
-  const handleEndTimeChange = (time: string) => {
-    setSelectedEndTime(time);
-    setEndDropdownOpen(false);
-  };
-
   // 마감 시간 필터링: 시작 시간 이후의 시간만 보여줌
   const getAvailableEndTimes = () => {
-    if (!selectedStartTime) return hours;
-    const startTimeIndex = hours.indexOf(selectedStartTime);
+    if (!stadiumInfo.startTime) return hours;
+    const startTimeIndex = hours.indexOf(stadiumInfo.startTime);
     return hours.slice(startTimeIndex + 1); // 시작 시간 이후의 시간만 반환
   };
-
-  const [selectedIsAvailable, setSelectedIsAvailable] = useState<string | null>(
-    null,
-  );
-  const [selectedIsFree, setSelectedIsFree] = useState<string | null>(null);
 
   const [availDropdownOpen, setAvailDropdownOpen] = useState(false);
   const [isFreeDropdownOpen, setisFreeDropdownOpen] = useState(false);
 
-  // 시작 시간 선택 핸들러
-  const handleAvailChange = (isAvail: string) => {
-    setSelectedIsAvailable(isAvail);
-    setSelectedIsFree(null); // 시작 시간을 변경하면 마감 시간을 초기화
-    setAvailDropdownOpen(false);
-  };
-
-  // 마감 시간 선택 핸들러
-  const handleIsFreeChange = (isFree: string) => {
-    setSelectedIsFree(isFree);
-    setisFreeDropdownOpen(false);
+  const createStadium = async () => {
+    const data: StadiumBasicInfoDto = {
+      name: stadiumInfo.name,
+      city: stadiumInfo.city,
+      state: stadiumInfo.state,
+      location: stadiumInfo.location,
+      hours: `${stadiumInfo.startTime}~${stadiumInfo.endTime}`,
+      isParking: stadiumInfo.isParking === '주차 가능' ? true : false,
+      isFree: stadiumInfo.isFree === '무료' ? true : false,
+      description: stadiumInfo.description,
+    };
+    const result = await postStadium(data);
+    if (result?.data.status === 201) {
+      createdStadiumId(result?.data?.stadiumId);
+    }
   };
 
   return (
@@ -173,7 +210,15 @@ const EditBasicInfo = () => {
       <div className={styles.title}>
         <div className={styles.header}>
           <div className={styles.mainTitle}>기본 정보</div>
-          <div className={styles.change}>완료</div>
+          <div
+            className={styles.change}
+            onClick={() => {
+              nextStep('first');
+              createStadium();
+            }}
+          >
+            완료
+          </div>
         </div>
         <div className={styles.important}>
           <span>*</span>이 표시되어 있는 항목은 필수 입력사항 입니다.
@@ -185,7 +230,13 @@ const EditBasicInfo = () => {
           구장명<span>*</span>
         </div>
         <div className={styles.editDes}>
-          <input type="text" placeholder="구장명 입력"></input>
+          <input
+            type="text"
+            name="name"
+            value={stadiumInfo.name}
+            placeholder="구장명 입력"
+            onChange={handleChange}
+          ></input>
         </div>
       </div>
 
@@ -200,7 +251,7 @@ const EditBasicInfo = () => {
             ref={cityDropdownRef}
           >
             <div className={styles.dropdownTitle}>
-              {selectedCity === '' ? '도시' : selectedCity}
+              {stadiumInfo.city === '' ? '도시' : stadiumInfo.city}
             </div>
             <img className={styles.dropdownImg} src={DownArrow}></img>
             {cityDropdownOpen && (
@@ -209,9 +260,10 @@ const EditBasicInfo = () => {
                   <div
                     key={idx}
                     className={styles.dropdownItem}
-                    onClick={() =>
-                      handleCityChange(city as keyof SelectStateType)
-                    }
+                    // onClick={() =>
+                    //   handleCityChange(city as keyof SelectStateType)
+                    // }
+                    onClick={() => handleSelectChange('city', city)}
                   >
                     {city}
                   </div>
@@ -227,22 +279,26 @@ const EditBasicInfo = () => {
           >
             <div className={styles.dropdownTitle}>
               {/* {selectedRegion || '지역'} */}
-              {selectedRegion === '' ? '지역' : selectedRegion}
+              {stadiumInfo.state === '' ? '지역' : stadiumInfo.state}
             </div>
             <img className={styles.dropdownImg} src={DownArrow}></img>
             {regionDropdownOpen && (
               <div className={styles.dropdownMenu}>
-                {selectedCity !== '' &&
-                  selectState[selectedCity].length > 0 &&
-                  selectState[selectedCity].map((region: string) => (
-                    <div
-                      key={region}
-                      className={styles.dropdownItem}
-                      onClick={() => handleRegionChange(region)}
-                    >
-                      {region}
-                    </div>
-                  ))}
+                {stadiumInfo.city !== '' &&
+                  selectState[stadiumInfo.city as keyof SelectStateType]
+                    .length > 0 &&
+                  selectState[stadiumInfo.city as keyof SelectStateType].map(
+                    (region: string) => (
+                      <div
+                        key={region}
+                        className={styles.dropdownItem}
+                        // onClick={() => handleRegionChange(region)}
+                        onClick={() => handleSelectChange('state', region)}
+                      >
+                        {region}
+                      </div>
+                    ),
+                  )}
               </div>
             )}
           </div>
@@ -254,7 +310,13 @@ const EditBasicInfo = () => {
           상세주소<span>*</span>
         </div>
         <div className={styles.editDes}>
-          <input type="text" placeholder="상세 주소 입력"></input>
+          <input
+            type="text"
+            name="location"
+            value={stadiumInfo.location}
+            placeholder="상세 주소 입력"
+            onChange={handleChange}
+          ></input>
         </div>
       </div>
 
@@ -269,7 +331,7 @@ const EditBasicInfo = () => {
             onClick={() => setStartDropdownOpen(!startDropdownOpen)}
           >
             <div className={styles.dropdownTitle}>
-              {selectedStartTime ? selectedStartTime : '시작시간'}
+              {stadiumInfo.startTime ? stadiumInfo.startTime : '시작시간'}
             </div>
             <img className={styles.dropdownImg} src={DownArrow}></img>
             {startDropdownOpen && (
@@ -278,7 +340,8 @@ const EditBasicInfo = () => {
                   <div
                     key={idx}
                     className={styles.dropdownItem}
-                    onClick={() => handleStartTimeChange(time)}
+                    // onClick={() => handleStartTimeChange(time)}
+                    onClick={() => handleSelectChange('startTime', time)}
                   >
                     {time}
                   </div>
@@ -293,7 +356,7 @@ const EditBasicInfo = () => {
             onClick={() => setEndDropdownOpen(!endDropdownOpen)}
           >
             <div className={styles.dropdownTitle}>
-              {selectedEndTime ? selectedEndTime : '마감시간'}
+              {stadiumInfo.endTime ? stadiumInfo.endTime : '마감시간'}
             </div>
             <img className={styles.dropdownImg} src={DownArrow}></img>
             {endDropdownOpen && (
@@ -302,7 +365,8 @@ const EditBasicInfo = () => {
                   <div
                     key={idx}
                     className={styles.dropdownItem}
-                    onClick={() => handleEndTimeChange(time)}
+                    // onClick={() => handleEndTimeChange(time)}
+                    onClick={() => handleSelectChange('endTime', time)}
                   >
                     {time}
                   </div>
@@ -324,20 +388,22 @@ const EditBasicInfo = () => {
             onClick={() => setAvailDropdownOpen(!availDropdownOpen)}
           >
             <div className={styles.dropdownTitle}>
-              {selectedIsAvailable ? selectedIsAvailable : '가능 여부'}
+              {stadiumInfo.isParking ? stadiumInfo.isParking : '가능 여부'}
             </div>
             <img className={styles.dropdownImg} src={DownArrow}></img>
             {availDropdownOpen && (
               <div className={styles.dropdownMenu}>
                 <div
                   className={styles.dropdownItem}
-                  onClick={() => handleAvailChange('주차 가능')}
+                  // onClick={() => handleAvailChange('주차 가능')}
+                  onClick={() => handleSelectChange('isParking', '주차 가능')}
                 >
                   주차 가능
                 </div>
                 <div
                   className={styles.dropdownItem}
-                  onClick={() => handleAvailChange('주차 불가능')}
+                  // onClick={() => handleAvailChange('주차 불가능')}
+                  onClick={() => handleSelectChange('isParking', '주차 불가능')}
                 >
                   주차 불가능
                 </div>
@@ -351,20 +417,22 @@ const EditBasicInfo = () => {
             onClick={() => setisFreeDropdownOpen(!isFreeDropdownOpen)}
           >
             <div className={styles.dropdownTitle}>
-              {selectedIsFree ? selectedIsFree : '비용 유무'}
+              {stadiumInfo.isFree ? stadiumInfo.isFree : '비용 유무'}
             </div>
             <img className={styles.dropdownImg} src={DownArrow}></img>
             {isFreeDropdownOpen && (
               <div className={styles.dropdownMenu}>
                 <div
                   className={styles.dropdownItem}
-                  onClick={() => handleIsFreeChange('무료')}
+                  // onClick={() => handleIsFreeChange('무료')}
+                  onClick={() => handleSelectChange('isFree', '무료')}
                 >
                   무료
                 </div>
                 <div
                   className={styles.dropdownItem}
-                  onClick={() => handleIsFreeChange('유료')}
+                  // onClick={() => handleIsFreeChange('유료')}
+                  onClick={() => handleSelectChange('isFree', '유료')}
                 >
                   유료
                 </div>
@@ -380,6 +448,9 @@ const EditBasicInfo = () => {
         </div>
         <div className={styles.editIntro}>
           <textarea
+            name="description"
+            value={stadiumInfo.description}
+            onChange={handleDescriptionChange}
             placeholder="고정 휴무일, 공휴일 운영 여부 등
 소개글을 200자 이내로 입력해주세요"
           ></textarea>

@@ -56,23 +56,26 @@ const Stadium = () => {
               카메라 제어
             </div>
           </div>
-
-          <BaseInfo stadiumId={stadiumId}></BaseInfo>
-          <StadiumImgs></StadiumImgs>
-          <div className={styles.fieldSection}>
-            <div className={styles.frameTitle}>
-              <div id={styles.name}>
-                <div>보유 구역</div>
-                <div id={styles.fieldCnt}>
-                  {dummy?.data?.fields?.length
-                    ? `${dummy?.data?.fields?.length}`
-                    : '0'}
+          {isProfileAndCamera === 0 ? (
+            <>
+              <BaseInfo stadiumId={stadiumId}></BaseInfo>
+              <StadiumImgs></StadiumImgs>
+              <div className={styles.fieldSection}>
+                <div className={styles.frameTitle}>
+                  <div id={styles.name}>
+                    <div>보유 구역</div>
+                    <div id={styles.fieldCnt}>
+                      {dummy?.data?.fields?.length
+                        ? `${dummy?.data?.fields?.length}`
+                        : '0'}
+                    </div>
+                  </div>
+                  <div id={styles.change}>수정</div>
                 </div>
+                <Fields fieldData={dummy.data.fields}></Fields>
               </div>
-              <div id={styles.change}>수정</div>
-            </div>
-            <Fields fieldData={dummy.data.fields}></Fields>
-          </div>
+            </>
+          ) : null}
         </div>
       </div>
       <Footer></Footer>
