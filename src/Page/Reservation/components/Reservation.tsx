@@ -233,7 +233,11 @@ const Reservation = () => {
                   <div className={styles.line}>
                     <img src={parking} alt="" width="20px" height="20px" />
 
-                    <span className={styles.info}>{stadiumDetail.parking}</span>
+                    <span className={styles.info}>
+                      {stadiumDetail?.stadium?.isFree
+                        ? '무료 주차장'
+                        : '유료 주차장'}
+                    </span>
                   </div>
                 </div>
               </div>

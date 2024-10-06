@@ -1,12 +1,12 @@
 import React from 'react';
-import styles from '../scss/scapture.module.scss';
-import { Stadium } from '../../../apis/dto/scapture.dto';
+import styles from '../scss/adminPage.module.scss';
+import { Stadium } from '../../../../apis/dto/scapture.dto';
 import { useNavigate } from 'react-router-dom';
 
-import location from '../../../assets/Icon/location.svg';
-import clock from '../../../assets/Icon/Clock.svg';
-import parking from '../../../assets/Icon/parking.svg';
-import noDataIcon from '../../../assets/Icon/noDataIcon.svg';
+import location from '../../../../assets/Icon/location.svg';
+import clock from '../../../../assets/Icon/Clock.svg';
+import parking from '../../../../assets/Icon/parking.svg';
+import noDataIcon from '../../../..//assets/Icon/noDataIcon.svg';
 
 interface StadiumsProps {
   stadiumData: Stadium[];
@@ -16,7 +16,7 @@ const Stadiums: React.FC<StadiumsProps> = ({ stadiumData }) => {
   const navigate = useNavigate();
 
   const toStadiumPage = (stadiumId: number) => {
-    navigate('/stadium', { state: { stadiumId } });
+    navigate('/admin/stadium', { state: { stadiumId } });
   };
 
   return (
@@ -27,11 +27,11 @@ const Stadiums: React.FC<StadiumsProps> = ({ stadiumData }) => {
         <div className={styles.noData}>
           <img
             src={noDataIcon}
-            alt="검색 결과가 없습니다."
+            alt="구장이 존재하지 않습니다."
             width="180px"
             height="180px"
           />
-          <div>검색 결과가 없어요</div>
+          <div>구장이 존재하지 않습니다.</div>
         </div>
       ) : (
         stadiumData.map(stadium => (
@@ -79,9 +79,7 @@ const Stadiums: React.FC<StadiumsProps> = ({ stadiumData }) => {
                     <div className={styles.line}>
                       <img src={parking} alt="" width="16px" height="16px" />
 
-                      <span className={styles.info}>
-                        {stadium?.isFree ? '무료 주차징' : '유료 주차장'}
-                      </span>
+                      <span className={styles.info}>{stadium.parking}</span>
                     </div>
                   </div>
                 </div>

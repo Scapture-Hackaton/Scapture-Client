@@ -6,7 +6,8 @@ export interface Stadium {
   condition: string;
   // isOutside: boolean; // true: 실외 & false: 실외
   isParking: boolean;
-  parking: string;
+  // parking: string;
+  isFree: boolean;
   image: string;
 }
 
@@ -25,7 +26,7 @@ export interface StadiumDetail {
   description: string;
   location: string;
   isOutside: boolean; // true: 실외 & false: 실내
-  parking: string;
+  isFree: boolean;
   hours: string;
   images: StadiumImage[];
   fields: StadiumFileds[];
@@ -60,6 +61,6 @@ export interface VideoDetail {
     description: string;
     location: string;
     isOutside: boolean; // true: 실외 & false: 실내
-    parking: string;
+    isFree: boolean;
   };
 }
