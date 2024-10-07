@@ -50,11 +50,12 @@ const Footer = () => {
 
           <div className={styles.info}>
             <div>@Copyright Scapture All rights reserved.</div>
-            <div>스캡쳐</div>
+            <div>스캡쳐(Scapture)</div>
             <div>사업자등록번호 : 149-62-00716</div>
+            <div>통신판매업신고번호 : 2024-서울관악-1789</div>
             <div>대표 : 최용석</div>
             <div>주소 : 서울특별시 서울특별시 관악구 봉천로545, 501호</div>
-            <div>이메일 : contact@s-capture.com</div>
+            <div>이메일 : scapture0526@gmail.com</div>
           </div>
 
           <div className={styles.bottomGroup}>

@@ -15,7 +15,6 @@ import DevTer from './DevTerminal';
 import './App.scss';
 import Community from './Page/Community/components/Community';
 import ScrollToTop from './utils/ScrollToTop';
-import CameraControl from './Page/MyPage/\bAdmin/CameraControl';
 import ManageStadium from './Page/MyPage/Admin/components/Stadium/Stadium';
 import CreateStadium from './Page/MyPage/Admin/components/CreateStadium/CreateStadium';
 // import LoginCallBack from './Page/Header/test/LoginCallBack';
@@ -41,7 +40,7 @@ const App = () => {
           <Route path="/header" element={<Header index={0} />} />
           <Route path="/footer" element={<Footer />} />
           <Route path="/dev-ter" element={<DevTer />} />
-          <Route path="/admin/cam" element={<CameraControl />} />
+
           {/* Login-API */}
           {/* <Route path="/oauth/redirected/kakao" element={<LoginCallBack />} /> */}
         </Routes>

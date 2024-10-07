@@ -649,6 +649,20 @@
         }
       }
     }
+
+    .createStadium {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      height: 38px;
+
+      cursor: pointer;
+
+      background: var(--color-grayscale-input-800);
+      border: 1px solid var(--font-color-gray-main);
+      border-radius: 5px;
+    }
   }
 }
 

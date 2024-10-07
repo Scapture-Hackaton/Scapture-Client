@@ -69,6 +69,11 @@ const EditImage: React.FC<EditBasicInfoProps> = ({ nextStep, isStadiumId }) => {
   // 서버로 이미지 전송
   const makeImages = async () => {
     if (isStadiumId !== null) {
+      if (!previewImageFile) {
+        alert('대표 이미지를 선택해주세요.');
+        return; // Exit the function if validation fails
+      }
+
       const formData = new FormData();
 
       // 대표 이미지 추가

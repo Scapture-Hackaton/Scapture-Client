@@ -25,7 +25,7 @@ const Fields: React.FC<StadiumsProps> = ({ fieldData }) => {
   return (
     <>
       {fieldData == null ||
-      fieldData.length <= 0 ||
+      fieldData?.length <= 0 ||
       typeof fieldData == 'undefined' ? (
         <div className={styles.noData}>
           <img
@@ -45,7 +45,16 @@ const Fields: React.FC<StadiumsProps> = ({ fieldData }) => {
           >
             <div className={styles.stadium}>
               <div className={styles.stadiumImage}>
-                <img src={TestImg} alt="" width="180px" height="140px" />
+                {stadium?.image ? (
+                  <img
+                    src={stadium?.image}
+                    alt=""
+                    width="180px"
+                    height="140px"
+                  />
+                ) : (
+                  <img src={TestImg} alt="" width="180px" height="140px" />
+                )}
               </div>
               <div className={styles.stadiumInfo}>
                 <div className={styles.stadium}>

@@ -189,6 +189,34 @@ const EditBasicInfo: React.FC<EditBasicInfoProps> = ({
   const [isFreeDropdownOpen, setisFreeDropdownOpen] = useState(false);
 
   const createStadium = async () => {
+    // 필수 값이 모두 입력되었는지 확인
+    const {
+      name,
+      city,
+      state,
+      location,
+      startTime,
+      endTime,
+      isParking,
+      isFree,
+      description,
+    } = stadiumInfo;
+
+    if (
+      !name ||
+      !city ||
+      !state ||
+      !location ||
+      !startTime ||
+      !endTime ||
+      !isParking ||
+      !isFree ||
+      !description
+    ) {
+      alert('모든 필수 항목을 입력해주세요.');
+      return; // 데이터가 비어있으면 API 호출을 막음
+    }
+
     const data: StadiumBasicInfoDto = {
       name: stadiumInfo.name,
       city: stadiumInfo.city,
@@ -200,9 +228,13 @@ const EditBasicInfo: React.FC<EditBasicInfoProps> = ({
       description: stadiumInfo.description,
     };
     const result = await postStadium(data);
-    if (result?.data.status === 201) {
+
+    if (result?.status === 201) {
+      console.log(result.data.stadiumId);
+
       createdStadiumId(result?.data?.stadiumId);
     }
+    nextStep('first');
   };
 
   return (
@@ -213,7 +245,6 @@ const EditBasicInfo: React.FC<EditBasicInfoProps> = ({
           <div
             className={styles.change}
             onClick={() => {
-              nextStep('first');
               createStadium();
             }}
           >
@@ -442,7 +473,7 @@ const EditBasicInfo: React.FC<EditBasicInfoProps> = ({
         </div>
       </div>
 
-      <div className={styles.section}>
+      <div className={`${styles.section} ${styles.intro}`}>
         <div className={styles.secName}>
           소개글<span>*</span>
         </div>

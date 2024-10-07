@@ -269,8 +269,16 @@
         margin-top: 1.2rem;
 
         display: flex;
-        align-items: start;
+        align-items: center;
         justify-content: space-between;
+
+        &.intro {
+          align-items: start;
+
+          .secName {
+            padding-top: 0.3em;
+          }
+        }
 
         .secName {
           font-weight: 500;

@@ -64,6 +64,25 @@ const EditField: React.FC<EditFieldProps> = ({ nextStep, isStadiumId }) => {
 
   // 서버로 이미지 전송
   const makeField = async () => {
+    // 필드 데이터 검증
+    const isFieldsValid = fields.every(field => {
+      return (
+        field.name.trim() !== '' && // 이름이 비어있지 않고
+        field.type1 !== '00' && // type1이 기본값이 아니고
+        field.type2 !== '00' && // type2가 기본값이 아니고
+        field.isOutside !== null && // 실내외 구분이 선택되었고
+        field.price.trim() !== '' && // 가격이 입력되었고
+        imageFiles.length > 0 // 이미지가 최소 1개는 있는지 확인
+      );
+    });
+
+    if (!isFieldsValid) {
+      alert(
+        '모든 필수 정보를 입력해주세요. (이름, 타입, 실내외 여부, 가격, 이미지)',
+      );
+      return;
+    }
+
     if (isStadiumId !== null) {
       const formData = new FormData();
 

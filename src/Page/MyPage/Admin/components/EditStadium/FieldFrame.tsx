@@ -7,6 +7,7 @@ import PictureIcon from '../../../../../assets/Icon/pictureIcon.svg';
 import PlusBtnIcon from '../../../../../assets/Icon/plusBtnIcon.svg';
 
 interface FieldFrameProps {
+  key: number;
   field: {
     name: string;
     type1: string;
@@ -28,6 +29,7 @@ interface FieldFrameProps {
 }
 
 const FieldFrame: React.FC<FieldFrameProps> = ({
+  key,
   field,
   onUpdateField,
   onRemove,
@@ -98,7 +100,7 @@ const FieldFrame: React.FC<FieldFrameProps> = ({
   const uniqueId = `fieldImgUpload-${Math.random().toString(36).substr(2, 9)}`;
 
   return (
-    <div className={styles.addFieldFrame}>
+    <div className={styles.addFieldFrame} key={key}>
       <div className={styles.line}>
         <div className={styles.editDes}>
           <input
