@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 
 import styles from '../../scss/stadium.module.scss';
@@ -7,7 +7,7 @@ import Header from '../../../../Header/components/Header';
 import BaseInfo from './BaseInfo';
 import StadiumImgs from './StadiumImgs';
 import Fields from './Fields';
-import { dummy } from './test.const';
+// import { dummy } from './test.const';
 import { getManageStadiumDetail } from '../../../../../apis/api/admin.api';
 import { useQuery } from '@tanstack/react-query';
 import CameraControl from '../Camera/CameraControl';
@@ -83,8 +83,8 @@ const Stadium = () => {
                   <div id={styles.name}>
                     <div>보유 구역</div>
                     <div id={styles.fieldCnt}>
-                      {dummy?.data?.fields?.length
-                        ? `${dummy?.data?.fields?.length}`
+                      {stadiumDetail?.data?.fields?.length
+                        ? `${stadiumDetail?.data?.fields?.length}`
                         : '0'}
                     </div>
                   </div>

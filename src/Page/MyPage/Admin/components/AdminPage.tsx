@@ -9,8 +9,10 @@ import EditProfile from './EditProfile/EditProfile';
 import ManagerInfo from './EditProfile/ManagerInfo';
 // import { getManageStadium } from '../../../../apis/api/admin.api';
 import { getStadiumList } from '../../../../apis/api/scapture.api';
+import { useNavigate } from 'react-router-dom';
 
 const AdminPage = () => {
+  const navigate = useNavigate();
   // 0 구장 관리 / 1 은 예약 관리
   const [isPageOpt, setPageOpt] = useState(0);
 
@@ -86,6 +88,13 @@ const AdminPage = () => {
               </div>
               <div className={styles.section}>
                 <Stadiums stadiumData={stadiumData}></Stadiums>
+              </div>
+
+              <div
+                className={styles.createStadium}
+                onClick={() => navigate('/admin/create')}
+              >
+                + 구장 추가
               </div>
             </div>
           </>

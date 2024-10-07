@@ -14,7 +14,9 @@ interface CameraControlProps {
   fields: field[];
 }
 
-const timeList = ['10', '20', '30'];
+const SOCKET_SERVER_IP = `${import.meta.env.VITE_SOCKET_SERVER_IP}`;
+
+const timeList = ['5', '10', '15', '20', '25', '30'];
 
 const CameraControl: React.FC<CameraControlProps> = ({ fields }) => {
   // 페이지에 보여줄 시간
@@ -33,6 +35,13 @@ const CameraControl: React.FC<CameraControlProps> = ({ fields }) => {
   const selectTime = (time: string) => {
     setselectedTime(time);
   };
+
+  // 선택되었는지 확인
+  useEffect(() => {
+    if (selectedField !== null && selectedTime !== null) {
+      setActive(true);
+    }
+  }, [selectedField, selectedTime]);
 
   const [fieldDropdownOpen, setFieldDropdownOpen] = useState<boolean>(false);
   const fieldDropdownRef = useRef<HTMLDivElement>(null);
@@ -80,45 +89,63 @@ const CameraControl: React.FC<CameraControlProps> = ({ fields }) => {
   }, []);
 
   const [isActive, setActive] = useState<boolean>(false);
+  const [isRecording, setRecording] = useState<boolean>(false);
 
-  // 구역 ID
-  const fieldId = 0;
   const [socket, setSocket] = useState<Socket | null>(null);
 
   // 사용자가 설정한 시간
-  const [duration, setDuration] = useState(0);
+  //   const [duration, setDuration] = useState(0);
 
   useEffect(() => {
-    const newSocket = io('http://localhost:3000');
+    const newSocket = io(SOCKET_SERVER_IP);
 
     setSocket(newSocket);
-    setDuration(2000);
 
-    newSocket.emit('join', fieldId, (err: any) => {
+    // 사용자가 구역에 접속할 때 서버에 알림
+    newSocket.emit('join', selectedFieldId, (err: any) => {
       if (err) console.log(err);
     });
 
-    // newSocket.emit('join_court', fieldId);
+    // 타이머 시작 이벤트
+    newSocket.on('timer_started', ({ timerActive }) => {
+      setRecording(timerActive);
+    });
 
-    // const handleUpdateTimer = (data: any) => {
-    //   if (data.fieldId === fieldId) {
-    //     setTimer(data.time);
-    //   }
-    // };
+    // 타이머 종료 이벤트
+    newSocket.on('timerEnded', () => {
+      setTimer(0);
+      setActive(false);
+      setRecording(false);
+    });
 
+    // 남은 시간 업데이트 이벤트
     newSocket.on('update_timer', (remainingTime: number) => {
       setTimer(remainingTime);
+    });
+
+    // 녹화 상태와 남은 시간을 받는 이벤트
+    newSocket.on('isRecording', ({ timerActive, remainingTime }) => {
+      setRecording(timerActive);
+
+      if (remainingTime !== undefined) {
+        setTimer(remainingTime);
+      }
     });
 
     return () => {
       newSocket.disconnect();
     };
-  }, [fieldId]);
+  }, [selectedFieldId]);
 
   const startTimer = () => {
-    if (socket) {
+    if (socket && selectedTime !== null) {
       // socket이 null이 아닐 때만 emit 호출
-      socket.emit('start_timer', { fieldId, duration });
+      const intTime = parseInt(selectedTime) * 60;
+
+      socket.emit('start_timer', {
+        fieldId: selectedFieldId,
+        duration: intTime,
+      });
     }
   };
 
@@ -201,23 +228,26 @@ const CameraControl: React.FC<CameraControlProps> = ({ fields }) => {
             </div>
           </div>
         </div>
-        {isActive ? (
+        {isRecording ? (
           <div id={styles.recordBtn} className={styles.recording}>
             {formatTime(timer)} 녹화중
           </div>
-        ) : (
+        ) : isActive ? (
           <div
             id={styles.recordBtn}
             className={styles.active}
             onClick={() => {
               if (selectedFieldId != null && selectedTime !== null) {
                 startRecording(selectedFieldId, selectedTime);
+                setActive(!isActive);
                 startTimer();
               }
             }}
           >
             녹화 시작하기
           </div>
+        ) : (
+          <div id={styles.recordBtn}>녹화 시작하기</div>
         )}
       </div>
 
@@ -234,7 +264,7 @@ const CameraControl: React.FC<CameraControlProps> = ({ fields }) => {
           width="180px"
           height="180px"
         />
-        <div>검색 결과가 없어요</div>
+        <div>녹화된 영상이 없어요</div>
       </div>
     </div>
   );
