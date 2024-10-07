@@ -103,7 +103,7 @@ export const startRecording = async (
 ): Promise<CommonResponse | undefined> => {
   try {
     const res = await authInstance.post(
-      `/api/fields/${fieldId}/start?time=${time}`,
+      `/api/records/${fieldId}/start?time=${time}`,
     );
 
     return res.data;

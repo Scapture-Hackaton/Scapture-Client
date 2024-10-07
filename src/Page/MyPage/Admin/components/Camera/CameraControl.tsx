@@ -97,7 +97,10 @@ const CameraControl: React.FC<CameraControlProps> = ({ fields }) => {
   //   const [duration, setDuration] = useState(0);
 
   useEffect(() => {
-    const newSocket = io(SOCKET_SERVER_IP);
+    const newSocket = io(SOCKET_SERVER_IP, {
+      secure: true,
+      rejectUnauthorized: false,
+    });
 
     setSocket(newSocket);
 
