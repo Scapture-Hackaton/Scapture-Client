@@ -1,5 +1,5 @@
 /**
- * Stadium 관련 API
+ * Stadium 관련 api
  */
 import { CommonResponse } from '../dto/common.response';
 import { defaultInstance, authInstance } from '../utils/instance';
@@ -8,7 +8,7 @@ import { defaultInstance, authInstance } from '../utils/instance';
 export const getStadiums = async (city: string, state: string) => {
   try {
     const res: CommonResponse = await defaultInstance.get(
-      `api/stadium?city=${city}&state=${state}`,
+      `/api/stadium?city=${city}&state=${state}`,
     );
     return res;
   } catch (e: any) {
@@ -22,7 +22,7 @@ export const getStadiums = async (city: string, state: string) => {
 export const getStadiumDetail = async (stadiumId: number) => {
   try {
     const res: CommonResponse = await defaultInstance.get(
-      `api/stadiums/${stadiumId}/detail`,
+      `/api/stadiums/${stadiumId}/detail`,
     );
     return res.data.data;
   } catch (e: any) {
@@ -36,7 +36,7 @@ export const getStadiumDetail = async (stadiumId: number) => {
 export const getStadiumDHours = async (fieldId: number, date: string) => {
   try {
     const res: CommonResponse = await defaultInstance.get(
-      `api/stadiums/${fieldId}?date=${date}`,
+      `/api/stadiums/${fieldId}?date=${date}`,
     );
 
     return res.data.data;
@@ -51,7 +51,7 @@ export const getStadiumDHours = async (fieldId: number, date: string) => {
 export const getVideoScheduled = async (scheduleId: number) => {
   try {
     const res: CommonResponse = await defaultInstance.get(
-      `api/videos/${scheduleId}`,
+      `/api/videos/${scheduleId}`,
     );
     return res.data.data;
   } catch (e: any) {
@@ -65,7 +65,7 @@ export const getVideoScheduled = async (scheduleId: number) => {
 export const getVideoDetail = async (videoId: number) => {
   try {
     const res: CommonResponse = await authInstance.get(
-      `api/videos/${videoId}/details`,
+      `/api/videos/${videoId}/details`,
     );
     return res.data.data;
   } catch (e: any) {
@@ -79,7 +79,7 @@ export const getVideoDetail = async (videoId: number) => {
 export const likesVideo = async (videoId: number) => {
   try {
     const res: CommonResponse = await authInstance.post(
-      `api/videos/${videoId}/likes`,
+      `/api/videos/${videoId}/likes`,
     );
 
     return res.data;
@@ -95,7 +95,7 @@ export const likesVideo = async (videoId: number) => {
 export const unLikeVideo = async (videoId: number) => {
   try {
     const res: CommonResponse = await authInstance.delete(
-      `api/videos/${videoId}/likes`,
+      `/api/videos/${videoId}/likes`,
     );
 
     return res.data;

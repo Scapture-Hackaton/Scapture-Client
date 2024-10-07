@@ -7,7 +7,7 @@ export const getManageStadium = async (): Promise<
   CommonResponse | undefined
 > => {
   try {
-    const res = await authInstance.get(`api/manages/stadiums`);
+    const res = await authInstance.get(`/api/manages/stadiums`);
 
     return res.data;
   } catch (error) {
@@ -20,7 +20,7 @@ export const getManageStadiumDetail = async (
   stadiumId: number,
 ): Promise<CommonResponse | undefined> => {
   try {
-    const res = await authInstance.get(`api/manages/stadiums/${stadiumId}`);
+    const res = await authInstance.get(`/api/manages/stadiums/${stadiumId}`);
 
     return res.data;
   } catch (error) {
@@ -33,7 +33,7 @@ export const postStadium = async (
   content: StadiumBasicInfoDto,
 ): Promise<CommonResponse | undefined> => {
   try {
-    const res = await authInstance.post(`api/manages/stadiums`, content);
+    const res = await authInstance.post(`/api/manages/stadiums`, content);
 
     return res.data;
   } catch (error) {
@@ -46,7 +46,7 @@ export const postStadium = async (
 // ): Promise<CommonResponse | undefined> => {
 //   try {
 //     const res = await authInstance.post(
-//       `api/manages/stadiums/${stadiumId}/images`,
+//       `/api/manages/stadiums/${stadiumId}/images`,
 //     );
 
 //     return res.data;
@@ -61,7 +61,7 @@ export const postStadiumImages = async (
 ): Promise<CommonResponse | undefined> => {
   try {
     const res = await authInstance.post(
-      `api/manages/stadiums/${stadiumId}/images`,
+      `/api/manages/stadiums/${stadiumId}/images`,
       formData,
       {
         headers: {
@@ -82,7 +82,7 @@ export const postField = async (
 ): Promise<CommonResponse | undefined> => {
   try {
     const res = await authInstance.post(
-      `api/manages/fields/${stadiumId}`,
+      `/api/manages/fields/${stadiumId}`,
       formData,
       {
         headers: {
@@ -103,7 +103,7 @@ export const startRecording = async (
 ): Promise<CommonResponse | undefined> => {
   try {
     const res = await authInstance.post(
-      `api/fields/${fieldId}/start?time=${time}`,
+      `/api/fields/${fieldId}/start?time=${time}`,
     );
 
     return res.data;

@@ -4,7 +4,7 @@ import { authInstance } from '../utils/instance';
 //프로필 정보 (get)
 export const getProfile = async (): Promise<CommonResponse | undefined> => {
   try {
-    const res = await authInstance.get(`api/user/profile`);
+    const res = await authInstance.get(`/api/user/profile`);
     // console.log('Response:', res);
     return res.data;
   } catch (error) {
@@ -28,7 +28,7 @@ export const getProfile = async (): Promise<CommonResponse | undefined> => {
 //   }
 
 //   try {
-//     const res = await authInstance.put('api/user/profile', formData, {
+//     const res = await authInstance.put('/api/user/profile', formData, {
 //       headers: {
 //         'Content-Type': 'multipart/form-data',
 //       },
@@ -43,7 +43,7 @@ export const putProfile = async (
   formData: FormData,
 ): Promise<CommonResponse | undefined> => {
   try {
-    const res = await authInstance.put('api/user/profile', formData, {
+    const res = await authInstance.put('/api/user/profile', formData, {
       headers: {
         'Content-Type': 'multipart/form-data',
       },
@@ -58,7 +58,7 @@ export const putProfile = async (
 //버내너 정보(get)
 export const getBanana = async (): Promise<CommonResponse | undefined> => {
   try {
-    const res = await authInstance.get(`api/user/bananas`);
+    const res = await authInstance.get(`/api/user/bananas`);
     // console.log('Response:', res);
     return res.data;
   } catch (error) {
@@ -71,7 +71,7 @@ export const postBanana = async (
   banana: number, // banana: number,
 ): Promise<CommonResponse | undefined> => {
   try {
-    const res = await authInstance.post(`api/user/bananas`, banana);
+    const res = await authInstance.post(`/api/user/bananas`, banana);
     // console.log('Response:', res);
     return res.data;
   } catch (error: any) {
@@ -82,7 +82,7 @@ export const postBanana = async (
 //예약 정보(get)
 export const getReservation = async (): Promise<CommonResponse | undefined> => {
   try {
-    const res = await authInstance.get(`api/user/reservations`);
+    const res = await authInstance.get(`/api/user/reservations`);
     // console.log('Response:', res);
     return res.data;
   } catch (error) {
@@ -96,7 +96,7 @@ export const postSubscribe = async (subscribeData: {
   [key: string]: any;
 }): Promise<CommonResponse | undefined> => {
   try {
-    const res = await authInstance.post(`api/user/subscribe`, subscribeData);
+    const res = await authInstance.post(`/api/user/subscribe`, subscribeData);
     // console.log('Response:', res);
     return res.data;
   } catch (error) {
@@ -107,7 +107,7 @@ export const postSubscribe = async (subscribeData: {
 //구독 갱신(put)
 export const putSubscribe = async (): Promise<CommonResponse | undefined> => {
   try {
-    const res = await authInstance.put(`api/user/subscribe`);
+    const res = await authInstance.put(`/api/user/subscribe`);
     // console.log('Response:', res);
     return res.data;
   } catch (error) {
@@ -119,7 +119,7 @@ export const getSortVideoLatest = async (): Promise<
   CommonResponse | undefined
 > => {
   try {
-    const res = await authInstance.get(`api/videos/store`);
+    const res = await authInstance.get(`/api/videos/store`);
     return res.data;
   } catch (error) {
     console.error('Error: ', error);
@@ -130,7 +130,7 @@ export const getSortVideoPopularity = async (): Promise<
   CommonResponse | undefined
 > => {
   try {
-    const res = await authInstance.get(`api/videos/store?sort=popularity`);
+    const res = await authInstance.get(`/api/videos/store?sort=popularity`);
     return res.data;
   } catch (error) {
     console.error('Error: ', error);
@@ -141,7 +141,7 @@ export const getSortVideo = async (
   type: string,
 ): Promise<CommonResponse | undefined> => {
   try {
-    const res = await authInstance.get(`api/videos/store?sort=${type}`);
+    const res = await authInstance.get(`/api/videos/store?sort=${type}`);
     return res.data;
   } catch (error) {
     console.error('Error: ', error);
@@ -150,7 +150,7 @@ export const getSortVideo = async (
 
 export const deleteUser = async (): Promise<CommonResponse | undefined> => {
   try {
-    const res = await authInstance.delete(`api/user`);
+    const res = await authInstance.delete(`/api/user`);
     return res.data;
   } catch (error) {
     console.error('Error: ', error);

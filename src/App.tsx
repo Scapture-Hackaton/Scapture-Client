@@ -15,7 +15,7 @@ import DevTer from './DevTerminal';
 import './App.scss';
 import Community from './Page/Community/components/Community';
 import ScrollToTop from './utils/ScrollToTop';
-import ManageStadium from './Page/MyPage/Admin/components/Stadium/Stadium';
+import ManageStadium from './Page/MyPage/Admin/components/Stadium/ManageStadium';
 import CreateStadium from './Page/MyPage/Admin/components/CreateStadium/CreateStadium';
 // import LoginCallBack from './Page/Header/test/LoginCallBack';
 

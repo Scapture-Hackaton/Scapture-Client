@@ -1,5 +1,5 @@
 /**
- * Scapture 관련 API
+ * Scapture 관련 api
  */
 import { CommonResponse } from '../dto/common.response';
 import { defaultInstance } from '../utils/instance';
@@ -8,7 +8,7 @@ import { defaultInstance } from '../utils/instance';
 export const getStadiumList = async (city: string, state: string) => {
   try {
     const res: CommonResponse = await defaultInstance.get(
-      `api/stadiums?city=${city}&state=${state}`,
+      `/api/stadiums?city=${city}&state=${state}`,
     );
 
     return res.data.data;
@@ -23,7 +23,7 @@ export const getStadiumList = async (city: string, state: string) => {
 export const searchStadiumList = async (keyword: string) => {
   try {
     const res: CommonResponse = await defaultInstance.get(
-      `api/stadiums/search?keyword=${keyword}`,
+      `/api/stadiums/search?keyword=${keyword}`,
     );
 
     return res.data.data;
