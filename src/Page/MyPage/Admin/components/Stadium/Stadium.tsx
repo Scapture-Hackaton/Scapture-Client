@@ -72,7 +72,7 @@ const Stadium = () => {
               카메라 제어
             </div>
           </div>
-          {isProfileAndCamera === 0 ? (
+          {isProfileAndCamera === 0 && stadiumDetail !== null ? (
             <>
               <BaseInfo stadiumDetail={stadiumDetail?.data?.stadium}></BaseInfo>
               <StadiumImgs
