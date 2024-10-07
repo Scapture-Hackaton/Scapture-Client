@@ -12,15 +12,19 @@ import { getManageStadiumDetail } from '../../../../../apis/api/admin.api';
 import { useQuery } from '@tanstack/react-query';
 import CameraControl from '../Camera/CameraControl';
 
-const Stadium = () => {
+const ManageStadium = () => {
   const location = useLocation();
 
   const stadiumId = location.state.stadiumId;
+
+  console.log(stadiumId);
 
   const { data: stadiumDetail, refetch } = useQuery({
     queryKey: ['stadiumDetail'],
     queryFn: () => getManageStadiumDetail(stadiumId),
   });
+
+  console.log(stadiumDetail);
 
   useEffect(() => {
     const refreshData = async () => {
@@ -103,4 +107,4 @@ const Stadium = () => {
   );
 };
 
-export default Stadium;
+export default ManageStadium;

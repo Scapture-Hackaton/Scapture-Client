@@ -1,5 +1,5 @@
 /**
- * Stadium - video 관련 API
+ * Stadium - video 관련 api
  */
 import { CommonResponse } from '../dto/common.response';
 import { authInstance, defaultInstance } from '../utils/instance';
@@ -8,7 +8,7 @@ import { authInstance, defaultInstance } from '../utils/instance';
 export const reserveField = async (scheduleId: number) => {
   try {
     const res: CommonResponse = await authInstance.post(
-      `api/reservations/${scheduleId}`,
+      `/api/reservations/${scheduleId}`,
     );
 
     return res.data;
@@ -24,7 +24,7 @@ export const reserveField = async (scheduleId: number) => {
 export const getReservationList = async (fieldId: number, date: string) => {
   try {
     const res: CommonResponse = await defaultInstance.get(
-      `api/reservations/${fieldId}?date=${date}`,
+      `/api/reservations/${fieldId}?date=${date}`,
     );
 
     return res.data.data;
@@ -40,7 +40,7 @@ export const getReservationList = async (fieldId: number, date: string) => {
 // export const getReservationList = async (stadiumId: number, date: string) => {
 //   try {
 //     const res: CommonResponse = await authInstance.get(
-//       `api/reservations/${stadiumId}?date=${date}`,
+//       `/api/reservations/${stadiumId}?date=${date}`,
 //     );
 
 //     return res.data.data;

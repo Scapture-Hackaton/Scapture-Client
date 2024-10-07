@@ -1,5 +1,5 @@
 /**
- * Stadium - video 관련 API
+ * Stadium - video 관련 api
  */
 import { CommonResponse } from '../dto/common.response';
 import { authInstance } from '../utils/instance';
@@ -8,7 +8,7 @@ import { authInstance } from '../utils/instance';
 export const checkAuthDownloadVideo = async (videoId: number) => {
   try {
     const res: CommonResponse = await authInstance.post(
-      `api/videos/${videoId}/download`,
+      `/api/videos/${videoId}/download`,
     );
 
     return res.data;
@@ -24,7 +24,7 @@ export const checkAuthDownloadVideo = async (videoId: number) => {
 export const downloadVideo = async (videoId: number) => {
   try {
     const res: CommonResponse = await authInstance.get(
-      `api/videos/${videoId}/download`,
+      `/api/videos/${videoId}/download`,
     );
 
     return res.data;
@@ -40,7 +40,7 @@ export const downloadVideo = async (videoId: number) => {
 export const storeVideo = async (videoId: number) => {
   try {
     const res: CommonResponse = await authInstance.post(
-      `api/videos/${videoId}/store`,
+      `/api/videos/${videoId}/store`,
     );
 
     return res.data;
@@ -56,7 +56,7 @@ export const storeVideo = async (videoId: number) => {
 export const unStoreVideo = async (videoId: number) => {
   try {
     const res: CommonResponse = await authInstance.delete(
-      `api/videos/${videoId}/store`,
+      `/api/videos/${videoId}/store`,
     );
 
     return res.data;
