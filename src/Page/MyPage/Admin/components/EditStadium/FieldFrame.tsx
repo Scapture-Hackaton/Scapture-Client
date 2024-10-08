@@ -1,5 +1,6 @@
 import React, { useRef, useState } from 'react';
-import styles from '../../scss/createStadium.module.scss';
+// import styles from '../../scss/createStadium.module.scss';
+import styles from './scss/EditInfo.module.scss';
 
 import DownArrow from '../../../../../assets/Icon/dropDown.svg';
 import cancelBtnIcon from '../../../../../assets/Icon/cancelBtnIcon.svg';

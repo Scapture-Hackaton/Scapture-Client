@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
-import styles from '../../scss/createStadium.module.scss';
+// import styles from '../../scss/createStadium.module.scss';
+import styles from './scss/EditInfo.module.scss';
+
 import FieldFrame from './FieldFrame';
 import { postField } from '../../../../../apis/api/admin.api';
 import { useNavigate } from 'react-router-dom';

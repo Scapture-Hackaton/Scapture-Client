@@ -1,5 +1,6 @@
 import React from 'react';
-import styles from '../../scss/stadium.module.scss';
+// import styles from '../../scss/stadium.module.scss';
+import styles from './scss/Fields.module.scss';
 
 import { useNavigate } from 'react-router-dom';
 
@@ -23,7 +24,7 @@ const Fields: React.FC<StadiumsProps> = ({ fieldData }) => {
   };
 
   return (
-    <>
+    <div className={styles.container}>
       {fieldData == null ||
       fieldData?.length <= 0 ||
       typeof fieldData == 'undefined' ? (
@@ -87,7 +88,7 @@ const Fields: React.FC<StadiumsProps> = ({ fieldData }) => {
           </div>
         ))
       )}
-    </>
+    </div>
   );
 };
 

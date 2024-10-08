@@ -1,5 +1,6 @@
 import React from 'react';
-import styles from '../../scss/stadium.module.scss';
+// import styles from '../../scss/stadium.module.scss';
+import styles from './scss/ManageStadium.module.scss';
 // import { stadiumDetail } from './test.const';
 // import { getManageStadiumDetail } from '../../../../../apis/api/admin.api';
 // import { useQuery } from '@tanstack/react-query';
@@ -9,14 +10,17 @@ import { StadiumDto } from './dto/stadium.dto';
 
 interface BaseInfoProps {
   stadiumDetail: StadiumDto;
+  changeFirst: () => void;
 }
 
-const BaseInfo: React.FC<BaseInfoProps> = ({ stadiumDetail }) => {
+const BaseInfo: React.FC<BaseInfoProps> = ({ stadiumDetail, changeFirst }) => {
   return (
     <div className={styles.container}>
       <div className={styles.title}>
         <div className={styles.mainTitle}>기본 정보</div>
-        <div className={styles.change}>수정</div>
+        <div className={styles.change} onClick={changeFirst}>
+          수정
+        </div>
       </div>
 
       <div className={styles.section}>

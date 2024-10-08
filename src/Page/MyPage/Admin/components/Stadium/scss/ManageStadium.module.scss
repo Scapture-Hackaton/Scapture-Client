@@ -1,0 +1,130 @@
+.container {
+  width: 90%;
+  margin: 0 auto 1.5rem auto;
+  padding: 2rem 1.5rem;
+
+  border-radius: 12px;
+
+  background: var(--color-grayscale-web-card);
+
+  .title {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    .mainTitle {
+      font-weight: 700;
+      font-size: var(--font-size-xm);
+      color: #fff;
+    }
+
+    .change {
+      cursor: pointer;
+
+      font-weight: 700;
+      font-size: var(--font-size-xm);
+      color: var(--font-color-blue-200);
+    }
+  }
+
+  .section {
+    margin-top: 2rem;
+
+    .subTitle {
+      font-weight: 500;
+      font-size: var(--font-size-m);
+      color: var(--font-color-gray-400);
+
+      margin-bottom: 0.7rem;
+    }
+
+    .description {
+      display: flex;
+      align-items: center;
+      justify-content: start;
+
+      font-weight: 500;
+      font-size: var(--font-size-xm);
+      color: var(--font-color-gray-main);
+      line-height: 25px;
+
+      white-space: pre-wrap;
+
+      flex-wrap: wrap;
+
+      .circle {
+        border-radius: 50px;
+        padding: 2px 12px 2px 12px;
+
+        margin-right: 0.5rem;
+        margin-bottom: 0.5rem;
+
+        background: var(--font-color-gray-700);
+      }
+    }
+  }
+
+  .imgSection {
+    margin-top: 2rem;
+
+    .subTitle {
+      font-weight: 700;
+      font-size: var(--font-size-m);
+      color: #fff;
+
+      margin-bottom: 0.7rem;
+    }
+
+    #representaion {
+      border-radius: 10px;
+      object-fit: cover;
+    }
+
+    img {
+      border-radius: 10px;
+    }
+
+    // .images {
+    //   display: flex;
+    //   align-items: center;
+    //   justify-content: space-between;
+
+    //   flex-wrap: wrap;
+
+    //   img {
+    //     margin: 0 0rem 0.5rem 0;
+
+    //     width: 32%;
+
+    //     border-radius: 10px;
+
+    //     object-fit: cover;
+    //   }
+    // }
+
+    .images {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem; /* 이미지 간의 간격 */
+
+      div {
+        position: relative;
+        width: 31%; /* 너비를 설정 */
+        padding-bottom: 31%; /* 1:1 비율 유지 */
+        border-radius: 10px;
+        overflow: hidden; /* 부모의 비율을 벗어나지 않도록 */
+
+        margin-bottom: 0.2rem;
+      }
+
+      img {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover; /* 이미지가 비율에 맞춰 잘리게 표시 */
+      }
+    }
+  }
+}

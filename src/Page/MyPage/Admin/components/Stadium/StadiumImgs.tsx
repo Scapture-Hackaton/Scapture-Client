@@ -1,17 +1,24 @@
 import React from 'react';
-import styles from '../../scss/stadium.module.scss';
+// import styles from '../../scss/stadium.module.scss';
+import styles from './scss/ManageStadium.module.scss';
 import TestImg from '../../../image/test.png';
 
 interface StadiumImgsProps {
   stadiumImages: any;
+  changeSecond: () => void;
 }
 
-const StadiumImgs: React.FC<StadiumImgsProps> = ({ stadiumImages }) => {
+const StadiumImgs: React.FC<StadiumImgsProps> = ({
+  stadiumImages,
+  changeSecond,
+}) => {
   return (
     <div className={styles.container}>
       <div className={styles.title}>
         <div className={styles.mainTitle}>구장 이미지</div>
-        <div className={styles.change}>수정</div>
+        <div className={styles.change} onClick={changeSecond}>
+          수정
+        </div>
       </div>
 
       <div className={styles.imgSection}>
@@ -22,6 +29,7 @@ const StadiumImgs: React.FC<StadiumImgsProps> = ({ stadiumImages }) => {
             alt=""
             width="100%"
             height="210px"
+            id={styles.representaion}
           />
         ) : (
           <img src={TestImg} alt="" width="100%" height="210px" />
@@ -30,27 +38,11 @@ const StadiumImgs: React.FC<StadiumImgsProps> = ({ stadiumImages }) => {
       <div className={styles.imgSection}>
         <div className={styles.subTitle}>세부 이미지</div>
         <div className={styles.images}>
-          {stadiumImages?.images?.map((imgData: any) => {
-            <div>
-              <img
-                src={imgData?.url}
-                alt=""
-                width="31%"
-                height="118px"
-                id={styles.representaion}
-              />
-            </div>;
-          })}
-
-          {/* <div>
-            <img
-              src={TestImg}
-              alt=""
-              width="31%"
-              height="118px"
-              id={styles.representaion}
-            />
-          </div> */}
+          {stadiumImages?.images?.map((imgData: any) => (
+            <div key={imgData.imageId}>
+              <img src={imgData.url} alt="" width="31%" height="118px" />
+            </div>
+          ))}
         </div>
       </div>
     </div>
