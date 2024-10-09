@@ -139,6 +139,8 @@ const CreateStadium = () => {
             <EditBasicInfo
               nextStep={nextStep}
               createdStadiumId={createdStadiumId}
+              type="CREATE"
+              stadiumData={null}
             ></EditBasicInfo>
           ) : null}
 
@@ -146,6 +148,7 @@ const CreateStadium = () => {
             <EditImage
               nextStep={nextStep}
               isStadiumId={isStadiumId}
+              type="CREATE"
             ></EditImage>
           ) : null}
 
@@ -153,6 +156,8 @@ const CreateStadium = () => {
             <EditField
               nextStep={nextStep}
               isStadiumId={isStadiumId}
+              selectedFieldData={null}
+              type="CREATE"
             ></EditField>
           ) : null}
         </div>

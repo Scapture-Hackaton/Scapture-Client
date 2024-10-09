@@ -41,6 +41,22 @@ export const postStadium = async (
   }
 };
 
+export const putStadium = async (
+  stadiumId: number,
+  content: StadiumBasicInfoDto,
+): Promise<CommonResponse | undefined> => {
+  try {
+    const res = await authInstance.put(
+      `api/manages/stadiums/${stadiumId}`,
+      content,
+    );
+
+    return res.data;
+  } catch (error) {
+    console.error('Error: ', error);
+  }
+};
+
 // export const postStadiumImages = async (
 //   stadiumId: number,
 // ): Promise<CommonResponse | undefined> => {
@@ -55,6 +71,7 @@ export const postStadium = async (
 //   }
 // };
 
+// 구장 이미지 생성 (post)
 export const postStadiumImages = async (
   stadiumId: number,
   formData: FormData,
@@ -76,6 +93,20 @@ export const postStadiumImages = async (
   }
 };
 
+// 구장 이미지 생성 (delete)
+export const deleteImage = async (
+  imageId: number,
+): Promise<CommonResponse | undefined> => {
+  try {
+    const res = await authInstance.delete(`api/manages/images/${imageId}`);
+
+    return res.data;
+  } catch (error) {
+    console.error('Error: ', error);
+  }
+};
+
+// 구역 생성 (post)
 export const postField = async (
   stadiumId: number,
   formData: FormData,
@@ -97,6 +128,28 @@ export const postField = async (
   }
 };
 
+export const putField = async (
+  fieldId: number,
+  formData: FormData,
+): Promise<CommonResponse | undefined> => {
+  try {
+    const res = await authInstance.put(
+      `api/manages/fields/${fieldId}`,
+      formData,
+      {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      },
+    );
+
+    return res.data;
+  } catch (error) {
+    console.error('Error: ', error);
+  }
+};
+
+// 녹화 시작 (post)
 export const startRecording = async (
   fieldId: number,
   time: string,

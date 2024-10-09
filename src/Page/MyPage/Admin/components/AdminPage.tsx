@@ -7,8 +7,8 @@ import { useQuery } from '@tanstack/react-query';
 import Stadiums from './Stadiums';
 import EditProfile from './EditProfile/EditProfile';
 import ManagerInfo from './EditProfile/ManagerInfo';
-// import { getManageStadium } from '../../../../apis/api/admin.api';
-import { getStadiumList } from '../../../../apis/api/scapture.api';
+import { getManageStadium } from '../../../../apis/api/admin.api';
+// import { getStadiumList } from '../../../../apis/api/scapture.api';
 import { useNavigate } from 'react-router-dom';
 
 const AdminPage = () => {
@@ -27,7 +27,7 @@ const AdminPage = () => {
 
   const { data: stadiumData } = useQuery({
     queryKey: ['manageStadiums'],
-    queryFn: () => getStadiumList('경기도', '이천시'),
+    queryFn: () => getManageStadium(),
   });
 
   // const { data: stadiumData } = useQuery({
@@ -83,11 +83,13 @@ const AdminPage = () => {
               <div className={styles.frameTitle}>
                 보유 구장
                 <div>
-                  {stadiumData?.length ? `${stadiumData?.length}` : '0'}
+                  {stadiumData?.data?.length
+                    ? `${stadiumData?.data?.length}`
+                    : '0'}
                 </div>
               </div>
               <div className={styles.section}>
-                <Stadiums stadiumData={stadiumData}></Stadiums>
+                <Stadiums stadiumData={stadiumData?.data}></Stadiums>
               </div>
 
               <div

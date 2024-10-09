@@ -1,17 +1,22 @@
 import React, { useEffect, useRef, useState } from 'react';
-import styles from '../../scss/createStadium.module.scss';
+// import styles from '../../scss/createStadium.module.scss';
+import styles from './scss/EditInfo.module.scss';
+
 import {
   selectState,
   SelectStateType,
 } from '../../../MyPage/const/select.const';
 
 import DownArrow from '../../../../../assets/Icon/dropDown.svg';
-import { postStadium } from '../../../../../apis/api/admin.api';
+import { postStadium, putStadium } from '../../../../../apis/api/admin.api';
 import { StadiumBasicInfoDto } from '../../../../../apis/dto/admin.dto';
+import { StadiumDto } from '../Stadium/dto/stadium.dto';
 
 interface EditBasicInfoProps {
   nextStep: (chapter: string) => void;
   createdStadiumId: (stadiumId: number) => void;
+  type: string;
+  stadiumData: StadiumDto | null;
 }
 
 interface StadiumBasicInfo {
@@ -30,18 +35,37 @@ interface StadiumBasicInfo {
 const EditBasicInfo: React.FC<EditBasicInfoProps> = ({
   nextStep,
   createdStadiumId,
+  type,
+  stadiumData,
 }) => {
-  const [stadiumInfo, setStadiumInfo] = useState<StadiumBasicInfo>({
-    name: '',
-    description: '',
-    location: '',
-    city: '',
-    state: '',
-    startTime: '',
-    endTime: '',
-    isParking: '',
-    isFree: '',
-  });
+  const stadiumId = stadiumData?.stadiumId;
+
+  const initData: StadiumBasicInfo =
+    type === 'EDIT'
+      ? {
+          name: stadiumData?.name ?? '',
+          description: stadiumData?.description ?? '',
+          location: stadiumData?.location ?? '',
+          city: stadiumData?.city ?? '',
+          state: stadiumData?.state ?? '',
+          startTime: stadiumData?.startTime ?? '',
+          endTime: stadiumData?.endTime ?? '',
+          isParking: stadiumData?.isParking ? '주차 가능' : '주차 불가능',
+          isFree: stadiumData?.isFree ? '무료' : '유료',
+        }
+      : {
+          name: '',
+          description: '',
+          location: '',
+          city: '',
+          state: '',
+          startTime: '',
+          endTime: '',
+          isParking: '',
+          isFree: '',
+        };
+
+  const [stadiumInfo, setStadiumInfo] = useState<StadiumBasicInfo>(initData);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -227,14 +251,26 @@ const EditBasicInfo: React.FC<EditBasicInfoProps> = ({
       isFree: stadiumInfo.isFree === '무료' ? true : false,
       description: stadiumInfo.description,
     };
-    const result = await postStadium(data);
 
-    if (result?.status === 201) {
-      console.log(result.data.stadiumId);
+    // 생성인 경우
+    if (type === 'CREATE') {
+      const result = await postStadium(data);
 
-      createdStadiumId(result?.data?.stadiumId);
+      if (result?.status === 201) {
+        // console.log(result.data.stadiumId);
+
+        createdStadiumId(result?.data?.stadiumId);
+      }
+      nextStep('first');
     }
-    nextStep('first');
+    // 수정인 경우
+    else {
+      if (stadiumId) {
+        await putStadium(stadiumId, data);
+      }
+
+      nextStep('first');
+    }
   };
 
   return (

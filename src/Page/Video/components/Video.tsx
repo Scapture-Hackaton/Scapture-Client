@@ -63,6 +63,10 @@ const Video = () => {
   const location = useLocation();
   const stadiumId = location.state.stadiumId;
   const videoId = location.state.videoId;
+  const month = location.state.month;
+  const day = location.state.day;
+  const prevFieldId = location.state.prevFieldId;
+  const prevScheduleId = location.state.prevScheduleId;
 
   const { data: stadiumDetail } = useQuery({
     queryKey: ['stadiumDetail', stadiumId],
@@ -107,8 +111,11 @@ const Video = () => {
   const { monthList, dayMap } = generateDateLists(weekAgo, today);
 
   // 기본 날짜 값 설정
-  const [isMonth, setMonth] = useState(monthList[0]);
-  const [isDay, setDay] = useState(dayMap.get(isMonth)?.[0] || '');
+  // const [isMonth, setMonth] = useState(monthList[0]);
+  // const [isDay, setDay] = useState(dayMap.get(isMonth)?.[0] || '');
+
+  const [isMonth, setMonth] = useState(`${month}월` || '');
+  const [isDay, setDay] = useState(`${day}일` || '');
 
   const handleMonthChange = (month: string) => {
     setMonth(month);
@@ -124,7 +131,7 @@ const Video = () => {
 
   // 기본 구장 설정
   const [fieldList, setFieldList] = useState<string[]>([]);
-  const [isField, setField] = useState<string | undefined>(undefined);
+  const [isField, setField] = useState<string | undefined>(prevFieldId);
 
   // stadiumDetail 값을 가져오면 기본 구장 설정
   useEffect(() => {
@@ -133,7 +140,7 @@ const Video = () => {
         (field: StadiumFileds) => field.name,
       );
       setFieldList(fields);
-      setField(fields[0]); // 기본값 설정
+      // setField(fields[0]); // 기본값 설정
     }
   }, [stadiumDetail]);
 
@@ -145,6 +152,7 @@ const Video = () => {
   const selectedField = stadiumDetail.fields?.find(
     (field: StadiumFileds) => field.name === isField,
   );
+
   const selectedFieldId = selectedField?.fieldId;
 
   // 날짜 포맷팅
@@ -180,7 +188,7 @@ const Video = () => {
   }, [selectedFieldId, formattedDate]);
 
   // 운영 시간 아이디
-  const [isScheduleId, setScheduleId] = useState<number>();
+  const [isScheduleId, setScheduleId] = useState<number>(prevScheduleId);
   // const chooseSchedule = (scheduleId: number) => {
   //   setScheduleId(scheduleId);
   // };

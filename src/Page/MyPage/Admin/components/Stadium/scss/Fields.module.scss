@@ -1,0 +1,142 @@
+.container {
+  width: 90%;
+  margin: 0 auto;
+
+  .noData {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    padding: 7rem 0;
+
+    div {
+      font-weight: 500;
+      font-size: var(--font-size-sl);
+      color: var(--font-color-gray-400);
+    }
+  }
+
+  .stadiumList {
+    height: 160px;
+    min-height: 160px;
+
+    background-color: var(--color-grayscale-card-900);
+
+    font-size: var(--font-size-xs);
+
+    border-radius: 0.625rem;
+
+    padding: 0.7rem;
+    margin-bottom: 1rem;
+
+    > .stadium {
+      // width: 100%;
+      display: flex;
+
+      overflow: hidden;
+
+      .stadiumImage {
+        border-radius: 10px;
+
+        margin: auto 0;
+
+        img {
+          width: 180px;
+          height: 140px;
+          object-fit: cover;
+
+          border-radius: 10px;
+        }
+      }
+
+      .stadiumInfo {
+        // width: 100%;
+        height: 100%;
+
+        margin-left: 1rem;
+
+        .topInfo {
+          display: flex;
+          justify-content: start;
+          align-items: center;
+
+          margin-bottom: 0.7rem;
+
+          .isOutside {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            width: 37px;
+            height: 19px;
+
+            background: var(--color-ect-info);
+
+            border-radius: 4px;
+
+            color: var(--font-color-etc-info);
+            font-weight: 500;
+            font-size: var(--font-size-s);
+
+            margin-right: 0.4rem;
+          }
+        }
+
+        .stadium {
+          width: 100%;
+
+          max-width: 194px;
+
+          #name {
+            font-size: var(--font-size-xm);
+            font-weight: 700;
+
+            margin-bottom: 3rem;
+
+            text-overflow: ellipsis;
+            overflow: hidden;
+            white-space: nowrap;
+          }
+
+          #info {
+            width: 100%;
+
+            // min-height: 4.375rem;
+
+            .line {
+              display: flex;
+              justify-content: start;
+              align-items: center;
+
+              margin-top: 0.2rem;
+
+              .info {
+                color: var(--font-color-gray-sub);
+                font-weight: 500;
+                font-size: var(--font-size-s);
+                margin-left: 0.3rem;
+
+                text-overflow: ellipsis;
+                overflow: hidden;
+                white-space: nowrap;
+              }
+            }
+          }
+
+          @media (max-width: 420px) {
+            width: 160px;
+          }
+
+          @media (max-width: 400px) {
+            width: 150px;
+          }
+
+          @media (max-width: 380px) {
+            width: 60%;
+          }
+        }
+      }
+    }
+  }
+}

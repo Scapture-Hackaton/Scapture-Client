@@ -1,29 +1,35 @@
 import React from 'react';
-import styles from '../../scss/stadium.module.scss';
+// import styles from '../../scss/stadium.module.scss';
+import styles from './scss/Fields.module.scss';
 
-import { useNavigate } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
 
 // import clock from '../../../../assets/Icon/Clock.svg';
 import noDataIcon from '../../../../../assets/Icon/noDataIcon.svg';
-import { field } from './dto/field.dto';
+import { FieldDto } from './dto/field.dto';
 import PeopleIcon from '../../../../../assets/Icon/peopleIcon.svg';
 import CoinIcon from '../../../../../assets/Icon/CoinIcon.svg';
 
 import TestImg from '../../../image/test.png';
 
 interface StadiumsProps {
-  fieldData: field[];
+  fieldData: FieldDto[];
+  selectField: (field: FieldDto) => void;
 }
 
-const Fields: React.FC<StadiumsProps> = ({ fieldData }) => {
-  const navigate = useNavigate();
+const Fields: React.FC<StadiumsProps> = ({ fieldData, selectField }) => {
+  // const navigate = useNavigate();
 
-  const toStadiumPage = (fieldId: number) => {
-    navigate('/admin/stadium', { state: { fieldId } });
-  };
+  // const toStadiumPage = (fieldId: number) => {
+  //   console.log('Test');
+
+  //   navigate('/admin/stadium', { state: { fieldId } });
+  // };
+
+  console.log(fieldData);
 
   return (
-    <>
+    <div className={styles.container}>
       {fieldData == null ||
       fieldData?.length <= 0 ||
       typeof fieldData == 'undefined' ? (
@@ -41,13 +47,13 @@ const Fields: React.FC<StadiumsProps> = ({ fieldData }) => {
           <div
             className={styles.stadiumList}
             key={stadium.fieldId}
-            onClick={() => toStadiumPage(stadium.fieldId)}
+            onClick={() => selectField(stadium)}
           >
             <div className={styles.stadium}>
               <div className={styles.stadiumImage}>
-                {stadium?.image ? (
+                {stadium?.images ? (
                   <img
-                    src={stadium?.image}
+                    src={stadium?.images[0]?.url ?? TestImg}
                     alt=""
                     width="180px"
                     height="140px"
@@ -87,7 +93,7 @@ const Fields: React.FC<StadiumsProps> = ({ fieldData }) => {
           </div>
         ))
       )}
-    </>
+    </div>
   );
 };
 

@@ -11,24 +11,24 @@ import Fields from './Fields';
 import { getManageStadiumDetail } from '../../../../../apis/api/admin.api';
 import { useQuery } from '@tanstack/react-query';
 import CameraControl from '../Camera/CameraControl';
+import EditBasicInfo from '../EditStadium/EditBasicInfo';
+import EditField from '../EditStadium/EditField';
+import EditImage from '../EditStadium/EditImage';
+import { FieldDto } from './dto/field.dto';
 
 const ManageStadium = () => {
   const location = useLocation();
 
   const stadiumId = location.state.stadiumId;
 
-  console.log(stadiumId);
-
   const { data: stadiumDetail, refetch } = useQuery({
     queryKey: ['stadiumDetail'],
     queryFn: () => getManageStadiumDetail(stadiumId),
   });
 
-  console.log(stadiumDetail);
-
   useEffect(() => {
     const refreshData = async () => {
-      await refetch();
+      refetch();
     };
 
     refreshData();
@@ -39,6 +39,50 @@ const ManageStadium = () => {
 
   // 0 프로필 관리 / 1 카메라 제어
   const [isProfileAndCamera, setProfileAndCamera] = useState(0);
+
+  // 기본 정보 수정하기
+  const [isChangeFirst, setChangeFirst] = useState(false);
+  const changeFirst = () => {
+    setChangeFirst(!isChangeFirst);
+  };
+
+  const createdStadiumId = () => {
+    const refreshData = async () => {
+      await refetch();
+    };
+
+    refreshData();
+  };
+
+  const changeInfo = (chaptrer: string) => {
+    if (chaptrer === 'first') {
+      setChangeFirst(!isChangeFirst);
+      refetch();
+    } else if (chaptrer === 'second') {
+      setChangeSecond(!isChangeSecond);
+      refetch();
+    } else if (chaptrer === 'third') {
+      setChangeThird(!isChangeThird);
+      refetch();
+    }
+  };
+
+  // 이미지 수정하기 수정하기
+  const [isChangeSecond, setChangeSecond] = useState(false);
+  const changeSecond = () => {
+    setChangeSecond(!isChangeSecond);
+  };
+
+  const [isChangeThird, setChangeThird] = useState(false);
+
+  const [selectedFieldData, setSelectedFieldData] = useState<FieldDto | null>(
+    null,
+  );
+
+  const selectField = (field: FieldDto) => {
+    setSelectedFieldData(field);
+    setChangeThird(!isChangeThird);
+  };
 
   return (
     <>
@@ -78,10 +122,34 @@ const ManageStadium = () => {
           </div>
           {isProfileAndCamera === 0 && stadiumDetail !== null ? (
             <>
-              <BaseInfo stadiumDetail={stadiumDetail?.data?.stadium}></BaseInfo>
-              <StadiumImgs
-                stadiumImages={stadiumDetail?.data?.stadiumImages}
-              ></StadiumImgs>
+              {isChangeFirst ? (
+                <EditBasicInfo
+                  nextStep={changeInfo}
+                  createdStadiumId={createdStadiumId}
+                  type="EDIT"
+                  stadiumData={stadiumDetail?.data?.stadium}
+                ></EditBasicInfo>
+              ) : (
+                <BaseInfo
+                  stadiumDetail={stadiumDetail?.data?.stadium}
+                  changeFirst={changeFirst}
+                ></BaseInfo>
+              )}
+
+              {isChangeSecond ? (
+                <EditImage
+                  nextStep={changeInfo}
+                  isStadiumId={stadiumId}
+                  stadiumImages={stadiumDetail?.data?.stadiumImages}
+                  type="EDIT"
+                ></EditImage>
+              ) : (
+                <StadiumImgs
+                  stadiumImages={stadiumDetail?.data?.stadiumImages}
+                  changeSecond={changeSecond}
+                ></StadiumImgs>
+              )}
+
               <div className={styles.fieldSection}>
                 <div className={styles.frameTitle}>
                   <div id={styles.name}>
@@ -92,10 +160,22 @@ const ManageStadium = () => {
                         : '0'}
                     </div>
                   </div>
-                  <div id={styles.change}>수정</div>
+                  {isChangeThird ? null : <div id={styles.change}>수정</div>}
                 </div>
-                <Fields fieldData={stadiumDetail?.data?.fields}></Fields>
               </div>
+              {isChangeThird ? (
+                <EditField
+                  nextStep={changeInfo}
+                  isStadiumId={stadiumId}
+                  selectedFieldData={selectedFieldData}
+                  type="EDIT"
+                ></EditField>
+              ) : (
+                <Fields
+                  fieldData={stadiumDetail?.data?.fields}
+                  selectField={selectField}
+                ></Fields>
+              )}
             </>
           ) : (
             <CameraControl fields={stadiumDetail?.data?.fields}></CameraControl>
