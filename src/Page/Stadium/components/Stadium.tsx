@@ -1,30 +1,22 @@
-import Header from '../../Header/components/Header';
-import Footer from '../../Footer/components/Footer';
-
-import styles from '../scss/stadium.module.scss';
 import { useLocation } from 'react-router-dom';
-import { StadiumDetail } from '../../../apis/dto/scapture.dto';
-
 import { useQuery } from '@tanstack/react-query';
 import { getStadiumDetail } from '../../../apis/api/stadium.api';
 import { useRef, useState } from 'react';
-// import SelectBtn from './SelectBtn';
-// import StadiumHours from './StadiumHours';
-// import VideoList from './VideoList';
+
+import Header from '../../Header/components/Header';
+import Footer from '../../Footer/components/Footer';
+import StadiumImages from './StadiumImages';
+import SelectInfoBox from './SelectInfoBox';
+
+import styles from '../scss/stadium.module.scss';
+
+import { StadiumDetail } from '../../../apis/dto/scapture.dto';
 
 import locationImg from '../../../assets/Icon/location.svg';
 import clock from '../../../assets/Icon/Clock.svg';
 import parking from '../../../assets/Icon/parking.svg';
-
 import dropDown from '../../../assets/Icon/dropDown.svg';
 import upArrow from '../../../assets/Icon/upArrow.svg';
-// import Calendar from './Calendar';
-
-// import calendarIcon from '../../../assets/Icon/calendarIcon.svg';
-// import clockIcon from '../image/clockIcon.svg';
-// import locationIcon from '../image/locationIcon.svg';
-import StadiumImages from './StadiumImages';
-import SelectInfoBox from './SelectInfoBox';
 
 const Stadium = () => {
   const location = useLocation();
@@ -149,6 +141,7 @@ const Stadium = () => {
         <SelectInfoBox
           stadiumDetail={stadiumDetail}
           stadiumId={stadiumId}
+          prevSelectDataProps={null}
         ></SelectInfoBox>
       </div>
       <Footer />

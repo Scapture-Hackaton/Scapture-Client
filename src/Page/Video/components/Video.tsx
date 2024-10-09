@@ -51,6 +51,13 @@ import {
 // atom
 import { loginData, loginDataAtom } from '../../Header/Atom/atom';
 
+export interface PrevSelectDataProps {
+  month: string;
+  day: string;
+  prevFieldId: string;
+  prevScheduleId: number;
+}
+
 const Video = () => {
   //Object
   const AUTH_URLS = {
@@ -69,6 +76,13 @@ const Video = () => {
   // const day = location.state.day;
   // const prevFieldId = location.state.prevFieldId;
   // const prevScheduleId = location.state.prevScheduleId;
+
+  const prevSelectDataProps: PrevSelectDataProps = {
+    month: location.state.month,
+    day: location.state.day,
+    prevFieldId: location.state.prevFieldId,
+    prevScheduleId: location.state.prevScheduleId,
+  };
 
   const { data: stadiumDetail } = useQuery({
     queryKey: ['stadiumDetail', stadiumId],
@@ -323,6 +337,7 @@ const Video = () => {
         <SelectInfoBox
           stadiumDetail={stadiumDetail}
           stadiumId={stadiumId}
+          prevSelectDataProps={prevSelectDataProps}
         ></SelectInfoBox>
 
         {/* <div className={styles.paging}>

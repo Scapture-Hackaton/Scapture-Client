@@ -18,15 +18,18 @@ import clockIcon from '../image/clockIcon.svg';
 import locationIcon from '../image/locationIcon.svg';
 import { useNavigate } from 'react-router-dom';
 import VideoList from './VideoList';
+import { PrevSelectDataProps } from '../../Video/components/Video';
 
 interface SelectInfoBoxProps {
   stadiumDetail: StadiumDetail;
   stadiumId: number;
+  prevSelectDataProps: PrevSelectDataProps | null;
 }
 
 const SelectInfoBox: React.FC<SelectInfoBoxProps> = ({
   stadiumDetail,
   stadiumId,
+  prevSelectDataProps,
 }) => {
   // 현재 날짜 추출
   const today = new Date();
@@ -63,8 +66,16 @@ const SelectInfoBox: React.FC<SelectInfoBoxProps> = ({
 
   // 기본 날짜 값 설정
 
-  const [isMonth, setMonth] = useState(dayList[dayList.length - 1].month || '');
-  const [isDay, setDay] = useState(dayList[dayList.length - 1].day || '');
+  const [isMonth, setMonth] = useState(
+    prevSelectDataProps
+      ? prevSelectDataProps.month
+      : dayList[dayList.length - 1].month || '',
+  );
+  const [isDay, setDay] = useState(
+    prevSelectDataProps
+      ? prevSelectDataProps.day
+      : dayList[dayList.length - 1].day || '',
+  );
 
   // const handleMonthChange = (month: string) => {
   //   setMonth(month);
@@ -81,7 +92,9 @@ const SelectInfoBox: React.FC<SelectInfoBoxProps> = ({
 
   // 기본 구장 설정
   const [fieldList, setFieldList] = useState<string[]>([]);
-  const [isField, setField] = useState<string | undefined>(undefined);
+  const [isField, setField] = useState<string | null>(
+    prevSelectDataProps ? prevSelectDataProps.prevFieldId : null,
+  );
 
   // stadiumDetail 값을 가져오면 기본 구장 설정
   useEffect(() => {
@@ -142,7 +155,9 @@ const SelectInfoBox: React.FC<SelectInfoBoxProps> = ({
   }, [selectedFieldId, formattedDate]);
 
   // 운영 시간 아이디
-  const [isScheduleId, setScheduleId] = useState<number | null>(null);
+  const [isScheduleId, setScheduleId] = useState<number | null>(
+    prevSelectDataProps ? prevSelectDataProps.prevScheduleId : null,
+  );
   const chooseSchedule = (scheduleId: number) => {
     setScheduleId(scheduleId);
   };
