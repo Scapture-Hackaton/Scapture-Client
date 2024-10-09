@@ -17,7 +17,7 @@ const Calendar: React.FC<SelectProps> = ({ dayList, onOptionChange }) => {
     formattedDayList[formattedDayList.length - 1].day,
   );
 
-  const [selectedIdx, setselectedIdx] = useState(0);
+  const [selectedIdx, setselectedIdx] = useState(formattedDayList.length - 1);
 
   // 날짜 선택 핸들러
   const handleDayClick = (index: number) => {

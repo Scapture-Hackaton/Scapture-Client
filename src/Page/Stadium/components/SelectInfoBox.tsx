@@ -87,7 +87,10 @@ const SelectInfoBox: React.FC<SelectInfoBoxProps> = ({
 
   const handleDayChange = (dayInfo: any) => {
     setDay(dayInfo.day);
+
     setMonth(dayInfo.month);
+
+    setScheduleId(null);
   };
 
   // 기본 구장 설정
@@ -110,6 +113,7 @@ const SelectInfoBox: React.FC<SelectInfoBoxProps> = ({
 
   const handleFieldChange = (field: string) => {
     setField(field);
+    setScheduleId(null);
   };
 
   // 선택된 구장 id 추출
@@ -123,6 +127,7 @@ const SelectInfoBox: React.FC<SelectInfoBoxProps> = ({
     parseInt(isMonth) - 1,
     parseInt(isDay) + 1,
   );
+
   const formattedDate = selectedDate.toISOString().split('T')[0];
 
   // 운영시간 리스트
@@ -132,7 +137,7 @@ const SelectInfoBox: React.FC<SelectInfoBoxProps> = ({
 
   useEffect(() => {
     // 비동기 함수 내부에 필드 ID와 날짜 상태를 캡처
-    setScheduleId(null);
+
     const fetchData = async () => {
       if (selectedFieldId && formattedDate) {
         try {
@@ -158,6 +163,7 @@ const SelectInfoBox: React.FC<SelectInfoBoxProps> = ({
   const [isScheduleId, setScheduleId] = useState<number | null>(
     prevSelectDataProps ? prevSelectDataProps.prevScheduleId : null,
   );
+
   const chooseSchedule = (scheduleId: number) => {
     setScheduleId(scheduleId);
   };

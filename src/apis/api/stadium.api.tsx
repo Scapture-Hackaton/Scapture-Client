@@ -39,6 +39,11 @@ export const getStadiumDHours = async (fieldId: number, date: string) => {
       `/api/stadiums/${fieldId}?date=${date}`,
     );
 
+    // console.log(fieldId);
+    // console.log(date);
+
+    // console.log(res);
+
     return res.data.data;
   } catch (e: any) {
     return {
