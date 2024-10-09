@@ -658,66 +658,66 @@
     //   }
     // }
 
-    .videoList {
-      // width: 100%;
-      padding-top: 1.7rem;
-      background: var(--color-grayscale-black-bg);
+    // .videoList {
+    //   // width: 100%;
+    //   padding-top: 1.7rem;
+    //   background: var(--color-grayscale-black-bg);
 
-      .noData {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
+    //   .noData {
+    //     display: flex;
+    //     flex-direction: column;
+    //     justify-content: center;
+    //     align-items: center;
 
-        padding: 7rem 0;
+    //     padding: 7rem 0;
 
-        div {
-          font-weight: 500;
-          font-size: var(--font-size-sl);
-          color: var(--font-color-gray-400);
-        }
-      }
+    //     div {
+    //       font-weight: 500;
+    //       font-size: var(--font-size-sl);
+    //       color: var(--font-color-gray-400);
+    //     }
+    //   }
 
-      .videoContainer {
-        padding: 0 1rem 1rem 1rem;
+    //   .videoContainer {
+    //     padding: 0 1rem 1rem 1rem;
 
-        .video {
-          width: 100%;
-          height: 230px;
-          background: black;
-          border-radius: 14px;
+    //     .video {
+    //       width: 100%;
+    //       height: 230px;
+    //       background: black;
+    //       border-radius: 14px;
 
-          cursor: pointer;
+    //       cursor: pointer;
 
-          img {
-            width: 100%;
-            height: 100%;
+    //       img {
+    //         width: 100%;
+    //         height: 100%;
 
-            border-radius: 14px;
-            object-fit: cover;
-          }
-        }
+    //         border-radius: 14px;
+    //         object-fit: cover;
+    //       }
+    //     }
 
-        .description {
-          .title {
-            margin: 1rem 0 0.5rem 0;
+    //     .description {
+    //       .title {
+    //         margin: 1rem 0 0.5rem 0;
 
-            font-weight: 700;
-            font-size: var(--font-size-xm);
-            color: var(--font-color-gray-100);
-          }
+    //         font-weight: 700;
+    //         font-size: var(--font-size-xm);
+    //         color: var(--font-color-gray-100);
+    //       }
 
-          .subDes {
-            font-weight: 500;
-            font-size: var(--font-size-s);
-            color: var(--font-color-gray-sub);
+    //       .subDes {
+    //         font-weight: 500;
+    //         font-size: var(--font-size-s);
+    //         color: var(--font-color-gray-sub);
 
-            div {
-              margin-bottom: 0.3rem;
-            }
-          }
-        }
-      }
-    }
+    //         div {
+    //           margin-bottom: 0.3rem;
+    //         }
+    //       }
+    //     }
+    //   }
+    // }
   }
 }

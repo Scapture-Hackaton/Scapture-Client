@@ -1,52 +1,54 @@
-import Header from '../../Header/components/Header';
-import Footer from '../../Footer/components/Footer';
-import styles from '../scss/video.module.scss';
-
-import modal from '../scss/video-modal.module.scss';
-import loginModal from '../../Header/scss/login-modal.module.scss';
-
-import download from '../../../assets/Icon/downLoadIcon.svg';
-import share from '../../../assets/Icon/shareIcon.svg';
-
+import { useEffect, useState, useRef } from 'react';
 import { useLocation } from 'react-router-dom';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { useRecoilValue } from 'recoil';
+
+// api
 import {
   getStadiumDetail,
-  getStadiumDHours,
   getVideoDetail,
   likesVideo,
   unLikeVideo,
 } from '../../../apis/api/stadium.api';
-import {
-  StadiumDetail,
-  StadiumFileds,
-  // StadiumHoursData,
-  VideoDetail,
-} from '../../../apis/dto/scapture.dto';
-import { useEffect, useState } from 'react';
-import SelectBtn from './SelectBtn';
-// import StadiumHours from './StadiumHours';
-import VideoList from './VideoList';
-import Heart from './Heart';
 import {
   checkAuthDownloadVideo,
   downloadVideo,
   storeVideo,
   unStoreVideo,
 } from '../../../apis/api/video.api';
-import BookMark from './BookMark';
 
-import { useRef } from 'react';
-// import { modalNotice } from '../functions/ModalFunction';
+// components
+import Header from '../../Header/components/Header';
+import Footer from '../../Footer/components/Footer';
+import Heart from './Heart';
+import BookMark from './BookMark';
 import { VideoModal } from './VideoModal';
+import { LoginModal } from '../../Header/components/LoginModal';
+import SelectInfoBox from '../../Stadium/components/SelectInfoBox';
+
+// scss
+import styles from '../scss/video.module.scss';
+import modal from '../scss/video-modal.module.scss';
+import loginModal from '../../Header/scss/login-modal.module.scss';
+
+// svg
+import download from '../../../assets/Icon/downLoadIcon.svg';
+import share from '../../../assets/Icon/shareIcon.svg';
+
+// dto
+import { StadiumDetail, VideoDetail } from '../../../apis/dto/scapture.dto';
+
+// func
 import { modalNotice } from '../functions/ModalFunction';
+
+// config
 import {
   GOOGLE_AUTH_URL,
   KAKAO_AUTH_URL,
   NAVER_AUTH_URL,
 } from '../../../apis/config/login.config';
-import { LoginModal } from '../../Header/components/LoginModal';
-import { useRecoilValue } from 'recoil';
+
+// atom
 import { loginData, loginDataAtom } from '../../Header/Atom/atom';
 
 const Video = () => {
@@ -63,10 +65,10 @@ const Video = () => {
   const location = useLocation();
   const stadiumId = location.state.stadiumId;
   const videoId = location.state.videoId;
-  const month = location.state.month;
-  const day = location.state.day;
-  const prevFieldId = location.state.prevFieldId;
-  const prevScheduleId = location.state.prevScheduleId;
+  // const month = location.state.month;
+  // const day = location.state.day;
+  // const prevFieldId = location.state.prevFieldId;
+  // const prevScheduleId = location.state.prevScheduleId;
 
   const { data: stadiumDetail } = useQuery({
     queryKey: ['stadiumDetail', stadiumId],
@@ -79,119 +81,6 @@ const Video = () => {
     queryFn: () => getVideoDetail(videoId),
     initialData: {} as VideoDetail,
   });
-
-  // 현재 날짜 추출
-  const today = new Date();
-  const weekAgo = new Date(today);
-  weekAgo.setDate(today.getDate() - 7);
-
-  // 추출한 날짜를 기반으로 월/일 리스트 생성
-  const generateDateLists = (startDate: Date, endDate: Date) => {
-    const monthList = new Set<string>();
-    const dayMap = new Map<string, string[]>();
-
-    const currentDate = new Date(startDate);
-    while (currentDate <= endDate) {
-      const month = `${currentDate.getMonth() + 1}월`;
-      const day = `${currentDate.getDate()}일`;
-
-      monthList.add(month);
-
-      if (!dayMap.has(month)) {
-        dayMap.set(month, []);
-      }
-      dayMap.get(month)?.push(day);
-
-      currentDate.setDate(currentDate.getDate() + 1);
-    }
-
-    return { monthList: Array.from(monthList), dayMap };
-  };
-
-  const { monthList, dayMap } = generateDateLists(weekAgo, today);
-
-  // 기본 날짜 값 설정
-  // const [isMonth, setMonth] = useState(monthList[0]);
-  // const [isDay, setDay] = useState(dayMap.get(isMonth)?.[0] || '');
-
-  const [isMonth, setMonth] = useState(`${month}월` || '');
-  const [isDay, setDay] = useState(`${day}일` || '');
-
-  const handleMonthChange = (month: string) => {
-    setMonth(month);
-    const days = dayMap.get(month);
-    if (days && days.length > 0) {
-      setDay(days[0]);
-    }
-  };
-
-  const handleDayChange = (day: string) => {
-    setDay(day);
-  };
-
-  // 기본 구장 설정
-  const [fieldList, setFieldList] = useState<string[]>([]);
-  const [isField, setField] = useState<string | undefined>(prevFieldId);
-
-  // stadiumDetail 값을 가져오면 기본 구장 설정
-  useEffect(() => {
-    if (stadiumDetail.fields) {
-      const fields = stadiumDetail.fields.map(
-        (field: StadiumFileds) => field.name,
-      );
-      setFieldList(fields);
-      // setField(fields[0]); // 기본값 설정
-    }
-  }, [stadiumDetail]);
-
-  const handleFieldChange = (field: string) => {
-    setField(field);
-  };
-
-  // 선택된 구장 id 추출
-  const selectedField = stadiumDetail.fields?.find(
-    (field: StadiumFileds) => field.name === isField,
-  );
-
-  const selectedFieldId = selectedField?.fieldId;
-
-  // 날짜 포맷팅
-  const selectedMonth = parseInt(isMonth.replace('월', ''));
-  const selectedDay = parseInt(isDay.replace('일', ''));
-
-  const selectedDate = new Date(
-    today.getFullYear(),
-    selectedMonth - 1,
-    selectedDay + 1,
-  );
-  const formattedDate = selectedDate.toISOString().split('T')[0];
-
-  // 운영시간 리스트
-  // const [isStadiumHourList, setStadiumHourList] = useState<StadiumHoursData[]>(
-  //   [],
-  // );
-
-  // 운영 시간 리스트 가져오기
-  useEffect(() => {
-    if (selectedFieldId && formattedDate) {
-      const fetchData = async () => {
-        const data = await getStadiumDHours(selectedFieldId, formattedDate);
-
-        // setStadiumHourList(data);
-
-        if (data && data.length >= 1) {
-          setScheduleId(data[0].scheduleId);
-        }
-      };
-      fetchData();
-    }
-  }, [selectedFieldId, formattedDate]);
-
-  // 운영 시간 아이디
-  const [isScheduleId, setScheduleId] = useState<number>(prevScheduleId);
-  // const chooseSchedule = (scheduleId: number) => {
-  //   setScheduleId(scheduleId);
-  // };
 
   const handelOpenDownloadModal = () => {
     modalNotice(modalRef);
@@ -431,36 +320,10 @@ const Video = () => {
           <></>
         )}
 
-        <div className={styles.option}>
-          <div className={styles.container}>
-            <div className={styles.title}>
-              <div id={styles.mainTitle}>내 영상 빠르게 찾기</div>
-              <div id={styles.subTitle}>
-                내가 운동했던 조건을 선택하면 빠르게 내 영상을 찾을 수 있어요!
-              </div>
-            </div>
-
-            <div className={styles.select}>
-              <SelectBtn
-                selectList={fieldList}
-                selectedOption={isField || ''}
-                onOptionChange={handleFieldChange}
-              />
-              <SelectBtn
-                selectList={monthList}
-                selectedOption={isMonth}
-                onOptionChange={handleMonthChange}
-              />
-              <SelectBtn
-                selectList={dayMap.get(isMonth) || []}
-                selectedOption={isDay}
-                onOptionChange={handleDayChange}
-              />
-            </div>
-          </div>
-        </div>
-
-        <VideoList scheduleId={isScheduleId} stadiumId={stadiumId}></VideoList>
+        <SelectInfoBox
+          stadiumDetail={stadiumDetail}
+          stadiumId={stadiumId}
+        ></SelectInfoBox>
 
         {/* <div className={styles.paging}>
           <img src={leftArrow} alt=""></img>
