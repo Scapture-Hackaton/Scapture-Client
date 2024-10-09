@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import styles from '../scss/stadium.module.scss';
 
 import Slider from 'react-slick';
@@ -17,6 +17,10 @@ const StadiumImages: React.FC<StadiumImagesProps> = ({ images }) => {
   const [isModalOpen, setModalOpen] = useState(false);
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
 
+  // 클릭과 드래그 구분을 위한 상태
+  const [isDragging, setIsDragging] = useState(false);
+  const dragStartX = useRef(0); // 드래그 시작 위치 저장
+
   const settings = {
     // dots: true,
     infinite: false,
@@ -24,12 +28,32 @@ const StadiumImages: React.FC<StadiumImagesProps> = ({ images }) => {
     slidesToShow: 1,
     slidesToScroll: 1,
     arrows: false,
+    dots: true,
+    dotsClass: 'dotCss',
   };
 
   // 이미지 클릭 시 모달 열기
   const handleImageClick = (image: string) => {
-    setSelectedImage(image);
-    setModalOpen(true);
+    // 드래그 중이면 클릭 이벤트 무시
+    if (!isDragging) {
+      setSelectedImage(image);
+      setModalOpen(true);
+    }
+  };
+
+  // 드래그 시작 시 마우스 위치 저장
+  const handleMouseDown = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+    dragStartX.current = e.clientX;
+    setIsDragging(false);
+  };
+
+  // 드래그 끝날 때 드래그 여부 확인
+  const handleMouseUp = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+    if (Math.abs(e.clientX - dragStartX.current) < 3) {
+      setIsDragging(false); // 드래그가 아니면 클릭으로 간주
+    } else {
+      setIsDragging(true); // 드래그로 간주
+    }
   };
 
   // 모달 닫기
@@ -50,7 +74,9 @@ const StadiumImages: React.FC<StadiumImagesProps> = ({ images }) => {
                   alt=""
                   width="450px"
                   height="300px"
-                  onClick={() => handleImageClick(image.image)} // 클릭 이벤트 추가
+                  onMouseDown={handleMouseDown}
+                  onMouseUp={handleMouseUp}
+                  onClick={() => handleImageClick(image.image)}
                   style={{ cursor: 'pointer' }}
                 />
               </div>

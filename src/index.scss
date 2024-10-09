@@ -64,7 +64,7 @@
   --font-color-lemon-400: #d2f75a;
   --font-color-green: #4aff9d;
   --font-color-blue-200: #88a7ff;
-  --font-color-etc-info : #B43AFF;
+  --font-color-etc-info: #b43aff;
 
   --font-family-Regular: 'Pretendard Variable';
 }
@@ -138,4 +138,63 @@ body {
 
   max-width: 450px;
   margin: 0 auto;
+}
+
+.dotCss {
+  display: flex !important;
+  justify-content: center;
+  align-items: center;
+
+  position: absolute;
+  bottom: 15px;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  text-align: center;
+
+  li {
+    position: relative;
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    margin: 0 3px;
+
+    cursor: pointer;
+
+    button {
+      font-size: 0;
+      line-height: 0;
+      display: block;
+      // width: 10px;
+      // height: 10px;
+
+      cursor: pointer;
+      color: transparent;
+      border: 0;
+      outline: 0;
+      background: 0 0;
+    }
+
+    button:before {
+      font-size: 2rem;
+      line-height: 10px;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 8px;
+      height: 8px;
+      content: '•';
+      text-align: center;
+      opacity: 0.75;
+      color: var(--font-color-gray-400);
+    }
+  }
+
+  li.slick-active button:before {
+    font-size: 2.6rem;
+    width: 12px;
+    height: 12px;
+    color: var(--font-color-gray-100);
+  }
 }

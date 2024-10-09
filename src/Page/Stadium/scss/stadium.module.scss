@@ -31,14 +31,13 @@
     }
 
     .banner {
+      position: relative;
       // height: 338px;
       background: var(--color-grayscale-black-bg);
 
       display: flex;
       flex-direction: column;
       justify-content: center;
-
-      // background-color: white;
 
       img {
         width: 100%;
