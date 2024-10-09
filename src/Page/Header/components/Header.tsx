@@ -16,7 +16,7 @@ import useAuth from '../Hook/useAuth';
 import { LoginToken } from '../../../apis/api/login.api';
 
 import { useNavigate } from 'react-router-dom';
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useResetRecoilState } from 'recoil';
 import { loginData, loginDataAtom } from '../Atom/atom';
 import { userData } from '../../MyPage/dto/atom.interface';
 import { userDataAtom } from '../../MyPage/Atom/atom';
@@ -62,12 +62,15 @@ const Header: React.FC<HeaderProps> = ({ index }) => {
     naver: NAVER_AUTH_URL,
   };
 
+  const resetUserData = useResetRecoilState(userDataAtom);
+
   useEffect(() => {
     let isMounted = true; // 컴포넌트가 마운트된 상태인지 확인하는 플래그
 
     const fetchProfileInfo = async () => {
       try {
         const res = await getProfile();
+
         if (isMounted && res?.data) {
           // 컴포넌트가 마운트되어 있을 때만 상태 업데이트
           setProfile(prev => ({
@@ -80,9 +83,19 @@ const Header: React.FC<HeaderProps> = ({ index }) => {
             team: res?.data.team || 'unknown',
           }));
           setLoginState({ state: true });
+        } else {
+          localStorage.removeItem('TOKEN');
+          localStorage.removeItem('LoginType');
+          setLoginState({ state: false });
+          resetUserData();
         }
       } catch (error) {
         console.error('Failed to fetch profile:', error);
+
+        localStorage.removeItem('TOKEN');
+        localStorage.removeItem('LoginType');
+        setLoginState({ state: false });
+        resetUserData();
       }
     };
 

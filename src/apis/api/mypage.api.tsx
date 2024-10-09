@@ -8,7 +8,7 @@ export const getProfile = async (): Promise<CommonResponse | undefined> => {
     // console.log('Response:', res);
     return res.data;
   } catch (error) {
-    console.error('Error: ', error);
+    // console.error('Error: ', error);
   }
 };
 

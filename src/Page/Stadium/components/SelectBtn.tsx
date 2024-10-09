@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import styles from '../scss/stadium.module.scss';
+import styles from '../scss/selectInfoBox.module.scss';
 import dropDown from '../../../assets/Icon/dropDown.svg';
 
 interface SelectProps {
