@@ -4,14 +4,14 @@ import styles from '../../scss/stadium.module.scss';
 import io, { Socket } from 'socket.io-client';
 
 import DownArrow from '../../../../../assets/Icon/dropDown.svg';
-import { field } from '../Stadium/dto/field.dto';
+import { FieldDto } from '../Stadium/dto/field.dto';
 
 import infoIcon from '../../../../../assets/Icon/infoIcon.svg';
 import noDataIcon from '../../../../../assets/Icon/noDataIcon.svg';
 import { startRecording } from '../../../../../apis/api/admin.api';
 
 interface CameraControlProps {
-  fields: field[];
+  fields: FieldDto[];
 }
 
 const SOCKET_SERVER_IP = `${import.meta.env.VITE_SOCKET_SERVER_IP}`;
@@ -175,7 +175,7 @@ const CameraControl: React.FC<CameraControlProps> = ({ fields }) => {
             <img className={styles.dropdownImg} src={DownArrow}></img>
             {fieldDropdownOpen && (
               <div className={styles.dropdownMenu}>
-                {fields?.map((field: field) => (
+                {fields?.map((field: FieldDto) => (
                   <div
                     key={field.fieldId}
                     className={styles.dropdownItem}
