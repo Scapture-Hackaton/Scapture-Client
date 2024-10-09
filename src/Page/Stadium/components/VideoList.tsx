@@ -4,16 +4,17 @@ import styles from '../scss/stadium.module.scss';
 import { useQuery } from '@tanstack/react-query';
 import { getVideoScheduled } from '../../../apis/api/stadium.api';
 import { ScheduleVideo } from '../../../apis/dto/scapture.dto';
-import { useNavigate } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
 
 import noDataIcon from '../../../assets/Icon/noDataIcon.svg';
 
 interface VideoListProps {
   scheduleId: number | undefined;
   stadiumId: number;
+  toVideo: (videoId: number) => void;
 }
 
-const VideoList: React.FC<VideoListProps> = ({ scheduleId, stadiumId }) => {
+const VideoList: React.FC<VideoListProps> = ({ scheduleId, toVideo }) => {
   // Fetch video data with react-query
   const { data: videos } = useQuery<ScheduleVideo[]>({
     queryKey: ['videoScheduled', scheduleId],
@@ -26,11 +27,11 @@ const VideoList: React.FC<VideoListProps> = ({ scheduleId, stadiumId }) => {
     enabled: scheduleId !== null,
   });
 
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
-  const toVideo = (videoId: number) => {
-    navigate('/video', { state: { videoId, stadiumId } });
-  };
+  // const toVideo = (videoId: number) => {
+  //   navigate('/video', { state: { videoId, stadiumId } });
+  // };
 
   return (
     <div className={styles.videoList}>

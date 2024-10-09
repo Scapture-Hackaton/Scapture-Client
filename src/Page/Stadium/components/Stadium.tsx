@@ -76,10 +76,7 @@ const Stadium = () => {
   const dayList = generateDateListsWithMonthAndWeekdays(weekAgo, today);
 
   // 기본 날짜 값 설정
-  // const [isMonth, setMonth] = useState(monthList[0]);
-  // const [isDay, setDay] = useState(dayMap.get(isMonth)?.[0] || '');
 
-  // const [isMonth, setMonth] = useState(dayList[dayList.length - 1].month);
   const [isMonth, setMonth] = useState(dayList[dayList.length - 1].month || '');
   const [isDay, setDay] = useState(dayList[dayList.length - 1].day || '');
 
@@ -147,22 +144,47 @@ const Stadium = () => {
   // });
 
   // 운영 시간 리스트 가져오기
+  // useEffect(() => {
+  //   if (selectedFieldId && formattedDate) {
+  //     const fetchData = async () => {
+  //       const data = await getStadiumDHours(selectedFieldId, formattedDate);
+  //       console.log(selectedFieldId);
+  //       console.log(formattedDate);
+
+  //       console.log(data);
+  //       if (data) {
+  //         setStadiumHourList(data);
+  //       } else {
+  //         setStadiumHourList(null);
+  //       }
+  //       if (data && data.length >= 1) {
+  //         setScheduleId(data[0].scheduleId);
+  //       }
+  //     };
+  //     fetchData();
+  //   }
+  // }, [selectedFieldId, formattedDate]);
   useEffect(() => {
-    if (selectedFieldId && formattedDate) {
-      const fetchData = async () => {
-        const data = await getStadiumDHours(selectedFieldId, formattedDate);
-        console.log(data);
-        if (data) {
-          setStadiumHourList(data);
-        } else {
+    // 비동기 함수 내부에 필드 ID와 날짜 상태를 캡처
+    const fetchData = async () => {
+      if (selectedFieldId && formattedDate) {
+        try {
+          const data = await getStadiumDHours(selectedFieldId, formattedDate);
+
+          if (data) {
+            setStadiumHourList(data);
+          } else {
+            setStadiumHourList(null);
+          }
+        } catch (error) {
+          console.error('Error fetching data:', error);
           setStadiumHourList(null);
         }
-        if (data && data.length >= 1) {
-          setScheduleId(data[0].scheduleId);
-        }
-      };
-      fetchData();
-    }
+      }
+    };
+
+    // selectedFieldId와 formattedDate가 바뀔 때마다 fetchData 실행
+    fetchData();
   }, [selectedFieldId, formattedDate]);
 
   // 운영 시간 아이디
@@ -194,8 +216,22 @@ const Stadium = () => {
   // 예약 페이지로 이동
   const navigate = useNavigate();
 
-  const toReservation = (stadiumId: number) => {
-    navigate('/reservation', { state: { stadiumId } });
+  // const toReservation = (stadiumId: number) => {
+  //   navigate('/reservation', { state: { stadiumId } });
+  // };
+
+  // 비디오 넘어갈 때 기본 정보 넘겨주기
+  const toVideo = (videoId: number) => {
+    navigate('/video', {
+      state: {
+        videoId,
+        stadiumId,
+        month: isMonth,
+        day: isDay,
+        prevFieldId: isField,
+        prevScheduleId: isScheduleId,
+      },
+    });
   };
 
   return (
@@ -219,12 +255,12 @@ const Stadium = () => {
             <div className={styles.introBox}>
               <div className={styles.title}>
                 <div>{stadiumDetail.name}</div>
-                <button
+                {/* <button
                   onClick={() => toReservation(stadiumId)}
                   id={styles.reservation}
                 >
                   구장 예약하기
-                </button>
+                </button> */}
               </div>
 
               <div className={styles.introText}>
@@ -381,6 +417,7 @@ const Stadium = () => {
           <VideoList
             scheduleId={isScheduleId}
             stadiumId={stadiumId}
+            toVideo={toVideo}
           ></VideoList>
         ) : null}
       </div>
