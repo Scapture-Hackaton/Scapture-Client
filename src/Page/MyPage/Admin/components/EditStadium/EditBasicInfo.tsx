@@ -40,8 +40,6 @@ const EditBasicInfo: React.FC<EditBasicInfoProps> = ({
 }) => {
   const stadiumId = stadiumData?.stadiumId;
 
-  console.log(stadiumId);
-
   const initData: StadiumBasicInfo =
     type === 'EDIT'
       ? {

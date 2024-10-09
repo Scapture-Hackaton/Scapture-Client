@@ -14,13 +14,12 @@ import CameraControl from '../Camera/CameraControl';
 import EditBasicInfo from '../EditStadium/EditBasicInfo';
 import EditField from '../EditStadium/EditField';
 import EditImage from '../EditStadium/EditImage';
+import { FieldDto } from './dto/field.dto';
 
 const ManageStadium = () => {
   const location = useLocation();
 
   const stadiumId = location.state.stadiumId;
-
-  // console.log(stadiumId);
 
   const { data: stadiumDetail, refetch } = useQuery({
     queryKey: ['stadiumDetail'],
@@ -47,9 +46,7 @@ const ManageStadium = () => {
     setChangeFirst(!isChangeFirst);
   };
 
-  const createdStadiumId = (id: number) => {
-    console.log(id);
-
+  const createdStadiumId = () => {
     const refreshData = async () => {
       await refetch();
     };
@@ -64,6 +61,9 @@ const ManageStadium = () => {
     } else if (chaptrer === 'second') {
       setChangeSecond(!isChangeSecond);
       refetch();
+    } else if (chaptrer === 'third') {
+      setChangeThird(!isChangeThird);
+      refetch();
     }
   };
 
@@ -74,7 +74,13 @@ const ManageStadium = () => {
   };
 
   const [isChangeThird, setChangeThird] = useState(false);
-  const changeThird = () => {
+
+  const [selectedFieldData, setSelectedFieldData] = useState<FieldDto | null>(
+    null,
+  );
+
+  const selectField = (field: FieldDto) => {
+    setSelectedFieldData(field);
     setChangeThird(!isChangeThird);
   };
 
@@ -154,20 +160,21 @@ const ManageStadium = () => {
                         : '0'}
                     </div>
                   </div>
-                  {isChangeThird ? null : (
-                    <div id={styles.change} onClick={changeThird}>
-                      수정
-                    </div>
-                  )}
+                  {isChangeThird ? null : <div id={styles.change}>수정</div>}
                 </div>
               </div>
               {isChangeThird ? (
                 <EditField
                   nextStep={changeInfo}
                   isStadiumId={stadiumId}
+                  selectedFieldData={selectedFieldData}
+                  type="EDIT"
                 ></EditField>
               ) : (
-                <Fields fieldData={stadiumDetail?.data?.fields}></Fields>
+                <Fields
+                  fieldData={stadiumDetail?.data?.fields}
+                  selectField={selectField}
+                ></Fields>
               )}
             </>
           ) : (

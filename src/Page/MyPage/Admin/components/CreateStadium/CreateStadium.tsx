@@ -156,6 +156,8 @@ const CreateStadium = () => {
             <EditField
               nextStep={nextStep}
               isStadiumId={isStadiumId}
+              selectedFieldData={null}
+              type="CREATE"
             ></EditField>
           ) : null}
         </div>

@@ -1,6 +1,9 @@
-export interface field {
+export interface FieldDto {
   fieldId: number;
-  image: string;
+  images: {
+    imageId: number;
+    url: string;
+  }[];
   name: string;
   isOutside: boolean;
   type: string;

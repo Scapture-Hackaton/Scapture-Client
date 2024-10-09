@@ -128,6 +128,27 @@ export const postField = async (
   }
 };
 
+export const putField = async (
+  fieldId: number,
+  formData: FormData,
+): Promise<CommonResponse | undefined> => {
+  try {
+    const res = await authInstance.put(
+      `api/manages/fields/${fieldId}`,
+      formData,
+      {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      },
+    );
+
+    return res.data;
+  } catch (error) {
+    console.error('Error: ', error);
+  }
+};
+
 // 녹화 시작 (post)
 export const startRecording = async (
   fieldId: number,
