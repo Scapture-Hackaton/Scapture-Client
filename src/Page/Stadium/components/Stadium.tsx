@@ -134,42 +134,29 @@ const Stadium = () => {
   const formattedDate = selectedDate.toISOString().split('T')[0];
 
   // 운영시간 리스트
-  const [isStadiumHourList, setStadiumHourList] = useState<StadiumHoursData[]>(
-    [],
-  );
+  const [isStadiumHourList, setStadiumHourList] = useState<
+    StadiumHoursData[] | null
+  >([]);
+
+  // const { data: scheduleList, refetch } = useQuery({
+  //   queryKey: ['stadiumDetail', stadiumId],
+  //   queryFn: () =>
+  //     selectedFieldId && formattedDate
+  //       ? getStadiumDHours(selectedFieldId, formattedDate)
+  //       : null,
+  // });
 
   // 운영 시간 리스트 가져오기
   useEffect(() => {
     if (selectedFieldId && formattedDate) {
-      // const data = [
-      //   {
-      //     scheduleId: 1,
-      //     hours: '10:00 ~ 12:00',
-      //     videoCount: 12,
-      //   },
-      //   {
-      //     scheduleId: 2,
-      //     hours: '12:00 ~ 14:00',
-      //     videoCount: 15,
-      //   },
-      //   {
-      //     scheduleId: 3,
-      //     hours: '12:00 ~ 14:00',
-      //     videoCount: 15,
-      //   },
-      //   {
-      //     scheduleId: 4,
-      //     hours: '12:00 ~ 14:00',
-      //     videoCount: 15,
-      //   },
-      // ];
-      // setStadiumHourList(data);
-      // if (data && data.length >= 1) {
-      //   setScheduleId(data[0].scheduleId);
-      // }
       const fetchData = async () => {
         const data = await getStadiumDHours(selectedFieldId, formattedDate);
-        setStadiumHourList(data);
+        console.log(data);
+        if (data) {
+          setStadiumHourList(data);
+        } else {
+          setStadiumHourList(null);
+        }
         if (data && data.length >= 1) {
           setScheduleId(data[0].scheduleId);
         }
@@ -390,8 +377,12 @@ const Stadium = () => {
             </div>
           </div>
         </div>
-
-        <VideoList scheduleId={isScheduleId} stadiumId={stadiumId}></VideoList>
+        {isStadiumHourList && isStadiumHourList.length > 0 ? (
+          <VideoList
+            scheduleId={isScheduleId}
+            stadiumId={stadiumId}
+          ></VideoList>
+        ) : null}
       </div>
       <Footer />
     </div>
