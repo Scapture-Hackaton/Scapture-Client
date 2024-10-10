@@ -285,8 +285,9 @@ const Community = () => {
 
             window.URL.revokeObjectURL(url);
           });
-      } else {
-        alert('로그인이 필요합니다.');
+      } else if (authResponse.status === 402) {
+        alert('버내너가 부족합니다!');
+      } else if (authResponse.status === 404 || authResponse.status === 400) {
         modalNotice(loginModalRef);
       }
       // } else {
