@@ -20,6 +20,42 @@ import { useNavigate } from 'react-router-dom';
 import VideoList from './VideoList';
 import { PrevSelectDataProps } from '../../Video/components/Video';
 
+// 현재 시간 구하는 함수
+const getCurrentTime = () => {
+  const now = new Date();
+  return now;
+};
+
+const findClosestTime = (stadiumHours: any[]) => {
+  const currentTime = getCurrentTime(); // 현재 시간 가져오기
+
+  let closestTimeDiff = -Infinity; // 음수 방향으로 가장 가까운 시간을 찾기 위한 초기값
+  let closestScheduleId = null;
+
+  stadiumHours.forEach(stadiumHour => {
+    const hours = stadiumHour.hours;
+
+    // "12:00~14:00"에서 "~" 뒤의 끝나는 시간을 추출
+    const endTimeStr = hours.split('~')[1].trim();
+
+    // 현재 날짜와 결합하여 Date 객체로 변환
+    const [endHour, endMinute] = endTimeStr.split(':').map(Number);
+    const endDateTime = new Date();
+    endDateTime.setHours(endHour, endMinute, 0, 0); // 시간 설정
+
+    // 현재 시간과 끝나는 시간의 차이 계산 (밀리초)
+    const timeDiff = endDateTime.getTime() - currentTime.getTime();
+
+    // 시간이 현재 시간보다 작고, 가장 가까운 시간을 선택
+    if (timeDiff < 0 && timeDiff > closestTimeDiff) {
+      closestTimeDiff = timeDiff;
+      closestScheduleId = stadiumHour.scheduleId;
+    }
+  });
+
+  return closestScheduleId;
+};
+
 interface SelectInfoBoxProps {
   stadiumDetail: StadiumDetail;
   stadiumId: number;
@@ -149,7 +185,7 @@ const SelectInfoBox: React.FC<SelectInfoBoxProps> = ({
             setStadiumHourList(null);
           }
         } catch (error) {
-          console.error('Error fetching data:', error);
+          //   console.error('Error fetching data:', error);
           setStadiumHourList(null);
         }
       }
@@ -163,6 +199,14 @@ const SelectInfoBox: React.FC<SelectInfoBoxProps> = ({
   const [isScheduleId, setScheduleId] = useState<number | null>(
     prevSelectDataProps ? prevSelectDataProps.prevScheduleId : null,
   );
+
+  useEffect(() => {
+    if (isStadiumHourList) {
+      const closestScheduleId = findClosestTime(isStadiumHourList);
+
+      setScheduleId(closestScheduleId);
+    }
+  }, [isStadiumHourList]);
 
   const chooseSchedule = (scheduleId: number) => {
     setScheduleId(scheduleId);
