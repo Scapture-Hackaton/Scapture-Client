@@ -112,3 +112,17 @@ export const unLikeVideo = async (videoId: number) => {
     };
   }
 };
+
+// 존재하는 구장의 위치들 조회
+export const getStadiumLocations = async () => {
+  try {
+    const res: CommonResponse = await defaultInstance.get(
+      `api/stadiums/location`,
+    );
+    return res.data.data;
+  } catch (e: any) {
+    return {
+      status: e.response.status,
+    };
+  }
+};
