@@ -130,7 +130,7 @@ const Stadium = () => {
                     <img src={parking} alt="" width="20px" height="20px" />
 
                     <span className={styles.info}>
-                      {stadiumDetail?.isFree ? '무료 주차징' : '유료 주차장'}
+                      {stadiumDetail?.isFree ? '무료 주차장' : '유료 주차장'}
                     </span>
                   </div>
                 </div>
