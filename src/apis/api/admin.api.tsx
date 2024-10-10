@@ -149,6 +149,19 @@ export const putField = async (
   }
 };
 
+// 구역 삭제
+export const deleteField = async (
+  fieldId: number,
+): Promise<CommonResponse | undefined> => {
+  try {
+    const res = await authInstance.delete(`api/manages/fields/${fieldId}`);
+
+    return res.data;
+  } catch (error) {
+    console.error('Error: ', error);
+  }
+};
+
 // 녹화 시작 (post)
 export const startRecording = async (
   fieldId: number,
