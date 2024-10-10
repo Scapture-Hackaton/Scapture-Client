@@ -518,6 +518,7 @@ const EditBasicInfo: React.FC<EditBasicInfoProps> = ({
             name="description"
             value={stadiumInfo.description}
             onChange={handleDescriptionChange}
+            wrap="hard"
             placeholder="고정 휴무일, 공휴일 운영 여부 등
 소개글을 200자 이내로 입력해주세요"
           ></textarea>

@@ -14,9 +14,12 @@ import {
 
 import { Stadium } from '../../../apis/dto/scapture.dto';
 import Stadiums from './Stadiums';
+import { useQuery } from '@tanstack/react-query';
+import { getStadiumLocations } from '../../../apis/api/stadium.api';
 
 const Scapture = () => {
-  const selectCity = ['경기도'];
+  const [selectCity, setSelectCity] = useState(['경기도']);
+  // const selectCity = ['경기도'];
   // const selectState: Record<string, string[]> = {
   //   서울시: [
   //     // '성북구',
@@ -81,10 +84,33 @@ const Scapture = () => {
   //   ],
   // };
 
-  const selectState: Record<string, string[]> = {
+  const [selectState, setSelectState] = useState<Record<string, string[]>>(
     // 서울시: ['성북구', '강서구', '영등포구', '강남구', '노원구', '동대문구'],
-    경기도: ['이천시'],
-  };
+    { 경기도: ['이천시'] },
+  );
+
+  const { data: stadiumLocations } = useQuery({
+    queryKey: ['stadiumDetail'],
+    queryFn: () => getStadiumLocations(),
+  });
+
+  // console.log(stadiumLocations);
+  useEffect(() => {
+    if (stadiumLocations && stadiumLocations.length > 0) {
+      // city와 state 분리
+      const cities = stadiumLocations.map((location: any) => location.city);
+      const states: Record<string, string[]> = stadiumLocations.reduce(
+        (acc: Record<string, string[]>, location: any) => {
+          acc[location.city] = location.state;
+          return acc;
+        },
+        {},
+      );
+
+      setSelectCity(cities);
+      setSelectState(states);
+    }
+  }, [stadiumLocations]);
 
   // 선택된 도시에 따라 리스트 변경
   const [isCity, setCity] = useState(selectCity[0]);
