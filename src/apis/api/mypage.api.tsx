@@ -9,6 +9,8 @@ export const getProfile = async (): Promise<CommonResponse | undefined> => {
     return res.data;
   } catch (error) {
     // console.error('Error: ', error);
+    localStorage.removeItem('TOKEN');
+    localStorage.removeItem('LoginType');
   }
 };
 

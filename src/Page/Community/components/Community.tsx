@@ -28,7 +28,7 @@ import { LoginModal } from '../../Header/components/LoginModal';
 import BookMark from './BookMark';
 import {
   checkAuthDownloadVideo,
-  downloadVideo,
+  // downloadVideo,
   storeVideo,
   unStoreVideo,
 } from '../../../apis/api/video.api';
@@ -263,35 +263,35 @@ const Community = () => {
       const authResponse = await checkAuthDownloadVideo(isVideoId);
 
       if (authResponse.status === 200 || authResponse.status === 409) {
-        const downloadResponse = await downloadVideo(isVideoId);
+        // const downloadResponse = await downloadVideo(isVideoId);
 
-        if (downloadResponse.status === 200) {
-          fetch(`${videoDetailData.video}`, {
-            method: 'GET',
-          })
-            .then(response => response.blob())
-            .then(blob => {
-              const url = window.URL.createObjectURL(blob);
-              const link = document.createElement('a');
+        // if (downloadResponse.status === 200) {
+        fetch(`${videoDetailData.video}`, {
+          method: 'GET',
+        })
+          .then(response => response.blob())
+          .then(blob => {
+            const url = window.URL.createObjectURL(blob);
+            const link = document.createElement('a');
 
-              link.setAttribute('href', url);
-              link.setAttribute('download', `${videoDetailData.name}.mp4`);
+            link.setAttribute('href', url);
+            link.setAttribute('download', `${videoDetailData.name}.mp4`);
 
-              document.body.appendChild(link);
+            document.body.appendChild(link);
 
-              link.click();
+            link.click();
 
-              link.parentNode?.removeChild(link);
+            link.parentNode?.removeChild(link);
 
-              window.URL.revokeObjectURL(url);
-            });
-        } else {
-          alert('로그인이 필요합니다.');
-          modalNotice(loginModalRef);
-        }
+            window.URL.revokeObjectURL(url);
+          });
       } else {
+        alert('로그인이 필요합니다.');
         modalNotice(loginModalRef);
       }
+      // } else {
+      //   modalNotice(loginModalRef);
+      // }
     } catch (error) {
       console.error('비디오 다운로드 중 오류가 발생했습니다.', error);
     } finally {

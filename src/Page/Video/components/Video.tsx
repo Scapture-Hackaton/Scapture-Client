@@ -12,7 +12,7 @@ import {
 } from '../../../apis/api/stadium.api';
 import {
   checkAuthDownloadVideo,
-  downloadVideo,
+  // downloadVideo,
   storeVideo,
   unStoreVideo,
 } from '../../../apis/api/video.api';
@@ -107,39 +107,30 @@ const Video = () => {
     try {
       const authResponse = await checkAuthDownloadVideo(videoId);
 
-      if (authResponse.status === 200 || authResponse.status === 409) {
-        const downloadResponse = await downloadVideo(videoId);
+      if (authResponse.status === 200) {
+        fetch(`${videoDetail.video}`, {
+          method: 'GET',
+        })
+          .then(response => response.blob())
+          .then(blob => {
+            const url = window.URL.createObjectURL(blob);
+            const link = document.createElement('a');
 
-        if (downloadResponse.status === 200) {
-          fetch(`${videoDetail.video}`, {
-            method: 'GET',
-          })
-            .then(response => response.blob())
-            .then(blob => {
-              const url = window.URL.createObjectURL(blob);
-              const link = document.createElement('a');
+            link.setAttribute('href', url);
+            link.setAttribute('download', `${videoDetail.name}.mp4`);
 
-              link.setAttribute('href', url);
-              link.setAttribute('download', `${videoDetail.name}.mp4`);
+            document.body.appendChild(link);
 
-              document.body.appendChild(link);
+            link.click();
 
-              link.click();
+            link.parentNode?.removeChild(link);
 
-              link.parentNode?.removeChild(link);
-
-              window.URL.revokeObjectURL(url);
-            });
-        } else {
-          alert('로그인이 필요합니다.');
-          modalNotice(loginModalRef);
-        }
-      } else {
-        if (isLoginState.state) {
-          alert('버내너가 부족합니다!');
-        } else {
-          modalNotice(loginModalRef);
-        }
+            window.URL.revokeObjectURL(url);
+          });
+      } else if (authResponse.status === 402) {
+        alert('버내너가 부족합니다!');
+      } else if (authResponse.status === 404 || authResponse.status === 400) {
+        modalNotice(loginModalRef);
       }
     } catch (error) {
       console.error('비디오 다운로드 중 오류가 발생했습니다.', error);
