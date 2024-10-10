@@ -158,7 +158,7 @@ body {
     display: inline-block;
     width: 10px;
     height: 10px;
-    margin: 0 3px;
+    margin: 0 5px;
 
     cursor: pointer;
 
@@ -184,6 +184,65 @@ body {
       left: 0;
       width: 8px;
       height: 8px;
+      content: '•';
+      text-align: center;
+      opacity: 0.75;
+      color: var(--font-color-gray-400);
+    }
+  }
+
+  li.slick-active button:before {
+    font-size: 2.6rem;
+    width: 12px;
+    height: 12px;
+    color: var(--font-color-gray-100);
+  }
+}
+
+.shceduleCss {
+  display: flex !important;
+  justify-content: center;
+  align-items: center;
+
+  position: absolute;
+  bottom: -15px;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  text-align: center;
+
+  li {
+    position: relative;
+    display: inline-block;
+    width: 7px;
+    height: 7px;
+    margin: 0 5px;
+
+    cursor: pointer;
+
+    button {
+      font-size: 0;
+      line-height: 0;
+      display: block;
+      // width: 10px;
+      // height: 10px;
+
+      cursor: pointer;
+      color: transparent;
+      border: 0;
+      outline: 0;
+      background: 0 0;
+    }
+
+    button:before {
+      font-size: 2rem;
+      line-height: 10px;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 7px;
+      height: 7px;
       content: '•';
       text-align: center;
       opacity: 0.75;

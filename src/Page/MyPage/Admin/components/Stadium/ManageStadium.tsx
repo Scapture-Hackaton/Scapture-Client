@@ -63,6 +63,8 @@ const ManageStadium = () => {
       refetch();
     } else if (chaptrer === 'third') {
       setChangeThird(!isChangeThird);
+      setAddField(false);
+
       refetch();
     }
   };
@@ -83,6 +85,8 @@ const ManageStadium = () => {
     setSelectedFieldData(field);
     setChangeThird(!isChangeThird);
   };
+
+  const [isAddField, setAddField] = useState<boolean>(false);
 
   return (
     <>
@@ -160,9 +164,22 @@ const ManageStadium = () => {
                         : '0'}
                     </div>
                   </div>
-                  {isChangeThird ? null : <div id={styles.change}>수정</div>}
+                  {isAddField ? null : (
+                    <div id={styles.change} onClick={() => setAddField(true)}>
+                      추가
+                    </div>
+                  )}
                 </div>
               </div>
+              {isAddField ? (
+                <EditField
+                  nextStep={changeInfo}
+                  isStadiumId={stadiumId}
+                  selectedFieldData={null}
+                  type="CREATE"
+                ></EditField>
+              ) : null}
+
               {isChangeThird ? (
                 <EditField
                   nextStep={changeInfo}

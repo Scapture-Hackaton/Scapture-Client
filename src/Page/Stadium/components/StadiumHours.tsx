@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import styles from '../scss/selectInfoBox.module.scss';
 import { StadiumHoursData } from '../../../apis/dto/scapture.dto';
 
@@ -18,12 +18,13 @@ const StadiumHours: React.FC<StadiumHoursProps> = ({
   isScheduleId,
 }) => {
   const settings = {
-    // dots: true,
+    dots: true,
     infinite: false,
     // speed: 500,
     slidesToShow: 3,
     // slidesToScroll: 1,
     arrows: false,
+    dotsClass: 'shceduleCss',
   };
 
   // // 날짜 선택 핸들러
@@ -32,10 +33,19 @@ const StadiumHours: React.FC<StadiumHoursProps> = ({
     chooseSchedule(index);
   };
 
+  const sliderRef = useRef<Slider | null>(null); // Slider에 대한 ref
+
+  // 선택된 scheduleId가 변경될 때 슬라이드 이동
+  useEffect(() => {
+    if (sliderRef.current && isScheduleId && isScheduleId !== -1) {
+      sliderRef.current.slickGoTo(isScheduleId);
+    }
+  }, [isScheduleId]);
+
   return (
     <>
       {stadiumHourList && stadiumHourList.length > 0 ? (
-        <Slider {...settings} className={styles.housrsList}>
+        <Slider {...settings} ref={sliderRef} className={styles.housrsList}>
           {stadiumHourList.map((stadiumHour: StadiumHoursData) => (
             <div className={styles.test} key={stadiumHour.scheduleId}>
               <div

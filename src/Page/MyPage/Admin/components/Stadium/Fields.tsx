@@ -26,8 +26,6 @@ const Fields: React.FC<StadiumsProps> = ({ fieldData, selectField }) => {
   //   navigate('/admin/stadium', { state: { fieldId } });
   // };
 
-  console.log(fieldData);
-
   return (
     <div className={styles.container}>
       {fieldData == null ||

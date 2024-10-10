@@ -4,6 +4,7 @@ import styles from './scss/EditInfo.module.scss';
 
 import FieldFrame from './FieldFrame';
 import {
+  deleteField,
   deleteImage,
   postField,
   putField,
@@ -67,19 +68,34 @@ const EditField: React.FC<EditFieldProps> = ({
   }, [type, selectedFieldData]);
 
   // 구역 추가 핸들러
-  const addField = () => {
-    setFields(prev => [
-      ...prev,
-      {
-        name: '',
-        type1: '00',
-        type2: '00',
-        isOutside: null,
-        price: '',
-        images: [],
-      }, // 기본 필드 정보
-    ]);
-  };
+  // const addField = () => {
+  //   setFields(prev => [
+  //     ...prev,
+  //     {
+  //       name: '',
+  //       type1: '',
+  //       type2: '',
+  //       isOutside: null,
+  //       price: '',
+  //       images: [],
+  //     }, // 기본 필드 정보
+  //   ]);
+  // };
+
+  useEffect(() => {
+    if (type === 'CREATE') {
+      setFields([
+        {
+          name: '',
+          type1: '',
+          type2: '',
+          isOutside: null,
+          price: '',
+          images: [],
+        }, // 기본 필드 정보
+      ]);
+    }
+  }, [type]);
 
   // 구역 정보 업데이트 핸들러
   const updateField = (index: number, updatedField: Field) => {
@@ -91,10 +107,14 @@ const EditField: React.FC<EditFieldProps> = ({
   };
 
   // 구역 삭제 핸들러
-  const removeField = (index: number) => {
-    setFields((prevFields: Field[]) =>
-      prevFields.filter((_: any, idx: number) => idx !== index),
-    );
+  const removeField = async (index: number) => {
+    if (type === 'CREATE') {
+      setFields((prevFields: Field[]) =>
+        prevFields.filter((_: any, idx: number) => idx !== index),
+      );
+    } else if (type === 'EDIT') {
+      await deleteField(index);
+    }
   };
 
   const handleRemoveExistingImage = async (imageId: number) => {
@@ -121,10 +141,13 @@ const EditField: React.FC<EditFieldProps> = ({
     const isFieldsValid = fields.every(field => {
       return (
         field.name.trim() !== '' && // 이름이 비어있지 않고
-        field.type1 !== '00' && // type1이 기본값이 아니고
-        field.type2 !== '00' && // type2가 기본값이 아니고
+        field.type1 !== '' && // type1이 기본값이 아니고
+        field.type1 !== '00' &&
+        field.type2 !== '' && // type2가 기본값이 아니고
+        field.type2 !== '00' &&
         field.isOutside !== null && // 실내외 구분이 선택되었고
         field.price.trim() !== '' && // 가격이 입력되었고
+        isNaN(parseInt(field.price)) === false &&
         imageFiles.length + existingImages.length > 0 // 이미지가 최소 1개는 있는지 확인
       );
     });
@@ -183,6 +206,7 @@ const EditField: React.FC<EditFieldProps> = ({
           구역 이미지는 구역당 5장씩 등록 가능합니다.
         </div>
       </div>
+
       {fields.map((field: Field, index: number) => (
         <FieldFrame
           frameIdx={index}
@@ -190,17 +214,27 @@ const EditField: React.FC<EditFieldProps> = ({
           onUpdateField={(updatedField: Field) =>
             updateField(index, updatedField)
           }
-          onRemove={() => removeField(index)} // 구역 삭제 핸들러
+          onRemove={() => {
+            if (type === 'CREATE') {
+              removeField(index);
+              navigate('/myPage');
+            } else if (type === 'EDIT' && selectedFieldData?.fieldId) {
+              removeField(selectedFieldData?.fieldId);
+              nextStep('third');
+              navigate('/myPage');
+            }
+          }} // 구역 삭제 핸들러
           setImageFiles={setImageFiles}
           handleRemoveExistingImage={handleRemoveExistingImage}
           existingImages={existingImages}
         />
       ))}
-      {type === 'CREATE' ? (
+
+      {/* {type === 'CREATE' ? (
         <div className={styles.addFieldBtn} onClick={addField}>
           + 구역 추가
         </div>
-      ) : null}
+      ) : null} */}
     </div>
   );
 };
