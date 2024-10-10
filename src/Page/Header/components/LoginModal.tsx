@@ -1,6 +1,6 @@
-import GoogleIcon from '../image/googleIcon.svg';
+// import GoogleIcon from '../image/googleIcon.svg';
 import KakaoIcon from '../image/kakaoIcon.svg';
-import NaverIcon from '../image/naverIcon.svg';
+// import NaverIcon from '../image/naverIcon.svg';
 import cancelIcon from '../../../assets/Icon/Cancel.svg';
 import modalLogo from '../image/scaptureModalLogo.svg';
 
@@ -11,11 +11,11 @@ interface LoginModalProps {
 }
 
 // 상태 토큰으로 사용할 랜덤 문자열 생성
-const generateState = () => {
-  const array = new Uint8Array(16);
-  window.crypto.getRandomValues(array);
-  return Array.from(array, byte => byte.toString(16).padStart(2, '0')).join('');
-};
+// const generateState = () => {
+//   const array = new Uint8Array(16);
+//   window.crypto.getRandomValues(array);
+//   return Array.from(array, byte => byte.toString(16).padStart(2, '0')).join('');
+// };
 
 export const LoginModal: React.FC<LoginModalProps> = ({
   styles,
@@ -71,7 +71,7 @@ export const LoginModal: React.FC<LoginModalProps> = ({
         </div>
 
         <div className={styles.group}>
-          <button
+          {/* <button
             onClick={() => {
               localStorage.setItem('LoginType', 'google');
               closeLoginModal();
@@ -87,7 +87,7 @@ export const LoginModal: React.FC<LoginModalProps> = ({
               loading="lazy"
             />
             <div>Google 로그인</div>
-          </button>
+          </button> */}
           <button
             onClick={() => {
               localStorage.setItem('LoginType', 'kakao');
@@ -105,7 +105,7 @@ export const LoginModal: React.FC<LoginModalProps> = ({
             />
             <div>카카오 로그인</div>
           </button>
-          <button
+          {/* <button
             onClick={() => {
               localStorage.setItem('LoginType', 'naver');
               closeLoginModal();
@@ -122,7 +122,7 @@ export const LoginModal: React.FC<LoginModalProps> = ({
               loading="lazy"
             />
             <div>네이버 로그인</div>
-          </button>
+          </button> */}
         </div>
       </div>
 

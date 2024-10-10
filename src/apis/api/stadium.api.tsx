@@ -117,7 +117,7 @@ export const unLikeVideo = async (videoId: number) => {
 export const getStadiumLocations = async () => {
   try {
     const res: CommonResponse = await defaultInstance.get(
-      `api/stadiums/location`,
+      `/api/stadiums/location`,
     );
     return res.data.data;
   } catch (e: any) {

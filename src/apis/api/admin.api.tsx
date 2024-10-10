@@ -47,7 +47,7 @@ export const putStadium = async (
 ): Promise<CommonResponse | undefined> => {
   try {
     const res = await authInstance.put(
-      `api/manages/stadiums/${stadiumId}`,
+      `/api/manages/stadiums/${stadiumId}`,
       content,
     );
 
@@ -98,7 +98,7 @@ export const deleteImage = async (
   imageId: number,
 ): Promise<CommonResponse | undefined> => {
   try {
-    const res = await authInstance.delete(`api/manages/images/${imageId}`);
+    const res = await authInstance.delete(`/api/manages/images/${imageId}`);
 
     return res.data;
   } catch (error) {
@@ -134,7 +134,7 @@ export const putField = async (
 ): Promise<CommonResponse | undefined> => {
   try {
     const res = await authInstance.put(
-      `api/manages/fields/${fieldId}`,
+      `/api/manages/fields/${fieldId}`,
       formData,
       {
         headers: {

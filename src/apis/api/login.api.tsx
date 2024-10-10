@@ -10,9 +10,9 @@ export const LoginToken = async (code: string, type: string) => {
 
   //Object
   const APIURL: { [key: string]: string } = {
-    kakao: `api/oauth/social/kakao?code=${code}`,
-    naver: `api/oauth/social/naver?code=${code}&state=hLiDdL2uhPtsftcU`,
-    google: `api/oauth/social/google?code=${code}`,
+    kakao: `/api/oauth/social/kakao?code=${code}`,
+    naver: `/api/oauth/social/naver?code=${code}&state=hLiDdL2uhPtsftcU`,
+    google: `/api/oauth/social/google?code=${code}`,
   };
 
   const url = APIURL[type];
