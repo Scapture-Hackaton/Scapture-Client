@@ -21,20 +21,20 @@ export const checkAuthDownloadVideo = async (videoId: number) => {
 };
 
 // 영상 권한 확인
-export const downloadVideo = async (videoId: number) => {
-  try {
-    const res: CommonResponse = await authInstance.get(
-      `/api/videos/${videoId}/download`,
-    );
+// export const downloadVideo = async (videoId: number) => {
+//   try {
+//     const res: CommonResponse = await authInstance.get(
+//       `/api/videos/${videoId}/download`,
+//     );
 
-    return res.data;
-  } catch (e: any) {
-    console.log(e);
-    return {
-      status: e.response.status,
-    };
-  }
-};
+//     return res.data;
+//   } catch (e: any) {
+//     console.log(e);
+//     return {
+//       status: e.response.status,
+//     };
+//   }
+// };
 
 // 영상 저장하기
 export const storeVideo = async (videoId: number) => {

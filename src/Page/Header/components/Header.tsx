@@ -83,11 +83,13 @@ const Header: React.FC<HeaderProps> = ({ index }) => {
             team: res?.data.team || 'unknown',
           }));
           setLoginState({ state: true });
-        } else {
-          localStorage.removeItem('TOKEN');
-          localStorage.removeItem('LoginType');
-          setLoginState({ state: false });
-          resetUserData();
+
+          if (res?.status === 403 || res?.status === 404) {
+            localStorage.removeItem('TOKEN');
+            localStorage.removeItem('LoginType');
+            setLoginState({ state: false });
+            resetUserData();
+          }
         }
       } catch (error) {
         console.error('Failed to fetch profile:', error);
