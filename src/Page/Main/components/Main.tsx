@@ -436,6 +436,7 @@ const Main = () => {
             <a
               id={styles.button}
               href="https://nonstop-bottle-b75.notion.site/11a7791a343180afb0b9c0a0debefc56?pvs=25"
+              target="_blank"
             >
               제휴 문의하기
             </a>
