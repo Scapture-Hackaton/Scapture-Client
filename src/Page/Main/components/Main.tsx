@@ -433,7 +433,12 @@ const Main = () => {
             <div className={styles.inquireSubTxt}>
               스캡쳐는 다양한 형태의 협업을 기대하고 있습니다.
             </div>
-            <div id={styles.button}>제휴 문의하기</div>
+            <a
+              id={styles.button}
+              href="https://nonstop-bottle-b75.notion.site/11a7791a343180afb0b9c0a0debefc56?pvs=25"
+            >
+              제휴 문의하기
+            </a>
           </div>
         </div>
       </div>
