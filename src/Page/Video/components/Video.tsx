@@ -32,8 +32,8 @@ import modal from '../scss/video-modal.module.scss';
 import loginModal from '../../Header/scss/login-modal.module.scss';
 
 // svg
-import download from '../../../assets/Icon/downLoadIcon.svg';
-import share from '../../../assets/Icon/shareIcon.svg';
+// import download from '../../../assets/Icon/downLoadIcon.svg';
+// import share from '../../../assets/Icon/shareIcon.svg';
 
 // dto
 import { StadiumDetail, VideoDetail } from '../../../apis/dto/scapture.dto';
@@ -96,9 +96,9 @@ const Video = () => {
     initialData: {} as VideoDetail,
   });
 
-  const handelOpenDownloadModal = () => {
-    modalNotice(modalRef);
-  };
+  // const handelOpenDownloadModal = () => {
+  //   modalNotice(modalRef);
+  // };
 
   const isLoginState = useRecoilValue<loginData>(loginDataAtom);
 
@@ -310,14 +310,14 @@ const Video = () => {
                   onToggleStore={handleToggleStore}
                 ></BookMark>
 
-                <li onClick={handelOpenDownloadModal}>
+                {/* <li onClick={handelOpenDownloadModal}>
                   <img src={download} alt="" width="20px" height="20px"></img>
                   <p>다운로드</p>
                 </li>
                 <li>
                   <img src={share} alt="" width="20px" height="20px"></img>
                   <p>공유</p>
-                </li>
+                </li> */}
               </ul>
             </div>
           </div>

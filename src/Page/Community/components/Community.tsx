@@ -7,8 +7,9 @@ import modal from '../../Video/scss/video-modal.module.scss';
 import loginModal from '../../Header/scss/login-modal.module.scss';
 import Comment from './Comment';
 
-import download from '../../../assets/Icon/downLoadIcon.svg';
-import share from '../../../assets/Icon/shareIcon.svg';
+// import download from '../../../assets/Icon/downLoadIcon.svg';
+// import share from '../../../assets/Icon/shareIcon.svg';
+// import Share from '../../../common/functions/Share';
 
 import {
   KAKAO_AUTH_URL,
@@ -41,7 +42,7 @@ import parking from '../../../assets/Icon/parking.svg';
 
 import dropDown from '../../../assets/Icon/dropDown.svg';
 import upArrow from '../../../assets/Icon/upArrow.svg';
-import Share from '../../../common/functions/Share';
+
 import { loginData, loginDataAtom } from '../../Header/Atom/atom';
 import { useRecoilValue } from 'recoil';
 
@@ -306,9 +307,9 @@ const Community = () => {
   //   }
   // }, [videoDetailData]);
 
-  const handelOpenDownloadModal = () => {
-    modalNotice(modalRef);
-  };
+  // const handelOpenDownloadModal = () => {
+  //   modalNotice(modalRef);
+  // };
 
   // 버튼을 눌렀는지에 대한 상태
   const [open, setOpen] = useState(false);
@@ -319,13 +320,13 @@ const Community = () => {
     setOpen(!open);
   };
 
-  const handleShare = async () => {
-    await Share({
-      title: '테스트',
-      text: 'Hello World',
-      url: 'https://scaptrue.co.kr',
-    });
-  };
+  // const handleShare = async () => {
+  //   await Share({
+  //     title: '테스트',
+  //     text: 'Hello World',
+  //     url: 'https://scaptrue.co.kr',
+  //   });
+  // };
 
   return (
     <div className={styles.test}>
@@ -360,14 +361,14 @@ const Community = () => {
                     onToggleStore={handleToggleStore}
                   ></BookMark>
 
-                  <li onClick={handelOpenDownloadModal}>
+                  {/* <li onClick={handelOpenDownloadModal}>
                     <img src={download} alt="" width="20px" height="20px"></img>
                     <p>다운로드</p>
-                  </li>
-                  <li onClick={handleShare}>
+                  </li> */}
+                  {/* <li onClick={handleShare}>
                     <img src={share} alt="" width="20px" height="20px"></img>
                     <p>공유</p>
-                  </li>
+                  </li> */}
                 </ul>
               </div>
             </div>

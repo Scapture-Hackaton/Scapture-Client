@@ -19,7 +19,7 @@ import { getStadiumLocations } from '../../../apis/api/stadium.api';
 
 const Scapture = () => {
   const [selectCity, setSelectCity] = useState(['강원도', '경기도']);
-  // const selectCity = ['경기도'];
+  // const selectCity = ['강원도'];
   // const selectState: Record<string, string[]> = {
   //   서울시: [
   //     // '성북구',
@@ -89,12 +89,16 @@ const Scapture = () => {
     { 강원도: ['원주시'], 경기도: ['이천시'] },
   );
 
+  // const selectState : Record<string, string[]> = {
+  //   강원도: ['원주시'],
+  // };
+
   const { data: stadiumLocations } = useQuery({
     queryKey: ['stadiumDetail'],
     queryFn: () => getStadiumLocations(),
   });
 
-  // console.log(stadiumLocations);
+  console.log(stadiumLocations);
   useEffect(() => {
     if (stadiumLocations && stadiumLocations.length > 0) {
       // city와 state 분리
