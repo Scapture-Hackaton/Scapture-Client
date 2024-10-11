@@ -33,7 +33,17 @@ const Footer = () => {
             커뮤니티
           </div>
           <div>FAQ</div>
-          <div>공지사항</div>
+          <div
+            onClick={() => {
+              window.open(
+                'https://nonstop-bottle-b75.notion.site/11c7791a343180538eeefb0ed8714ab3',
+                '_blank',
+                'noopener, noreferrer',
+              );
+            }}
+          >
+            공지사항
+          </div>
         </div>
 
         <div className={styles.group}>
