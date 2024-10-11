@@ -1,4 +1,4 @@
-import { useLocation } from 'react-router-dom';
+import { useLocation, useParams } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import { getStadiumDetail } from '../../../apis/api/stadium.api';
 import { useRef, useState } from 'react';
@@ -20,7 +20,15 @@ import upArrow from '../../../assets/Icon/upArrow.svg';
 
 const Stadium = () => {
   const location = useLocation();
-  const stadiumId = location.state.stadiumId;
+  const { stadiumId: stadiumIdFromParams } = useParams<{ stadiumId: string }>();
+
+  // 상태로 전달된 stadiumId 확인
+  const stadiumIdFromState = location.state?.stadiumId;
+
+  // 상태나 파라미터 중 하나에서 stadiumId를 가져옴
+  const stadiumId = stadiumIdFromState || stadiumIdFromParams;
+
+  // console.log(stadiumId);
 
   // 구장 정보 자세히 보기
 
