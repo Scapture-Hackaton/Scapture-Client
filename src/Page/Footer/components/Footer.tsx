@@ -60,7 +60,14 @@ const Footer = () => {
 
           <div className={styles.bottomGroup}>
             <div className={styles.terms}>
-              <span id={styles.terms}>이용약관</span>
+              <a
+                id={styles.terms}
+                href="https://nonstop-bottle-b75.notion.site/Scapture-11b7791a343180f59ba8fd4332c47f50"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                이용약관
+              </a>
               <a
                 id={styles.policy}
                 href="https://nonstop-bottle-b75.notion.site/Scapture-1187791a343180fbb205f8911578629b"
