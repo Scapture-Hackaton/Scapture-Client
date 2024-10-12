@@ -38,7 +38,12 @@ const StadiumHours: React.FC<StadiumHoursProps> = ({
   // 선택된 scheduleId가 변경될 때 슬라이드 이동
   useEffect(() => {
     if (sliderRef.current && isScheduleId && isScheduleId !== -1) {
-      sliderRef.current.slickGoTo(isScheduleId);
+      const scheduleIndex = stadiumHourList.findIndex(
+        item => item.scheduleId === isScheduleId,
+      );
+      if (scheduleIndex !== -1) {
+        sliderRef.current.slickGoTo(scheduleIndex);
+      }
     }
   }, [isScheduleId]);
 
