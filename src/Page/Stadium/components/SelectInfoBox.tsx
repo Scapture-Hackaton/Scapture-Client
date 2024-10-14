@@ -294,6 +294,20 @@ const SelectInfoBox: React.FC<SelectInfoBoxProps> = ({
           </div>
         </div>
       </div>
+      <div className={styles.downLoadFrame}>
+        <div
+          className={styles.downLoadBtn}
+          onClick={() => {
+            window.open(
+              'https://nonstop-bottle-b75.notion.site/15-4-11f7791a343180fc8e2cd5813ccef10e',
+              '_blank',
+              'noopener, noreferrer',
+            );
+          }}
+        >
+          영상 다운로드 문의
+        </div>
+      </div>
       {isStadiumHourList && isStadiumHourList.length > 0 ? (
         <VideoList
           scheduleId={isScheduleId}
