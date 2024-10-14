@@ -401,6 +401,31 @@
   }
 }
 
+.downLoadFrame {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: var(--color-grayscale-black-bg);
+
+  .downLoadBtn {
+    width: 90%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    cursor: pointer;
+
+    height: 46px;
+
+    margin: 1rem 0 0.5rem 0;
+
+    border-radius: 5px;
+
+    background-color: var(--primary-color-defualt-01);
+  }
+}
+
 .videoList {
   // width: 100%;
   padding-top: 1.7rem;

@@ -98,7 +98,6 @@ const Scapture = () => {
     queryFn: () => getStadiumLocations(),
   });
 
-  console.log(stadiumLocations);
   useEffect(() => {
     if (stadiumLocations && stadiumLocations.length > 0) {
       // city와 state 분리
