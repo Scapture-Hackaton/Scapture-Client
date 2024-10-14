@@ -307,6 +307,9 @@ const SelectInfoBox: React.FC<SelectInfoBoxProps> = ({
         >
           영상 다운로드 문의
         </div>
+        <div className={styles.downLoadTxt}>
+          <span>*</span>영상은 일주일 뒤에 말소됩니다.
+        </div>
       </div>
       {isStadiumHourList && isStadiumHourList.length > 0 ? (
         <VideoList
