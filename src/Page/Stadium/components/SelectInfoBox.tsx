@@ -23,6 +23,7 @@ import { PrevSelectDataProps } from '../../Video/components/Video';
 // 현재 시간 구하는 함수
 const getCurrentTime = () => {
   const now = new Date();
+
   return now;
 };
 
@@ -228,6 +229,15 @@ const SelectInfoBox: React.FC<SelectInfoBoxProps> = ({
       },
     });
   };
+
+  useEffect(() => {
+    if (prevSelectDataProps) {
+      setMonth(prevSelectDataProps?.month);
+      setDay(prevSelectDataProps?.day);
+      setField(prevSelectDataProps.prevFieldId);
+      setScheduleId(prevSelectDataProps.prevScheduleId);
+    }
+  }, [prevSelectDataProps]);
 
   return (
     <>

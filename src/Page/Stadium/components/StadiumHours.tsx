@@ -51,22 +51,26 @@ const StadiumHours: React.FC<StadiumHoursProps> = ({
     <>
       {stadiumHourList && stadiumHourList.length > 0 ? (
         <Slider {...settings} ref={sliderRef} className={styles.housrsList}>
-          {stadiumHourList.map((stadiumHour: StadiumHoursData) => (
-            <div className={styles.test} key={stadiumHour.scheduleId}>
-              <div
-                className={`${styles.scheduleGroup} ${
-                  isScheduleId === stadiumHour.scheduleId ? styles.selected : ''
-                }`}
-                key={stadiumHour.scheduleId}
-                onClick={() => handleScheduleClick(stadiumHour.scheduleId)}
-              >
-                <div id={styles.hour}>{stadiumHour.hours}</div>
-                <div id={styles.videoCnt}>
-                  {stadiumHour.videoCount}개의 영상
+          {stadiumHourList.map((stadiumHour: StadiumHoursData) =>
+            stadiumHour.videoCount !== 0 ? (
+              <div className={styles.test} key={stadiumHour.scheduleId}>
+                <div
+                  className={`${styles.scheduleGroup} ${
+                    isScheduleId === stadiumHour.scheduleId
+                      ? styles.selected
+                      : ''
+                  }`}
+                  key={stadiumHour.scheduleId}
+                  onClick={() => handleScheduleClick(stadiumHour.scheduleId)}
+                >
+                  <div id={styles.hour}>{stadiumHour.hours}</div>
+                  <div id={styles.videoCnt}>
+                    {stadiumHour.videoCount}개의 영상
+                  </div>
                 </div>
               </div>
-            </div>
-          ))}
+            ) : null,
+          )}
         </Slider>
       ) : (
         <div></div>
