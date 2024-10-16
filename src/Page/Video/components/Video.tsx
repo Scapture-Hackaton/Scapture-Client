@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+import { useRef } from 'react';
 import { useLocation } from 'react-router-dom';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useRecoilValue } from 'recoil';
@@ -247,7 +247,7 @@ const Video = () => {
     }
   };
 
-  const [isBlobUrl, setBlobUrl] = useState('');
+  // const [isBlobUrl, setBlobUrl] = useState('');
 
   // const loadVideo = async () => {
   //   try {
