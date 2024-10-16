@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useRef } from 'react';
 import styles from '../scss/selectInfoBox.module.scss';
 import { StadiumHoursData } from '../../../apis/dto/scapture.dto';
 
@@ -27,7 +27,7 @@ const StadiumHours: React.FC<StadiumHoursProps> = ({
     dotsClass: 'shceduleCss',
   };
 
-  // // 날짜 선택 핸들러
+  // 날짜 선택 핸들러
   const handleScheduleClick = (index: number) => {
     // setSelectedShcedule(index); // 클릭된 요소의 index를 상태로 설정
     chooseSchedule(index);
@@ -36,40 +36,44 @@ const StadiumHours: React.FC<StadiumHoursProps> = ({
   const sliderRef = useRef<Slider | null>(null); // Slider에 대한 ref
 
   // 선택된 scheduleId가 변경될 때 슬라이드 이동
-  useEffect(() => {
-    if (sliderRef.current && isScheduleId && isScheduleId !== -1) {
-      const scheduleIndex = stadiumHourList.findIndex(
-        item => item.scheduleId === isScheduleId,
-      );
-      if (scheduleIndex !== -1) {
-        sliderRef.current.slickGoTo(scheduleIndex);
-      }
-    }
-  }, [isScheduleId]);
+  // useEffect(() => {
+  //   if (sliderRef.current && isScheduleId && isScheduleId !== -1) {
+  //     const scheduleIndex = stadiumHourList.findIndex(
+  //       item => item.scheduleId === isScheduleId,
+  //     );
+  //     if (scheduleIndex !== -1) {
+  //       sliderRef.current.slickGoTo(scheduleIndex);
+  //       console.log(scheduleIndex);
+  //     }
+  //   }
+  // }, [isScheduleId]);
 
   return (
     <>
       {stadiumHourList && stadiumHourList.length > 0 ? (
         <Slider {...settings} ref={sliderRef} className={styles.housrsList}>
-          {stadiumHourList.map((stadiumHour: StadiumHoursData) =>
-            stadiumHour.videoCount !== 0 ? (
-              <div className={styles.test} key={stadiumHour.scheduleId}>
-                <div
-                  className={`${styles.scheduleGroup} ${
-                    isScheduleId === stadiumHour.scheduleId
-                      ? styles.selected
-                      : ''
-                  }`}
-                  key={stadiumHour.scheduleId}
-                  onClick={() => handleScheduleClick(stadiumHour.scheduleId)}
-                >
-                  <div id={styles.hour}>{stadiumHour.hours}</div>
-                  <div id={styles.videoCnt}>
-                    {stadiumHour.videoCount}개의 영상
+          {stadiumHourList.map(
+            (stadiumHour: StadiumHoursData, index: number) =>
+              stadiumHour.videoCount !== 0 ? (
+                <div className={styles.test} key={stadiumHour.scheduleId}>
+                  <div
+                    className={`${styles.scheduleGroup} ${
+                      isScheduleId === stadiumHour.scheduleId
+                        ? styles.selected
+                        : ''
+                    }`}
+                    key={stadiumHour.scheduleId}
+                    onClick={() =>
+                      handleScheduleClick(stadiumHour.scheduleId, index)
+                    }
+                  >
+                    <div id={styles.hour}>{stadiumHour.hours}</div>
+                    <div id={styles.videoCnt}>
+                      {stadiumHour.videoCount}개의 영상
+                    </div>
                   </div>
                 </div>
-              </div>
-            ) : null,
+              ) : null,
           )}
         </Slider>
       ) : (
