@@ -249,6 +249,46 @@ const Video = () => {
 
   const [isBlobUrl, setBlobUrl] = useState('');
 
+  // const loadVideo = async () => {
+  //   try {
+  //     if (isBlobUrl) {
+  //       // 기존 Blob URL을 해제하여 메모리 누수 방지
+  //       URL.revokeObjectURL(isBlobUrl);
+  //       setBlobUrl('');
+  //     }
+
+  //     // 비디오 데이터를 모두 다운로드
+  //     const response = await fetch(videoDetail.video);
+  //     const blob = await response.blob();
+  //     const url = URL.createObjectURL(blob);
+
+  //     const videoElement = document.getElementById(
+  //       'videoPlayer',
+  //     ) as HTMLVideoElement;
+
+  //     if (videoElement) {
+  //       videoElement.src = url;
+
+  //       // 비디오가 끝까지 재생된 후 Blob URL 해제
+  //       videoElement.onended = () => {
+  //         URL.revokeObjectURL(url);
+  //         setBlobUrl(''); // 해제 후 상태 초기화
+  //       };
+  //     }
+
+  //     // 새로운 Blob URL 상태 설정
+  //     setBlobUrl(url);
+  //   } catch (error) {
+  //     console.error('비디오 로딩 중 오류가 발생했습니다.', error);
+  //   }
+  // };
+
+  // useEffect(() => {
+  //   if (videoDetail && videoDetail.video) {
+  //     loadVideo();
+  //   }
+  // }, [videoDetail]);
+
   const loadVideo = async () => {
     try {
       if (isBlobUrl) {
@@ -257,7 +297,7 @@ const Video = () => {
         setBlobUrl('');
       }
 
-      // 비디오 데이터를 모두 다운로드
+      // 비디오 데이터를 다운로드
       const response = await fetch(videoDetail.video);
       const blob = await response.blob();
       const url = URL.createObjectURL(blob);
@@ -268,12 +308,6 @@ const Video = () => {
 
       if (videoElement) {
         videoElement.src = url;
-
-        // 비디오가 끝까지 재생된 후 Blob URL 해제
-        videoElement.onended = () => {
-          URL.revokeObjectURL(url);
-          setBlobUrl(''); // 해제 후 상태 초기화
-        };
       }
 
       // 새로운 Blob URL 상태 설정
@@ -287,6 +321,13 @@ const Video = () => {
     if (videoDetail && videoDetail.video) {
       loadVideo();
     }
+
+    return () => {
+      if (isBlobUrl) {
+        // 컴포넌트 언마운트 시 Blob URL 해제
+        URL.revokeObjectURL(isBlobUrl);
+      }
+    };
   }, [videoDetail]);
 
   return (
