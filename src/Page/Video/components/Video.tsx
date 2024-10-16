@@ -72,12 +72,20 @@ const Video = () => {
   const location = useLocation();
   const stadiumId = location.state.stadiumId;
   const videoId = location.state.videoId;
+
   // const month = location.state.month;
   // const day = location.state.day;
   // const prevFieldId = location.state.prevFieldId;
   // const prevScheduleId = location.state.prevScheduleId;
 
-  const prevSelectDataProps: PrevSelectDataProps = {
+  // const prevSelectDataProps: PrevSelectDataProps = {
+  //   month: location.state.month,
+  //   day: location.state.day,
+  //   prevFieldId: location.state.prevFieldId,
+  //   prevScheduleId: location.state.prevScheduleId,
+  // };
+
+  const prevSelectDataProps = {
     month: location.state.month,
     day: location.state.day,
     prevFieldId: location.state.prevFieldId,
