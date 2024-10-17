@@ -4,9 +4,14 @@ import styles from '../scss/selectInfoBox.module.scss';
 interface SelectProps {
   dayList: { day: string; weekday: string }[];
   onOptionChange: (option: any) => void;
+  isDay: string;
 }
 
-const Calendar: React.FC<SelectProps> = ({ dayList, onOptionChange }) => {
+const Calendar: React.FC<SelectProps> = ({
+  dayList,
+  onOptionChange,
+  isDay,
+}) => {
   const formattedDayList = dayList.map(item => ({
     day: item.day.padStart(2, '0'),
     weekday: item.weekday,
@@ -14,7 +19,7 @@ const Calendar: React.FC<SelectProps> = ({ dayList, onOptionChange }) => {
 
   // 기본값을 리스트의 마지막 요소(오늘)로 설정
   const [selectedDay, setSelectedDay] = useState(
-    formattedDayList[formattedDayList.length - 1].day,
+    isDay ? isDay : formattedDayList[formattedDayList.length - 1].day,
   );
 
   const [selectedIdx, setselectedIdx] = useState(formattedDayList.length - 1);
