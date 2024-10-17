@@ -31,7 +31,9 @@ const Calendar: React.FC<SelectProps> = ({ dayList, onOptionChange }) => {
   // console.log(dayList);
 
   return (
-    <div className={styles.calendar}>
+    <div
+      className={`${styles.calendar} ${dayList.length === 2 ? styles.wonju : ''}`}
+    >
       {formattedDayList.map((day, idx) => (
         <div
           key={idx}
