@@ -1,5 +1,5 @@
 import { useRef } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useSearchParams } from 'react-router-dom';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useRecoilValue } from 'recoil';
 
@@ -69,27 +69,26 @@ const Video = () => {
   const modalRef = useRef<HTMLDialogElement>(null);
   const loginModalRef = useRef<HTMLDialogElement>(null);
   const queryClient = useQueryClient();
+
   const location = useLocation();
-  const stadiumId = location.state.stadiumId;
-  const videoId = location.state.videoId;
+  const [searchParams] = useSearchParams();
 
-  // const month = location.state.month;
-  // const day = location.state.day;
-  // const prevFieldId = location.state.prevFieldId;
-  // const prevScheduleId = location.state.prevScheduleId;
+  const stadiumId = searchParams.get('stadiumId') || location.state.stadiumId;
 
-  // const prevSelectDataProps: PrevSelectDataProps = {
-  //   month: location.state.month,
-  //   day: location.state.day,
-  //   prevFieldId: location.state.prevFieldId,
-  //   prevScheduleId: location.state.prevScheduleId,
-  // };
+  const videoId = searchParams.get('videoId') || location.state.videoId;
+
+  const month = searchParams.get('month') || location.state.month;
+  const day = searchParams.get('day') || location.state.day;
+  const prevFieldId =
+    searchParams.get('prevFieldId') || location.state.prevFieldId;
+  const prevScheduleId =
+    Number(searchParams.get('prevScheduleId')) || location.state.prevScheduleId;
 
   const prevSelectDataProps = {
-    month: location.state.month,
-    day: location.state.day,
-    prevFieldId: location.state.prevFieldId,
-    prevScheduleId: location.state.prevScheduleId,
+    month,
+    day,
+    prevFieldId,
+    prevScheduleId,
   };
 
   const { data: stadiumDetail } = useQuery({
@@ -247,6 +246,18 @@ const Video = () => {
     }
   };
 
+  const handleShareClick = () => {
+    const shareUrl = `${window.location.origin}/video?stadiumId=${stadiumId}&videoId=${videoId}&day=${day}&month=${month}&prevFieldId=${prevFieldId}&prevScheduleId=${prevScheduleId}`;
+    navigator.clipboard
+      .writeText(shareUrl)
+      .then(() => {
+        alert('링크가 클립보드에 복사되었습니다!');
+      })
+      .catch(err => {
+        console.error('링크 복사 중 오류 발생:', err);
+      });
+  };
+
   // const [isBlobUrl, setBlobUrl] = useState('');
 
   // const loadVideo = async () => {
@@ -347,28 +358,33 @@ const Video = () => {
             </div>
             <div className={styles.group}>
               <div className={styles.title}>{videoDetail.name}</div>
-              <ul className={styles.icons}>
-                <Heart
-                  id={videoId}
-                  isLiked={videoDetail.isLiked}
-                  likeCount={videoDetail.likeCount}
-                  onToggleLike={handleToggleLike}
-                />
+              <div className={styles.videoOpt}>
+                <ul className={styles.icons}>
+                  <Heart
+                    id={videoId}
+                    isLiked={videoDetail.isLiked}
+                    likeCount={videoDetail.likeCount}
+                    onToggleLike={handleToggleLike}
+                  />
 
-                <BookMark
-                  stored={videoDetail.isStored}
-                  onToggleStore={handleToggleStore}
-                ></BookMark>
+                  <BookMark
+                    stored={videoDetail.isStored}
+                    onToggleStore={handleToggleStore}
+                  ></BookMark>
 
-                {/* <li onClick={handelOpenDownloadModal}>
+                  {/* <li onClick={handelOpenDownloadModal}>
                   <img src={download} alt="" width="20px" height="20px"></img>
                   <p>다운로드</p>
-                </li>
-                <li>
+                </li> */}
+                  {/* <li>
                   <img src={share} alt="" width="20px" height="20px"></img>
                   <p>공유</p>
                 </li> */}
-              </ul>
+                </ul>
+                <div id={styles.shareVideo} onClick={handleShareClick}>
+                  영상 공유하기
+                </div>
+              </div>
             </div>
           </div>
         ) : (

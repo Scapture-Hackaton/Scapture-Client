@@ -202,7 +202,7 @@ const SelectInfoBox: React.FC<SelectInfoBoxProps> = ({
   );
 
   useEffect(() => {
-    if (isStadiumHourList) {
+    if (prevSelectDataProps == null && isStadiumHourList) {
       const closestScheduleId = findClosestTime(isStadiumHourList);
 
       setScheduleId(closestScheduleId);
@@ -259,10 +259,19 @@ const SelectInfoBox: React.FC<SelectInfoBoxProps> = ({
                   <img src={calendarIcon} alt="" width="20px" height="20px" />
                   <div>날짜</div>
                 </div>
-                <Calendar
-                  dayList={dayList}
-                  onOptionChange={handleDayChange}
-                ></Calendar>
+                {stadiumId === 67 ? (
+                  <Calendar
+                    dayList={dayList.filter(
+                      day => day.day === '12' || day.day === '13',
+                    )}
+                    onOptionChange={handleDayChange}
+                  ></Calendar>
+                ) : (
+                  <Calendar
+                    dayList={dayList}
+                    onOptionChange={handleDayChange}
+                  ></Calendar>
+                )}
               </div>
 
               <div className={styles.options}>

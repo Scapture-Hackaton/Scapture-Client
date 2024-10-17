@@ -162,8 +162,7 @@
             }
           }
 
-          .calendar {
-            width: 100%;
+          @mixin calendar {
             display: flex;
             align-items: center;
             justify-content: space-between;
@@ -211,6 +210,22 @@
                   color: var(--font-color-gray-100);
                 }
               }
+            }
+          }
+
+          .calendar {
+            width: 100%;
+
+            @include calendar();
+          }
+
+          .wonju {
+            width: 50%;
+
+            @include calendar();
+
+            .block {
+              margin: 0 1rem;
             }
           }
 
