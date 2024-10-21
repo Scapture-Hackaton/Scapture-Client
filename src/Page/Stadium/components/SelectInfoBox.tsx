@@ -259,21 +259,12 @@ const SelectInfoBox: React.FC<SelectInfoBoxProps> = ({
                   <img src={calendarIcon} alt="" width="20px" height="20px" />
                   <div>날짜</div>
                 </div>
-                {stadiumId == 67 ? (
-                  <Calendar
-                    dayList={dayList.filter(
-                      day => day.day === '12' || day.day === '13',
-                    )}
-                    onOptionChange={handleDayChange}
-                    isDay={isDay}
-                  ></Calendar>
-                ) : (
-                  <Calendar
-                    dayList={dayList}
-                    onOptionChange={handleDayChange}
-                    isDay={isDay}
-                  ></Calendar>
-                )}
+
+                <Calendar
+                  dayList={dayList}
+                  onOptionChange={handleDayChange}
+                  isDay={isDay}
+                ></Calendar>
               </div>
 
               <div className={styles.options}>
