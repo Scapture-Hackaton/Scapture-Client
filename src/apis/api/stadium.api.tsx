@@ -89,7 +89,6 @@ export const likesVideo = async (videoId: number) => {
 
     return res.data;
   } catch (e: any) {
-    console.log(e);
     return {
       status: e.response.status,
     };
@@ -105,8 +104,6 @@ export const unLikeVideo = async (videoId: number) => {
 
     return res.data;
   } catch (e: any) {
-    console.log(e);
-
     return {
       status: e.response.status,
     };
@@ -119,6 +116,7 @@ export const getStadiumLocations = async () => {
     const res: CommonResponse = await defaultInstance.get(
       `/api/stadiums/location`,
     );
+
     return res.data.data;
   } catch (e: any) {
     return {
