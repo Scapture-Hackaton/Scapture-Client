@@ -16,7 +16,11 @@ interface CameraControlProps {
 
 const SOCKET_SERVER_IP = `${import.meta.env.VITE_SOCKET_SERVER_IP}`;
 
-const timeList = ['1', '3', '5', '10', '15', '20', '25', '30'];
+const timeList: string[] = [];
+
+for (let i = 10; i <= 120; i += 10) {
+  timeList.push(`${i}`);
+}
 
 const CameraControl: React.FC<CameraControlProps> = ({ fields }) => {
   // 페이지에 보여줄 시간
