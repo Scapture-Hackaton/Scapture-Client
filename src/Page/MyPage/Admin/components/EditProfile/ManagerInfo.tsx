@@ -103,7 +103,7 @@ const ManagerInfo: React.FC<ManagerInfoProps> = ({
           </div>
           <div className={styles.profile}>
             <div className={styles.subscribe}>
-              <div className={styles.badge}>구장 관리지</div>
+              <div className={styles.badge}>구장 관리자</div>
             </div>
             <div className={styles.profileId}>
               {myProfileData && myProfileData?.data?.name
