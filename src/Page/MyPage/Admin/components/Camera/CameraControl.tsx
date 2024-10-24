@@ -18,7 +18,7 @@ const SOCKET_SERVER_IP = `${import.meta.env.VITE_SOCKET_SERVER_IP}`;
 
 const timeList: string[] = [];
 
-for (let i = 10; i <= 120; i += 10) {
+for (let i = 10; i <= 180; i += 10) {
   timeList.push(`${i}`);
 }
 
