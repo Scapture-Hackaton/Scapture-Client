@@ -80,7 +80,6 @@ const Stadium = () => {
                 {stadiumDetail.description}
               </div>
             </div>
-
             <div
               className={`${styles.infoBox}  ${open ? styles.open : ''}`}
               ref={selectRef}

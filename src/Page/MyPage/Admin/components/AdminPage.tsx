@@ -10,6 +10,7 @@ import ManagerInfo from './EditProfile/ManagerInfo';
 import { getManageStadium } from '../../../../apis/api/admin.api';
 // import { getStadiumList } from '../../../../apis/api/scapture.api';
 import { useNavigate } from 'react-router-dom';
+import VideoPlayer from '../../../../common/component/VideoPlayer';
 
 const AdminPage = () => {
   const navigate = useNavigate();
@@ -100,7 +101,15 @@ const AdminPage = () => {
               </div>
             </div>
           </>
-        ) : null}
+        ) : (
+          <>
+            <VideoPlayer
+              videoSrc={`${import.meta.env.VITE_VIDEO_SRC}`}
+              drmType="FairPlay"
+              licenseUrl="https://license-global.pallycon.com/ri/licenseManager.do"
+            ></VideoPlayer>
+          </>
+        )}
       </div>
     </div>
   );

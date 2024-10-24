@@ -47,7 +47,7 @@ module.exports = {
     // React.FC 사용하지 않는게 좋기 때문에 함수형 컴포넌트의 리턴값 타입 지정을 막기
     '@typescript-eslint/explicit-function-return-type': 'off',
 
-    camelcase: ['error', { properties: 'always' }],
+    // camelcase: ['error', { properties: 'always' }],
 
     // jsx 파일 확장자 .jx, .jsx, .ts, .tsx 허용
     'react/jsx-filename-extension': [
