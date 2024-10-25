@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import videojs from 'video.js';
 import 'video.js/dist/video-js.css';
 import 'videojs-contrib-eme';
@@ -6,7 +6,7 @@ import CryptoJS from 'crypto-js';
 
 interface VideoPlayerProps {
   videoSrc: string; // HLS URL
-  drmType: string; // DRM 유형 (Widevine, PlayReady, FairPlay)
+  //   drmType: string; // DRM 유형 (Widevine, PlayReady, FairPlay)
   licenseUrl: string; // PallyCon 라이선스 URL
 }
 
@@ -23,11 +23,29 @@ const licensePolicy = {
 
 const VideoPlayer: React.FC<VideoPlayerProps> = ({
   videoSrc,
-  drmType,
+  //   drmType,
   licenseUrl,
 }) => {
   const videoRef = useRef<HTMLVideoElement | null>(null);
   const playerRef = useRef<any>(null);
+  const [drmType, setDrmType] = useState<string | null>(null);
+
+  useEffect(() => {
+    const type = window.navigator.userAgent.toLowerCase();
+    switch (true) {
+      case type.indexOf('edge') > -1:
+        setDrmType('PlayReady');
+        break;
+      case type.indexOf('chrome') > -1:
+        setDrmType('Widevine');
+        break;
+      case type.indexOf('safari') > -1:
+        setDrmType('FairPlay');
+        break;
+      default:
+        setDrmType(null);
+    }
+  }, []);
 
   const cipher = CryptoJS.AES.encrypt(
     JSON.stringify(licensePolicy),
@@ -86,7 +104,7 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({
   };
 
   useEffect(() => {
-    if (videoRef.current) {
+    if (videoRef.current && drmType) {
       playerRef.current = videojs(videoRef.current, {
         controls: true,
         autoplay: false,
