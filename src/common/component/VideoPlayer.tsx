@@ -39,8 +39,6 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({
     },
   ).toString();
 
-  console.log(cipher);
-
   //   console.log(cipher);
 
   const UTCTime = new Date().toISOString().replace(/\.\d{3}/gi, '');
@@ -70,13 +68,22 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({
     key_rotation: false,
   };
 
+  //   console.log(pallyconSiteKey);
+
   //   console.log('token json : ' + JSON.stringify(tokenData));
 
   const base64Token = CryptoJS.enc.Base64.stringify(
     CryptoJS.enc.Utf8.parse(JSON.stringify(tokenData)),
   );
 
-  console.log(base64Token);
+  //   console.log(base64Token);
+
+  // DRM 유형에 따른 MIME 타입 반환
+  const getMimeType = (drmType: string) => {
+    return drmType === 'Widevine' || drmType === 'PlayReady'
+      ? 'application/dash+xml' // DASH 포맷
+      : 'application/x-mpegURL'; // HLS 포맷 (FairPlay)
+  };
 
   useEffect(() => {
     if (videoRef.current) {
@@ -87,7 +94,7 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({
         sources: [
           {
             src: videoSrc,
-            type: 'application/x-mpegURL',
+            type: getMimeType(drmType),
           },
         ],
       });
@@ -97,15 +104,12 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({
 
       playerRef.current.ready(() => {
         playerRef.current.eme();
-        // console.log(result);
-
         const keySystems = getKeySystems(drmType, licenseUrl, base64Token);
-        // console.log(keySystems);
 
         if (keySystems) {
           playerRef.current.src({
             src: videoSrc,
-            type: 'application/x-mpegURL',
+            type: getMimeType(drmType), // MIME 타입 설정
             keySystems,
           });
         } else {
@@ -150,7 +154,7 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({
       case 'FairPlay':
         return {
           'com.apple.fps.1_0': {
-            certificateUri: `https://license-global.pallycon.com/ri/fpsKeyManager.do?siteId=${pallyconSiteKey}`, // 인증서 URL
+            certificateUri: `https://license-global.pallycon.com/ri/fpsKeyManager.do?siteId=${pallyconSiteId}`, // 인증서 URL
             licenseUri: licenseUrl,
             headers: {
               'pallycon-customdata-v2': token,
