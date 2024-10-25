@@ -105,7 +105,6 @@ const AdminPage = () => {
           <>
             <VideoPlayer
               videoSrc={`${import.meta.env.VITE_VIDEO_SRC}`}
-              drmType="Widevine" // FairPlay, Widevine, PlayReady
               licenseUrl="https://license-global.pallycon.com/ri/licenseManager.do"
             ></VideoPlayer>
           </>
