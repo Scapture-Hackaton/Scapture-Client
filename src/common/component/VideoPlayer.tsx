@@ -133,6 +133,8 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({
         } else {
           console.error('지원되지 않는 DRM 유형');
         }
+
+        playerRef.current.qualitySelector();
       });
     }
 
