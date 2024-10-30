@@ -1,3 +1,5 @@
+// import styles from '../scss/video.module.scss';
+
 import React, { useEffect, useRef, useState } from 'react';
 import videojs from 'video.js';
 import 'video.js/dist/video-js.css';
@@ -106,8 +108,23 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({
   useEffect(() => {
     if (videoRef.current && drmType) {
       playerRef.current = videojs(videoRef.current, {
-        controls: true,
-        autoplay: false,
+        autoplay: true, // 자동 재생 설정
+        controls: true, // 플레이어 컨트롤 표시 설정
+        crossOrigin: 'anonymous', // 교차 출처 리소스 공유 설정
+        responsive: true, // 반응형 플레이어 설정
+        fluid: true, // 컨테이너 크기에 맞게 플레이어 크기 조절
+        playbackRates: [2, 1.5, 1.25, 1, 0.75, 0.5], // 사용 가능한 재생 속도 옵션
+        touchEnabled: true, // 터치 이벤트 활성화 설정
+        controlBar: {
+          // 컨트롤 바 설정
+          playToggle: true, // 재생/일시정지 토글 버튼 활성화
+          remainingTimeDisplay: true, // 남은 시간 표시 활성화
+          progressControl: true, // 진행률 컨트롤 활성화
+          pictureInPictureToggle: true, // 화면 내 화면(PiP) 토글 버튼 활성화
+          currentTimeDisplay: true, // 현재 재생 시간 표시 활성화
+
+          qualitySelector: true, // 화질 선택 컨트롤 활성화
+        },
         preload: 'auto',
         sources: [
           {
@@ -116,6 +133,7 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({
           },
         ],
       });
+
       playerRef.current.on('error', () => {
         console.error('VideoJS Error:', playerRef.current.error());
       });
@@ -133,8 +151,6 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({
         } else {
           console.error('지원되지 않는 DRM 유형');
         }
-
-        playerRef.current.qualitySelector();
       });
     }
 
@@ -143,7 +159,7 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({
         playerRef.current.dispose();
       }
     };
-  }, [videoSrc, drmType, licenseUrl, base64Token]);
+  }, [drmType]);
 
   // DRM 유형에 따른 키 시스템 설정
   const getKeySystems = (
@@ -193,8 +209,6 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({
         className="video-js vjs-default-skin"
         controls
         preload="auto"
-        width="640"
-        height="360"
       />
     </div>
   );
