@@ -133,6 +133,13 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({
             type: getMimeType(drmType),
           },
         ],
+        html5: {
+          nativeAudioTracks: false,
+          nativeVideoTracks: false,
+          hls: {
+            overrideNative: true,
+          },
+        },
       });
 
       // 화질 선택 플러그인 설정
