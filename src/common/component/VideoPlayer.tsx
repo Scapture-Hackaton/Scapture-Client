@@ -5,6 +5,7 @@ import videojs from 'video.js';
 import 'video.js/dist/video-js.css';
 import 'videojs-contrib-eme';
 import CryptoJS from 'crypto-js';
+import 'videojs-contrib-quality-levels';
 
 interface VideoPlayerProps {
   videoSrc: string; // HLS URL
@@ -132,6 +133,17 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({
             type: getMimeType(drmType),
           },
         ],
+      });
+
+      // 화질 선택 플러그인 설정
+      const qualityLevels = playerRef.current.qualityLevels();
+
+      // 가장 높은 화질을 기본 설정
+      qualityLevels.on('addqualitylevel', () => {
+        const highestQualityIndex = qualityLevels.length - 1;
+        for (let i = 0; i < qualityLevels.length; i++) {
+          qualityLevels[i].enabled = i === highestQualityIndex;
+        }
       });
 
       playerRef.current.on('error', () => {
