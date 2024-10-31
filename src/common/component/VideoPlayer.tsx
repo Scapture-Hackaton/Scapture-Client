@@ -6,6 +6,7 @@ import 'video.js/dist/video-js.css';
 import 'videojs-contrib-eme';
 import CryptoJS from 'crypto-js';
 import 'videojs-contrib-quality-levels';
+import 'videojs-http-source-selector';
 
 interface VideoPlayerProps {
   videoSrc: string; // HLS URL
@@ -160,6 +161,8 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({
             type: getMimeType(drmType), // MIME 타입 설정
             keySystems,
           });
+
+          playerRef.current.httpSourceSelector();
         } else {
           console.error('지원되지 않는 DRM 유형');
         }
