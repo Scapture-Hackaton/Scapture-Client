@@ -112,11 +112,11 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({
       playerRef.current = videojs(videoRef.current, {
         autoplay: true, // 자동 재생 설정
         controls: true, // 플레이어 컨트롤 표시 설정
-        crossOrigin: 'anonymous', // 교차 출처 리소스 공유 설정
+        // crossOrigin: 'anonymous', // 교차 출처 리소스 공유 설정
         responsive: true, // 반응형 플레이어 설정
         fluid: true, // 컨테이너 크기에 맞게 플레이어 크기 조절
         playbackRates: [2, 1.5, 1.25, 1, 0.75, 0.5], // 사용 가능한 재생 속도 옵션
-        touchEnabled: true, // 터치 이벤트 활성화 설정
+        // touchEnabled: true, // 터치 이벤트 활성화 설정
         controlBar: {
           // 컨트롤 바 설정
           playToggle: true, // 재생/일시정지 토글 버튼 활성화
@@ -124,8 +124,7 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({
           progressControl: true, // 진행률 컨트롤 활성화
           pictureInPictureToggle: true, // 화면 내 화면(PiP) 토글 버튼 활성화
           currentTimeDisplay: true, // 현재 재생 시간 표시 활성화
-
-          qualitySelector: true, // 화질 선택 컨트롤 활성화
+          // qualitySelector: true, // 화질 선택 컨트롤 활성화
         },
         preload: 'auto',
         sources: [
@@ -141,9 +140,8 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({
 
       // 가장 높은 화질을 기본 설정
       qualityLevels.on('addqualitylevel', () => {
-        const highestQualityIndex = qualityLevels.length - 1;
         for (let i = 0; i < qualityLevels.length; i++) {
-          qualityLevels[i].enabled = i === highestQualityIndex;
+          qualityLevels[i].enabled = true; // 모든 품질 레벨을 활성화
         }
       });
 
@@ -153,6 +151,7 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({
 
       playerRef.current.ready(() => {
         playerRef.current.eme();
+
         const keySystems = getKeySystems(drmType, licenseUrl, base64Token);
 
         if (keySystems) {
