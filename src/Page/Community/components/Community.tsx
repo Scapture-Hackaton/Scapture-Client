@@ -45,6 +45,7 @@ import upArrow from '../../../assets/Icon/upArrow.svg';
 
 import { loginData, loginDataAtom } from '../../Header/Atom/atom';
 import { useRecoilValue } from 'recoil';
+// import VideoPlayer from '../../../common/component/VideoPlayer';
 
 const Community = () => {
   //DOM
@@ -335,6 +336,12 @@ const Community = () => {
         {isVideoDetailDataSuccess && videoDetailData ? (
           <>
             <div className={styles.videoContainer}>
+              {/* <div className={styles.video}>
+                <VideoPlayer
+                  videoSrc={`${import.meta.env.VITE_VIDEO_SRC}`}
+                  licenseUrl="https://license-global.pallycon.com/ri/licenseManager.do"
+                ></VideoPlayer>
+              </div> */}
               <div className={styles.video}>
                 <video
                   id="videoPlayer"
