@@ -6,7 +6,7 @@ import DownArrow from '../../../../../assets/Icon/dropDown.svg';
 import cancelBtnIcon from '../../../../../assets/Icon/cancelBtnIcon.svg';
 import PictureIcon from '../../../../../assets/Icon/pictureIcon.svg';
 import PlusBtnIcon from '../../../../../assets/Icon/plusBtnIcon.svg';
-import TestImg from '../../../image/test.png';
+import TestImg from '../../../../../assets/image/test.png';
 
 interface FieldFrameProps {
   frameIdx: number;
@@ -112,7 +112,7 @@ const FieldFrame: React.FC<FieldFrameProps> = ({
         <div className={styles.editDes}>
           <input
             type="text"
-            placeholder="구장명 입력"
+            placeholder="구역명 입력"
             onChange={e => handleChange(e, 'name')}
             value={field.name}
           ></input>

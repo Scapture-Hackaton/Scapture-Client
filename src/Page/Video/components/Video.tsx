@@ -33,7 +33,8 @@ import loginModal from '../../Header/scss/login-modal.module.scss';
 
 // svg
 // import download from '../../../assets/Icon/downLoadIcon.svg';
-// import share from '../../../assets/Icon/shareIcon.svg';
+// import share from '../image/ShareIcon.svg';
+// import RightArrow from '../image/RightArrow.svg';
 
 // dto
 import { StadiumDetail, VideoDetail } from '../../../apis/dto/scapture.dto';
@@ -258,89 +259,6 @@ const Video = () => {
       });
   };
 
-  // const [isBlobUrl, setBlobUrl] = useState('');
-
-  // const loadVideo = async () => {
-  //   try {
-  //     if (isBlobUrl) {
-  //       // 기존 Blob URL을 해제하여 메모리 누수 방지
-  //       URL.revokeObjectURL(isBlobUrl);
-  //       setBlobUrl('');
-  //     }
-
-  //     // 비디오 데이터를 모두 다운로드
-  //     const response = await fetch(videoDetail.video);
-  //     const blob = await response.blob();
-  //     const url = URL.createObjectURL(blob);
-
-  //     const videoElement = document.getElementById(
-  //       'videoPlayer',
-  //     ) as HTMLVideoElement;
-
-  //     if (videoElement) {
-  //       videoElement.src = url;
-
-  //       // 비디오가 끝까지 재생된 후 Blob URL 해제
-  //       videoElement.onended = () => {
-  //         URL.revokeObjectURL(url);
-  //         setBlobUrl(''); // 해제 후 상태 초기화
-  //       };
-  //     }
-
-  //     // 새로운 Blob URL 상태 설정
-  //     setBlobUrl(url);
-  //   } catch (error) {
-  //     console.error('비디오 로딩 중 오류가 발생했습니다.', error);
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   if (videoDetail && videoDetail.video) {
-  //     loadVideo();
-  //   }
-  // }, [videoDetail]);
-
-  // const loadVideo = async () => {
-  //   try {
-  //     if (isBlobUrl) {
-  //       // 기존 Blob URL을 해제하여 메모리 누수 방지
-  //       URL.revokeObjectURL(isBlobUrl);
-  //       setBlobUrl('');
-  //     }
-
-  //     // 비디오 데이터를 다운로드
-  //     const response = await fetch(videoDetail.video);
-  //     const blob = await response.blob();
-  //     const url = URL.createObjectURL(blob);
-
-  //     const videoElement = document.getElementById(
-  //       'videoPlayer',
-  //     ) as HTMLVideoElement;
-
-  //     if (videoElement) {
-  //       videoElement.src = url;
-  //     }
-
-  //     // 새로운 Blob URL 상태 설정
-  //     setBlobUrl(url);
-  //   } catch (error) {
-  //     console.error('비디오 로딩 중 오류가 발생했습니다.', error);
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   if (videoDetail && videoDetail.video) {
-  //     loadVideo();
-  //   }
-
-  //   return () => {
-  //     if (isBlobUrl) {
-  //       // 컴포넌트 언마운트 시 Blob URL 해제
-  //       URL.revokeObjectURL(isBlobUrl);
-  //     }
-  //   };
-  // }, [videoDetail]);
-
   return (
     <div className={styles.test}>
       <Header index={2} />
@@ -384,6 +302,22 @@ const Video = () => {
                 <div id={styles.shareVideo} onClick={handleShareClick}>
                   영상 공유하기
                 </div>
+                {/* <div id={styles.shareVideo} onClick={handleShareClick}>
+                  <div className={styles.leftItem}>
+                    <div id={styles.shareIcon}>
+                      <img src={share} alt="" width="52px" height="52px" />
+                    </div>
+                    <div id={styles.text}>
+                      <div id={styles.subTxt}>
+                        편집된 영상을 바로 공유할 수 있는 기회!
+                      </div>
+                      <div id={styles.title}>영상 공유하기</div>
+                    </div>
+                  </div>
+                  <div id={styles.rightArrowIcon}>
+                    <img src={RightArrow} alt="" width="24px" height="24px" />
+                  </div>
+                </div> */}
               </div>
             </div>
           </div>

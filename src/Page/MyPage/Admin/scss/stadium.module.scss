@@ -279,6 +279,16 @@
             font-weight: 700;
             font-size: var(--font-size-xm);
           }
+
+          &.stopRecord {
+            cursor: pointer;
+
+            font-weight: 500;
+            font-size: var(--font-size-xm);
+            color: var(--font-color-gray-100);
+
+            background-color: var(--alert-warning-500);
+          }
         }
       }
 

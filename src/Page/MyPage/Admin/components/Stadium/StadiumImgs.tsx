@@ -1,7 +1,7 @@
 import React from 'react';
 // import styles from '../../scss/stadium.module.scss';
 import styles from './scss/ManageStadium.module.scss';
-import TestImg from '../../../image/test.png';
+import TestImg from '../../../../../assets/image/test.png';
 
 interface StadiumImgsProps {
   stadiumImages: any;

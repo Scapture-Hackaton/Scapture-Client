@@ -10,7 +10,7 @@ import { FieldDto } from './dto/field.dto';
 import PeopleIcon from '../../../../../assets/Icon/peopleIcon.svg';
 import CoinIcon from '../../../../../assets/Icon/CoinIcon.svg';
 
-import TestImg from '../../../image/test.png';
+import TestImg from '../../../../../assets/image/test.png';
 
 interface StadiumsProps {
   fieldData: FieldDto[];

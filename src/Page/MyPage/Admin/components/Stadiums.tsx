@@ -7,6 +7,7 @@ import location from '../../../../assets/Icon/location.svg';
 import clock from '../../../../assets/Icon/Clock.svg';
 import parking from '../../../../assets/Icon/parking.svg';
 import noDataIcon from '../../../..//assets/Icon/noDataIcon.svg';
+import TestImg from '../../../../assets/image/test.png';
 
 interface StadiumsProps {
   stadiumData: Stadium[];
@@ -42,7 +43,16 @@ const Stadiums: React.FC<StadiumsProps> = ({ stadiumData }) => {
           >
             <div className={styles.stadium}>
               <div className={styles.stadiumImage}>
-                <img src={stadium.image} alt="" width="180px" height="140px" />
+                {stadium?.image ? (
+                  <img
+                    src={stadium.image}
+                    alt=""
+                    width="180px"
+                    height="140px"
+                  />
+                ) : (
+                  <img src={TestImg} alt="" width="100%" height="210px" />
+                )}
               </div>
               <div className={styles.stadiumInfo}>
                 <div className={styles.stadium}>
