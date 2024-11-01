@@ -47,6 +47,7 @@
     "prettier": "^3.3.3",
     "sass": "^1.77.8",
     "typescript": "^5.2.2",
+    "uuid": "^11.0.2",
     "video.js": "^7.21.6",
     "videojs-contrib-eme": "^4.0.1",
     "videojs-contrib-quality-levels": "^2.2.1",

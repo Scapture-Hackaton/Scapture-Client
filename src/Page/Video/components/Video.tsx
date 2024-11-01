@@ -51,6 +51,7 @@ import {
 
 // atom
 import { loginData, loginDataAtom } from '../../Header/Atom/atom';
+import VideoPlayer from '../../../common/component/VideoPlayer';
 
 export interface PrevSelectDataProps {
   month: string;
@@ -266,13 +267,17 @@ const Video = () => {
         {isVideoDetailSuccess && videoDetail && videoDetail.video ? (
           <div className={styles.videoContainer}>
             <div className={styles.video}>
-              <video
+              {/* <video
                 id="videoPlayer"
                 controls
                 controlsList="nodownload"
                 src={videoDetail.video}
                 onContextMenu={e => e.preventDefault()}
-              ></video>
+              ></video> */}
+              <VideoPlayer
+                videoSrc={videoDetail.video}
+                contentId={videoDetail.fileName}
+              ></VideoPlayer>
             </div>
             <div className={styles.group}>
               <div className={styles.title}>{videoDetail.name}</div>
