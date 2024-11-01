@@ -7,18 +7,22 @@ import 'videojs-contrib-eme';
 import CryptoJS from 'crypto-js';
 import 'videojs-contrib-quality-levels';
 import 'videojs-http-source-selector';
+import { v4 as uuidv4 } from 'uuid';
 
 interface VideoPlayerProps {
   videoSrc: string; // HLS URL
+  contentId: string;
   //   drmType: string; // DRM 유형 (Widevine, PlayReady, FairPlay)
-  licenseUrl: string; // PallyCon 라이선스 URL
+  // licenseUrl: string; // PallyCon 라이선스 URL
 }
 
 const pallyconSiteKey = `${import.meta.env.VITE_PALLYCON_SITE_KEY}`;
 const pallyconAccessKey = `${import.meta.env.VITE_PALLYCON_ACCESS_KEY}`;
 const pallyconSiteId = `${import.meta.env.VITE_PALLYCON_SITE_ID}`;
-const contentId = `${import.meta.env.VITE_CONTENT_ID}`;
-const userId = `${import.meta.env.VITE_USER_ID}`;
+// const contentId = `${import.meta.env.VITE_CONTENT_ID}`;
+// const userId = `${import.meta.env.VITE_USER_ID}`;
+const userId = uuidv4();
+
 const iv = `${import.meta.env.VITE_IV}`;
 
 const licensePolicy = {
@@ -27,9 +31,12 @@ const licensePolicy = {
 
 const VideoPlayer: React.FC<VideoPlayerProps> = ({
   videoSrc,
+  contentId,
   //   drmType,
-  licenseUrl,
+  // licenseUrl,
 }) => {
+  const [finalVideoSrc, setFinalVideoSrc] = useState<string>(videoSrc);
+  const licenseUrl = 'https://license-global.pallycon.com/ri/licenseManager.do';
   const videoRef = useRef<HTMLVideoElement | null>(null);
   const playerRef = useRef<any>(null);
   const [drmType, setDrmType] = useState<string | null>(null);
@@ -39,12 +46,15 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({
     switch (true) {
       case type.indexOf('edge') > -1:
         setDrmType('PlayReady');
+        setFinalVideoSrc(videoSrc + `/${contentId}/DASH/${contentId}.mpd`);
         break;
       case type.indexOf('chrome') > -1:
         setDrmType('Widevine');
+        setFinalVideoSrc(videoSrc + `/${contentId}/DASH/${contentId}.mpd`);
         break;
       case type.indexOf('safari') > -1:
         setDrmType('FairPlay');
+        setFinalVideoSrc(videoSrc + `/${contentId}/HLS/${contentId}.m3u8`);
         break;
       default:
         setDrmType(null);
@@ -129,7 +139,7 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({
         preload: 'auto',
         sources: [
           {
-            src: videoSrc,
+            src: finalVideoSrc,
             type: getMimeType(drmType),
           },
         ],
@@ -163,7 +173,7 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({
 
         if (keySystems) {
           playerRef.current.src({
-            src: videoSrc,
+            src: finalVideoSrc,
             type: getMimeType(drmType), // MIME 타입 설정
             keySystems,
           });
