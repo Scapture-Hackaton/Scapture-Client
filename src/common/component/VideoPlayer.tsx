@@ -41,20 +41,22 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({
   const playerRef = useRef<any>(null);
   const [drmType, setDrmType] = useState<string | null>(null);
 
+  console.log(videoSrc);
+
   useEffect(() => {
     const type = window.navigator.userAgent.toLowerCase();
     switch (true) {
       case type.indexOf('edge') > -1:
         setDrmType('PlayReady');
-        setFinalVideoSrc(videoSrc + `/${contentId}/DASH/${contentId}.mpd`);
+        setFinalVideoSrc(videoSrc + `/DASH/${contentId}.mpd`);
         break;
       case type.indexOf('chrome') > -1:
         setDrmType('Widevine');
-        setFinalVideoSrc(videoSrc + `/${contentId}/DASH/${contentId}.mpd`);
+        setFinalVideoSrc(videoSrc + `/DASH/${contentId}.mpd`);
         break;
       case type.indexOf('safari') > -1:
         setDrmType('FairPlay');
-        setFinalVideoSrc(videoSrc + `/${contentId}/HLS/${contentId}.m3u8`);
+        setFinalVideoSrc(videoSrc + `/HLS/${contentId}.m3u8`);
         break;
       default:
         setDrmType(null);
