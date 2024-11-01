@@ -37,16 +37,18 @@ const CameraControl: React.FC<CameraControlProps> = ({ fields }) => {
     setSelectedFieldId(fieldId);
   };
 
-  const [selectedTime, setselectedTime] = useState<number | null>(null);
+  const [selectedTime, setSelectedTime] = useState<number | null>(null);
 
   const selectTime = (time: number) => {
-    setselectedTime(time);
+    setSelectedTime(time);
   };
 
   // 선택되었는지 확인
   useEffect(() => {
     if (selectedField !== null && selectedTime !== null) {
       setActive(true);
+    } else if (selectedField == null || selectedTime == null) {
+      setActive(false);
     }
   }, [selectedField, selectedTime]);
 
@@ -157,10 +159,13 @@ const CameraControl: React.FC<CameraControlProps> = ({ fields }) => {
   };
 
   const stopTimer = () => {
-    if (socket && isActive) {
-      socket.emit('stpp_timer', {
+    if (socket && isRecording) {
+      socket.emit('stop_timer', {
         fieldId: selectedFieldId,
       });
+
+      setSelectedTime(null);
+      setRecording(false);
     }
   };
 
@@ -311,7 +316,7 @@ const CameraControl: React.FC<CameraControlProps> = ({ fields }) => {
               onClick={() => {
                 if (selectedFieldId != null) {
                   stopRecording(selectedFieldId);
-                  setActive(!isActive);
+
                   stopTimer();
                 }
               }}
