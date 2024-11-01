@@ -111,7 +111,7 @@
             align-items: center;
             justify-content: center;
 
-            height: 36px;
+            height: 38px;
 
             padding: 0 1rem;
 
@@ -123,6 +123,63 @@
 
             border-radius: 5px;
           }
+
+          // #shareVideo {
+          //   display: flex;
+          //   align-items: center;
+          //   justify-content: space-between;
+
+          //   margin-top: 1.2rem;
+
+          //   height: 78px;
+
+          //   padding: 0 1rem;
+
+          //   cursor: pointer;
+
+          //   // background-color: var(--primary-color-defualt-01);
+
+          //   border-radius: 10px;
+          //   border: 1px solid var(--font-color-gray-500);
+
+          //   .leftItem {
+          //     display: flex;
+          //     align-items: center;
+
+          //     #shareIcon {
+          //       margin-right: 1rem;
+          //       img {
+          //         width: 54px;
+          //         height: 54px;
+
+          //         object-fit: cover;
+          //       }
+          //     }
+
+          //     #text {
+          //       #subTxt {
+          //         font-weight: 500;
+          //         font-size: var(--font-size-s);
+          //         color: var(--font-color-gray-300);
+
+          //         margin-bottom: 0.3rem;
+          //       }
+
+          //       #title {
+          //         font-weight: 700;
+          //         font-size: var(--font-size-l);
+          //         color: var(--font-color-gray-100);
+          //       }
+          //     }
+          //   }
+
+          //   #rightArrowIcon img {
+          //     width: 24px;
+          //     height: 24px;
+
+          //     object-fit: cover;
+          //   }
+          // }
         }
       }
     }

@@ -8,7 +8,10 @@ import { FieldDto } from '../Stadium/dto/field.dto';
 
 import infoIcon from '../../../../../assets/Icon/infoIcon.svg';
 import noDataIcon from '../../../../../assets/Icon/noDataIcon.svg';
-import { startRecording } from '../../../../../apis/api/admin.api';
+import {
+  startRecording,
+  stopRecording,
+} from '../../../../../apis/api/admin.api';
 
 interface CameraControlProps {
   fields: FieldDto[];
@@ -16,10 +19,10 @@ interface CameraControlProps {
 
 const SOCKET_SERVER_IP = `${import.meta.env.VITE_SOCKET_SERVER_IP}`;
 
-const timeList: string[] = [];
+const timeList: number[] = [];
 
 for (let i = 10; i <= 180; i += 10) {
-  timeList.push(`${i}`);
+  timeList.push(i);
 }
 
 const CameraControl: React.FC<CameraControlProps> = ({ fields }) => {
@@ -34,9 +37,9 @@ const CameraControl: React.FC<CameraControlProps> = ({ fields }) => {
     setSelectedFieldId(fieldId);
   };
 
-  const [selectedTime, setselectedTime] = useState<string | null>(null);
+  const [selectedTime, setselectedTime] = useState<number | null>(null);
 
-  const selectTime = (time: string) => {
+  const selectTime = (time: number) => {
     setselectedTime(time);
   };
 
@@ -144,7 +147,7 @@ const CameraControl: React.FC<CameraControlProps> = ({ fields }) => {
   const startTimer = () => {
     if (socket && selectedTime !== null) {
       // socket이 null이 아닐 때만 emit 호출
-      const intTime = parseInt(selectedTime) * 60;
+      const intTime = selectedTime * 60;
 
       socket.emit('start_timer', {
         fieldId: selectedFieldId,
@@ -153,11 +156,76 @@ const CameraControl: React.FC<CameraControlProps> = ({ fields }) => {
     }
   };
 
+  const stopTimer = () => {
+    if (socket && isActive) {
+      socket.emit('stpp_timer', {
+        fieldId: selectedFieldId,
+      });
+    }
+  };
+
+  // ESC 키로 모든 모달 닫기
+  useEffect(() => {
+    const handleOutsideClick = (event: MouseEvent) => {
+      if (
+        fieldDropdownRef.current &&
+        !fieldDropdownRef.current.contains(event.target as Node)
+      ) {
+        setFieldDropdownOpen(false);
+      }
+
+      if (
+        timeDropdownRef.current &&
+        !timeDropdownRef.current.contains(event.target as Node)
+      ) {
+        setTimeDropdownOpen(false);
+      }
+    };
+
+    const handleEscPress = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        setFieldDropdownOpen(false);
+        setTimeDropdownOpen(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleOutsideClick);
+    document.addEventListener('keydown', handleEscPress);
+
+    return () => {
+      document.removeEventListener('mousedown', handleOutsideClick);
+      document.removeEventListener('keydown', handleEscPress);
+    };
+  }, []);
+
   // 타이머 형식 00 : 00
+  // const formatTime = (timeInSeconds: number) => {
+  //   const minutes = Math.floor(timeInSeconds / 60);
+  //   const seconds = timeInSeconds % 60;
+  //   return `${minutes.toString().padStart(2, '0')} : ${seconds.toString().padStart(2, '0')}`;
+  // };
+
+  const formatTimeList = (time: number) => {
+    // 시간이 60분 이상이면 "1시간 10분" 형식으로, 그렇지 않으면 "10분" 형식으로 표시
+    const hours = Math.floor(time / 60);
+    const minutes = time % 60;
+
+    if (hours > 0) {
+      return `${hours}시간${minutes > 0 ? ` ${minutes}분` : ''}`;
+    } else {
+      return `${minutes}분`;
+    }
+  };
+
   const formatTime = (timeInSeconds: number) => {
-    const minutes = Math.floor(timeInSeconds / 60);
+    const hours = Math.floor(timeInSeconds / 3600);
+    const minutes = Math.floor((timeInSeconds % 3600) / 60);
     const seconds = timeInSeconds % 60;
-    return `${minutes.toString().padStart(2, '0')} : ${seconds.toString().padStart(2, '0')}`;
+
+    // 시간이 60분 이상인 경우 "HH : MM : SS" 형식으로 표시하고, 그렇지 않으면 "MM : SS" 형식으로 표시
+    return hours > 0
+      ? `${hours.toString().padStart(2, '0')} : ${minutes.toString().padStart(2, '0')} : ${seconds.toString().padStart(2, '0')}`
+      : `${minutes.toString().padStart(2, '0')} : ${seconds.toString().padStart(2, '0')}`;
   };
 
   return (
@@ -215,7 +283,7 @@ const CameraControl: React.FC<CameraControlProps> = ({ fields }) => {
               <img className={styles.dropdownImg} src={DownArrow}></img>
               {timeDropdownOpen && (
                 <div className={styles.dropdownMenu}>
-                  {timeList?.map((time: string, idx: number) => (
+                  {timeList?.map((time: number, idx: number) => (
                     <div
                       key={idx}
                       className={styles.dropdownItem}
@@ -224,7 +292,7 @@ const CameraControl: React.FC<CameraControlProps> = ({ fields }) => {
                       // }
                       onClick={() => selectTime(time)}
                     >
-                      {time}분
+                      {formatTimeList(time)}
                     </div>
                   ))}
                 </div>
@@ -233,9 +301,24 @@ const CameraControl: React.FC<CameraControlProps> = ({ fields }) => {
           </div>
         </div>
         {isRecording ? (
-          <div id={styles.recordBtn} className={styles.recording}>
-            {formatTime(timer)} 녹화중
-          </div>
+          <>
+            <div id={styles.recordBtn} className={styles.recording}>
+              {formatTime(timer)} 녹화중
+            </div>
+            <div
+              id={styles.recordBtn}
+              className={styles.stopRecord}
+              onClick={() => {
+                if (selectedFieldId != null) {
+                  stopRecording(selectedFieldId);
+                  setActive(!isActive);
+                  stopTimer();
+                }
+              }}
+            >
+              녹화 강제 종료
+            </div>
+          </>
         ) : isActive ? (
           <div
             id={styles.recordBtn}
