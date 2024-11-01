@@ -283,7 +283,9 @@ const CameraControl: React.FC<CameraControlProps> = ({ fields }) => {
               ref={timeDropdownRef}
             >
               <div className={styles.dropdownTitle}>
-                {selectedTime !== null ? `${selectedTime}분` : '시간'}
+                {selectedTime !== null
+                  ? `${formatTimeList(selectedTime)}`
+                  : '시간'}
               </div>
               <img className={styles.dropdownImg} src={DownArrow}></img>
               {timeDropdownOpen && (
