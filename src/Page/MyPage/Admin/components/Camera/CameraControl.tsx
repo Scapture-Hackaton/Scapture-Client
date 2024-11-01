@@ -316,10 +316,15 @@ const CameraControl: React.FC<CameraControlProps> = ({ fields }) => {
               id={styles.recordBtn}
               className={styles.stopRecord}
               onClick={() => {
-                if (selectedFieldId != null) {
-                  stopRecording(selectedFieldId);
+                const confirmFlag = confirm(
+                  '정말 녹화를 종료하시겠습니까? 녹화를 종료하면 현재까지 녹화된 영상은 저장되지않습니다.',
+                );
+                if (confirmFlag) {
+                  if (selectedFieldId != null) {
+                    stopRecording(selectedFieldId);
 
-                  stopTimer();
+                    stopTimer();
+                  }
                 }
               }}
             >
