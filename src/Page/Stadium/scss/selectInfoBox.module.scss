@@ -408,12 +408,44 @@
   //   align-items: center;
   //   justify-content: center;
 
-  background: var(--color-grayscale-black-bg);
-  padding-top: 1rem;
-  text-align: center;
+  background: var(--color-grayscale-web-card);
+  padding: 1.7rem 1.3rem;
+  margin: 1rem;
+
+  border-radius: 10px;
+  border: 1px solid var(--font-color-gray-700);
+
+  #textGroup {
+    margin-bottom: 1.5rem;
+
+    .desText {
+      font-size: var(--font-size-xm);
+      font-weight: 700;
+      color: var(--white-color);
+
+      margin-bottom: 0.6rem;
+
+      span {
+        color: var(--blue-color);
+        margin-right: 0.3rem;
+      }
+    }
+  }
+
+  .desText {
+    font-size: var(--font-size-xm);
+    font-weight: 700;
+    color: var(--white-color);
+
+    margin-bottom: 1rem;
+
+    span {
+      color: var(--blue-color);
+    }
+  }
 
   .downLoadBtn {
-    width: 90%;
+    // width: 90%;
 
     display: flex;
     align-items: center;
@@ -429,22 +461,30 @@
     border-radius: 5px;
 
     background-color: var(--primary-color-defualt-01);
+
+    font-weight: 700;
+    color: var(--font-color-gray-100);
+    font-size: var(--font-size-xm);
   }
 
   .downLoadTxt {
-    color: var(--font-color-gray-500);
-    font-size: var(--font-size-m);
-    font-weight: 500;
-
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: start;
 
-    margin: 0.5rem auto 0 auto;
+    margin: 1rem auto 0 auto;
 
-    span {
-      color: var(--color-ect-accent);
-      margin-right: 0.2rem;
+    div {
+      color: var(--font-color-gray-main);
+      font-size: var(--font-size-s);
+      font-weight: 400;
+
+      margin-left: 0.3rem;
+    }
+
+    image {
+      width: 12px;
+      height: 12px;
     }
   }
 }

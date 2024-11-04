@@ -1,5 +1,5 @@
-import { useRef } from 'react';
-import { useLocation, useSearchParams } from 'react-router-dom';
+import { useRef, useState } from 'react';
+import { useLocation, useParams } from 'react-router-dom';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useRecoilValue } from 'recoil';
 
@@ -32,9 +32,7 @@ import modal from '../scss/video-modal.module.scss';
 import loginModal from '../../Header/scss/login-modal.module.scss';
 
 // svg
-// import download from '../../../assets/Icon/downLoadIcon.svg';
-// import share from '../image/ShareIcon.svg';
-// import RightArrow from '../image/RightArrow.svg';
+import share from '../image/ShareIcon.svg';
 
 // dto
 import { StadiumDetail, VideoDetail } from '../../../apis/dto/scapture.dto';
@@ -52,6 +50,7 @@ import {
 // atom
 import { loginData, loginDataAtom } from '../../Header/Atom/atom';
 import VideoPlayer from '../../../common/component/VideoPlayer';
+import ClipBoard from '../../../common/component/ClipBoard';
 
 export interface PrevSelectDataProps {
   month: string;
@@ -68,23 +67,30 @@ const Video = () => {
     naver: NAVER_AUTH_URL,
   };
 
+  const {
+    stadiumId: paramStadiumId,
+    videoId: paramVideoId,
+    month: paramMonth,
+    day: paramDay,
+    prevFieldId: paramField,
+    prevScheduleId: paramPrevScheduleId,
+  } = useParams();
+
   const modalRef = useRef<HTMLDialogElement>(null);
   const loginModalRef = useRef<HTMLDialogElement>(null);
   const queryClient = useQueryClient();
 
   const location = useLocation();
-  const [searchParams] = useSearchParams();
 
-  const stadiumId = searchParams.get('stadiumId') || location.state.stadiumId;
+  const stadiumId = paramStadiumId || location.state.stadiumId;
 
-  const videoId = searchParams.get('videoId') || location.state.videoId;
+  const videoId = paramVideoId || location.state.videoId;
 
-  const month = searchParams.get('month') || location.state.month;
-  const day = searchParams.get('day') || location.state.day;
-  const prevFieldId =
-    searchParams.get('prevFieldId') || location.state.prevFieldId;
+  const month = paramMonth || location.state.month;
+  const day = paramDay || location.state.day;
+  const prevFieldId = paramField || location.state.prevFieldId;
   const prevScheduleId =
-    Number(searchParams.get('prevScheduleId')) || location.state.prevScheduleId;
+    Number(paramPrevScheduleId) || location.state.prevScheduleId;
 
   const prevSelectDataProps = {
     month,
@@ -105,9 +111,9 @@ const Video = () => {
     initialData: {} as VideoDetail,
   });
 
-  // const handelOpenDownloadModal = () => {
-  //   modalNotice(modalRef);
-  // };
+  const handelOpenDownloadModal = () => {
+    modalNotice(modalRef);
+  };
 
   const isLoginState = useRecoilValue<loginData>(loginDataAtom);
 
@@ -248,12 +254,14 @@ const Video = () => {
     }
   };
 
+  const [isClipboardVisible, setClipboardVisible] = useState(false);
+
   const handleShareClick = () => {
-    const shareUrl = `${window.location.origin}/video?stadiumId=${stadiumId}&videoId=${videoId}&day=${day}&month=${month}&prevFieldId=${prevFieldId}&prevScheduleId=${prevScheduleId}`;
+    const shareUrl = `${window.location.origin}/video/${stadiumId}/${videoId}/${prevScheduleId}/${month}/${day}/${prevFieldId}`;
     navigator.clipboard
       .writeText(shareUrl)
       .then(() => {
-        alert('링크가 클립보드에 복사되었습니다!');
+        setClipboardVisible(true);
       })
       .catch(err => {
         console.error('링크 복사 중 오류 발생:', err);
@@ -278,6 +286,21 @@ const Video = () => {
                 videoSrc={videoDetail.video}
                 contentId={videoDetail.fileName}
               ></VideoPlayer>
+            </div>
+            <div className={styles.shareVideo}>
+              <div className={styles.shareDes}>
+                <div id={styles.shareImg}>
+                  <img src={share} alt="" />
+                </div>
+                <div id={styles.des}>
+                  편집된 영상을
+                  <br />
+                  바로 공유할 수 있는 기회!
+                </div>
+              </div>
+              <div id={styles.shareVideo} onClick={handleShareClick}>
+                영상 공유하기
+              </div>
             </div>
             <div className={styles.group}>
               <div className={styles.title}>{videoDetail.name}</div>
@@ -304,8 +327,11 @@ const Video = () => {
                   <p>공유</p>
                 </li> */}
                 </ul>
-                <div id={styles.shareVideo} onClick={handleShareClick}>
-                  영상 공유하기
+                <div
+                  id={styles.downLoadVideo}
+                  onClick={handelOpenDownloadModal}
+                >
+                  고화질 영상 다운로드
                 </div>
                 {/* <div id={styles.shareVideo} onClick={handleShareClick}>
                   <div className={styles.leftItem}>
@@ -354,6 +380,11 @@ const Video = () => {
         ></LoginModal>
       </div>
       <Footer />
+
+      <ClipBoard
+        visible={isClipboardVisible}
+        onHide={() => setClipboardVisible(false)}
+      ></ClipBoard>
     </div>
   );
 };

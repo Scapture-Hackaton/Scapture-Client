@@ -41,7 +41,7 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({
   const playerRef = useRef<any>(null);
   const [drmType, setDrmType] = useState<string | null>(null);
 
-  console.log(videoSrc);
+  // console.log(videoSrc);
 
   useEffect(() => {
     const type = navigator.userAgent.toLowerCase();
