@@ -19,10 +19,16 @@ const Calendar: React.FC<SelectProps> = ({
 
   // 기본값을 리스트의 마지막 요소(오늘)로 설정
   const [selectedDay, setSelectedDay] = useState(
-    isDay ? isDay : formattedDayList[formattedDayList.length - 1].day,
+    isDay
+      ? isDay.padStart(2, '0')
+      : formattedDayList[formattedDayList.length - 1].day,
   );
 
-  const [selectedIdx, setselectedIdx] = useState(formattedDayList.length - 1);
+  const [selectedIdx, setselectedIdx] = useState(
+    isDay
+      ? formattedDayList.findIndex(item => item.day === isDay.padStart(2, '0'))
+      : formattedDayList.length - 1,
+  );
 
   // 날짜 선택 핸들러
   const handleDayClick = (index: number) => {

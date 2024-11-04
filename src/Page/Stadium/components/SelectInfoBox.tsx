@@ -1,24 +1,31 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+
 import styles from '../scss/selectInfoBox.module.scss';
 
+// component
 import Calendar from './Calendar';
 import SelectBtn from './SelectBtn';
 import StadiumHours from './StadiumHours';
+import VideoList from './VideoList';
 
+// api
 import { getStadiumDHours } from '../../../apis/api/stadium.api';
 
+// dto
 import {
   StadiumDetail,
   StadiumFileds,
   StadiumHoursData,
 } from '../../../apis/dto/scapture.dto';
 
+import { PrevSelectDataProps } from '../../Video/components/Video';
+
+// svg 이미지
 import calendarIcon from '../../../assets/Icon/calendarIcon.svg';
 import clockIcon from '../image/clockIcon.svg';
 import locationIcon from '../image/locationIcon.svg';
-import { useNavigate } from 'react-router-dom';
-import VideoList from './VideoList';
-import { PrevSelectDataProps } from '../../Video/components/Video';
+import InfoIcon from '../../../assets/Icon/InfoIcon2.svg';
 
 // 현재 시간 구하는 함수
 const getCurrentTime = () => {
@@ -307,6 +314,12 @@ const SelectInfoBox: React.FC<SelectInfoBoxProps> = ({
         </div>
       </div>
       <div className={styles.downLoadFrame}>
+        <div id={styles.textGroup}>
+          <div className={styles.desText}>이 경기의 영상을</div>
+          <div className={styles.desText}>
+            <span>모두 다운로드</span>하고 싶다면?
+          </div>
+        </div>
         <div
           className={styles.downLoadBtn}
           onClick={() => {
@@ -320,7 +333,8 @@ const SelectInfoBox: React.FC<SelectInfoBoxProps> = ({
           고화질 영상 전체 다운로드
         </div>
         <div className={styles.downLoadTxt}>
-          <span>*</span>영상은 일주일 뒤에 말소됩니다.
+          <img src={InfoIcon} alt="" width="12px" height="12px" />
+          <div>영상은 2주 이후에 말소됩니다.</div>
         </div>
       </div>
       {isStadiumHourList && isStadiumHourList.length > 0 ? (
