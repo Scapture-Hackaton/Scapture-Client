@@ -44,24 +44,29 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({
   console.log(videoSrc);
 
   useEffect(() => {
-    const type = window.navigator.userAgent.toLowerCase();
-    switch (true) {
-      case type.indexOf('edge') > -1:
-        setDrmType('PlayReady');
-        setFinalVideoSrc(videoSrc + `/DASH/${contentId}.mpd`);
-        break;
-      case type.indexOf('chrome') > -1:
-        setDrmType('Widevine');
-        setFinalVideoSrc(videoSrc + `/DASH/${contentId}.mpd`);
-        break;
-      case type.indexOf('safari') > -1:
-        setDrmType('FairPlay');
-        setFinalVideoSrc(videoSrc + `/HLS/${contentId}.m3u8`);
-        break;
-      default:
-        setDrmType(null);
+    const type = navigator.userAgent.toLowerCase();
+
+    if (type.includes('safari') && !type.includes('chrome')) {
+      // Safari 브라우저 (FairPlay 사용)
+      setDrmType('FairPlay');
+      setFinalVideoSrc(`${videoSrc}/HLS/${contentId}.m3u8`);
+    } else if (type.includes('edge') || type.includes('edg')) {
+      // Edge 브라우저 (PlayReady 사용)
+      setDrmType('PlayReady');
+      setFinalVideoSrc(`${videoSrc}/DASH/${contentId}.mpd`);
+    } else if (
+      type.includes('chrome') ||
+      type.includes('samsungbrowser') ||
+      type.includes('firefox')
+    ) {
+      // Chrome, Samsung 브라우저, Firefox (Widevine 사용)
+      setDrmType('Widevine');
+      setFinalVideoSrc(`${videoSrc}/DASH/${contentId}.mpd`);
+    } else {
+      // 지원하지 않는 브라우저의 경우
+      setDrmType(null);
     }
-  }, []);
+  }, [videoSrc, contentId]);
 
   const cipher = CryptoJS.AES.encrypt(
     JSON.stringify(licensePolicy),
