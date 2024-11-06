@@ -15,14 +15,13 @@ interface AllianceStadiumProps {
 const AllianceStadium: React.FC<AllianceStadiumProps> = ({ stadiumList }) => {
   const settings = {
     // dots: true,
-    infinite: false,
-    // speed: 500,
+    infinite: true,
+    speed: 3000,
     slidesToShow: 1,
     slidesToScroll: 1,
     autoplay: true,
     autoplaySpeed: 2000,
     arrows: false,
-    nfinite: true,
   };
 
   const navigate = useNavigate();
