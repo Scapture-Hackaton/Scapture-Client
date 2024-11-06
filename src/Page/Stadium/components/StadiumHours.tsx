@@ -17,6 +17,8 @@ const StadiumHours: React.FC<StadiumHoursProps> = ({
   chooseSchedule,
   isScheduleId,
 }) => {
+  console.log(stadiumHourList);
+
   const settings = {
     dots: true,
     infinite: false,
