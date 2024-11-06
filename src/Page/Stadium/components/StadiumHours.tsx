@@ -59,36 +59,45 @@ const StadiumHours: React.FC<StadiumHoursProps> = ({
     }
   };
 
+  // 모든 Schedule이 영상이 있는지 확인
+  const allVideoCountsAreZero = stadiumHourList.every(
+    stadiumHour => stadiumHour.videoCount === 0,
+  );
+
   return (
     <>
       {stadiumHourList && stadiumHourList.length > 0 ? (
-        <Slider {...settings} ref={sliderRef} className={styles.housrsList}>
-          {stadiumHourList.map(
-            (stadiumHour: StadiumHoursData, index: number) =>
-              stadiumHour.videoCount !== 0 ? (
-                <div className={styles.test} key={stadiumHour.scheduleId}>
-                  <div
-                    className={`${styles.scheduleGroup} ${
-                      isScheduleId === stadiumHour.scheduleId
-                        ? styles.selected
-                        : ''
-                    }`}
-                    key={stadiumHour.scheduleId}
-                    onClick={() =>
-                      handleScheduleClick(stadiumHour.scheduleId, index)
-                    }
-                  >
-                    <div id={styles.hour}>{stadiumHour.hours}</div>
-                    <div id={styles.videoCnt}>
-                      {stadiumHour.videoCount}개의 영상
+        allVideoCountsAreZero ? (
+          <div id={styles.noHours}>해당하는 조건의 결과가 없습니다.</div>
+        ) : (
+          <Slider {...settings} ref={sliderRef} className={styles.housrsList}>
+            {stadiumHourList.map(
+              (stadiumHour: StadiumHoursData, index: number) =>
+                stadiumHour.videoCount !== 0 ? (
+                  <div className={styles.test} key={stadiumHour.scheduleId}>
+                    <div
+                      className={`${styles.scheduleGroup} ${
+                        isScheduleId === stadiumHour.scheduleId
+                          ? styles.selected
+                          : ''
+                      }`}
+                      key={stadiumHour.scheduleId}
+                      onClick={() =>
+                        handleScheduleClick(stadiumHour.scheduleId, index)
+                      }
+                    >
+                      <div id={styles.hour}>{stadiumHour.hours}</div>
+                      <div id={styles.videoCnt}>
+                        {stadiumHour.videoCount}개의 영상
+                      </div>
                     </div>
                   </div>
-                </div>
-              ) : null,
-          )}
-        </Slider>
+                ) : null,
+            )}
+          </Slider>
+        )
       ) : (
-        <div></div>
+        <div id={styles.noHours}>해당하는 조건의 결과가 없습니다.</div>
       )}
     </>
   );

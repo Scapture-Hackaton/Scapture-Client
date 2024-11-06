@@ -1,8 +1,18 @@
-import Header from '../../Header/components/Header';
-import Footer from '../../Footer/components/Footer';
+import { useQuery } from '@tanstack/react-query';
+import { getMainStadium } from '../../../apis/api/main.api';
+import { useNavigate } from 'react-router-dom';
+import { useEffect, useRef } from 'react';
 
 import styles from '../scss/main.module.scss';
 
+// component
+import AllianceStadium from './AllianceStadium';
+import BlurInfoBox from './BlurInfoBox';
+
+import Header from '../../Header/components/Header';
+import Footer from '../../Footer/components/Footer';
+
+// svg
 import mainBanner from '../image/mainBanner.svg';
 import mainLogo from '../image/mainLogo.svg';
 import bannerCover from '../image/bannerCover.svg';
@@ -24,12 +34,7 @@ import parking from '../../../assets/Icon/parking.svg';
 import playBtnIcon from '../image/playBtnIcon.svg';
 import stadiumEx from '../image/stadiumEx.jpeg';
 
-import { useQuery } from '@tanstack/react-query';
-import { getMainStadium } from '../../../apis/api/main.api';
-import { useNavigate } from 'react-router-dom';
-import AllianceStadium from './AllianceStadium';
-import { useEffect, useRef } from 'react';
-import BlurInfoBox from './BlurInfoBox';
+import testImg from '../../../assets/image/test.png';
 
 const Main = () => {
   const { data: mainData, isSuccess: isMainDataSuccess } = useQuery({
@@ -93,7 +98,7 @@ const Main = () => {
 
   return (
     <div className={styles.test}>
-      <Header index={0} />
+      <Header index={1} />
       <div className={styles.main}>
         <div className={styles.banner}>
           <img
@@ -202,7 +207,11 @@ const Main = () => {
               <div className={styles.stadium}>
                 <div className={styles.stadiumImage}>
                   <img
-                    src={mainData.randomStadium.image}
+                    src={
+                      mainData?.randomStadium?.image
+                        ? mainData?.randomStadium?.image
+                        : testImg
+                    }
                     alt=""
                     width="160px"
                     height="125px"
@@ -349,7 +358,11 @@ const Main = () => {
                     onClick={() => toCommunityPage()}
                   >
                     <img
-                      src={mainData.popular.image}
+                      src={
+                        mainData?.popular?.image
+                          ? mainData?.popular?.image
+                          : testImg
+                      }
                       className={styles.mainImg}
                       alt=""
                       width="266px"
@@ -382,6 +395,14 @@ const Main = () => {
               ) : (
                 <div className={styles.group}>
                   <div className={styles.testVideo}>
+                    <img
+                      src={testImg}
+                      className={styles.mainImg}
+                      alt=""
+                      width="266px"
+                      height="150px"
+                      loading="lazy"
+                    />
                     <img
                       src={playBtnIcon}
                       className={styles.subImg}
