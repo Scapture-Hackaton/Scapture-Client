@@ -27,7 +27,7 @@ const AllianceStadium: React.FC<AllianceStadiumProps> = ({ stadiumList }) => {
   const navigate = useNavigate();
 
   const toStadium = (stadiumId: number) => {
-    navigate('/stadium', { state: { stadiumId } });
+    navigate(`/stadium/${stadiumId}`);
   };
 
   return (
