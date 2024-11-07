@@ -2,7 +2,7 @@ import React from 'react';
 import styles from '../scss/my-page.module.scss';
 
 import Cancel from '../image/cancel.svg';
-import Vector from '../image/Vector9.svg';
+// import Vector from '../image/Vector9.svg';
 import benefit1 from '../image/benefit1.svg';
 import benefit2 from '../image/benefit2.svg';
 import benefit3 from '../image/benefit3.svg';
@@ -10,13 +10,9 @@ import benefit4 from '../image/benefit4.svg';
 
 interface SubscribeModalProps {
   toggleModal2: () => void;
-  setSelectedButtonId: React.Dispatch<React.SetStateAction<number | null>>;
 }
 
-const SubscribeModal: React.FC<SubscribeModalProps> = ({
-  toggleModal2,
-  setSelectedButtonId,
-}) => {
+const SubscribeModal: React.FC<SubscribeModalProps> = ({ toggleModal2 }) => {
   return (
     <div className={styles.benefitContainer}>
       <div className={styles.benefit}>
@@ -27,11 +23,11 @@ const SubscribeModal: React.FC<SubscribeModalProps> = ({
             src={Cancel}
             onClick={() => {
               toggleModal2();
-              setSelectedButtonId(null);
             }}
           ></img>
         </div>
-        <img src={Vector} />
+        {/* <img src={Vector} /> */}
+        <div className={styles.hr}></div>
         <div className={styles.detailContainer}>
           <div className={styles.detail}>
             <img

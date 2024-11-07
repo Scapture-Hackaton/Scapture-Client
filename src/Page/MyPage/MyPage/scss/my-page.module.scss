@@ -929,171 +929,6 @@
   }
 }
 
-.modalContainer {
-  width: 100%;
-  height: 100%;
-  flex-shrink: 0;
-  background: rgba(0, 0, 0, 0.5);
-  position: fixed;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  right: 0;
-  top: 0;
-  .modalCard {
-    display: flex;
-    width: 320px;
-    height: 512px;
-    padding-bottom: 418px;
-    flex-direction: column;
-    align-items: center;
-    flex-shrink: 0;
-    border-radius: 14px;
-    background: var(--GRAY-SCALE-Gray-900_CARD, #2b2c31);
-
-    /* card shadow1 */
-    box-shadow: 0px 0px 16px 0px rgba(0, 0, 0, 0.1);
-    .modalHeader {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      .modalHeaderText {
-        color: var(--GRAY-SCALE-Gray-200_DEFAULT-MAIN-TEXT, #eff0f4);
-
-        /* SUBTITLE/16_bold */
-        font-family: Pretendard;
-        font-size: 16px;
-        font-style: normal;
-        font-weight: 700;
-        line-height: 160%; /* 25.6px */
-        padding: 11px;
-        width: 230px;
-        text-align: center;
-        margin-left: 30px;
-      }
-      .close {
-        cursor: pointer;
-        margin-bottom: 3px;
-      }
-    }
-    .modalImg {
-      width: 80px;
-      height: 80px;
-      flex-shrink: 0;
-      margin-top: 30px;
-      margin-bottom: 8px;
-    }
-    .modalText {
-      margin-bottom: 40px;
-      color: var(--GRAY-SCALE-Gray-200_DEFAULT-MAIN-TEXT, #eff0f4);
-      text-align: center;
-
-      /* BODY/12_medium */
-      font-family: Pretendard;
-      font-size: 12px;
-      font-style: normal;
-      font-weight: 500;
-      line-height: 160%; /* 19.2px */
-    }
-    .bananaContainer {
-      display: flex;
-      align-items: center;
-      width: 301px;
-      height: 46px;
-      padding: 10px;
-      gap: 10px;
-      flex-shrink: 0;
-      display: flex;
-      justify-content: space-between;
-      border-radius: 5px;
-      cursor: pointer;
-
-      &:hover {
-        background: var(--GRAY-SCALE-Gray-700_DISABLE, #37383e);
-        .numOfBanana {
-          .button {
-            border: 1px solid #2458ec;
-          }
-        }
-      }
-
-      .numOfBanana {
-        display: flex;
-        gap: 8px;
-        align-items: center;
-        .button {
-          width: 20px;
-          height: 20px;
-          border-radius: 50%;
-          border: 1px solid #75777f;
-          &.clicked {
-            background: #2458ec;
-          }
-        }
-        .banana {
-          color: var(--GRAY-SCALE-Gray-200_DEFAULT-MAIN-TEXT, #eff0f4);
-
-          /* BODY/12_medium */
-          font-family: Pretendard;
-          font-size: 12px;
-          font-style: normal;
-          font-weight: 500;
-          line-height: 160%; /* 19.2px */
-        }
-        .bananaNum {
-          color: var(--Lemon-Lemon-400, #d2f75a);
-
-          /* SUBTITLE/14_bold */
-          font-family: Pretendard;
-          font-size: 14px;
-          font-style: normal;
-          font-weight: 700;
-          line-height: 160%; /* 22.4px */
-        }
-      }
-      .price {
-        color: var(--GRAY-SCALE-Gray-100, #f9fafe);
-        text-align: right;
-
-        /* SUBTITLE/16_bold */
-        font-family: Pretendard;
-        font-size: 16px;
-        font-style: normal;
-        font-weight: 700;
-        line-height: 160%; /* 25.6px */
-      }
-    }
-    .payment {
-      margin-top: 24px;
-      display: flex;
-      width: 280px;
-      height: 38px;
-      padding: 7px 16px;
-      justify-content: center;
-      align-items: center;
-      gap: 4px;
-      flex-shrink: 0;
-      border-radius: 5px;
-      background: var(--GRAY-SCALE-Gray-700_DISABLE, #37383e);
-      color: var(--GRAY-SCALE-Gray-500, #93959d);
-      text-align: center;
-
-      /* SUBTITLE/16_bold */
-      font-family: Pretendard;
-      font-size: 16px;
-      font-style: normal;
-      font-weight: 700;
-      line-height: 160%; /* 25.6px */
-
-      &.clicked {
-        background: var(--Blue-Blue-400, #2458ec);
-        color: #fff;
-        cursor: pointer;
-      }
-    }
-  }
-}
-
 .benefitContainer {
   width: 100%;
   height: 100%;
@@ -1138,6 +973,11 @@
         cursor: pointer;
         margin-bottom: 3px;
       }
+    }
+
+    .hr {
+      width: 100%;
+      border-top: 1px solid var(--font-color-gray-700);
     }
 
     .detailContainer {
