@@ -10,7 +10,7 @@ import MyPage from './Page/MyPage/components/MyPage';
 import MyReservation from './Page/MyPage/MyReservation/components/MyReservation';
 import Header from './Page/Header/components/Header';
 import Footer from './Page/Footer/components/Footer';
-import DevTer from './DevTerminal';
+// import DevTer from './DevTerminal';
 
 import './App.scss';
 import Community from './Page/Community/components/Community';
@@ -30,7 +30,7 @@ const App = () => {
           <Route path="/" element={<Main />} />
           <Route path="/scapture" element={<Scapture />} />
           <Route path="/stadium/:stadiumId" element={<Stadium />} />
-          <Route path="/stadium" element={<Stadium />} />
+
           <Route path="/reservation" element={<Reservation />} />
           <Route path="/video" element={<Video />} />
           <Route
@@ -44,7 +44,7 @@ const App = () => {
           <Route path="/community" element={<Community />} />
           <Route path="/header" element={<Header index={0} />} />
           <Route path="/footer" element={<Footer />} />
-          <Route path="/dev-ter" element={<DevTer />} />
+          {/* <Route path="/dev-ter" element={<DevTer />} /> */}
 
           {/* Login-API */}
           {/* <Route path="/oauth/redirected/kakao" element={<LoginCallBack />} /> */}

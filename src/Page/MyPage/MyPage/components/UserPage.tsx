@@ -1,8 +1,8 @@
 // import Header from '../../../Header/components/Header';
 
 import Banana from '../image/banana.svg';
-import Cancel from '../image/cancel.svg';
-import Vector from '../image/Vector9.svg';
+// import Cancel from '../image/cancel.svg';
+
 // import benefit1 from '../image/benefit1.svg';
 // import benefit2 from '../image/benefit2.svg';
 // import benefit3 from '../image/benefit3.svg';
@@ -39,6 +39,7 @@ import { StoredVideoList } from '../../../../apis/dto/myPage.dto';
 import SubscribeModal from './SubscribeModal';
 import EditProfile from './EditProfile';
 import UserInfo from './UserInfo';
+import ChargeBanana from './ChargeBanana';
 // import { userDataAtom } from '../../Atom/atom';
 // import { userData } from '../../dto/atom.interface';
 // import { useRecoilValue } from 'recoil';
@@ -134,13 +135,13 @@ const UserPage = () => {
 
   const [isOpen, setIsOpen] = useState(false);
   const [isOpen2, setIsOpen2] = useState(false);
-  const [selectedButtonId, setSelectedButtonId] = useState<number | null>(null);
+  // const [selectedButtonId, setSelectedButtonId] = useState<number | null>(null);
   // console.log(selectedButtonId);
 
   // const [selected, setSelected] = useState('최신순');
   // const selectRef = useRef<HTMLDivElement>(null);
 
-  // const handleClick = id => {
+  // const handleClick = (id: number) => {
   //   setSelectedButtonId(id); // 클릭된 버튼의 ID를 상태로 설정
   // };
 
@@ -179,11 +180,12 @@ const UserPage = () => {
   //   setCurrentPage(selected);
   // };
 
-  const bananas = [
-    { id: 1, quantity: '1개', price: '2,990원' },
-    { id: 2, quantity: '5개', price: '9,990원' },
-    { id: 3, quantity: '10개', price: '19,990원' },
-  ];
+  // const bananas = [
+  //   { id: 1, quantity: '10개', price: '4,990원' },
+  //   { id: 2, quantity: '25개', price: '9,990원' },
+  //   { id: 3, quantity: '50개', price: '19,990원' },
+  //   { id: 4, quantity: '50개', price: '39,990원' },
+  // ];
 
   // const isProfile = useRecoilValue<userData>(userDataAtom);
   // console.log(isProfile);
@@ -374,266 +376,63 @@ const UserPage = () => {
         </div>
         {/* 버내너 충전 모달 */}
         {isOpen && (
-          <div className={styles.modalContainer}>
-            <div className={styles.modalCard}>
-              <div className={styles.modalHeader}>
-                <div className={styles.modalHeaderText}>버내너 충전하기</div>
-                <img
-                  className={styles.close}
-                  src={Cancel}
-                  onClick={() => {
-                    toggleModal();
-                    setSelectedButtonId(null);
-                  }}
-                ></img>
-              </div>
-              <img src={Vector} />
-              <img className={styles.modalImg} src={Banana}></img>
-              <div className={styles.modalText}>
-                버내너 갯수만큼<br></br>원하는 영상을 다운로드 할 수 있어요!
-              </div>
-              {bananas.map(banana => (
-                <div
-                  key={banana.id}
-                  className={styles.bananaContainer}
-                  // onClick={() => handleClick(banana.id)}
-                >
-                  <div className={styles.numOfBanana}>
-                    <div
-                      className={`${styles.button} ${selectedButtonId === banana.id ? styles.clicked : ''}`}
-                    ></div>
-                    <div className={styles.banana}>버내너</div>
-                    <div className={styles.bananaNum}>{banana.quantity}</div>
-                  </div>
-                  <div className={styles.price}>{banana.price}</div>
-                </div>
-              ))}
-              <div
-                className={`${styles.payment} ${selectedButtonId != null ? styles.clicked : ''}`}
-              >
-                결제하기
-              </div>
-            </div>
-          </div>
-        )}
-        {/* 구독혜택 모달 */}
-        {isOpen2 && (
-          <SubscribeModal
-            toggleModal2={toggleModal2}
-            setSelectedButtonId={setSelectedButtonId}
-          ></SubscribeModal>
-          //   <div className={styles.benefitContainer}>
-          //     <div className={styles.benefit}>
-          //       <div className={styles.modalHeader}>
-          //         <div className={styles.modalHeaderText}>구독 혜택</div>
+          <ChargeBanana toggleModal={toggleModal}></ChargeBanana>
+          // <div className={styles.modalContainer}>
+          //   <div className={styles.modalCard}>
+          //     <div className={styles.modalHeader}>
+          //       <div className={styles.modalHeaderText}>버내너 충전하기</div>
+          //       <img
+          //         className={styles.close}
+          //         src={Cancel}
+          //         onClick={() => {
+          //           toggleModal();
+          //           setSelectedButtonId(null);
+          //         }}
+          //       ></img>
+          //     </div>
+          //     <div className={styles.hr}></div>
+          //     <div className={styles.contentContainer}>
+          //       <div className={styles.modalImg}>
           //         <img
-          //           className={styles.close}
-          //           src={Cancel}
-          //           onClick={() => {
-          //             toggleModal2();
-          //             setSelectedButtonId(null);
-          //           }}
+          //           src={Banana}
+          //           width="80px"
+          //           height="80px"
+          //           loading="lazy"
           //         ></img>
           //       </div>
-          //       <img src={Vector} />
-          //       <div className={styles.detailContainer}>
-          //         <div className={styles.detail}>
-          //           <img src={benefit1} alt="" className={styles.img}></img>
-          //           <div className={styles.text}>영상 무료 다운로드</div>
+          //       <div className={styles.modalText}>
+          //         버내너 갯수만큼<br></br>원하는 영상을 다운로드 할 수 있어요!
+          //       </div>
+          //       {bananas.map(banana => (
+          //         <div
+          //           key={banana.id}
+          //           className={styles.bananaContainer}
+          //           onClick={() => handleClick(banana.id)}
+          //         >
+          //           <div className={styles.numOfBanana}>
+          //             <div
+          //               className={`${styles.button} ${selectedButtonId === banana.id ? styles.clicked : ''}`}
+          //             ></div>
+          //             <div className={styles.banana}>버내너</div>
+          //             <div className={styles.bananaNum}>{banana.quantity}</div>
+          //           </div>
+          //           <div className={styles.price}>{banana.price}</div>
           //         </div>
-          //         <div className={styles.detail}>
-          //           <img src={benefit2} alt="" className={styles.img}></img>
-          //           <div className={styles.text}>영상 무제한 저장</div>
-          //         </div>
-          //         <div className={styles.detail}>
-          //           <img src={benefit3} alt="" className={styles.img}></img>
-          //           <div className={styles.text}>월 19,900원</div>
-          //         </div>
-          //         <div className={styles.button}>구독하러 가기</div>
+          //       ))}
+          //       <div
+          //         className={`${styles.payment} ${selectedButtonId != null ? styles.clicked : ''}`}
+          //       >
+          //         결제하기
           //       </div>
           //     </div>
           //   </div>
+          // </div>
+        )}
+        {/* 구독혜택 모달 */}
+        {isOpen2 && (
+          <SubscribeModal toggleModal2={toggleModal2}></SubscribeModal>
         )}
       </div>
-      {/* <Footer></Footer> */}
-      {/* <div className={styles.myPage}>
-        <div className={styles.profile}>
-          <div className={styles.bar}></div>
-          <div className={styles.container}>
-            <div className={styles.image_box}>
-              <div className={styles.box}>
-                <img
-                  className={styles.image}
-                  src={isProfile.image ?? profileImgDefault}
-                  alt="SCAPTURE"
-                />
-                <Link to="/mypage/edit" style={{ textDecoration: 'none' }}>
-                  <div className={styles.modify}>
-                    <img className={styles.pencil} src={pencil} alt="" />
-                  </div>
-                </Link>
-              </div>
-            </div>
-            <div className={styles.userInfo}>
-              <div className={styles.name}>{isProfile.name} 님</div>
-
-              <div
-                className={styles.subscribe}
-                onClick={() => {
-                  modalNotice(modalSubRef);
-                  console.log(isSubscribed);
-                }}
-              >
-                컴포넌트 예정
-                {isSubscribed.subscribed || isProfile.endDate ? (
-                  <>
-                    <div className={styles.who}>구독자</div>
-                    <div className={styles.when}>
-                      {isProfile.endDate}까지 이용
-                    </div>
-                  </>
-                ) : (
-                  <>
-                    <img className={styles.sub} src={subscribe} alt="" />
-                    <div>구독하기</div>
-                  </>
-                )}
-              </div>
-              컴포넌트 예정
-              <div className={styles.group}>
-                <div className={styles.title}>소속팀</div>
-                <div className={styles.descrip}>{isProfile.team}</div>
-              </div>
-
-              <div className={styles.group}>
-                <div className={styles.title}>활동지역</div>
-                <div className={styles.descrip}>{isProfile.location}</div>
-              </div>
-            </div>
-          </div>
-
-          {isSubscribed.subscribed || isProfile.endDate ? (
-            <>
-              <div className={styles.noticeContainer}>
-                <div className={styles.notice}>
-                  {isProfile.name}님은 현재 구독 중 입니다.
-                </div>
-              </div>
-            </>
-          ) : (
-            <div className={styles.bananaWarp}>
-              <div className={styles.bananaContainer}>
-                <div className={styles.group}>
-                  <div className={styles.bananaBox}>
-                    <img className={styles.banana} src={banana} alt="" />
-                  </div>
-                  <p className={styles.text}>버내너</p>
-                </div>
-                <div className={styles.group}>
-                  <p>보유 갯수</p>
-                  <p>{isBanana.balance}</p>
-                </div>
-              </div>
-              <div className={styles.chargeContainer}>
-                <div
-                  className={styles.invite}
-                  onClick={() => {
-                    // baseURL을 추후에 삽입 해야함
-                    handleCopyClipBoard(`${location.pathname}`);
-                  }}
-                >
-                  친구 초대하고 '버내너 3개' 받기
-                </div>
-                <div
-                  className={styles.charge}
-                  onClick={() => {
-                    modalNotice(modalRef);
-                  }}
-                >
-                  버내너 충전하기
-                </div>
-              </div>
-            </div>
-          )}
-        </div>
-      </div>
-
-      <div className={styles.list}>
-        <Link
-          className={styles.reservation}
-          style={{ textDecoration: 'none' }}
-          to="/mypage/reservation"
-        >
-          <p>예약 내역 확인하기</p>
-          <img src={rightArrow} alt="" />
-        </Link>
-      </div>
-
-      <div className={styles.stored}>
-        <div className={styles.group}>
-          <div className={styles.storedText}>
-            <span>저장된 영상</span>
-          </div>
-          <div
-            className={`${styles.selectbox} ${open ? styles.open : ''}`}
-            ref={selectRef}
-          >
-            <button type="button" onClick={toggleDropdown}>
-              <span>{selected}</span>
-              <img src={dropDown} alt=""></img>
-            </button>
-            <ul>
-              <li>
-                <button
-                  type="button"
-                  onClick={() => {
-                    handleOptionClick('최신순');
-                    handleSortType('latest');
-                  }}
-                >
-                  최신순
-                </button>
-              </li>
-              <li>
-                <button
-                  type="button"
-                  onClick={() => {
-                    handleOptionClick('인기순');
-                    handleSortType('popularity');
-                  }}
-                >
-                  인기순
-                </button>
-              </li>
-              <li>
-                <button
-                  type="button"
-                  onClick={() => {
-                    handleOptionClick('조회수');
-                    alert('아직 준비 중 입니다!');
-                  }}
-                >
-                  조회수
-                </button>
-              </li>
-            </ul>
-          </div>
-        </div>
-
-        {isVideo ? (
-          <div className={styles.images}>
-            <AllianceStadium stadiumList={isVideos} />
-          </div>
-        ) : (
-          <div className={styles.videoNotice}>내역이 없습니다</div>
-        )}
-      </div>
-      <BananaModal styles={modal} ref={modalRef} />
-      <SubscribeModal styles={sub} ref={modalSubRef} />
-      <div className={styles.logout} onClick={deleteToken}>
-        로그아웃
-      </div>
-      <Footer /> */}
     </div>
   );
 };

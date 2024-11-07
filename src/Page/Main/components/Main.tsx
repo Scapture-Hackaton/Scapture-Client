@@ -93,7 +93,7 @@ const Main = () => {
   }, []);
 
   const toStadiumPage = (stadiumId: string) => {
-    navigate('/stadium', { state: { stadiumId } });
+    navigate(`/stadium/${stadiumId}`);
   };
 
   return (
