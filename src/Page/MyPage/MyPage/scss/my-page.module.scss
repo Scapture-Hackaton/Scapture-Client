@@ -531,9 +531,9 @@
             gap: 0.3rem;
 
             border-radius: 5px;
-            border: 1px solid var(--Blue-Blue-300, #5783ff);
+            border: 1px solid var(--font-color-gray-main);
             background: var(--GRAY-SCALE-Gray-800_-INPUT-FIELD, #323339);
-            color: var(--Blue-Blue-300, #5783ff);
+            color: var(--font-color-gray-main);
 
             text-align: center;
 
@@ -943,7 +943,7 @@
   .modalCard {
     display: flex;
     width: 320px;
-    height: 466px;
+    height: 512px;
     padding-bottom: 418px;
     flex-direction: column;
     align-items: center;
@@ -1108,7 +1108,7 @@
   .benefit {
     display: flex;
     width: 320px;
-    height: 280px;
+    height: 334px;
     flex-direction: column;
     flex-shrink: 0;
     border-radius: 14px;
@@ -1139,16 +1139,19 @@
         margin-bottom: 3px;
       }
     }
+
     .detailContainer {
       padding: 20px;
       .detail {
         display: flex;
         gap: 8px;
-        margin-bottom: 16px;
+        margin-bottom: 1rem;
+
         .img {
           width: 32px;
           height: 32px;
         }
+
         .text {
           display: flex;
           justify-content: center;
@@ -1164,16 +1167,23 @@
           line-height: 160%; /* 22.4px */
         }
       }
+
       .button {
         display: flex;
-        width: 280px;
-        height: 38px;
-        padding: 7px 16px;
         justify-content: center;
         align-items: center;
+
+        margin-top: 1.5rem;
+
+        width: 280px;
+        height: 38px;
+
+        padding: 7px 16px;
+
         gap: 4px;
         flex-shrink: 0;
         border-radius: 5px;
+
         background: var(--Blue-Blue-400, #2458ec);
         cursor: pointer;
         color: #fff;
@@ -1184,7 +1194,6 @@
         font-size: 16px;
         font-style: normal;
         font-weight: 700;
-        line-height: 160%; /* 25.6px */
       }
     }
   }
