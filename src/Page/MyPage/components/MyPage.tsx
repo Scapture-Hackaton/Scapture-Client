@@ -26,14 +26,26 @@ const MyPage = () => {
     }
   }, []);
 
+  // 역할에 따른 리다이렉션 처리
+  useEffect(() => {
+    if (isProfile.role !== 'BASIC' && isProfile.role !== 'MANAGER') {
+      navigate('/');
+    }
+  }, [isProfile.role, navigate]);
+
+  const renderPage = () => {
+    if (isProfile.role === 'BASIC') {
+      return <UserPage />;
+    } else if (isProfile.role === 'MANAGER') {
+      return <AdminPage />;
+    }
+    return null;
+  };
+
   return (
     <>
       <Header index={0}></Header>
-      {isProfile.role === 'BASIC' ? (
-        <UserPage></UserPage>
-      ) : (
-        <AdminPage></AdminPage>
-      )}
+      {renderPage()}
       <Footer></Footer>
     </>
   );
