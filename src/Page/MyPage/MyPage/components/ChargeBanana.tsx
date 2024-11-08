@@ -23,8 +23,8 @@ const ChargeBanana: React.FC<ChargeBananaProps> = ({ toggleModal }) => {
   const bananas = [
     { id: 1, quantity: '10개', price: 4_990 },
     { id: 2, quantity: '25개', price: 9_990 },
-    { id: 3, quantity: '50개', price: 19_990 },
-    { id: 4, quantity: '50개', price: 39_990 },
+    { id: 3, quantity: '50개', price: 19_900 },
+    { id: 4, quantity: '100개', price: 39_900 },
   ];
 
   // 화면 밖 클릭 시 모달 닫기
