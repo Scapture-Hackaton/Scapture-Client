@@ -1,10 +1,11 @@
-import { forwardRef, Ref, useEffect, useState } from 'react';
+import { forwardRef, Ref, useEffect, useRef, useState } from 'react';
 // import { modalNotice } from '../functions/ModalFunction';
 
 import cancelIcon from '../../../assets/Icon/Cancel.svg';
 
 import { useQuery } from '@tanstack/react-query';
 import { getBananaCnt } from '../../../apis/api/user.api';
+import Payments from '../../../common/component/Payment/Payments';
 
 interface ModalProps {
   styles: { [key: string]: string };
@@ -46,38 +47,85 @@ export const VideoModal = forwardRef<HTMLDialogElement, ModalProps>(
       }
     }, [bananaCnt]);
 
+    const paymentModalRef = useRef<HTMLDivElement>(null);
+
+    const [isPaymentModalOpen, setIsPaymentModalOpen] = useState(false);
+
+    const handlePaymentStart = () => {
+      setIsPaymentModalOpen(true);
+    };
+
+    const paymentModalClose = () => {
+      setIsPaymentModalOpen(false);
+    };
+
+    // 화면 밖 클릭 시 모달 닫기
+    useEffect(() => {
+      const handleOutsideClick = (event: MouseEvent) => {
+        if (
+          paymentModalRef.current &&
+          !paymentModalRef.current.contains(event.target as Node)
+        ) {
+          setIsPaymentModalOpen(false);
+        }
+      };
+
+      document.addEventListener('mousedown', handleOutsideClick);
+      return () => {
+        document.removeEventListener('mousedown', handleOutsideClick);
+      };
+    }, []);
+
     return (
-      <dialog ref={ref} id={styles.videoModal} onClick={handleDialogClick}>
-        <div className={styles.header}>
-          <div></div>
-          <p>영상 다운로드</p>
-          <img
-            src={cancelIcon}
-            alt=""
-            width="24px"
-            height="24px"
-            onClick={closeModal}
-          ></img>
-        </div>
-        <div className={styles.contents}>
-          <div className={styles.video}></div>
-          <div className={styles.text}>
-            <div>영상을 다운로드 하기 위해서는</div>
-            <div>
-              <span>1개</span>의 버내너가 필요해요
-            </div>
+      <>
+        <dialog ref={ref} id={styles.videoModal} onClick={handleDialogClick}>
+          <div className={styles.header}>
+            <div></div>
+            <p>영상 다운로드</p>
+            <img
+              src={cancelIcon}
+              alt=""
+              width="24px"
+              height="24px"
+              onClick={closeModal}
+            ></img>
           </div>
-
-          <div className={styles.group}>
-            <div>
-              보유한 버내너
-              <span>{isCnt}개</span>
+          <div className={styles.contents}>
+            <div className={styles.video}></div>
+            <div className={styles.text}>
+              <div>영상을 다운로드 하기 위해서는</div>
+              <div>
+                <span>3개</span>의 버내너가 필요해요
+              </div>
             </div>
 
-            <button onClick={() => handleDownloadClick()}>사용하기</button>
+            <div className={styles.group}>
+              <div>
+                보유한 버내너
+                <span>{isCnt}개</span>
+              </div>
+
+              {isCnt >= 3 ? (
+                <button onClick={() => handleDownloadClick()}>사용하기</button>
+              ) : (
+                <button
+                  onClick={() => {
+                    if (ref && typeof ref !== 'function' && ref.current) {
+                      ref.current.close();
+                    }
+                    handlePaymentStart();
+                  }}
+                >
+                  충전하기
+                </button>
+              )}
+            </div>
           </div>
-        </div>
-      </dialog>
+        </dialog>
+        {isPaymentModalOpen && (
+          <Payments payValue={3_500} paymentModalClose={paymentModalClose} />
+        )}
+      </>
     );
   },
 );

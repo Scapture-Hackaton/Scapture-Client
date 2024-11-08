@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import styles from '../scss/selectInfoBox.module.scss';
@@ -26,6 +26,7 @@ import calendarIcon from '../../../assets/Icon/calendarIcon.svg';
 import clockIcon from '../image/clockIcon.svg';
 import locationIcon from '../image/locationIcon.svg';
 import InfoIcon from '../../../assets/Icon/InfoIcon2.svg';
+import Payments from '../../../common/component/Payment/Payments';
 
 // 현재 시간 구하는 함수
 const getCurrentTime = () => {
@@ -246,6 +247,35 @@ const SelectInfoBox: React.FC<SelectInfoBoxProps> = ({
     }
   }, [prevSelectDataProps]);
 
+  const paymentModalRef = useRef<HTMLDivElement>(null);
+
+  const [isPaymentModalOpen, setIsPaymentModalOpen] = useState(false);
+
+  const handlePaymentStart = () => {
+    setIsPaymentModalOpen(true);
+  };
+
+  const paymentModalClose = () => {
+    setIsPaymentModalOpen(false);
+  };
+
+  // 화면 밖 클릭 시 모달 닫기
+  useEffect(() => {
+    const handleOutsideClick = (event: MouseEvent) => {
+      if (
+        paymentModalRef.current &&
+        !paymentModalRef.current.contains(event.target as Node)
+      ) {
+        setIsPaymentModalOpen(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleOutsideClick);
+    return () => {
+      document.removeEventListener('mousedown', handleOutsideClick);
+    };
+  }, []);
+
   return (
     <>
       <div className={styles.option}>
@@ -323,11 +353,7 @@ const SelectInfoBox: React.FC<SelectInfoBoxProps> = ({
         <div
           className={styles.downLoadBtn}
           onClick={() => {
-            window.open(
-              'https://nonstop-bottle-b75.notion.site/15-4-11f7791a343180fc8e2cd5813ccef10e',
-              '_blank',
-              'noopener, noreferrer',
-            );
+            handlePaymentStart();
           }}
         >
           고화질 영상 전체 다운로드
@@ -344,6 +370,9 @@ const SelectInfoBox: React.FC<SelectInfoBoxProps> = ({
           toVideo={toVideo}
         ></VideoList>
       ) : null}
+      {isPaymentModalOpen && (
+        <Payments payValue={3_500} paymentModalClose={paymentModalClose} />
+      )}
     </>
   );
 };
