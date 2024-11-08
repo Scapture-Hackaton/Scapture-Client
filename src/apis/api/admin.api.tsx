@@ -154,7 +154,7 @@ export const deleteField = async (
   fieldId: number,
 ): Promise<CommonResponse | undefined> => {
   try {
-    const res = await authInstance.delete(`api/manages/fields/${fieldId}`);
+    const res = await authInstance.delete(`/api/manages/fields/${fieldId}`);
 
     return res.data;
   } catch (error) {
