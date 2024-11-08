@@ -93,6 +93,9 @@ const ChargeBanana: React.FC<ChargeBananaProps> = ({ toggleModal }) => {
                 </div>
               </div>
             ))}
+            <div className={styles.alertTxt}>
+              *위 상품의 최대 이용기간은 1년입니다.
+            </div>
             <div
               className={`${styles.payment} ${selectedButtonId != null ? styles.clicked : ''}`}
               onClick={handlePaymentClick}
