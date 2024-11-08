@@ -40,6 +40,7 @@ import SubscribeModal from './SubscribeModal';
 import EditProfile from './EditProfile';
 import UserInfo from './UserInfo';
 import ChargeBanana from './ChargeBanana';
+
 // import { userDataAtom } from '../../Atom/atom';
 // import { userData } from '../../dto/atom.interface';
 // import { useRecoilValue } from 'recoil';
@@ -225,142 +226,147 @@ const UserPage = () => {
   //   console.log(storeVideoList);
 
   return (
-    <div className={styles.test}>
-      {/* <Header index={0} /> */}
-      <div className={styles.myPageContainer}>
-        <div className={styles.centerContainer}>
-          {isEdit ? (
-            <EditProfile
-              myProfileData={myProfileData}
-              changeUserInfo={changeUserInfo}
-            ></EditProfile>
-          ) : (
-            <UserInfo
-              myProfileData={myProfileData}
-              changeUserInfo={changeUserInfo}
-            ></UserInfo>
-          )}
-
-          {/* 비구독 배너 비구독일때 제거 필요 */}
-          {myProfileData && myProfileData?.data?.isSubscribe ? null : (
-            <div className={styles.banner} onClick={toggleModal2}>
-              <div className={styles.mainTitle}>구독혜택 구경하기</div>
-              <div className={styles.subTitle}>
-                구독시 받을 수 있는 혜택을 살펴보세요!
-              </div>
-            </div>
-          )}
-
-          <div className={styles.bananaContainer}>
-            <div className={styles.mainTitle}>버내너 관리</div>
-            <div className={styles.subTitle}>
-              보유한 갯수만큼 영상을 다운받을 수 있어요
-            </div>
-            <div className={styles.countContainer}>
-              <img className={styles.img} src={Banana} alt=""></img>
-              <div className={styles.presentContainer}>
-                <div className={styles.present}>현재 버내너 보유갯수</div>
-                <div className={styles.count}>
-                  {bananaData?.data?.balance || bananaData?.data?.balance == 0
-                    ? bananaData?.data?.balance.toString().padStart(2, '0')
-                    : '00'}
-                  개
-                </div>
-              </div>
-            </div>
-            <div className={styles.buttonContainer}>
-              <div className={styles.inviteButton}>
-                <div>친구 초대하고</div> <div>버내너 3개 받기</div>
-              </div>
-              <div
-                className={styles.chargeButton}
-                onClick={() => {
-                  toggleModal();
-                }}
-              >
-                버내너 충전하기
-              </div>
-            </div>
-          </div>
-          <div className={styles.reservationContainer}>
-            <div className={styles.textContainer}>
-              <div
-                style={{ display: 'flex', gap: '4px', alignItems: 'center' }}
-              >
-                <div className={styles.title}>예약내역</div>
-                <div className={styles.count}>
-                  {reserveList?.data ? reserveList?.data?.length : '0'}
-                </div>
-              </div>
-              <div className={styles.subTitle}>
-                나의 예약정보를 확인할 수 있어요
-              </div>
-            </div>
-            {reserveList?.data && reserveList?.data?.length ? (
-              <div
-                className={styles.detail}
-                onClick={() => {
-                  navigate('/mypage/reservation', { state: { reserveList } });
-                }}
-              >
-                자세히 보기
-              </div>
+    <>
+      <div className={styles.test}>
+        {/* <Header index={0} /> */}
+        <div className={styles.myPageContainer}>
+          <div className={styles.centerContainer}>
+            {isEdit ? (
+              <EditProfile
+                myProfileData={myProfileData}
+                changeUserInfo={changeUserInfo}
+              ></EditProfile>
             ) : (
-              <div className={styles.noDetail}>자세히 보기</div>
+              <UserInfo
+                myProfileData={myProfileData}
+                changeUserInfo={changeUserInfo}
+              ></UserInfo>
             )}
-          </div>
-          <div className={styles.saveContainer}>
-            <div className={styles.title}>저장한 영상</div>
-            {storeVideoList?.data ? (
-              <div className={styles.videoGrid}>
-                {storeVideoList.data.map((item: StoredVideoList) => (
-                  <div
-                    className={styles.videoCard}
-                    key={item.videoId}
-                    onClick={() => {
-                      navigate('/video', {
-                        state: {
-                          videoId: item.videoId,
-                          stadiumId: item.stadiumId,
-                        },
-                      });
-                    }}
-                  >
-                    {/* <div className={styles.thumbnail}></div> */}
-                    <img
-                      className={styles.thumbnail}
-                      src={item.image}
-                      alt=""
-                      width="199px"
-                      height="112px"
-                    />
-                    <div className={styles.videoInfo}>
-                      <div className={styles.videoTitle}>{item.name}</div>
-                      <div className={styles.videoDetails}>
-                        <div className={styles.videoField}>
-                          {item.stadiumName} | {item.fieldName}
-                        </div>
-                        <div className={styles.videoTime}>
-                          {item.date} | {item.hours}
+
+            {/* 비구독 배너 비구독일때 제거 필요 */}
+            {myProfileData && myProfileData?.data?.isSubscribe ? null : (
+              <div className={styles.banner} onClick={toggleModal2}>
+                <div className={styles.mainTitle}>구독혜택 구경하기</div>
+                <div className={styles.subTitle}>
+                  구독시 받을 수 있는 혜택을 살펴보세요!
+                </div>
+              </div>
+            )}
+
+            <div className={styles.bananaContainer}>
+              <div className={styles.mainTitle}>버내너 관리</div>
+              <div className={styles.subTitle}>
+                보유한 갯수만큼 영상을 다운받을 수 있어요
+              </div>
+              <div className={styles.countContainer}>
+                <img className={styles.img} src={Banana} alt=""></img>
+                <div className={styles.presentContainer}>
+                  <div className={styles.present}>현재 버내너 보유갯수</div>
+                  <div className={styles.count}>
+                    {bananaData?.data?.balance || bananaData?.data?.balance == 0
+                      ? bananaData?.data?.balance.toString().padStart(2, '0')
+                      : '00'}
+                    개
+                  </div>
+                </div>
+              </div>
+              <div className={styles.buttonContainer}>
+                <div className={styles.inviteButton}>
+                  <div>친구 초대하고</div> <div>버내너 3개 받기</div>
+                </div>
+                <div
+                  className={styles.chargeButton}
+                  onClick={() => {
+                    toggleModal();
+                  }}
+                >
+                  버내너 충전하기
+                </div>
+              </div>
+            </div>
+            <div className={styles.reservationContainer}>
+              <div className={styles.textContainer}>
+                <div
+                  style={{ display: 'flex', gap: '4px', alignItems: 'center' }}
+                >
+                  <div className={styles.title}>예약내역</div>
+                  <div className={styles.count}>
+                    {reserveList?.data ? reserveList?.data?.length : '0'}
+                  </div>
+                </div>
+                <div className={styles.subTitle}>
+                  나의 예약정보를 확인할 수 있어요
+                </div>
+              </div>
+              {reserveList?.data && reserveList?.data?.length ? (
+                <div
+                  className={styles.detail}
+                  onClick={() => {
+                    navigate('/mypage/reservation', { state: { reserveList } });
+                  }}
+                >
+                  자세히 보기
+                </div>
+              ) : (
+                <div className={styles.noDetail}>자세히 보기</div>
+              )}
+            </div>
+            <div className={styles.saveContainer}>
+              <div className={styles.title}>저장한 영상</div>
+              {storeVideoList?.data ? (
+                <div className={styles.videoGrid}>
+                  {storeVideoList.data.map((item: StoredVideoList) => (
+                    <div
+                      className={styles.videoCard}
+                      key={item.videoId}
+                      onClick={() => {
+                        navigate('/video', {
+                          state: {
+                            videoId: item.videoId,
+                            stadiumId: item.stadiumId,
+                          },
+                        });
+                      }}
+                    >
+                      {/* <div className={styles.thumbnail}></div> */}
+                      <img
+                        className={styles.thumbnail}
+                        src={item.image}
+                        alt=""
+                        width="199px"
+                        height="112px"
+                      />
+                      <div className={styles.videoInfo}>
+                        <div className={styles.videoTitle}>{item.name}</div>
+                        <div className={styles.videoDetails}>
+                          <div className={styles.videoField}>
+                            {item.stadiumName} | {item.fieldName}
+                          </div>
+                          <div className={styles.videoTime}>
+                            {item.date} | {item.hours}
+                          </div>
                         </div>
                       </div>
                     </div>
+                  ))}
+                </div>
+              ) : (
+                <>
+                  <div className={styles.noReserve}>
+                    <img
+                      src={Ground}
+                      className={styles.img}
+                      width="168px"
+                      height="108px"
+                    ></img>
+                    <div className={styles.title}>
+                      아직 저장된 영상이 없어요
+                    </div>
                   </div>
-                ))}
-              </div>
-            ) : (
-              <div className={styles.noReserve}>
-                <img
-                  src={Ground}
-                  className={styles.img}
-                  width="168px"
-                  height="108px"
-                ></img>
-                <div className={styles.title}>아직 저장된 영상이 없어요</div>
-              </div>
-            )}
+                </>
+              )}
 
-            {/* <ReactPaginate
+              {/* <ReactPaginate
               previousLabel={'<'}
               nextLabel={'>'}
               pageCount={pageCount} //몇개 페이지 보여줄건지
@@ -372,68 +378,17 @@ const UserPage = () => {
               previousClassName={styles.button} // 이전버튼 적용
               nextClassName={styles.button} //다음버튼 적용
             /> */}
+            </div>
           </div>
+          {/* 버내너 충전 모달 */}
+          {isOpen && <ChargeBanana toggleModal={toggleModal}></ChargeBanana>}
+          {/* 구독혜택 모달 */}
+          {isOpen2 && (
+            <SubscribeModal toggleModal2={toggleModal2}></SubscribeModal>
+          )}
         </div>
-        {/* 버내너 충전 모달 */}
-        {isOpen && (
-          <ChargeBanana toggleModal={toggleModal}></ChargeBanana>
-          // <div className={styles.modalContainer}>
-          //   <div className={styles.modalCard}>
-          //     <div className={styles.modalHeader}>
-          //       <div className={styles.modalHeaderText}>버내너 충전하기</div>
-          //       <img
-          //         className={styles.close}
-          //         src={Cancel}
-          //         onClick={() => {
-          //           toggleModal();
-          //           setSelectedButtonId(null);
-          //         }}
-          //       ></img>
-          //     </div>
-          //     <div className={styles.hr}></div>
-          //     <div className={styles.contentContainer}>
-          //       <div className={styles.modalImg}>
-          //         <img
-          //           src={Banana}
-          //           width="80px"
-          //           height="80px"
-          //           loading="lazy"
-          //         ></img>
-          //       </div>
-          //       <div className={styles.modalText}>
-          //         버내너 갯수만큼<br></br>원하는 영상을 다운로드 할 수 있어요!
-          //       </div>
-          //       {bananas.map(banana => (
-          //         <div
-          //           key={banana.id}
-          //           className={styles.bananaContainer}
-          //           onClick={() => handleClick(banana.id)}
-          //         >
-          //           <div className={styles.numOfBanana}>
-          //             <div
-          //               className={`${styles.button} ${selectedButtonId === banana.id ? styles.clicked : ''}`}
-          //             ></div>
-          //             <div className={styles.banana}>버내너</div>
-          //             <div className={styles.bananaNum}>{banana.quantity}</div>
-          //           </div>
-          //           <div className={styles.price}>{banana.price}</div>
-          //         </div>
-          //       ))}
-          //       <div
-          //         className={`${styles.payment} ${selectedButtonId != null ? styles.clicked : ''}`}
-          //       >
-          //         결제하기
-          //       </div>
-          //     </div>
-          //   </div>
-          // </div>
-        )}
-        {/* 구독혜택 모달 */}
-        {isOpen2 && (
-          <SubscribeModal toggleModal2={toggleModal2}></SubscribeModal>
-        )}
       </div>
-    </div>
+    </>
   );
 };
 

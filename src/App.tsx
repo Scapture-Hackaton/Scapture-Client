@@ -17,6 +17,7 @@ import Community from './Page/Community/components/Community';
 import ScrollToTop from './utils/ScrollToTop';
 import ManageStadium from './Page/MyPage/Admin/components/Stadium/ManageStadium';
 import CreateStadium from './Page/MyPage/Admin/components/CreateStadium/CreateStadium';
+import PaySuccess from './common/component/Payment/PaySuccess';
 // import LoginCallBack from './Page/Header/test/LoginCallBack';
 
 const queryClient = new QueryClient();
@@ -30,7 +31,6 @@ const App = () => {
           <Route path="/" element={<Main />} />
           <Route path="/scapture" element={<Scapture />} />
           <Route path="/stadium/:stadiumId" element={<Stadium />} />
-
           <Route path="/reservation" element={<Reservation />} />
           <Route path="/video" element={<Video />} />
           <Route
@@ -44,8 +44,9 @@ const App = () => {
           <Route path="/community" element={<Community />} />
           <Route path="/header" element={<Header index={0} />} />
           <Route path="/footer" element={<Footer />} />
-          {/* <Route path="/dev-ter" element={<DevTer />} /> */}
 
+          <Route path="/success" element={<PaySuccess />} />
+          {/* <Route path="/dev-ter" element={<DevTer />} /> */}
           {/* Login-API */}
           {/* <Route path="/oauth/redirected/kakao" element={<LoginCallBack />} /> */}
         </Routes>
