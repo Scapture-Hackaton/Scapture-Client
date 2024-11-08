@@ -343,26 +343,29 @@ const SelectInfoBox: React.FC<SelectInfoBoxProps> = ({
           </div>
         </div>
       </div>
-      <div className={styles.downLoadFrame}>
-        <div id={styles.textGroup}>
-          <div className={styles.desText}>이 경기의 영상을</div>
-          <div className={styles.desText}>
-            <span>모두 다운로드</span>하고 싶다면?
+      {isScheduleId ? (
+        <div className={styles.downLoadFrame}>
+          <div id={styles.textGroup}>
+            <div className={styles.desText}>이 경기의 영상을</div>
+            <div className={styles.desText}>
+              <span>모두 다운로드</span>하고 싶다면?
+            </div>
+          </div>
+          <div
+            className={styles.downLoadBtn}
+            onClick={() => {
+              handlePaymentStart();
+            }}
+          >
+            고화질 영상 전체 다운로드
+          </div>
+          <div className={styles.downLoadTxt}>
+            <img src={InfoIcon} alt="" width="12px" height="12px" />
+            <div>영상은 2주 이후에 말소됩니다.</div>
           </div>
         </div>
-        <div
-          className={styles.downLoadBtn}
-          onClick={() => {
-            handlePaymentStart();
-          }}
-        >
-          고화질 영상 전체 다운로드
-        </div>
-        <div className={styles.downLoadTxt}>
-          <img src={InfoIcon} alt="" width="12px" height="12px" />
-          <div>영상은 2주 이후에 말소됩니다.</div>
-        </div>
-      </div>
+      ) : null}
+
       {isStadiumHourList && isStadiumHourList.length > 0 ? (
         <VideoList
           scheduleId={isScheduleId}
