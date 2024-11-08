@@ -123,7 +123,7 @@ const Video = () => {
       const authResponse = await checkAuthDownloadVideo(videoId);
 
       if (authResponse.status === 200) {
-        fetch(`${videoDetail.video}`, {
+        fetch(`${videoDetail.video}/MP4/${videoDetail.fileName}.mp4`, {
           method: 'GET',
         })
           .then(response => response.blob())
