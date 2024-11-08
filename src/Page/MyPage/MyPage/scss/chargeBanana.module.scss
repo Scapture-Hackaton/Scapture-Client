@@ -177,13 +177,16 @@
       }
 
       .payment {
-        margin-top: 24px;
+        // margin-top: 1.3rem;
+        margin: 1.3rem auto 0 auto;
+
         display: flex;
-        width: 280px;
-        height: 38px;
-        padding: 7px 16px;
         justify-content: center;
         align-items: center;
+
+        width: 92%;
+        height: 38px;
+
         gap: 4px;
         flex-shrink: 0;
         border-radius: 5px;
@@ -196,7 +199,6 @@
         font-size: 16px;
         font-style: normal;
         font-weight: 700;
-        line-height: 160%; /* 25.6px */
 
         &.clicked {
           background: var(--Blue-Blue-400, #2458ec);
