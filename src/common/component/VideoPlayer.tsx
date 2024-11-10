@@ -36,10 +36,13 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({
   // licenseUrl,
 }) => {
   const [finalVideoSrc, setFinalVideoSrc] = useState<string>(videoSrc);
+  const [drmType, setDrmType] = useState<string | null>(null);
+  const [base64Token, setBase64Token] = useState<string | null>(null);
+
   const licenseUrl = 'https://license-global.pallycon.com/ri/licenseManager.do';
+
   const videoRef = useRef<HTMLVideoElement | null>(null);
   const playerRef = useRef<any>(null);
-  const [drmType, setDrmType] = useState<string | null>(null);
 
   // console.log(videoSrc);
 
@@ -68,52 +71,59 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({
     }
   }, [videoSrc, contentId]);
 
-  const cipher = CryptoJS.AES.encrypt(
-    JSON.stringify(licensePolicy),
-    CryptoJS.enc.Utf8.parse(pallyconSiteKey),
-    {
-      iv: CryptoJS.enc.Utf8.parse(iv),
-      padding: CryptoJS.pad.Pkcs7,
-      mode: CryptoJS.mode.CBC,
-    },
-  ).toString();
-
   //   console.log(cipher);
 
-  const UTCTime = new Date().toISOString().replace(/\.\d{3}/gi, '');
+  useEffect(() => {
+    if (drmType) {
+      const cipher = CryptoJS.AES.encrypt(
+        JSON.stringify(licensePolicy),
+        CryptoJS.enc.Utf8.parse(pallyconSiteKey),
+        {
+          iv: CryptoJS.enc.Utf8.parse(iv),
+          padding: CryptoJS.pad.Pkcs7,
+          mode: CryptoJS.mode.CBC,
+        },
+      ).toString();
 
-  const hashOrigin =
-    pallyconAccessKey +
-    drmType +
-    pallyconSiteId +
-    userId +
-    contentId +
-    cipher +
-    UTCTime;
+      const UTCTime = new Date().toISOString().replace(/\.\d{3}/gi, '');
 
-  const sha256 = CryptoJS.SHA256(hashOrigin);
-  const hash = sha256.toString(CryptoJS.enc.Base64);
+      const hashOrigin =
+        pallyconAccessKey +
+        drmType +
+        pallyconSiteId +
+        userId +
+        contentId +
+        cipher +
+        UTCTime;
+
+      const sha256 = CryptoJS.SHA256(hashOrigin);
+      const hash = sha256.toString(CryptoJS.enc.Base64);
+
+      const tokenData = {
+        drm_type: drmType,
+        site_id: pallyconSiteId,
+        user_id: userId,
+        cid: contentId,
+        policy: cipher,
+        timestamp: UTCTime,
+        hash: hash,
+        response_format: 'original',
+        key_rotation: false,
+      };
+
+      setBase64Token(
+        CryptoJS.enc.Base64.stringify(
+          CryptoJS.enc.Utf8.parse(JSON.stringify(tokenData)),
+        ),
+      );
+    }
+  }, [drmType]);
 
   //   const base64Token = sha256.toString(CryptoJS.enc.Base64);
-  const tokenData = {
-    drm_type: drmType,
-    site_id: pallyconSiteId,
-    user_id: userId,
-    cid: contentId,
-    policy: cipher,
-    timestamp: UTCTime,
-    hash: hash,
-    response_format: 'original',
-    key_rotation: false,
-  };
 
   //   console.log(pallyconSiteKey);
 
   //   console.log('token json : ' + JSON.stringify(tokenData));
-
-  const base64Token = CryptoJS.enc.Base64.stringify(
-    CryptoJS.enc.Utf8.parse(JSON.stringify(tokenData)),
-  );
 
   //   console.log(base64Token);
 
@@ -197,7 +207,7 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({
         playerRef.current.dispose();
       }
     };
-  }, [drmType]);
+  }, [drmType, base64Token]);
 
   // DRM 유형에 따른 키 시스템 설정
   const getKeySystems = (
