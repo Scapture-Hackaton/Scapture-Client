@@ -46,27 +46,64 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({
 
   // console.log(videoSrc);
 
-  useEffect(() => {
-    const type = navigator.userAgent.toLowerCase();
+  // useEffect(() => {
+  //   const type = navigator.userAgent.toLowerCase();
 
-    if (type.includes('safari') && !type.includes('chrome')) {
-      // Safari 브라우저 (FairPlay 사용)
+  //   if (type.includes('safari') && !type.includes('chrome')) {
+  //     // Safari 브라우저 (FairPlay 사용)
+  //     setDrmType('FairPlay');
+  //     setFinalVideoSrc(`${videoSrc}/HLS/${contentId}.m3u8`);
+  //   } else if (type.includes('edge') || type.includes('edg')) {
+  //     // Edge 브라우저 (PlayReady 사용)
+  //     setDrmType('PlayReady');
+  //     setFinalVideoSrc(`${videoSrc}/DASH/${contentId}.mpd`);
+  //   } else if (
+  //     type.includes('chrome') ||
+  //     type.includes('samsungbrowser') ||
+  //     type.includes('firefox')
+  //   ) {
+  //     // Chrome, Samsung 브라우저, Firefox (Widevine 사용)
+  //     setDrmType('Widevine');
+  //     setFinalVideoSrc(`${videoSrc}/DASH/${contentId}.mpd`);
+  //   } else {
+  //     // 지원하지 않는 브라우저의 경우
+  //     setDrmType(null);
+  //   }
+  // }, [videoSrc, contentId]);
+
+  useEffect(() => {
+    const userAgent = navigator.userAgent.toLowerCase();
+
+    // 브라우저와 OS 체크
+    const isSafari =
+      userAgent.includes('safari') && !userAgent.includes('chrome');
+    const isEdge = userAgent.includes('edge') || userAgent.includes('edg');
+    const isChrome = userAgent.includes('chrome') && !isEdge;
+    const isFirefox = userAgent.includes('firefox');
+    const isSamsungBrowser = userAgent.includes('samsungbrowser');
+    const isWindows = userAgent.includes('windows');
+    // const isMac = userAgent.includes('mac');
+
+    if (isSafari && !isWindows) {
+      // macOS 또는 iOS의 Safari (FairPlay 사용)
       setDrmType('FairPlay');
       setFinalVideoSrc(`${videoSrc}/HLS/${contentId}.m3u8`);
-    } else if (type.includes('edge') || type.includes('edg')) {
-      // Edge 브라우저 (PlayReady 사용)
+    } else if (isEdge) {
+      // 모든 OS의 Edge (PlayReady 사용)
       setDrmType('PlayReady');
       setFinalVideoSrc(`${videoSrc}/DASH/${contentId}.mpd`);
-    } else if (
-      type.includes('chrome') ||
-      type.includes('samsungbrowser') ||
-      type.includes('firefox')
-    ) {
-      // Chrome, Samsung 브라우저, Firefox (Widevine 사용)
-      setDrmType('Widevine');
-      setFinalVideoSrc(`${videoSrc}/DASH/${contentId}.mpd`);
+    } else if (isChrome || isFirefox || isSamsungBrowser) {
+      if (isWindows) {
+        // Windows에서 Chrome, Firefox 또는 Samsung Browser (Widevine 사용)
+        setDrmType('Widevine');
+        setFinalVideoSrc(`${videoSrc}/DASH/${contentId}.mpd`);
+      } else {
+        // 비-Windows OS에서 Chrome, Firefox 또는 Samsung Browser (Widevine 사용)
+        setDrmType('Widevine');
+        setFinalVideoSrc(`${videoSrc}/DASH/${contentId}.mpd`);
+      }
     } else {
-      // 지원하지 않는 브라우저의 경우
+      // 지원되지 않는 브라우저의 경우
       setDrmType(null);
     }
   }, [videoSrc, contentId]);
