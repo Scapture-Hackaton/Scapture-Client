@@ -135,7 +135,7 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({
   };
 
   useEffect(() => {
-    if (videoRef.current && drmType) {
+    if (videoRef.current && drmType && base64Token) {
       playerRef.current = videojs(videoRef.current, {
         autoplay: true, // 자동 재생 설정
         controls: true, // 플레이어 컨트롤 표시 설정
