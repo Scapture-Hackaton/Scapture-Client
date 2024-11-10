@@ -213,7 +213,7 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({
             licenseHeaders: {
               'pallycon-customdata-v2': token,
             },
-            persistentState: 'required',
+            // persistentState: 'required',
           },
         };
       case 'PlayReady':
