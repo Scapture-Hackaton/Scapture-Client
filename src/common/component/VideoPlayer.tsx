@@ -84,24 +84,27 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({
     const isWindows = userAgent.includes('windows');
     // const isMac = userAgent.includes('mac');
 
-    if (isSafari && !isWindows) {
+    // Windows에서 Edge, Chrome, Firefox는 PlayReady 사용
+    if (isWindows) {
+      if (isEdge) {
+        setDrmType('PlayReady');
+        setFinalVideoSrc(`${videoSrc}/DASH/${contentId}.mpd`);
+      } else if (isChrome || isFirefox || isSamsungBrowser) {
+        setDrmType('Widevine');
+        setFinalVideoSrc(`${videoSrc}/DASH/${contentId}.mpd`);
+      }
+    } else if (isSafari && !isWindows) {
       // macOS 또는 iOS의 Safari (FairPlay 사용)
       setDrmType('FairPlay');
       setFinalVideoSrc(`${videoSrc}/HLS/${contentId}.m3u8`);
     } else if (isEdge) {
-      // 모든 OS의 Edge (PlayReady 사용)
+      // Edge에서 PlayReady 사용
       setDrmType('PlayReady');
       setFinalVideoSrc(`${videoSrc}/DASH/${contentId}.mpd`);
     } else if (isChrome || isFirefox || isSamsungBrowser) {
-      if (isWindows) {
-        // Windows에서 Chrome, Firefox 또는 Samsung Browser (Widevine 사용)
-        setDrmType('Widevine');
-        setFinalVideoSrc(`${videoSrc}/DASH/${contentId}.mpd`);
-      } else {
-        // 비-Windows OS에서 Chrome, Firefox 또는 Samsung Browser (Widevine 사용)
-        setDrmType('Widevine');
-        setFinalVideoSrc(`${videoSrc}/DASH/${contentId}.mpd`);
-      }
+      // 비-Windows에서 Widevine 사용
+      setDrmType('Widevine');
+      setFinalVideoSrc(`${videoSrc}/DASH/${contentId}.mpd`);
     } else {
       // 지원되지 않는 브라우저의 경우
       setDrmType(null);
