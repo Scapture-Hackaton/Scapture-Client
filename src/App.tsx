@@ -18,6 +18,7 @@ import ScrollToTop from './utils/ScrollToTop';
 import ManageStadium from './Page/MyPage/Admin/components/Stadium/ManageStadium';
 import CreateStadium from './Page/MyPage/Admin/components/CreateStadium/CreateStadium';
 import PaySuccess from './common/component/Payment/PaySuccess';
+import Manager from './Page/Manager/components/Manager';
 // import LoginCallBack from './Page/Header/test/LoginCallBack';
 
 const queryClient = new QueryClient();
@@ -45,7 +46,10 @@ const App = () => {
           <Route path="/header" element={<Header index={0} />} />
           <Route path="/footer" element={<Footer />} />
 
+          <Route path="/admin/highlights" element={<Manager />} />
+
           <Route path="/success" element={<PaySuccess />} />
+
           {/* <Route path="/dev-ter" element={<DevTer />} /> */}
           {/* Login-API */}
           {/* <Route path="/oauth/redirected/kakao" element={<LoginCallBack />} /> */}

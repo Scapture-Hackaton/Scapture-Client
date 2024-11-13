@@ -1,0 +1,76 @@
+.main {
+  .inputPwd {
+    margin-top: 10rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    gap: 1rem;
+
+    .button {
+      cursor: pointer;
+    }
+
+    .editDes {
+      display: flex;
+      align-items: center;
+
+      flex-shrink: 0;
+      border-radius: 5px;
+      border: 1px solid var(--font-color-gray-700, #37383e);
+
+      color: var(--GRAY-SCALE-Gray-200_DEFAULT-MAIN-TEXT, #eff0f4);
+      background-color: var(--color-grayscale-input-800);
+
+      &:hover {
+        border: 1px solid var(--Blue-Blue-400, #2458ec);
+      }
+
+      & {
+        width: 33%;
+        // padding: 8px 16px;
+        padding: 0 8px;
+        height: 38px;
+      }
+
+      input {
+        color: var(--font-color-gray-100);
+
+        width: 100%;
+
+        background-color: var(--color-grayscale-input-800);
+      }
+    }
+  }
+
+  .container {
+    width: 100%;
+
+    margin: 3rem 0;
+    padding: 1rem 0;
+
+    border: 1px solid var(--grey-color-grey-02);
+
+    .title {
+      font-weight: 600;
+      font-size: var(--font-size-xm);
+    }
+
+    .line {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      padding: 0 1rem;
+    }
+
+    .hr {
+      margin: 1rem 0;
+      border-top: 1px solid var(--grey-color-grey-02);
+    }
+
+    .noData {
+      text-align: center;
+    }
+  }
+}
