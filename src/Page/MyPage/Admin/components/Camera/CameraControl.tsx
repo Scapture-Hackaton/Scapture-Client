@@ -12,6 +12,7 @@ import {
   startRecording,
   stopRecording,
 } from '../../../../../apis/api/admin.api';
+import RecordCheckModal from '../modal/RecordCheckModal';
 
 interface CameraControlProps {
   fields: FieldDto[];
@@ -233,6 +234,19 @@ const CameraControl: React.FC<CameraControlProps> = ({ fields }) => {
       : `${minutes.toString().padStart(2, '0')} : ${seconds.toString().padStart(2, '0')}`;
   };
 
+  const checkAndStartRecording = () => {
+    if (selectedFieldId != null && selectedTime !== null) {
+      startRecording(selectedFieldId, selectedTime);
+      setActive(!isActive);
+      startTimer();
+    }
+  };
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const openModal = () => setIsModalOpen(true);
+  const closeModal = () => setIsModalOpen(false);
+
   return (
     <div className={styles.cameraFrame}>
       <div className={styles.cameraTitle}>
@@ -335,13 +349,7 @@ const CameraControl: React.FC<CameraControlProps> = ({ fields }) => {
           <div
             id={styles.recordBtn}
             className={styles.active}
-            onClick={() => {
-              if (selectedFieldId != null && selectedTime !== null) {
-                startRecording(selectedFieldId, selectedTime);
-                setActive(!isActive);
-                startTimer();
-              }
-            }}
+            onClick={openModal}
           >
             녹화 시작하기
           </div>
@@ -365,6 +373,14 @@ const CameraControl: React.FC<CameraControlProps> = ({ fields }) => {
         />
         <div>녹화된 영상이 없어요</div>
       </div>
+
+      <RecordCheckModal
+        isOpen={isModalOpen}
+        onClose={closeModal}
+        checkAndStartRecording={checkAndStartRecording}
+        selectedField={selectedField!}
+        selectedTime={selectedTime!}
+      />
     </div>
   );
 };
