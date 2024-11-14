@@ -71,102 +71,119 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({
   //   }
   // }, [videoSrc, contentId]);
 
-  useEffect(() => {
-    const userAgent = navigator.userAgent.toLowerCase();
+  // useEffect(() => {
+  //   const userAgent = navigator.userAgent.toLowerCase();
 
-    // 브라우저와 OS 체크
-    const isSafari =
-      userAgent.includes('safari') && !userAgent.includes('chrome');
-    const isEdge = userAgent.includes('edge') || userAgent.includes('edg');
-    const isChrome = userAgent.includes('chrome') && !isEdge;
-    const isFirefox = userAgent.includes('firefox');
-    const isSamsungBrowser = userAgent.includes('samsungbrowser');
-    const isWindows = userAgent.includes('windows');
-    // const isMac = userAgent.includes('mac');
+  //   // 브라우저와 OS 체크
+  //   const isSafari =
+  //     userAgent.includes('safari') && !userAgent.includes('chrome');
+  //   const isEdge = userAgent.includes('edge') || userAgent.includes('edg');
+  //   const isChrome = userAgent.includes('chrome') && !isEdge;
+  //   const isFirefox = userAgent.includes('firefox');
+  //   const isSamsungBrowser = userAgent.includes('samsungbrowser');
+  //   const isWindows = userAgent.includes('windows');
+  //   // const isMac = userAgent.includes('mac');
 
-    // Windows에서 Edge, Chrome, Firefox는 PlayReady 사용
-    if (isWindows) {
-      if (isEdge) {
-        setDrmType('PlayReady');
-        setFinalVideoSrc(`${videoSrc}/DASH/${contentId}.mpd`);
-      } else if (isChrome || isFirefox || isSamsungBrowser) {
-        setDrmType('Widevine');
-        setFinalVideoSrc(`${videoSrc}/DASH/${contentId}.mpd`);
-      }
-    } else if (isSafari && !isWindows) {
-      // macOS 또는 iOS의 Safari (FairPlay 사용)
-      setDrmType('FairPlay');
-      setFinalVideoSrc(`${videoSrc}/HLS/${contentId}.m3u8`);
-    } else if (isEdge) {
-      // Edge에서 PlayReady 사용
-      setDrmType('PlayReady');
-      setFinalVideoSrc(`${videoSrc}/DASH/${contentId}.mpd`);
-    } else if (isChrome || isFirefox || isSamsungBrowser) {
-      // 비-Windows에서 Widevine 사용
-      setDrmType('Widevine');
-      setFinalVideoSrc(`${videoSrc}/DASH/${contentId}.mpd`);
-    } else {
-      // 지원되지 않는 브라우저의 경우
-      setDrmType(null);
-    }
-  }, [videoSrc, contentId]);
-
-  // const checkDRM = async () => {
-  //   try {
-  //     // Widevine 확인
-  //     const widevineAccess = await navigator.requestMediaKeySystemAccess(
-  //       'com.widevine.alpha',
-  //       [{ initDataTypes: ['cenc'] }],
-  //     );
-
-  //     if (widevineAccess) {
-  //       setDrmType('Widevine');
-  //       setFinalVideoSrc(`${videoSrc}/DASH/${contentId}.mpd`);
-  //       return;
-  //     }
-  //   } catch {
-  //     setDrmType(null);
-  //   }
-
-  //   try {
-  //     // PlayReady 확인
-  //     const playReadyAccess = await navigator.requestMediaKeySystemAccess(
-  //       'com.microsoft.playready',
-  //       [{ initDataTypes: ['cenc'] }],
-  //     );
-  //     if (playReadyAccess) {
+  //   // Windows에서 Edge, Chrome, Firefox는 PlayReady 사용
+  //   if (isWindows) {
+  //     if (isEdge) {
   //       setDrmType('PlayReady');
   //       setFinalVideoSrc(`${videoSrc}/DASH/${contentId}.mpd`);
-  //       return;
+  //     } else if (isChrome || isFirefox || isSamsungBrowser) {
+  //       setDrmType('Widevine');
+  //       setFinalVideoSrc(`${videoSrc}/DASH/${contentId}.mpd`);
   //     }
-  //   } catch {
+  //   } else if (isSafari && !isWindows) {
+  //     // macOS 또는 iOS의 Safari (FairPlay 사용)
+  //     setDrmType('FairPlay');
+  //     setFinalVideoSrc(`${videoSrc}/HLS/${contentId}.m3u8`);
+  //   } else if (isEdge) {
+  //     // Edge에서 PlayReady 사용
+  //     setDrmType('PlayReady');
+  //     setFinalVideoSrc(`${videoSrc}/DASH/${contentId}.mpd`);
+  //   } else if (isChrome || isFirefox || isSamsungBrowser) {
+  //     // 비-Windows에서 Widevine 사용
+  //     setDrmType('Widevine');
+  //     setFinalVideoSrc(`${videoSrc}/DASH/${contentId}.mpd`);
+  //   } else {
+  //     // 지원되지 않는 브라우저의 경우
   //     setDrmType(null);
   //   }
+  // }, [videoSrc, contentId]);
 
-  //   try {
-  //     // FairPlay 확인 (Safari 전용)
-  //     const fairPlayAccess = await navigator.requestMediaKeySystemAccess(
-  //       'com.apple.fps.1_0',
-  //       [{ initDataTypes: ['sinf'] }],
-  //     );
-  //     if (fairPlayAccess) {
-  //       setDrmType('FairPlay');
-  //       setFinalVideoSrc(`${videoSrc}/HLS/${contentId}.m3u8`);
-  //       return;
-  //     }
-  //   } catch {
-  //     setDrmType(null);
-  //   }
+  const checkDRM = async () => {
+    const config = [
+      {
+        initDataTypes: ['cenc'],
+        audioCapabilities: [
+          {
+            contentType: 'audio/mp4;codecs="mp4a.40.2"',
+          },
+        ],
+        videoCapabilities: [
+          {
+            contentType: 'video/mp4;codecs="avc1.42E01E"',
+          },
+        ],
+      },
+    ];
+    try {
+      navigator
+        .requestMediaKeySystemAccess('com.widevine.alpha', config)
+        .then((mediaKeySystemAccess: any) => {
+          setDrmType('WideVine');
+          setFinalVideoSrc(`${videoSrc}/DASH/${contentId}.mpd`);
+          console.log(mediaKeySystemAccess);
 
-  //   // 지원하지 않는 브라우저인 경우
-  //   // console.warn('DRM 지원되지 않음');
-  //   setDrmType(null);
-  //   console.log(drmType);
-  // };
+          console.log('widevine support ok');
+        })
+        .catch(e => {
+          console.log('no widevine support');
+          console.log(e);
+        });
+    } catch (e) {
+      console.log('no widevine support');
+      console.log(e);
+    }
+    try {
+      navigator
+        .requestMediaKeySystemAccess('com.microsoft.playready', config)
+        .then((mediaKeySystemAccess: any) => {
+          setDrmType('PlayReady');
+          setFinalVideoSrc(`${videoSrc}/DASH/${contentId}.mpd`);
+          console.log(mediaKeySystemAccess);
+          console.log('playready support ok');
+        })
+        .catch(e => {
+          console.log('no playready support');
+          console.log(e);
+        });
+    } catch (e) {
+      console.log('no playready support');
+      console.log(e);
+    }
+    try {
+      navigator
+        .requestMediaKeySystemAccess('com.apple.fps.1_0', config)
+        .then((mediaKeySystemAccess: any) => {
+          setDrmType('FairPlay');
+          setFinalVideoSrc(`${videoSrc}/HLS/${contentId}.m3u8`);
+          console.log(mediaKeySystemAccess);
+          console.log('clearkey support ok');
+        })
+        .catch(e => {
+          console.log('no clearkey support');
+          console.log(e);
+        });
+    } catch (e) {
+      console.log('no clearkey support');
+      console.log(e);
+    }
+  };
 
-  // useEffect(() => {
-  //   checkDRM();
-  // }, []);
+  useEffect(() => {
+    checkDRM();
+  }, []);
 
   //   console.log(cipher);
 
