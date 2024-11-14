@@ -127,6 +127,41 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({
         ],
       },
     ];
+
+    const fairPlayConfig = [
+      {
+        initDataTypes: ['sinf'],
+        audioCapabilities: [
+          {
+            contentType: 'audio/mp4;codecs="mp4a.40.2"',
+          },
+        ],
+        videoCapabilities: [
+          {
+            contentType: 'video/mp4;codecs="avc1.42E01E"',
+          },
+        ],
+      },
+    ];
+
+    try {
+      navigator
+        .requestMediaKeySystemAccess('com.apple.fps.1_0', fairPlayConfig)
+        .then(() => {
+          setDrmType('FairPlay');
+          setFinalVideoSrc(`${videoSrc}/HLS/${contentId}.m3u8`);
+          // console.log(mediaKeySystemAccess);
+          // console.log('clearkey support ok');
+        })
+        .catch(e => {
+          // console.log('no clearkey support');
+          console.log(e);
+        });
+    } catch (e) {
+      // console.log('no clearkey support');
+      console.log(e);
+    }
+
     try {
       navigator
         .requestMediaKeySystemAccess('com.widevine.alpha', config)
@@ -161,23 +196,6 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({
         });
     } catch (e) {
       // console.log('no playready support');
-      console.log(e);
-    }
-    try {
-      navigator
-        .requestMediaKeySystemAccess('com.apple.fps.1_0', config)
-        .then(() => {
-          setDrmType('FairPlay');
-          setFinalVideoSrc(`${videoSrc}/HLS/${contentId}.m3u8`);
-          // console.log(mediaKeySystemAccess);
-          // console.log('clearkey support ok');
-        })
-        .catch(e => {
-          // console.log('no clearkey support');
-          console.log(e);
-        });
-    } catch (e) {
-      // console.log('no clearkey support');
       console.log(e);
     }
   };
