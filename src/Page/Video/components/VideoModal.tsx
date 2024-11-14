@@ -52,7 +52,10 @@ export const VideoModal = forwardRef<HTMLDialogElement, ModalProps>(
     const [isPaymentModalOpen, setIsPaymentModalOpen] = useState(false);
 
     const handlePaymentStart = () => {
-      setIsPaymentModalOpen(true);
+      // setIsPaymentModalOpen(true);
+      window.open(
+        'https://nonstop-bottle-b75.notion.site/Scapture-X-13e7791a343180149f4cdfade9844b1f?pvs=4',
+      );
     };
 
     const paymentModalClose = () => {

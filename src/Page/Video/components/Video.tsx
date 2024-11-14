@@ -111,11 +111,42 @@ const Video = () => {
     initialData: {} as VideoDetail,
   });
 
-  const handelOpenDownloadModal = () => {
-    modalNotice(modalRef);
+  const downLoadVideo = () => {
+    fetch(`${videoDetail.video}/MP4/${videoDetail.fileName}.mp4`, {
+      method: 'GET',
+    })
+      .then(response => response.blob())
+      .then(blob => {
+        const url = window.URL.createObjectURL(blob);
+        const link = document.createElement('a');
+
+        link.setAttribute('href', url);
+        link.setAttribute('download', `${videoDetail.name}.mp4`);
+
+        document.body.appendChild(link);
+
+        link.click();
+
+        link.parentNode?.removeChild(link);
+
+        window.URL.revokeObjectURL(url);
+      });
   };
 
   const isLoginState = useRecoilValue<loginData>(loginDataAtom);
+
+  const handelOpenDownloadModal = () => {
+    if (isLoginState.state) {
+      // 다운로드 이력이 있다면 영상 다운로드
+      if (videoDetail.isDownload) {
+        downLoadVideo();
+      } else {
+        modalNotice(modalRef);
+      }
+    } else {
+      modalNotice(loginModalRef);
+    }
+  };
 
   // 다운로드 기능
   const handleDownloadClick = async () => {
@@ -123,25 +154,7 @@ const Video = () => {
       const authResponse = await checkAuthDownloadVideo(videoId);
 
       if (authResponse.status === 200) {
-        fetch(`${videoDetail.video}/MP4/${videoDetail.fileName}.mp4`, {
-          method: 'GET',
-        })
-          .then(response => response.blob())
-          .then(blob => {
-            const url = window.URL.createObjectURL(blob);
-            const link = document.createElement('a');
-
-            link.setAttribute('href', url);
-            link.setAttribute('download', `${videoDetail.name}.mp4`);
-
-            document.body.appendChild(link);
-
-            link.click();
-
-            link.parentNode?.removeChild(link);
-
-            window.URL.revokeObjectURL(url);
-          });
+        downLoadVideo();
       } else if (authResponse.status === 402) {
         alert('버내너가 부족합니다!');
       } else if (authResponse.status === 404 || authResponse.status === 400) {
@@ -193,7 +206,7 @@ const Video = () => {
 
   // 좋아요를 눌렀을 때 처리
   const handleToggleLike = (isLiked: boolean) => {
-    if (isLoginState) {
+    if (isLoginState.state) {
       if (videoDetail && !isLiked) {
         toggleLike(videoId);
       } else if (videoDetail && isLiked) {
@@ -243,7 +256,7 @@ const Video = () => {
 
   // 북마크를 눌렀을 때 처리
   const handleToggleStore = (isStore: boolean) => {
-    if (isLoginState) {
+    if (isLoginState.state) {
       if (videoDetail && !isStore) {
         toggleStore(videoId);
       } else if (videoDetail && isStore) {

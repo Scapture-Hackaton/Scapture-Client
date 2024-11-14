@@ -25,7 +25,7 @@ import { PrevSelectDataProps } from '../../Video/components/Video';
 import calendarIcon from '../../../assets/Icon/calendarIcon.svg';
 import clockIcon from '../image/clockIcon.svg';
 import locationIcon from '../image/locationIcon.svg';
-import InfoIcon from '../../../assets/Icon/InfoIcon2.svg';
+// import InfoIcon from '../../../assets/Icon/InfoIcon2.svg';
 import Payments from '../../../common/component/Payment/Payments';
 
 // 현재 시간 구하는 함수
@@ -251,9 +251,9 @@ const SelectInfoBox: React.FC<SelectInfoBoxProps> = ({
 
   const [isPaymentModalOpen, setIsPaymentModalOpen] = useState(false);
 
-  const handlePaymentStart = () => {
-    setIsPaymentModalOpen(true);
-  };
+  // const handlePaymentStart = () => {
+  //   setIsPaymentModalOpen(true);
+  // };
 
   const paymentModalClose = () => {
     setIsPaymentModalOpen(false);
@@ -343,7 +343,7 @@ const SelectInfoBox: React.FC<SelectInfoBoxProps> = ({
           </div>
         </div>
       </div>
-      {isScheduleId ? (
+      {/* {isScheduleId ? (
         <div className={styles.downLoadFrame}>
           <div id={styles.textGroup}>
             <div className={styles.desText}>이 경기의 영상을</div>
@@ -364,7 +364,7 @@ const SelectInfoBox: React.FC<SelectInfoBoxProps> = ({
             <div>영상은 2주 이후에 말소됩니다.</div>
           </div>
         </div>
-      ) : null}
+      ) : null} */}
 
       {isStadiumHourList && isStadiumHourList.length > 0 ? (
         <VideoList

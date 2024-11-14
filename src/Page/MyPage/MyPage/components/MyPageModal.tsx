@@ -5,7 +5,7 @@ import cancel from '../image/cancel.svg';
 import checkBanana from '../image/check-banana.svg';
 import {
   postBanana,
-  postSubscribe,
+  // postSubscribe,
   // putSubscribe,  //추후 추가 예정
 } from '../../../../apis/api/mypage.api';
 // import { useRecoilState, useSetRecoilState } from 'recoil';
@@ -20,10 +20,10 @@ interface ModalProps {
 //   extendRef: React.RefObject<HTMLDialogElement>;
 // }
 //Reservation 참조
-const subscribeData = {
-  startDate: '2024-07-22 00:00',
-  endDate: '2024-08-22 00:00',
-};
+// const subscribeData = {
+//   startDate: '2024-07-22 00:00',
+//   endDate: '2024-08-22 00:00',
+// };
 // const banana = 5;
 
 // 버내너 API
@@ -148,7 +148,12 @@ export const SubscribeModal = forwardRef<HTMLDialogElement, ModalProps>(
               onClick={() => {
                 (ref as React.RefObject<HTMLDialogElement>).current?.close();
                 // subscribe API
-                postSubscribe(subscribeData);
+                // postSubscribe(subscribeData);
+
+                window.open(
+                  'https://nonstop-bottle-b75.notion.site/Scapture-X-13e7791a343180149f4cdfade9844b1f?pvs=4',
+                );
+
                 // setSubscribed(prev => ({ ...prev, subscribed: true }));
                 // console.log(isSubscribed);
               }}

@@ -277,7 +277,10 @@ const UserPage = () => {
                 <div
                   className={styles.chargeButton}
                   onClick={() => {
-                    toggleModal();
+                    // toggleModal();
+                    window.open(
+                      'https://nonstop-bottle-b75.notion.site/Scapture-X-13e7791a343180149f4cdfade9844b1f?pvs=4',
+                    );
                   }}
                 >
                   버내너 충전하기
