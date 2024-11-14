@@ -121,6 +121,7 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({
 
       if (widevineAccess) {
         setDrmType('Widevine');
+        setFinalVideoSrc(`${videoSrc}/DASH/${contentId}.mpd`);
         return;
       }
     } catch {
@@ -135,6 +136,7 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({
       );
       if (playReadyAccess) {
         setDrmType('PlayReady');
+        setFinalVideoSrc(`${videoSrc}/DASH/${contentId}.mpd`);
         return;
       }
     } catch {
@@ -149,6 +151,7 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({
       );
       if (fairPlayAccess) {
         setDrmType('FairPlay');
+        setFinalVideoSrc(`${videoSrc}/HLS/${contentId}.m3u8`);
         return;
       }
     } catch {
