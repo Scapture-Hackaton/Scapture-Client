@@ -130,60 +130,61 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({
     try {
       navigator
         .requestMediaKeySystemAccess('com.widevine.alpha', config)
-        .then((mediaKeySystemAccess: any) => {
-          setDrmType('WideVine');
+        .then(() => {
+          setDrmType('Widevine');
           setFinalVideoSrc(`${videoSrc}/DASH/${contentId}.mpd`);
-          console.log(mediaKeySystemAccess);
 
-          console.log('widevine support ok');
+          // console.log(mediaKeySystemAccess);
+          // console.log('widevine support ok');
         })
         .catch(e => {
-          console.log('no widevine support');
+          // console.log('no widevine support');
           console.log(e);
         });
     } catch (e) {
-      console.log('no widevine support');
+      // console.log('no widevine support');
       console.log(e);
     }
     try {
       navigator
         .requestMediaKeySystemAccess('com.microsoft.playready', config)
-        .then((mediaKeySystemAccess: any) => {
+        .then(() => {
           setDrmType('PlayReady');
           setFinalVideoSrc(`${videoSrc}/DASH/${contentId}.mpd`);
-          console.log(mediaKeySystemAccess);
-          console.log('playready support ok');
+
+          // console.log(mediaKeySystemAccess);
+          // console.log('playready support ok');
         })
         .catch(e => {
-          console.log('no playready support');
+          // console.log('no playready support');
           console.log(e);
         });
     } catch (e) {
-      console.log('no playready support');
+      // console.log('no playready support');
       console.log(e);
     }
     try {
       navigator
         .requestMediaKeySystemAccess('com.apple.fps.1_0', config)
-        .then((mediaKeySystemAccess: any) => {
+        .then(() => {
           setDrmType('FairPlay');
           setFinalVideoSrc(`${videoSrc}/HLS/${contentId}.m3u8`);
-          console.log(mediaKeySystemAccess);
-          console.log('clearkey support ok');
+          // console.log(mediaKeySystemAccess);
+          // console.log('clearkey support ok');
         })
         .catch(e => {
-          console.log('no clearkey support');
+          // console.log('no clearkey support');
           console.log(e);
         });
     } catch (e) {
-      console.log('no clearkey support');
+      // console.log('no clearkey support');
       console.log(e);
     }
   };
 
   useEffect(() => {
     checkDRM();
-  }, []);
+  }, [videoSrc, contentId]);
 
   //   console.log(cipher);
 
