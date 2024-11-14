@@ -112,6 +112,10 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({
   // }, [videoSrc, contentId]);
 
   const checkDRM = async () => {
+    // defualt
+    setDrmType('Widevine');
+    setFinalVideoSrc(`${videoSrc}/DASH/${contentId}.mpd`);
+
     const config = [
       {
         initDataTypes: ['cenc'],
@@ -197,11 +201,6 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({
     } catch (e) {
       // console.log('no playready support');
       console.log(e);
-    }
-
-    if (drmType === null && finalVideoSrc === null) {
-      setDrmType('Widevine');
-      setFinalVideoSrc(`${videoSrc}/DASH/${contentId}.mpd`);
     }
   };
 
