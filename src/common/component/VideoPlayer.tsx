@@ -112,9 +112,28 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({
   // }, [videoSrc, contentId]);
 
   const checkDRM = async () => {
-    // defualt
-    setDrmType('Widevine');
-    setFinalVideoSrc(`${videoSrc}/DASH/${contentId}.mpd`);
+    const type = navigator.userAgent.toLowerCase();
+
+    if (type.includes('safari') && !type.includes('chrome')) {
+      // Safari 브라우저 (FairPlay 사용)
+      setDrmType('FairPlay');
+      setFinalVideoSrc(`${videoSrc}/HLS/${contentId}.m3u8`);
+    } else if (type.includes('edge') || type.includes('edg')) {
+      // Edge 브라우저 (PlayReady 사용)
+      setDrmType('PlayReady');
+      setFinalVideoSrc(`${videoSrc}/DASH/${contentId}.mpd`);
+    } else if (
+      type.includes('chrome') ||
+      type.includes('samsungbrowser') ||
+      type.includes('firefox')
+    ) {
+      // Chrome, Samsung 브라우저, Firefox (Widevine 사용)
+      setDrmType('Widevine');
+      setFinalVideoSrc(`${videoSrc}/DASH/${contentId}.mpd`);
+    } else {
+      // 지원하지 않는 브라우저의 경우
+      setDrmType(null);
+    }
 
     const config = [
       {
