@@ -198,6 +198,11 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({
       // console.log('no playready support');
       console.log(e);
     }
+
+    if (drmType !== null && finalVideoSrc !== null) {
+      setDrmType('Widevine');
+      setFinalVideoSrc(`${videoSrc}/DASH/${contentId}.mpd`);
+    }
   };
 
   useEffect(() => {
