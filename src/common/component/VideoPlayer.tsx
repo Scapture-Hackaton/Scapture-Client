@@ -199,7 +199,7 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({
       console.log(e);
     }
 
-    if (drmType !== null && finalVideoSrc !== null) {
+    if (drmType === null && finalVideoSrc === null) {
       setDrmType('Widevine');
       setFinalVideoSrc(`${videoSrc}/DASH/${contentId}.mpd`);
     }
