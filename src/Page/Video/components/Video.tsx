@@ -49,7 +49,7 @@ import {
 
 // atom
 import { loginData, loginDataAtom } from '../../Header/Atom/atom';
-import VideoPlayer from '../../../common/component/VideoPlayer';
+// import VideoPlayer from '../../../common/component/VideoPlayer';
 import ClipBoard from '../../../common/component/ClipBoard';
 
 export interface PrevSelectDataProps {
@@ -288,17 +288,17 @@ const Video = () => {
         {isVideoDetailSuccess && videoDetail && videoDetail.video ? (
           <div className={styles.videoContainer}>
             <div className={styles.video}>
-              {/* <video
+              <video
                 id="videoPlayer"
                 controls
                 controlsList="nodownload"
                 src={videoDetail.video}
                 onContextMenu={e => e.preventDefault()}
-              ></video> */}
-              <VideoPlayer
+              ></video>
+              {/* <VideoPlayer
                 videoSrc={videoDetail.video}
                 contentId={videoDetail.fileName}
-              ></VideoPlayer>
+              ></VideoPlayer> */}
             </div>
             <div className={styles.shareVideo}>
               <div className={styles.shareDes}>
