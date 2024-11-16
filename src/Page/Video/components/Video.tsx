@@ -11,7 +11,7 @@ import {
   unLikeVideo,
 } from '../../../apis/api/stadium.api';
 import {
-  checkAuthDownloadVideo,
+  // checkAuthDownloadVideo,
   // downloadVideo,
   storeVideo,
   unStoreVideo,
@@ -135,36 +135,50 @@ const Video = () => {
 
   const isLoginState = useRecoilValue<loginData>(loginDataAtom);
 
+  // const handelOpenDownloadModal = () => {
+  //   if (isLoginState.state) {
+  //     // 다운로드 이력이 있다면 영상 다운로드
+  //     if (videoDetail.isDownload) {
+  //       downLoadVideo();
+  //     } else {
+  //       modalNotice(modalRef);
+  //     }
+  //   } else {
+  //     modalNotice(loginModalRef);
+  //   }
+  // };
+
   const handelOpenDownloadModal = () => {
     if (isLoginState.state) {
       // 다운로드 이력이 있다면 영상 다운로드
-      if (videoDetail.isDownload) {
-        downLoadVideo();
-      } else {
-        modalNotice(modalRef);
-      }
+
+      downLoadVideo();
     } else {
       modalNotice(loginModalRef);
     }
   };
 
   // 다운로드 기능
-  const handleDownloadClick = async () => {
-    try {
-      const authResponse = await checkAuthDownloadVideo(videoId);
+  // const handleDownloadClick = async () => {
+  //   try {
+  //     const authResponse = await checkAuthDownloadVideo(videoId);
 
-      if (authResponse.status === 200) {
-        downLoadVideo();
-      } else if (authResponse.status === 402) {
-        alert('버내너가 부족합니다!');
-      } else if (authResponse.status === 404 || authResponse.status === 400) {
-        modalNotice(loginModalRef);
-      }
-    } catch (error) {
-      console.error('비디오 다운로드 중 오류가 발생했습니다.', error);
-    } finally {
-      modalRef.current?.close(); // 다운로드 완료 후 모달 닫기
-    }
+  //     if (authResponse.status === 200) {
+  //       downLoadVideo();
+  //     } else if (authResponse.status === 402) {
+  //       alert('버내너가 부족합니다!');
+  //     } else if (authResponse.status === 404 || authResponse.status === 400) {
+  //       modalNotice(loginModalRef);
+  //     }
+  //   } catch (error) {
+  //     console.error('비디오 다운로드 중 오류가 발생했습니다.', error);
+  //   } finally {
+  //     modalRef.current?.close(); // 다운로드 완료 후 모달 닫기
+  //   }
+  // };
+
+  const handleDownloadClick = async () => {
+    downLoadVideo();
   };
 
   // useMutation 훅을 사용하여 좋아요/좋아요 취소 처리
