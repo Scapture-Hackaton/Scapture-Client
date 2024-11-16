@@ -11,7 +11,7 @@ import {
   unLikeVideo,
 } from '../../../apis/api/stadium.api';
 import {
-  // checkAuthDownloadVideo,
+  checkAuthDownloadVideo,
   // downloadVideo,
   storeVideo,
   unStoreVideo,
@@ -151,11 +151,12 @@ const Video = () => {
   //   }
   // };
 
-  const handelOpenDownloadModal = () => {
+  const handelOpenDownloadModal = async () => {
     if (isLoginState.state) {
       // 다운로드 이력이 있다면 영상 다운로드
 
       downLoadVideo();
+      await checkAuthDownloadVideo(videoId);
     } else {
       modalNotice(loginModalRef);
     }
