@@ -112,7 +112,10 @@ const Video = () => {
   });
 
   const downLoadVideo = () => {
-    fetch(`${videoDetail.video}/MP4/${videoDetail.fileName}.mp4`, {
+    // fetch(`${videoDetail.video}/MP4/${videoDetail.fileName}.mp4`, {
+    //   method: 'GET',
+    // })
+    fetch(`${videoDetail.video}`, {
       method: 'GET',
     })
       .then(response => response.blob())
