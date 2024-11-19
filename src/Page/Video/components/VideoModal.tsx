@@ -123,7 +123,11 @@ export const VideoModal = forwardRef<HTMLDialogElement, ModalProps>(
           </div>
         </dialog>
         {isPaymentModalOpen && (
-          <Payments payValue={3_500} paymentModalClose={paymentModalClose} />
+          <Payments
+            payValue={3_500}
+            paymentModalClose={paymentModalClose}
+            orderName="영상 1개"
+          />
         )}
       </>
     );

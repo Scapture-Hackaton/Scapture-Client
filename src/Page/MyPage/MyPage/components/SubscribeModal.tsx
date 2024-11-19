@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef } from 'react';
 import styles from '../scss/my-page.module.scss';
 
 import Cancel from '../image/cancel.svg';
@@ -7,7 +7,7 @@ import benefit1 from '../image/benefit1.svg';
 import benefit2 from '../image/benefit2.svg';
 import benefit3 from '../image/benefit3.svg';
 import benefit4 from '../image/benefit4.svg';
-import Payments from '../../../../common/component/Payment/Payments';
+// import Payments from '../../../../common/component/Payment/Payments';
 
 interface SubscribeModalProps {
   toggleModal2: () => void;
@@ -16,11 +16,11 @@ interface SubscribeModalProps {
 const SubscribeModal: React.FC<SubscribeModalProps> = ({ toggleModal2 }) => {
   const paymentModalRef = useRef<HTMLDivElement>(null);
 
-  const [isPaymentModalOpen, setIsPaymentModalOpen] = useState(false);
+  // const [isPaymentModalOpen, setIsPaymentModalOpen] = useState(false);
 
-  const paymentModalClose = () => {
-    setIsPaymentModalOpen(false);
-  };
+  // const paymentModalClose = () => {
+  //   setIsPaymentModalOpen(false);
+  // };
 
   // 화면 밖 클릭 시 모달 닫기
   useEffect(() => {
@@ -29,7 +29,7 @@ const SubscribeModal: React.FC<SubscribeModalProps> = ({ toggleModal2 }) => {
         paymentModalRef.current &&
         !paymentModalRef.current.contains(event.target as Node)
       ) {
-        setIsPaymentModalOpen(false);
+        // setIsPaymentModalOpen(false);
       }
     };
 
@@ -101,7 +101,7 @@ const SubscribeModal: React.FC<SubscribeModalProps> = ({ toggleModal2 }) => {
             <div
               className={styles.button}
               onClick={() => {
-                setIsPaymentModalOpen(true);
+                // setIsPaymentModalOpen(true);
               }}
             >
               구독하러 가기
@@ -109,9 +109,9 @@ const SubscribeModal: React.FC<SubscribeModalProps> = ({ toggleModal2 }) => {
           </div>
         </div>
       </div>
-      {isPaymentModalOpen && (
-        <Payments payValue={29_900} paymentModalClose={paymentModalClose} />
-      )}
+      {/* {isPaymentModalOpen && (
+        <Payments payValue={29_900} paymentModalClose={paymentModalClose}  />
+      )} */}
     </>
   );
 };
