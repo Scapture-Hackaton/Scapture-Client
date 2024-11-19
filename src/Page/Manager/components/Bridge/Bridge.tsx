@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from '../../scss/bridge.module.scss';
 import Header from '../../../Header/components/Header';
 import Footer from '../../../Footer/components/Footer';
@@ -11,11 +11,41 @@ import calendarIcon from '../../../../assets/Icon/calendarIcon.svg';
 import Calendar from '../../../Stadium/components/Calendar';
 import { useParams } from 'react-router-dom';
 import ScheduleList from './ScheduleList';
+import { useQuery } from '@tanstack/react-query';
+import { getStadiumDetail } from '../../../../apis/api/stadium.api';
+import {
+  StadiumDetail,
+  StadiumFileds,
+} from '../../../../apis/dto/scapture.dto';
 
 const Bridge = () => {
   const { stadiumId, fieldId } = useParams();
-  console.log(stadiumId);
-  console.log(fieldId);
+
+  const { data: stadiumDetail } = useQuery({
+    queryKey: ['stadiumDetail', stadiumId],
+    queryFn: () => getStadiumDetail(parseInt(stadiumId!)),
+    initialData: {} as StadiumDetail,
+  });
+
+  const [fieldName, setFieldName] = useState('구역명');
+
+  useEffect(() => {
+    if (stadiumDetail && stadiumDetail.fields) {
+      // fieldId와 일치하는 필드 찾기
+      const matchingField = stadiumDetail.fields.find(
+        (field: StadiumFileds) => field.fieldId === parseInt(fieldId!),
+      );
+
+      // 일치하는 필드의 이름 설정
+      if (matchingField) {
+        setFieldName(matchingField.name);
+      } else {
+        setFieldName('구역명을 찾을 수 없습니다.'); // 없을 경우 기본 메시지
+      }
+    }
+  }, [stadiumDetail, fieldId]);
+
+  // console.log(stadiumDetail);
 
   // 현재 날짜 추출
   const today = new Date();
@@ -91,12 +121,12 @@ const Bridge = () => {
             </div>
             <div className={styles.fieldNameBox}>
               <img src={Locationicon} alt="" width="20px" height="20px" />
-              <div id={styles.fieldName}>구장명 입력</div>
+              <div id={styles.fieldName}>{stadiumDetail.name}</div>
             </div>
           </div>
           <div className={styles.locationBox}>
             <img src={FieldLocationIcon} alt="" />
-            <div>구역명 입력 공간</div>
+            <div>{fieldName}</div>
           </div>
           <div className={styles.alertBox}>
             <div className={styles.wrapper}>
@@ -138,6 +168,7 @@ const Bridge = () => {
         {fieldId ? (
           <ScheduleList
             fieldId={parseInt(fieldId)}
+            fieldName={fieldName}
             isDay={isDay}
             isMonth={isMonth}
           ></ScheduleList>

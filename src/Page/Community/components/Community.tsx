@@ -4,18 +4,11 @@ import Header from '../../Header/components/Header';
 import Footer from '../../Footer/components/Footer';
 import styles from '../scss/community.module.scss';
 import modal from '../../Video/scss/video-modal.module.scss';
-import loginModal from '../../Header/scss/login-modal.module.scss';
 import Comment from './Comment';
 
 // import download from '../../../assets/Icon/downLoadIcon.svg';
 // import share from '../../../assets/Icon/shareIcon.svg';
 // import Share from '../../../common/functions/Share';
-
-import {
-  KAKAO_AUTH_URL,
-  GOOGLE_AUTH_URL,
-  NAVER_AUTH_URL,
-} from '../../../apis/config/login.config';
 
 import {
   getPopularVideos,
@@ -54,13 +47,6 @@ const Community = () => {
   const loginModalRef = useRef<HTMLDialogElement>(null);
 
   const isLoginState = useRecoilValue<loginData>(loginDataAtom);
-
-  //Object
-  const AUTH_URLS = {
-    kakao: KAKAO_AUTH_URL,
-    google: GOOGLE_AUTH_URL,
-    naver: NAVER_AUTH_URL,
-  };
 
   const queryClient = useQueryClient();
 
@@ -476,11 +462,7 @@ const Community = () => {
         ref={modalRef}
         handleDownloadClick={handleDownloadClick}
       />
-      <LoginModal
-        styles={loginModal}
-        AUTH_URLS={AUTH_URLS}
-        modalRef={loginModalRef}
-      ></LoginModal>
+      <LoginModal modalRef={loginModalRef}></LoginModal>
     </div>
   );
 };

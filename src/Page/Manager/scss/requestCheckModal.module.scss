@@ -1,0 +1,139 @@
+#requestModal {
+  width: 320px;
+
+  color: var(--white-color);
+
+  border: 0;
+
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  border-radius: 14px;
+
+  background: var(--color-grayscale-web-card);
+
+  .header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    margin-left: 24px;
+    padding: 0.8rem 1rem;
+
+    border-bottom: 1px solid var(--font-color-gray-700);
+    p {
+      color: var(--font-color-gray-main);
+      font-size: var(--font-size-xm);
+      font-weight: 700;
+    }
+
+    img {
+      width: 24px;
+      height: 24px;
+
+      cursor: pointer;
+    }
+  }
+
+  .contents {
+    .notice {
+      text-align: center;
+      margin: 1.7rem 0 0.5rem 0;
+      // margin-bottom: 30px;
+
+      color: var(--font-color-gray-100);
+      font-weight: 700;
+      font-size: var(--font-size-xm);
+    }
+
+    .noticeDes {
+      text-align: center;
+      margin-top: 0.3rem;
+      // margin-bottom: 30px;
+
+      color: var(--font-color-gray-400);
+      font-weight: 500;
+      font-size: var(--font-size-m);
+    }
+
+    .info {
+      width: 280px;
+
+      margin: 1.5rem auto 2rem auto;
+      padding: 12px 10px;
+
+      background: var(--color-grayscale-input-800);
+
+      border-radius: 8px;
+
+      .line {
+        display: flex;
+        align-items: center;
+
+        margin: 0.25rem 0;
+
+        color: var(--font-color-gray-main);
+        font-weight: 500;
+        font-size: var(--font-size-m);
+
+        img {
+          width: 20px;
+          height: 20px;
+
+          margin-right: 0.3rem;
+        }
+      }
+    }
+  }
+
+  .footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 0 1.3rem 1rem 1.3rem;
+    margin: 0.7rem 0 0 0;
+
+    gap: 0.5rem;
+
+    .cancel {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      cursor: pointer;
+
+      width: 50%;
+      padding: 0.6rem 0.7rem;
+      background-color: var(--font-color-gray-main);
+      border-radius: 5px;
+
+      color: var(--color-grayscale-input-800);
+      font-weight: 700;
+      font-size: var(--font-size-xm);
+    }
+
+    .request {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      cursor: pointer;
+
+      width: 50%;
+      padding: 0.6rem 0.7rem;
+      background-color: var(--primary-color-defualt-01);
+      border-radius: 5px;
+
+      color: var(--white-color);
+      font-weight: 700;
+      font-size: var(--font-size-xm);
+    }
+  }
+}
+
+dialog::backdrop {
+  background-color: rgba(0, 0, 0, 0.5);
+}
