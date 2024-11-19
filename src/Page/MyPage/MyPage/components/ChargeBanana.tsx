@@ -61,6 +61,8 @@ const ChargeBanana: React.FC<ChargeBananaProps> = ({ toggleModal }) => {
                 toggleModal();
                 setSelectedButtonId(null);
               }}
+              width="24px"
+              height="24px"
             ></img>
           </div>
           <div className={styles.hr}></div>
@@ -109,6 +111,11 @@ const ChargeBanana: React.FC<ChargeBananaProps> = ({ toggleModal }) => {
         <Payments
           payValue={selectedButtonId ? bananas[selectedButtonId - 1].price : 0}
           paymentModalClose={paymentModalClose}
+          orderName={
+            selectedButtonId
+              ? `버내너 ${bananas[selectedButtonId - 1].quantity}`
+              : '버내너 0개'
+          }
         />
       )}
     </>

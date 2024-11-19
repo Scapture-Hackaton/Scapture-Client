@@ -3,18 +3,25 @@ import React, { useRef } from 'react';
 // import { loadTossPayments, ANONYMOUS } from '@tosspayments/tosspayments-sdk';
 import { loadTossPayments } from '@tosspayments/tosspayments-sdk';
 import { useEffect, useState } from 'react';
+import { v4 as uuidv4 } from 'uuid';
+import Cancel from '../image/cancel.svg';
 
 import styles from '../../scss/payments.module.scss';
 
-const clientKey = 'test_gck_docs_Ovk5rk1EwkEbP0W43n07xlzm';
-const customerKey = 'HX2YcEWy8Ds7IJ23tpaot';
+const clientKey = `${import.meta.env.VITE_TOSS_CLIENT_KEY}`;
+const customerKey = uuidv4();
 
 interface PaymentsProps {
   payValue: number;
   paymentModalClose: () => void;
+  orderName: string;
 }
 
-const Payments: React.FC<PaymentsProps> = ({ payValue, paymentModalClose }) => {
+const Payments: React.FC<PaymentsProps> = ({
+  payValue,
+  paymentModalClose,
+  orderName,
+}) => {
   const paymentModalRef = useRef<HTMLDivElement>(null);
 
   const [amount, setAmount] = useState({
@@ -115,6 +122,15 @@ const Payments: React.FC<PaymentsProps> = ({ payValue, paymentModalClose }) => {
   return (
     <div className={styles.wrapper}>
       <div className={styles.box_section} ref={paymentModalRef}>
+        <div className={styles.header}>
+          <img
+            src={Cancel}
+            alt=""
+            width="30px"
+            height="30px"
+            onClick={paymentModalClose}
+          ></img>
+        </div>
         {/* 결제 UI */}
         <div id="payment-method" />
         {/* 이용약관 UI */}
@@ -150,8 +166,8 @@ const Payments: React.FC<PaymentsProps> = ({ payValue, paymentModalClose }) => {
               // 결제를 요청하기 전에 orderId, amount를 서버에 저장하세요.
               // 결제 과정에서 악의적으로 결제 금액이 바뀌는 것을 확인하는 용도입니다.
               await widgets.requestPayment({
-                orderId: 'E1qvCyT44kXF5pmwcFXE7',
-                orderName: '토스 티셔츠 외 2건',
+                orderId: uuidv4(),
+                orderName,
                 successUrl: window.location.origin + '/success',
                 failUrl: window.location.origin + '/fail',
                 customerEmail: 'customer123@gmail.com',
