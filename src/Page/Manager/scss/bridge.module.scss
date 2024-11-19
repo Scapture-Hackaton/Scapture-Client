@@ -1,0 +1,207 @@
+.main {
+  width: 100%;
+  // background-color: #7fffd4;
+
+  height: 100vh;
+
+  .container {
+    .topContainer {
+      .explainContainer {
+        width: 100%;
+        height: 254px;
+
+        position: relative;
+
+        background-image: url('../image/background.svg');
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+
+        &::before {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          background: #00000066;
+          backdrop-filter: blur(5px);
+          z-index: 1;
+        }
+
+        > * {
+          position: relative;
+          z-index: 2;
+        }
+
+        .highLightIcon {
+          width: 60px;
+          height: 60px;
+
+          margin-bottom: 0.2rem;
+        }
+
+        .text {
+          margin-top: 0.5rem;
+
+          text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.15);
+
+          font-weight: 700;
+          font-size: var(--font-size-xm);
+
+          span {
+            color: var(--font-color-lemon-400);
+          }
+        }
+
+        .fieldNameBox {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+
+          background: #ffffff33;
+
+          border: 1px solid var(--white-color);
+          border-radius: 6px;
+
+          margin-top: 1rem;
+          padding: 0.3rem 1rem;
+
+          box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.15);
+
+          #fieldName {
+            margin-left: 0.2rem;
+            font-weight: 500;
+            color: var(--font-color-gray-100);
+            font-size: var(--font-size-xm);
+          }
+        }
+      }
+
+      .locationBox {
+        display: flex;
+        align-items: center;
+        justify-content: start;
+
+        // height: 54px;
+        padding: 1rem;
+
+        background: var(--color-grayscale-web-card);
+        border-bottom: 1px solid var(--font-color-gray-700);
+
+        img {
+          width: 20px;
+          height: 20px;
+          margin-right: 0.5rem;
+        }
+
+        div {
+          font-weight: 500;
+          font-size: var(--font-size-m);
+          color: var(--font-color-gray-main);
+        }
+      }
+
+      .alertBox {
+        padding: 1rem;
+        background: var(--color-grayscale-web-card);
+
+        .wrapper {
+          display: flex;
+          align-items: center;
+          justify-content: start;
+
+          padding: 1rem;
+
+          background: var(--color-grayscale-input-800);
+          border-radius: 5px;
+
+          #notice {
+            background: var(--color-ect-accent);
+
+            padding: 0.2rem 0.7rem;
+            margin-right: 0.5rem;
+
+            border-radius: 20px;
+
+            font-weight: 500;
+            font-size: var(--font-size-s);
+          }
+
+          .noticeText {
+            font-weight: 500;
+            font-size: var(--font-size-m);
+
+            span {
+              color: var(--color-ect-accent);
+            }
+          }
+        }
+      }
+    }
+
+    .highlightContainer {
+      padding: 1rem;
+
+      .title {
+        margin: 0.7rem 0;
+
+        #mainTitle {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+
+          color: var(--font-color-gray-100);
+          font-size: var(--font-size-l);
+          font-weight: 700;
+
+          margin-bottom: 0.6rem;
+        }
+
+        #subTitle {
+          color: var(--font-color-lemon-400);
+          font-size: var(--font-size-s);
+          font-weight: 500;
+        }
+      }
+
+      .selectBox {
+        .selectGroup {
+          width: 100%;
+          margin: 2rem 0 1rem 0;
+
+          .options {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+
+            margin-bottom: 1rem;
+
+            .subTitle {
+              display: flex;
+              align-items: center;
+
+              margin-bottom: 0.5rem;
+
+              color: var(--font-color-gray-100);
+              font-size: var(--font-size-xm);
+              font-weight: 700;
+
+              img {
+                margin-right: 0.2rem;
+
+                width: 20px;
+                height: 20px;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

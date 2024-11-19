@@ -19,6 +19,7 @@ import ManageStadium from './Page/MyPage/Admin/components/Stadium/ManageStadium'
 import CreateStadium from './Page/MyPage/Admin/components/CreateStadium/CreateStadium';
 import PaySuccess from './common/component/Payment/PaySuccess';
 import Manager from './Page/Manager/components/Manager';
+import Bridge from './Page/Manager/components/Bridge/Bridge';
 // import LoginCallBack from './Page/Header/test/LoginCallBack';
 
 const queryClient = new QueryClient();
@@ -46,6 +47,7 @@ const App = () => {
           <Route path="/header" element={<Header index={0} />} />
           <Route path="/footer" element={<Footer />} />
 
+          <Route path="/landing/:stadiumId/:fieldId" element={<Bridge />} />
           <Route path="/admin/highlights" element={<Manager />} />
 
           <Route path="/success" element={<PaySuccess />} />

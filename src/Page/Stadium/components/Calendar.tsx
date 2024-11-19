@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import styles from '../scss/selectInfoBox.module.scss';
+import styles from '../scss/calendar.module.scss';
 
 interface SelectProps {
   dayList: { day: string; weekday: string }[];
