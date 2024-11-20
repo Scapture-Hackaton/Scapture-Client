@@ -1,13 +1,8 @@
 import React, { useRef, useState } from 'react';
 import styles from '../scss/reservation.module.scss';
-import loginModal from '../../Header/scss/login-modal.module.scss';
 import { ReservationDto } from '../../../apis/dto/reservation.dto';
 import { LoginModal } from '../../Header/components/LoginModal';
-import {
-  GOOGLE_AUTH_URL,
-  KAKAO_AUTH_URL,
-  NAVER_AUTH_URL,
-} from '../../../apis/config/login.config';
+
 import { modalNotice } from '../functions/ModalFunction';
 import { reserveField } from '../../../apis/api/reservation.api';
 import { useMutation } from '@tanstack/react-query';
@@ -71,12 +66,6 @@ const ReservationList: React.FC<ReservationListProps> = ({
   };
 
   const loginModalRef = useRef<HTMLDialogElement>(null);
-  //Object
-  const AUTH_URLS = {
-    kakao: KAKAO_AUTH_URL,
-    google: GOOGLE_AUTH_URL,
-    naver: NAVER_AUTH_URL,
-  };
 
   // const successReserve = () => {
   //   modalNotice(modalCheckRef);
@@ -155,11 +144,7 @@ const ReservationList: React.FC<ReservationListProps> = ({
         </div>
       </div> */}
 
-        <LoginModal
-          styles={loginModal}
-          AUTH_URLS={AUTH_URLS}
-          modalRef={loginModalRef}
-        ></LoginModal>
+        <LoginModal modalRef={loginModalRef}></LoginModal>
         {/* modalRef */}
         <ReservationModal
           styles={modal}

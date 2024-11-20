@@ -1,0 +1,57 @@
+.listContainer {
+  padding: 0rem 1rem 1rem 1rem;
+  margin-bottom: 5rem;
+
+  .itemBox {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    height: 84px;
+
+    padding: 1rem;
+
+    .date {
+      color: var(--font-color-gray-400);
+      font-size: var(--font-size-xm);
+      font-weight: 700;
+    }
+
+    .time {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      color: var(--white-color);
+      font-size: var(--font-size-s);
+      font-weight: 700;
+
+      .startTime {
+        color: var(--white-color);
+        font-size: var(--font-size-l);
+        font-weight: 700;
+
+        margin-right: 0.3rem;
+      }
+    }
+
+    .btn {
+      padding: 0.5rem 1rem;
+
+      border-radius: 5px;
+
+      cursor: pointer;
+
+      background: var(--main-color-blue-04);
+
+      color: var(--white-color);
+      font-size: var(--font-size-xm);
+      font-weight: 500;
+    }
+
+    &:hover {
+      border-radius: 10px;
+      background: var(--color-grayscale-web-card);
+    }
+  }
+}

@@ -4,9 +4,15 @@ import KakaoIcon from '../image/kakaoIcon.svg';
 import cancelIcon from '../../../assets/Icon/Cancel.svg';
 import modalLogo from '../image/scaptureModalLogo.svg';
 
+import styles from '../scss/login-modal.module.scss';
+
+import {
+  GOOGLE_AUTH_URL,
+  KAKAO_AUTH_URL,
+  NAVER_AUTH_URL,
+} from '../../../apis/config/login.config';
+
 interface LoginModalProps {
-  styles: { [key: string]: string };
-  AUTH_URLS: { kakao: string; google: string; naver: string };
   modalRef: React.RefObject<HTMLDialogElement>;
 }
 
@@ -17,11 +23,14 @@ interface LoginModalProps {
 //   return Array.from(array, byte => byte.toString(16).padStart(2, '0')).join('');
 // };
 
-export const LoginModal: React.FC<LoginModalProps> = ({
-  styles,
-  AUTH_URLS,
-  modalRef,
-}) => {
+export const LoginModal: React.FC<LoginModalProps> = ({ modalRef }) => {
+  //Object
+  const AUTH_URLS = {
+    kakao: KAKAO_AUTH_URL,
+    google: GOOGLE_AUTH_URL,
+    naver: NAVER_AUTH_URL,
+  };
+
   const closeLoginModal = () => {
     modalRef.current?.close();
   };

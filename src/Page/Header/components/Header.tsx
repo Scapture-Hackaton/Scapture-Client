@@ -1,10 +1,5 @@
 import styles from '../scss/header.module.scss';
-import modal from '../scss/login-modal.module.scss';
-import {
-  KAKAO_AUTH_URL,
-  GOOGLE_AUTH_URL,
-  NAVER_AUTH_URL,
-} from '../../../apis/config/login.config';
+
 import { LoginModal } from './LoginModal';
 
 import ScaptureLogo from '../image/scaptureLogo.svg';
@@ -53,13 +48,6 @@ const Header: React.FC<HeaderProps> = ({ index }) => {
   //modal function -> move to function
   const openLoginModal = () => {
     modalRef.current?.showModal();
-  };
-
-  //Object
-  const AUTH_URLS = {
-    kakao: KAKAO_AUTH_URL,
-    google: GOOGLE_AUTH_URL,
-    naver: NAVER_AUTH_URL,
   };
 
   const resetUserData = useResetRecoilState(userDataAtom);
@@ -210,11 +198,7 @@ const Header: React.FC<HeaderProps> = ({ index }) => {
             <button onClick={openLoginModal}>로그인</button>
           )}
         </div>
-        <LoginModal
-          styles={modal}
-          AUTH_URLS={AUTH_URLS}
-          modalRef={modalRef}
-        ></LoginModal>
+        <LoginModal modalRef={modalRef}></LoginModal>
       </div>
     </div>
   );

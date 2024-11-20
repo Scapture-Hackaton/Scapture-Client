@@ -29,7 +29,6 @@ import SelectInfoBox from '../../Stadium/components/SelectInfoBox';
 // scss
 import styles from '../scss/video.module.scss';
 import modal from '../scss/video-modal.module.scss';
-import loginModal from '../../Header/scss/login-modal.module.scss';
 
 // svg
 import share from '../image/ShareIcon.svg';
@@ -39,13 +38,6 @@ import { StadiumDetail, VideoDetail } from '../../../apis/dto/scapture.dto';
 
 // func
 import { modalNotice } from '../functions/ModalFunction';
-
-// config
-import {
-  GOOGLE_AUTH_URL,
-  KAKAO_AUTH_URL,
-  NAVER_AUTH_URL,
-} from '../../../apis/config/login.config';
 
 // atom
 import { loginData, loginDataAtom } from '../../Header/Atom/atom';
@@ -60,13 +52,6 @@ export interface PrevSelectDataProps {
 }
 
 const Video = () => {
-  //Object
-  const AUTH_URLS = {
-    kakao: KAKAO_AUTH_URL,
-    google: GOOGLE_AUTH_URL,
-    naver: NAVER_AUTH_URL,
-  };
-
   const {
     stadiumId: paramStadiumId,
     videoId: paramVideoId,
@@ -193,7 +178,7 @@ const Video = () => {
 
   // 좋아요를 눌렀을 때 처리
   const handleToggleLike = (isLiked: boolean) => {
-    if (isLoginState) {
+    if (isLoginState.state) {
       if (videoDetail && !isLiked) {
         toggleLike(videoId);
       } else if (videoDetail && isLiked) {
@@ -243,7 +228,7 @@ const Video = () => {
 
   // 북마크를 눌렀을 때 처리
   const handleToggleStore = (isStore: boolean) => {
-    if (isLoginState) {
+    if (isLoginState.state) {
       if (videoDetail && !isStore) {
         toggleStore(videoId);
       } else if (videoDetail && isStore) {
@@ -373,11 +358,7 @@ const Video = () => {
           ref={modalRef}
           handleDownloadClick={handleDownloadClick}
         />
-        <LoginModal
-          styles={loginModal}
-          AUTH_URLS={AUTH_URLS}
-          modalRef={loginModalRef}
-        ></LoginModal>
+        <LoginModal modalRef={loginModalRef}></LoginModal>
       </div>
       <Footer />
 
