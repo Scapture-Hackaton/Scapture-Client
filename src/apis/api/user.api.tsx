@@ -1,6 +1,7 @@
 /**
  * 유저 정보 관련 API
  */
+import { PaymentRequestDto } from '../../common/component/Payment/dto/request.dto';
 import { CommonResponse } from '../dto/common.response';
 import { authInstance } from '../utils/instance';
 
@@ -21,6 +22,21 @@ export const postHighlight = async (scheduleId: number) => {
   try {
     const res: CommonResponse = await authInstance.post(
       `/api/highlights/${scheduleId}`,
+    );
+    return res.data;
+  } catch (e: any) {
+    return {
+      status: e.response.status,
+    };
+  }
+};
+
+// 결제 임시 요청
+export const postTempReqPay = async (req: PaymentRequestDto) => {
+  try {
+    const res: CommonResponse = await authInstance.post(
+      `/api/highlights/`,
+      req,
     );
     return res.data;
   } catch (e: any) {

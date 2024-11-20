@@ -21,10 +21,10 @@ const ChargeBanana: React.FC<ChargeBananaProps> = ({ toggleModal }) => {
   const handlePaymentClick = () => setIsPaymentModalOpen(true);
 
   const bananas = [
-    { id: 1, quantity: '10개', price: 4_990 },
-    { id: 2, quantity: '25개', price: 9_990 },
-    { id: 3, quantity: '50개', price: 19_900 },
-    { id: 4, quantity: '100개', price: 39_900 },
+    { id: 1, quantity: 10, price: 4_990 },
+    { id: 2, quantity: 25, price: 9_990 },
+    { id: 3, quantity: 50, price: 19_900 },
+    { id: 4, quantity: 100, price: 39_900 },
   ];
 
   // 화면 밖 클릭 시 모달 닫기
@@ -88,7 +88,7 @@ const ChargeBanana: React.FC<ChargeBananaProps> = ({ toggleModal }) => {
                     ></div>
                   </div>
                   <div className={styles.banana}>버내너</div>
-                  <div className={styles.bananaNum}>{banana.quantity}</div>
+                  <div className={styles.bananaNum}>{banana.quantity}개</div>
                 </div>
                 <div className={styles.price}>
                   {banana.price.toLocaleString()}원
@@ -113,9 +113,10 @@ const ChargeBanana: React.FC<ChargeBananaProps> = ({ toggleModal }) => {
           paymentModalClose={paymentModalClose}
           orderName={
             selectedButtonId
-              ? `버내너 ${bananas[selectedButtonId - 1].quantity}`
+              ? `버내너 ${bananas[selectedButtonId - 1].quantity}개`
               : '버내너 0개'
           }
+          banana={selectedButtonId ? bananas[selectedButtonId - 1].quantity : 0}
         />
       )}
     </>

@@ -34,6 +34,24 @@
       }
     }
 
+    #productInfo {
+      padding: 0 2rem;
+
+      .title {
+        font-size: var(--font-size-l);
+        font-weight: 700;
+        color: rgb(51, 61, 75);
+
+        margin-bottom: 1rem;
+      }
+
+      .orderName {
+        font-size: 20px;
+        font-weight: 400;
+        color: rgb(78, 89, 104);
+      }
+    }
+
     .button {
       display: flex;
       align-items: center;

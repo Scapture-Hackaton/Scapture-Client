@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import { getMainStadium } from '../../../apis/api/main.api';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import { useEffect, useRef } from 'react';
 
 import styles from '../scss/main.module.scss';
@@ -37,6 +37,13 @@ import stadiumEx from '../image/stadiumEx.jpeg';
 import testImg from '../../../assets/image/test.png';
 
 const Main = () => {
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  const locationQuery = searchParams.get('location');
+
+  if (locationQuery) {
+    window.location.href = locationQuery;
+  }
   const { data: mainData, isSuccess: isMainDataSuccess } = useQuery({
     queryKey: ['main_stadium'],
     queryFn: () => getMainStadium(),

@@ -33,6 +33,28 @@ module.exports = {
       { allowConstantExport: true },
     ],
 
+    // 'react-hooks/exhaustive-deps': [
+    //   'warn',
+    //   {
+    //     additionalHooks: '(useMyCustomHook|set.*)', // set으로 시작하는 훅 무시
+    //   },
+    // ],
+    '@typescript-eslint/no-unused-vars': [
+      'error',
+      {
+        vars: 'all',
+        args: 'after-used',
+        ignoreRestSiblings: true,
+        varsIgnorePattern: '^set[A-Z].*$', // set으로 시작하는 변수 무시
+      },
+    ],
+    'react-hooks/exhaustive-deps': [
+      'warn',
+      {
+        additionalHooks: '(useMyCustomHook|set.*)', // set으로 시작하는 훅 무시
+      },
+    ],
+
     // catch 문에서 any 타입을 사용할 수 있도록 설정
     '@typescript-eslint/no-explicit-any': 'off',
 
@@ -76,7 +98,7 @@ module.exports = {
     'no-console': 'off',
 
     // 비활성화된 'no-unused-vars' 규칙
-    'no-unused-vars': 'off',
+    // 'no-unused-vars': 'off',
 
     '@typescript-eslint/no-unused-vars': [
       'error',
