@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import styles from '../../scss/bridge.module.scss';
 import Header from '../../../Header/components/Header';
 import Footer from '../../../Footer/components/Footer';

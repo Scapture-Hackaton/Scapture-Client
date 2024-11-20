@@ -5,14 +5,6 @@ import emptyHeart from '../../../assets/Icon/heartIcon.svg';
 import { likesComment, unLikeComment } from '../../../apis/api/community.api';
 import { LoginModal } from '../../Header/components/LoginModal';
 
-import modal from '../../Header/scss/login-modal.module.scss';
-
-import {
-  KAKAO_AUTH_URL,
-  GOOGLE_AUTH_URL,
-  NAVER_AUTH_URL,
-} from '../../../apis/config/login.config';
-
 interface HeartProps {
   id: number;
   isLiked: boolean;
@@ -29,13 +21,6 @@ const Heart: React.FC<HeartProps> = ({
 }) => {
   //DOM
   const modalRef = useRef<HTMLDialogElement>(null);
-
-  //Object
-  const AUTH_URLS = {
-    kakao: KAKAO_AUTH_URL,
-    google: GOOGLE_AUTH_URL,
-    naver: NAVER_AUTH_URL,
-  };
 
   const [isHeart, setHeart] = useState<boolean>(isLiked);
   const [isCnt, setCnt] = useState<number>(likeCount);
@@ -93,11 +78,7 @@ const Heart: React.FC<HeartProps> = ({
 
         <div className={styles.cnt}>{isCnt}</div>
       </div>
-      <LoginModal
-        styles={modal}
-        AUTH_URLS={AUTH_URLS}
-        modalRef={modalRef}
-      ></LoginModal>
+      <LoginModal modalRef={modalRef}></LoginModal>
     </>
   );
 };
