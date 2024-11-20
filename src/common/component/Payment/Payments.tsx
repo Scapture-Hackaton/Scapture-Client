@@ -34,6 +34,7 @@ const Payments: React.FC<PaymentsProps> = ({
   });
   const [ready, setReady] = useState(false);
   const [widgets, setWidgets] = useState<any | null>(null);
+  const [isProcessing, setIsProcessing] = useState(false);
 
   useEffect(() => {
     if (payValue) {
@@ -149,6 +150,9 @@ const Payments: React.FC<PaymentsProps> = ({
           className={styles.button}
           disabled={!ready}
           onClick={async () => {
+            if (isProcessing) return; // 중복 클릭 방지
+            setIsProcessing(true);
+
             try {
               const orderId = uuidv4();
               const reqData: PaymentRequestDto = {
@@ -159,8 +163,6 @@ const Payments: React.FC<PaymentsProps> = ({
 
               const res = await postTempReqPay(reqData);
 
-              console.log(res);
-
               // ------ '결제하기' 버튼 누르면 결제창 띄우기 ------
               // 결제를 요청하기 전에 orderId, amount를 서버에 저장하세요.
               // 결제 과정에서 악의적으로 결제 금액이 바뀌는 것을 확인하는 용도입니다.
@@ -169,9 +171,9 @@ const Payments: React.FC<PaymentsProps> = ({
                 orderName,
                 successUrl: window.location.origin + '/success',
                 failUrl: window.location.origin + '/fail',
-                customerEmail: 'customer123@gmail.com',
-                customerName: '김토스',
-                customerMobilePhone: '01012341234',
+                customerEmail: res.data.customerEmail,
+                customerName: res.data.customerName,
+                customerMobilePhone: res.data.customerMobilePhone,
               });
             } catch (error: any) {
               // 에러 처리하기
@@ -183,6 +185,8 @@ const Payments: React.FC<PaymentsProps> = ({
               if (error.code === 'INVALID_CARD_COMPANY') {
                 console.log('Inval');
               }
+            } finally {
+              setIsProcessing(false); // 처리 완료 후 상태 초기화
             }
           }}
         >
