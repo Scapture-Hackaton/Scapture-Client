@@ -37,13 +37,6 @@ import stadiumEx from '../image/stadiumEx.jpeg';
 import testImg from '../../../assets/image/test.png';
 
 const Main = () => {
-  const redirectPage = localStorage.getItem('Redirect');
-
-  if (redirectPage) {
-    window.location.href = redirectPage;
-    localStorage.removeItem('Redirect');
-  }
-
   const { data: mainData, isSuccess: isMainDataSuccess } = useQuery({
     queryKey: ['main_stadium'],
     queryFn: () => getMainStadium(),
