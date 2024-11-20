@@ -15,7 +15,7 @@ const PaySuccess = () => {
     };
 
     const confirm = async () => {
-      const response = await fetch('/confirm', {
+      const response = await fetch('/api/payments/confirm', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
