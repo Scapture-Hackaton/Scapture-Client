@@ -17,13 +17,7 @@ import Heart from './Heart';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { getComments, writeComment } from '../../../apis/api/community.api';
 
-import {
-  KAKAO_AUTH_URL,
-  GOOGLE_AUTH_URL,
-  NAVER_AUTH_URL,
-} from '../../../apis/config/login.config';
 import { LoginModal } from '../../Header/components/LoginModal';
-import modal from '../../Header/scss/login-modal.module.scss';
 import { userDataAtom } from '../../MyPage/Atom/atom';
 import { userData } from '../../MyPage/dto/atom.interface';
 import { useRecoilValue } from 'recoil';
@@ -36,13 +30,6 @@ interface CommentProps {
 const Comment: React.FC<CommentProps> = ({ videoId }) => {
   //DOM
   const modalRef = useRef<HTMLDialogElement>(null);
-
-  //Object
-  const AUTH_URLS = {
-    kakao: KAKAO_AUTH_URL,
-    google: GOOGLE_AUTH_URL,
-    naver: NAVER_AUTH_URL,
-  };
 
   const [isComments, setComments] = useState(false);
 
@@ -260,11 +247,7 @@ const Comment: React.FC<CommentProps> = ({ videoId }) => {
           </button>
         )}
       </div>
-      <LoginModal
-        styles={modal}
-        AUTH_URLS={AUTH_URLS}
-        modalRef={modalRef}
-      ></LoginModal>
+      <LoginModal modalRef={modalRef}></LoginModal>
     </>
   );
 };
