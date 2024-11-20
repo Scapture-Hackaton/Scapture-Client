@@ -24,9 +24,10 @@ interface LoginModalProps {
 // };
 
 export const LoginModal: React.FC<LoginModalProps> = ({ modalRef }) => {
+  const location = window.location.href;
   //Object
   const AUTH_URLS = {
-    kakao: KAKAO_AUTH_URL,
+    kakao: `${KAKAO_AUTH_URL}${location}`,
     google: GOOGLE_AUTH_URL,
     naver: NAVER_AUTH_URL,
   };

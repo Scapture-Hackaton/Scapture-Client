@@ -378,6 +378,7 @@ const SelectInfoBox: React.FC<SelectInfoBoxProps> = ({
           payValue={3_500}
           paymentModalClose={paymentModalClose}
           orderName="영상"
+          banana={0}
         />
       )}
     </>

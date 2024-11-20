@@ -7,6 +7,8 @@ import { v4 as uuidv4 } from 'uuid';
 import Cancel from '../image/cancel.svg';
 
 import styles from '../../scss/payments.module.scss';
+import { PaymentRequestDto } from './dto/request.dto';
+import { postTempReqPay } from '../../../apis/api/user.api';
 
 const clientKey = `${import.meta.env.VITE_TOSS_CLIENT_KEY}`;
 const customerKey = uuidv4();
@@ -15,12 +17,14 @@ interface PaymentsProps {
   payValue: number;
   paymentModalClose: () => void;
   orderName: string;
+  banana: number;
 }
 
 const Payments: React.FC<PaymentsProps> = ({
   payValue,
   paymentModalClose,
   orderName,
+  banana,
 }) => {
   const paymentModalRef = useRef<HTMLDivElement>(null);
 
@@ -131,30 +135,14 @@ const Payments: React.FC<PaymentsProps> = ({
             onClick={paymentModalClose}
           ></img>
         </div>
+        <div id={styles.productInfo}>
+          <div className={styles.title}>상품 정보</div>
+          <div className={styles.orderName}>{orderName}</div>
+        </div>
         {/* 결제 UI */}
         <div id="payment-method" />
         {/* 이용약관 UI */}
         <div id="agreement" />
-        {/* 쿠폰 체크박스 */}
-        {/* <div>
-          <div>
-            <label htmlFor="coupon-box">
-              <input
-                id="coupon-box"
-                type="checkbox"
-                aria-checked="true"
-                disabled={!ready}
-                onChange={event => {
-                  // ------  주문서의 결제 금액이 변경되었을 경우 결제 금액 업데이트 ------
-                  setAmount(
-                    event.target.checked ? amount - 5_000 : amount + 5_000,
-                  );
-                }}
-              />
-              <span>5,000원 쿠폰 적용</span>
-            </label>
-          </div>
-        </div> */}
 
         {/* 결제하기 버튼 */}
         <button
@@ -162,11 +150,22 @@ const Payments: React.FC<PaymentsProps> = ({
           disabled={!ready}
           onClick={async () => {
             try {
+              const orderId = uuidv4();
+              const reqData: PaymentRequestDto = {
+                orderId,
+                amount: amount.value,
+                banana,
+              };
+
+              const res = await postTempReqPay(reqData);
+
+              console.log(res);
+
               // ------ '결제하기' 버튼 누르면 결제창 띄우기 ------
               // 결제를 요청하기 전에 orderId, amount를 서버에 저장하세요.
               // 결제 과정에서 악의적으로 결제 금액이 바뀌는 것을 확인하는 용도입니다.
               await widgets.requestPayment({
-                orderId: uuidv4(),
+                orderId,
                 orderName,
                 successUrl: window.location.origin + '/success',
                 failUrl: window.location.origin + '/fail',
@@ -174,9 +173,16 @@ const Payments: React.FC<PaymentsProps> = ({
                 customerName: '김토스',
                 customerMobilePhone: '01012341234',
               });
-            } catch (error) {
+            } catch (error: any) {
               // 에러 처리하기
-              console.error(error);
+              // console.error(error);
+              // if (error.code === 'USER_CANCEL') {
+              //   console.log('cancel');
+              // }
+
+              if (error.code === 'INVALID_CARD_COMPANY') {
+                console.log('Inval');
+              }
             }
           }}
         >
