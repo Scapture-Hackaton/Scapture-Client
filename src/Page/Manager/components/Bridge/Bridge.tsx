@@ -107,6 +107,18 @@ const Bridge = () => {
       <div className={styles.container}>
         <div className={styles.topContainer}>
           <div className={styles.explainContainer}>
+            {stadiumDetail?.images &&
+            stadiumDetail?.images.length > 0 &&
+            stadiumDetail?.images[0]?.image ? (
+              <img
+                src={stadiumDetail?.images[0]?.image}
+                alt=""
+                width="450px"
+                height="254px"
+                className={styles.backImg}
+              />
+            ) : null}
+
             <img
               src={HighLightIcon}
               className={styles.highLightIcon}

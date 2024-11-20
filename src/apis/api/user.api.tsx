@@ -19,8 +19,8 @@ export const getBananaCnt = async () => {
 // 하이라이트 요청
 export const postHighlight = async (scheduleId: number) => {
   try {
-    const res: CommonResponse = await authInstance.get(
-      `/api/highlight/${scheduleId}`,
+    const res: CommonResponse = await authInstance.post(
+      `/api/highlights/${scheduleId}`,
     );
     return res.data;
   } catch (e: any) {
