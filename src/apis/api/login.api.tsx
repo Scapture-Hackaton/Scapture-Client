@@ -22,7 +22,13 @@ export const LoginToken = async (code: string, type: string) => {
     const TOKEN = res.data.data.token || res.data.token;
     localStorage.setItem('TOKEN', TOKEN);
 
-    window.location.reload();
+    // window.location.reload();
+    const redirectPage = localStorage.getItem('Redirect');
+
+    if (redirectPage) {
+      window.location.href = redirectPage;
+      localStorage.removeItem('Redirect');
+    }
     // if (!localStorage.getItem('RELOADED')) {
     //   localStorage.setItem('RELOADED', 'true');
     // } else {

@@ -34,10 +34,7 @@ export const postHighlight = async (scheduleId: number) => {
 // 결제 임시 요청
 export const postTempReqPay = async (req: PaymentRequestDto) => {
   try {
-    const res: CommonResponse = await authInstance.post(
-      `/api/highlights/`,
-      req,
-    );
+    const res: CommonResponse = await authInstance.post(`/api/payments/`, req);
     return res.data;
   } catch (e: any) {
     return {
