@@ -28,7 +28,7 @@ const VideoList: React.FC<VideoListProps> = ({ scheduleId, stadiumId }) => {
   const navigate = useNavigate();
 
   const toVideo = (videoId: number) => {
-    navigate('/video', { state: { videoId, stadiumId } });
+    navigate(`/video/${stadiumId}/${videoId}`);
   };
 
   return (

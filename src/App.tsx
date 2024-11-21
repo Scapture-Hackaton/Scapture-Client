@@ -34,7 +34,7 @@ const App = () => {
           <Route path="/scapture" element={<Scapture />} />
           <Route path="/stadium/:stadiumId" element={<Stadium />} />
           <Route path="/reservation" element={<Reservation />} />
-          <Route path="/video" element={<Video />} />
+          <Route path="/video/:stadiumId/:videoId" element={<Video />} />
           <Route
             path="/video/:stadiumId/:videoId/:prevScheduleId/:month/:day/:prevFieldId"
             element={<Video />}

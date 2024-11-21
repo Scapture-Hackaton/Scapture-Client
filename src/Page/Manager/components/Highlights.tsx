@@ -10,41 +10,53 @@ const Highlights = () => {
     initialData: {} as HighlightsRes[],
   });
 
+  console.log(highlights);
+
   return (
     <div className={styles.container}>
-      <div className={`${styles.title} ${styles.line}`}>
-        <div>구장 이름</div>
-        <div>구역 이름</div>
-        <div>날짜</div>
-        <div>시간</div>
-        <div>Schedule Id</div>
-      </div>
-      {/* <div className={styles.hr}></div> */}
-
-      {highlights && highlights.length > 0 ? (
-        <>
-          {highlights.map((data: HighlightsRes, idx: number) => {
-            return (
-              <>
-                <div className={styles.hr}></div>
-
-                <div className={styles.line} key={idx}>
-                  <div>{data.stadiumName}</div>
-                  <div>{data.fieldName}</div>
-                  <div>{data.date}</div>
-                  <div>{data.hours}</div>
-                  <div>{data.scheduleId}</div>
-                </div>
-              </>
-            );
-          })}
-        </>
-      ) : (
-        <>
-          <div className={styles.hr}></div>
-          <div className={styles.noData}>조회된 데이터가 없습니다.</div>
-        </>
-      )}
+      <table>
+        <thead>
+          <tr className={`${styles.title} ${styles.line}`}>
+            <th>신청 시간</th>
+            <th>구장 이름</th>
+            <th>구역 이름</th>
+            <th>경기 날짜</th>
+            <th>경기 시간</th>
+            <th>Schedule-Id</th>
+            <th>User-Id</th>
+            <th>이름</th>
+            <th>전화번호</th>
+          </tr>
+        </thead>
+        {/* <div className={styles.hr}></div> */}
+        <tbody>
+          {highlights && highlights.length > 0 ? (
+            <>
+              {highlights.map((data: HighlightsRes, idx: number) => {
+                return (
+                  <tr className={`${styles.des} ${styles.line}`} key={idx}>
+                    <td>{data.createAt}</td>
+                    <td>{data.stadiumName}</td>
+                    <td>{data.fieldName}</td>
+                    <td>{data.date}</td>
+                    <td>{data.hours}</td>
+                    <td>{data.scheduleId}</td>
+                    <td>{data.userId}</td>
+                    <td>{data.scheduleId}</td>
+                    <td>{data.userId}</td>
+                  </tr>
+                );
+              })}
+            </>
+          ) : (
+            <tr>
+              <td colSpan={7} className={styles.noData}>
+                조회된 데이터가 없습니다.
+              </td>
+            </tr>
+          )}
+        </tbody>
+      </table>
     </div>
   );
 };

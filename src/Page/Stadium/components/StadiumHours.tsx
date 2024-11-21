@@ -36,27 +36,31 @@ const StadiumHours: React.FC<StadiumHoursProps> = ({
   const sliderRef = useRef<Slider | null>(null); // Slider에 대한 ref
 
   // 슬라이드 클릭 핸들러
-  const handleScheduleClick = (scheduleId: number, index: number) => {
+  // const handleScheduleClick = (scheduleId: number, index: number) => {
+  //   chooseSchedule(scheduleId); // 선택한 scheduleId를 상태로 업데이트
+
+  //   // 중앙에 위치시킬 인덱스를 계산 (중앙 인덱스는 slidesToShow / 2)
+  //   const slidesToShow = settings.slidesToShow || 3; // 기본값 3
+  //   const centerIndex = Math.floor(slidesToShow / 2); // 중앙 위치는 1번 인덱스
+
+  //   // 클릭된 인덱스를 중앙에 배치
+  //   let targetIndex = index - centerIndex;
+
+  //   // 슬라이더 이동 범위를 초과하지 않도록 조정
+  //   if (targetIndex < 0) {
+  //     targetIndex = 0; // 첫 번째 슬라이드를 넘지 않도록
+  //   } else if (targetIndex > stadiumHourList.length - slidesToShow) {
+  //     targetIndex = stadiumHourList.length - slidesToShow; // 마지막 슬라이드를 넘지 않도록
+  //   }
+
+  //   // 슬라이더를 이동시킴
+  //   if (sliderRef.current) {
+  //     sliderRef.current.slickGoTo(targetIndex);
+  //   }
+  // };
+
+  const handleScheduleClick = (scheduleId: number) => {
     chooseSchedule(scheduleId); // 선택한 scheduleId를 상태로 업데이트
-
-    // 중앙에 위치시킬 인덱스를 계산 (중앙 인덱스는 slidesToShow / 2)
-    const slidesToShow = settings.slidesToShow || 3; // 기본값 3
-    const centerIndex = Math.floor(slidesToShow / 2); // 중앙 위치는 1번 인덱스
-
-    // 클릭된 인덱스를 중앙에 배치
-    let targetIndex = index - centerIndex;
-
-    // 슬라이더 이동 범위를 초과하지 않도록 조정
-    if (targetIndex < 0) {
-      targetIndex = 0; // 첫 번째 슬라이드를 넘지 않도록
-    } else if (targetIndex > stadiumHourList.length - slidesToShow) {
-      targetIndex = stadiumHourList.length - slidesToShow; // 마지막 슬라이드를 넘지 않도록
-    }
-
-    // 슬라이더를 이동시킴
-    if (sliderRef.current) {
-      sliderRef.current.slickGoTo(targetIndex);
-    }
   };
 
   // 모든 Schedule이 영상이 있는지 확인
@@ -71,28 +75,25 @@ const StadiumHours: React.FC<StadiumHoursProps> = ({
           <div id={styles.noHours}>해당하는 조건의 결과가 없습니다.</div>
         ) : (
           <Slider {...settings} ref={sliderRef} className={styles.housrsList}>
-            {stadiumHourList.map(
-              (stadiumHour: StadiumHoursData, index: number) =>
-                stadiumHour.videoCount !== 0 ? (
-                  <div className={styles.test} key={stadiumHour.scheduleId}>
-                    <div
-                      className={`${styles.scheduleGroup} ${
-                        isScheduleId === stadiumHour.scheduleId
-                          ? styles.selected
-                          : ''
-                      }`}
-                      key={stadiumHour.scheduleId}
-                      onClick={() =>
-                        handleScheduleClick(stadiumHour.scheduleId, index)
-                      }
-                    >
-                      <div id={styles.hour}>{stadiumHour.hours}</div>
-                      <div id={styles.videoCnt}>
-                        {stadiumHour.videoCount}개의 영상
-                      </div>
+            {stadiumHourList.map((stadiumHour: StadiumHoursData) =>
+              stadiumHour.videoCount !== 0 ? (
+                <div className={styles.test} key={stadiumHour.scheduleId}>
+                  <div
+                    className={`${styles.scheduleGroup} ${
+                      isScheduleId === stadiumHour.scheduleId
+                        ? styles.selected
+                        : ''
+                    }`}
+                    key={stadiumHour.scheduleId}
+                    onClick={() => handleScheduleClick(stadiumHour.scheduleId)}
+                  >
+                    <div id={styles.hour}>{stadiumHour.hours}</div>
+                    <div id={styles.videoCnt}>
+                      {stadiumHour.videoCount}개의 영상
                     </div>
                   </div>
-                ) : null,
+                </div>
+              ) : null,
             )}
           </Slider>
         )

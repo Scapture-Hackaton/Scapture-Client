@@ -226,10 +226,9 @@ const SelectInfoBox: React.FC<SelectInfoBoxProps> = ({
   // 비디오 넘어갈 때 기본 정보 넘겨주기
   const toVideo = (videoId: number) => {
     window.scrollTo(0, 0);
-    navigate('/video', {
+
+    navigate(`/video/${stadiumId}/${videoId}`, {
       state: {
-        videoId,
-        stadiumId,
         month: isMonth,
         day: isDay,
         prevFieldId: isField,
@@ -251,9 +250,9 @@ const SelectInfoBox: React.FC<SelectInfoBoxProps> = ({
 
   const [isPaymentModalOpen, setIsPaymentModalOpen] = useState(false);
 
-  const handlePaymentStart = () => {
-    setIsPaymentModalOpen(true);
-  };
+  // const handlePaymentStart = () => {
+  //   setIsPaymentModalOpen(true);
+  // };
 
   const paymentModalClose = () => {
     setIsPaymentModalOpen(false);
