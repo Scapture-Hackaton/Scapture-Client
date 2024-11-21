@@ -5,5 +5,6 @@ export interface HighlightsRes {
   date: string;
   hours: string;
   scheduleId: number;
-  userId: number;
+  username: string;
+  phoneNumber: string;
 }

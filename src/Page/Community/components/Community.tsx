@@ -463,6 +463,7 @@ const Community = () => {
         styles={modal}
         ref={modalRef}
         handleDownloadClick={handleDownloadClick}
+        videoDetail={videoDetailData}
       />
       <LoginModal modalRef={loginModalRef}></LoginModal>
     </div>

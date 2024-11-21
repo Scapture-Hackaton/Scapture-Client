@@ -99,12 +99,35 @@ const Video = () => {
     initialData: {} as StadiumDetail,
   });
 
-  const { data: videoDetail, isSuccess: isVideoDetailSuccess } = useQuery({
+  const {
+    data: videoDetail,
+    refetch: refetchVideoDetail,
+    isSuccess: isVideoDetailSuccess,
+  } = useQuery({
     queryKey: ['videoDetail', videoId],
     queryFn: () => getVideoDetail(videoId),
     initialData: {} as VideoDetail,
   });
 
+  const isLoginState = useRecoilValue<loginData>(loginDataAtom);
+
+  const handelOpenDownloadModal = () => {
+    const token = localStorage.getItem('TOKEN');
+    const type = localStorage.getItem('LoginType');
+
+    if (isLoginState.state || (token && type)) {
+      // 다운로드 이력이 있다면 영상 다운로드
+      if (videoDetail.isDownload) {
+        downLoadVideo();
+      } else {
+        modalNotice(modalRef);
+      }
+    } else {
+      modalNotice(loginModalRef);
+    }
+  };
+
+  // 영상 다운로드 로직
   const downLoadVideo = () => {
     // fetch(`${videoDetail.video}/MP4/${videoDetail.fileName}.mp4`, {
     //   method: 'GET',
@@ -130,89 +153,29 @@ const Video = () => {
       });
   };
 
-  const isLoginState = useRecoilValue<loginData>(loginDataAtom);
-
-  const handelOpenDownloadModal = () => {
-    const token = localStorage.getItem('TOKEN');
-    const type = localStorage.getItem('LoginType');
-
-    if (isLoginState.state || (token && type)) {
-      // 다운로드 이력이 있다면 영상 다운로드
-      if (videoDetail.isDownload) {
+  // 영상 다운로드 더블체크 (첫 다운로드)
+  const checkAuthDownLoadVideo = async () => {
+    try {
+      const authResponse = await checkAuthDownloadVideo(videoId);
+      if (authResponse.status === 200) {
         downLoadVideo();
-      } else {
-        modalNotice(modalRef);
+        await refetchVideoDetail();
+      } else if (authResponse.status === 402) {
+        alert('버내너가 부족합니다!');
+      } else if (authResponse.status === 404 || authResponse.status === 400) {
+        modalNotice(loginModalRef);
       }
-    } else {
-      modalNotice(loginModalRef);
+    } catch (error) {
+      console.error('비디오 다운로드 중 오류가 발생했습니다.', error);
+    } finally {
+      modalRef.current?.close(); // 다운로드 완료 후 모달 닫기
     }
   };
 
-  // 다운로드 기능
-  // const handleDownloadClick = async () => {
-  //   try {
-  //     const authResponse = await checkAuthDownloadVideo(videoId);
-
-  //     if (authResponse.status === 200) {
-  //       downLoadVideo();
-  //     } else if (authResponse.status === 402) {
-  //       alert('버내너가 부족합니다!');
-  //     } else if (authResponse.status === 404 || authResponse.status === 400) {
-  //       modalNotice(loginModalRef);
-  //     }
-  //   } catch (error) {
-  //     console.error('비디오 다운로드 중 오류가 발생했습니다.', error);
-  //   } finally {
-  //     modalRef.current?.close(); // 다운로드 완료 후 모달 닫기
-  //   }
-  // };
-
+  // 처음 다운로드 하는 경우
   const handleDownloadClick = async () => {
-    downLoadVideo();
+    checkAuthDownLoadVideo();
   };
-
-  // const isLoginState = useRecoilValue<loginData>(loginDataAtom);
-
-  // 다운로드 기능
-  // const handleDownloadClick = async () => {
-  //   try {
-  //     const authResponse = await checkAuthDownloadVideo(videoId);
-
-  //     if (authResponse.status === 200) {
-  //       // fetch(`${videoDetail.video}/MP4/${videoDetail.fileName}.mp4`, {
-  //       //   method: 'GET',
-  //       // })
-
-  //       fetch(`${videoDetail.video}`, {
-  //         method: 'GET',
-  //       })
-  //         .then(response => response.blob())
-  //         .then(blob => {
-  //           const url = window.URL.createObjectURL(blob);
-  //           const link = document.createElement('a');
-
-  //           link.setAttribute('href', url);
-  //           link.setAttribute('download', `${videoDetail.name}.mp4`);
-
-  //           document.body.appendChild(link);
-
-  //           link.click();
-
-  //           link.parentNode?.removeChild(link);
-
-  //           window.URL.revokeObjectURL(url);
-  //         });
-  //     } else if (authResponse.status === 402) {
-  //       alert('버내너가 부족합니다!');
-  //     } else if (authResponse.status === 404 || authResponse.status === 400) {
-  //       modalNotice(loginModalRef);
-  //     }
-  //   } catch (error) {
-  //     console.error('비디오 다운로드 중 오류가 발생했습니다.', error);
-  //   } finally {
-  //     modalRef.current?.close(); // 다운로드 완료 후 모달 닫기
-  //   }
-  // };
 
   // useMutation 훅을 사용하여 좋아요/좋아요 취소 처리
   const { mutate: toggleLike } = useMutation({
@@ -432,6 +395,7 @@ const Video = () => {
           styles={modal}
           ref={modalRef}
           handleDownloadClick={handleDownloadClick}
+          videoDetail={videoDetail}
         />
         <LoginModal modalRef={loginModalRef}></LoginModal>
       </div>
