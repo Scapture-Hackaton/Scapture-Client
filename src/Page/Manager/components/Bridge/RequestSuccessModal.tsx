@@ -1,33 +1,27 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef } from 'react';
 
 import cancelIcon from '../../../../assets/Icon/Cancel.svg';
 import SuccessIcon from '../../image/successIcon.svg';
 
 import styles from '../../scss/requestSuccessModal.module.scss';
 
-const RequestSuccessModal = () => {
+interface RequestSuccessModalProps {
+  visible: boolean;
+  onHide: () => void;
+}
+
+const RequestSuccessModal: React.FC<RequestSuccessModalProps> = ({
+  visible,
+  onHide,
+}) => {
   const dialogRef = useRef<HTMLDialogElement>(null);
-  const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
-    const dialog = dialogRef.current;
-    if (dialog) {
-      setIsVisible(true); // 애니메이션 시작
-      dialog?.showModal();
+    if (visible) {
+      const timer = setTimeout(() => onHide(), 2000); // 2초 후 사라짐
+      return () => clearTimeout(timer);
     }
-
-    // 1초 뒤 애니메이션 시작 후 닫기
-    const timer = setTimeout(() => {
-      setIsVisible(false); // 페이드 아웃 시작
-      setTimeout(() => {
-        dialog?.close();
-      }, 1000); // fadeOut 애니메이션 지속 시간과 맞춤
-    }, 1000);
-
-    return () => {
-      clearTimeout(timer);
-    };
-  }, []);
+  }, [visible, onHide]);
 
   const handleDialogClick = (event: React.MouseEvent<HTMLDialogElement>) => {
     const dialog = dialogRef.current;
@@ -41,7 +35,7 @@ const RequestSuccessModal = () => {
       ref={dialogRef}
       id={styles.requestSuccessModal}
       onClick={handleDialogClick}
-      className={isVisible ? styles.fadeIn : styles.fadeOut}
+      className={`${visible ? styles.show : ''}`}
     >
       <div className={styles.header}>
         <div></div>

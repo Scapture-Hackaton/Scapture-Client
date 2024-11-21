@@ -330,7 +330,7 @@ const Community = () => {
                 ></VideoPlayer>
               </div> */}
               <div className={styles.video}>
-                {/* <video
+                <video
                   id="videoPlayer"
                   src={videoDetailData.video}
                   controls
@@ -338,11 +338,11 @@ const Community = () => {
                   onContextMenu={e => e.preventDefault()}
                 >
                   <source src={videoDetailData.video} type="video/mp4" />
-                </video> */}
-                <VideoPlayer
+                </video>
+                {/* <VideoPlayer
                   videoSrc={videoDetailData.video}
                   contentId={videoDetailData.fileName}
-                ></VideoPlayer>
+                ></VideoPlayer> */}
               </div>
               <div className={styles.group}>
                 <div className={styles.title}>{videoDetailData.name}</div>

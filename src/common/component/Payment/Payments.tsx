@@ -77,7 +77,7 @@ const Payments: React.FC<PaymentsProps> = ({
         // ------  결제 UI 렌더링 ------
         widgets.renderPaymentMethods({
           selector: '#payment-method',
-          variantKey: 'DEFAULT',
+          variantKey: 'Default',
         }),
         // ------  이용약관 UI 렌더링 ------
         widgets.renderAgreement({
