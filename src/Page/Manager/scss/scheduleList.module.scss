@@ -49,6 +49,11 @@
       font-weight: 500;
     }
 
+    .btn.disabled {
+      cursor: default;
+      opacity: 0.5;
+    }
+
     &:hover {
       border-radius: 10px;
       background: var(--color-grayscale-web-card);
