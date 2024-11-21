@@ -343,7 +343,7 @@ const SelectInfoBox: React.FC<SelectInfoBoxProps> = ({
           </div>
         </div>
       </div>
-      {isScheduleId ? (
+      {/* {isScheduleId ? (
         <div className={styles.downLoadFrame}>
           <div id={styles.textGroup}>
             <div className={styles.desText}>이 경기의 영상을</div>
@@ -364,7 +364,7 @@ const SelectInfoBox: React.FC<SelectInfoBoxProps> = ({
             <div>영상은 2주 이후에 말소됩니다.</div>
           </div>
         </div>
-      ) : null}
+      ) : null} */}
 
       {isStadiumHourList && isStadiumHourList.length > 0 ? (
         <VideoList

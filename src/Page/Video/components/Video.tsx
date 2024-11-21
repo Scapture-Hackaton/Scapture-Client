@@ -108,7 +108,11 @@ const Video = () => {
       const authResponse = await checkAuthDownloadVideo(videoId);
 
       if (authResponse.status === 200) {
-        fetch(`${videoDetail.video}/MP4/${videoDetail.fileName}.mp4`, {
+        // fetch(`${videoDetail.video}/MP4/${videoDetail.fileName}.mp4`, {
+        //   method: 'GET',
+        // })
+
+        fetch(`${videoDetail.video}`, {
           method: 'GET',
         })
           .then(response => response.blob())
@@ -260,17 +264,17 @@ const Video = () => {
         {isVideoDetailSuccess && videoDetail && videoDetail.video ? (
           <div className={styles.videoContainer}>
             <div className={styles.video}>
-              {/* <video
+              <video
                 id="videoPlayer"
                 controls
                 controlsList="nodownload"
                 src={videoDetail.video}
                 onContextMenu={e => e.preventDefault()}
-              ></video> */}
-              <VideoPlayer
+              ></video>
+              {/* <VideoPlayer
                 videoSrc={videoDetail.video}
                 contentId={videoDetail.fileName}
-              ></VideoPlayer>
+              ></VideoPlayer> */}
             </div>
             <div className={styles.shareVideo}>
               <div className={styles.shareDes}>

@@ -57,11 +57,6 @@ const RequestCheckModal: React.FC<RequestCheckModalProps> = ({
 
     // 성공 모달 표시
     setSuccessModalVisible(true);
-
-    // 1초 후 모달 닫기
-    setTimeout(() => {
-      setSuccessModalVisible(false);
-    }, 2000);
   };
 
   return (
@@ -137,7 +132,11 @@ const RequestCheckModal: React.FC<RequestCheckModalProps> = ({
           </div>
         </div>
       </dialog>
-      {isSuccessModalVisible && <RequestSuccessModal />}
+
+      <RequestSuccessModal
+        visible={isSuccessModalVisible}
+        onHide={() => setSuccessModalVisible(true)}
+      />
     </>
   );
 };
