@@ -11,13 +11,14 @@ interface ModalProps {
   styles: { [key: string]: string };
   ref: Ref<HTMLDialogElement>;
   handleDownloadClick: () => Promise<void>;
+  videoDetail: any;
 }
 // interface ModalCheckProps extends ModalProps {
 //   extendRef: React.RefObject<HTMLDialogElement>;
 // }
 
 export const VideoModal = forwardRef<HTMLDialogElement, ModalProps>(
-  ({ styles, handleDownloadClick }, ref) => {
+  ({ styles, handleDownloadClick, videoDetail }, ref) => {
     const closeModal = () => {
       // ref가 MutableRefObject이면 current 속성에 접근하고, 함수 형태이면 호출하여 사용
       if (ref && typeof ref !== 'function' && ref.current) {
@@ -34,10 +35,18 @@ export const VideoModal = forwardRef<HTMLDialogElement, ModalProps>(
       }
     };
 
-    const { data: bananaCnt } = useQuery({
+    const { data: bananaCnt, refetch: refetchBananaCnt } = useQuery({
       queryKey: ['bananaCnt'],
       queryFn: () => getBananaCnt(),
     });
+
+    useEffect(() => {
+      const refetchBanana = async () => {
+        await refetchBananaCnt();
+      };
+
+      refetchBanana();
+    }, [videoDetail]);
 
     const [isCnt, setCnt] = useState(0);
 

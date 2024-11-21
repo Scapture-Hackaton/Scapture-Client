@@ -86,8 +86,6 @@ const Video = () => {
   const prevScheduleId =
     Number(paramPrevScheduleId) || location.state.prevScheduleId;
 
-  console.log(`${month} ${day} ${prevFieldId} ${prevScheduleId}`);
-
   const prevSelectDataProps = {
     month,
     day,
@@ -101,7 +99,11 @@ const Video = () => {
     initialData: {} as StadiumDetail,
   });
 
-  const { data: videoDetail, isSuccess: isVideoDetailSuccess } = useQuery({
+  const {
+    data: videoDetail,
+    refetch: refetchVideoDetail,
+    isSuccess: isVideoDetailSuccess,
+  } = useQuery({
     queryKey: ['videoDetail', videoId],
     queryFn: () => getVideoDetail(videoId),
     initialData: {} as VideoDetail,
@@ -125,34 +127,39 @@ const Video = () => {
     }
   };
 
-  // 영상 다운로드 더블체크
-  const downLoadVideo = async () => {
+  // 영상 다운로드 로직
+  const downLoadVideo = () => {
+    // fetch(`${videoDetail.video}/MP4/${videoDetail.fileName}.mp4`, {
+    //   method: 'GET',
+    // })
+    fetch(`${videoDetail.video}`, {
+      method: 'GET',
+    })
+      .then(response => response.blob())
+      .then(blob => {
+        const url = window.URL.createObjectURL(blob);
+        const link = document.createElement('a');
+
+        link.setAttribute('href', url);
+        link.setAttribute('download', `${videoDetail.name}.mp4`);
+
+        document.body.appendChild(link);
+
+        link.click();
+
+        link.parentNode?.removeChild(link);
+
+        window.URL.revokeObjectURL(url);
+      });
+  };
+
+  // 영상 다운로드 더블체크 (첫 다운로드)
+  const checkAuthDownLoadVideo = async () => {
     try {
       const authResponse = await checkAuthDownloadVideo(videoId);
       if (authResponse.status === 200) {
-        // fetch(`${videoDetail.video}/MP4/${videoDetail.fileName}.mp4`, {
-        //   method: 'GET',
-        // })
-
-        fetch(`${videoDetail.video}`, {
-          method: 'GET',
-        })
-          .then(response => response.blob())
-          .then(blob => {
-            const url = window.URL.createObjectURL(blob);
-            const link = document.createElement('a');
-
-            link.setAttribute('href', url);
-            link.setAttribute('download', `${videoDetail.name}.mp4`);
-
-            document.body.appendChild(link);
-
-            link.click();
-
-            link.parentNode?.removeChild(link);
-
-            window.URL.revokeObjectURL(url);
-          });
+        downLoadVideo();
+        await refetchVideoDetail();
       } else if (authResponse.status === 402) {
         alert('버내너가 부족합니다!');
       } else if (authResponse.status === 404 || authResponse.status === 400) {
@@ -165,8 +172,9 @@ const Video = () => {
     }
   };
 
+  // 처음 다운로드 하는 경우
   const handleDownloadClick = async () => {
-    downLoadVideo();
+    checkAuthDownLoadVideo();
   };
 
   // useMutation 훅을 사용하여 좋아요/좋아요 취소 처리
@@ -387,6 +395,7 @@ const Video = () => {
           styles={modal}
           ref={modalRef}
           handleDownloadClick={handleDownloadClick}
+          videoDetail={videoDetail}
         />
         <LoginModal modalRef={loginModalRef}></LoginModal>
       </div>
