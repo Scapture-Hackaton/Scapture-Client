@@ -10,7 +10,7 @@ const Highlights = () => {
     initialData: {} as HighlightsRes[],
   });
 
-  console.log(highlights);
+  //   console.log(highlights);
 
   return (
     <div className={styles.container}>
@@ -23,7 +23,6 @@ const Highlights = () => {
             <th>경기 날짜</th>
             <th>경기 시간</th>
             <th>Schedule-Id</th>
-            <th>User-Id</th>
             <th>이름</th>
             <th>전화번호</th>
           </tr>
@@ -41,9 +40,9 @@ const Highlights = () => {
                     <td>{data.date}</td>
                     <td>{data.hours}</td>
                     <td>{data.scheduleId}</td>
-                    <td>{data.userId}</td>
-                    <td>{data.scheduleId}</td>
-                    <td>{data.userId}</td>
+
+                    <td>{data.username}</td>
+                    <td>{data.phoneNumber}</td>
                   </tr>
                 );
               })}
