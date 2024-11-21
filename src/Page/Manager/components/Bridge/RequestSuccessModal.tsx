@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 
 import cancelIcon from '../../../../assets/Icon/Cancel.svg';
-import SuccessIcon from '../../image/successIcon.svg';
+import SuccessIcon from '../../../../assets/image/successIcon.svg';
 
 import styles from '../../scss/requestSuccessModal.module.scss';
 

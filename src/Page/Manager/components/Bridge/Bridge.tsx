@@ -17,6 +17,7 @@ import {
   StadiumDetail,
   StadiumFileds,
 } from '../../../../apis/dto/scapture.dto';
+import AlertModal from '../../../../common/component/AlertModal';
 
 const Bridge = () => {
   const { stadiumId, fieldId } = useParams();
@@ -99,6 +100,12 @@ const Bridge = () => {
     setMonth(dayInfo.month);
 
     // setScheduleId(null);
+  };
+
+  const [isModalVisible, setModalVisible] = useState(true);
+
+  const handleCloseModal = () => {
+    setModalVisible(false);
   };
 
   return (
@@ -186,6 +193,9 @@ const Bridge = () => {
           ></ScheduleList>
         ) : null}
       </div>
+      {isModalVisible && (
+        <AlertModal message="서비스 준비중입니다!" onClose={handleCloseModal} />
+      )}
       <Footer></Footer>
     </div>
   );
