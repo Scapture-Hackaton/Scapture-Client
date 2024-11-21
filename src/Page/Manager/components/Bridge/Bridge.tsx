@@ -50,7 +50,7 @@ const Bridge = () => {
   // 현재 날짜 추출
   const today = new Date();
   const weekAgo = new Date(today);
-  weekAgo.setDate(today.getDate() - 7);
+  weekAgo.setDate(today.getDate() - 2);
 
   // 요일 추출 함수
   const getDayOfWeek = (date: Date) => {
