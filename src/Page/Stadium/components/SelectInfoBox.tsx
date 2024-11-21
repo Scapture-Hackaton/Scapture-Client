@@ -227,16 +227,10 @@ const SelectInfoBox: React.FC<SelectInfoBoxProps> = ({
   const toVideo = (videoId: number) => {
     window.scrollTo(0, 0);
 
-    navigate(`/video/${stadiumId}/${videoId}`, {
-      state: {
-        month: isMonth,
-        day: isDay,
-        prevFieldId: isField,
-        prevScheduleId: isScheduleId,
-      },
-    });
+    navigate(
+      `/video/${stadiumId}/${videoId}/${isScheduleId}/${isMonth}/${isDay}/${isField}`,
+    );
   };
-
   useEffect(() => {
     if (prevSelectDataProps) {
       setMonth(prevSelectDataProps?.month);
