@@ -398,10 +398,12 @@ const Community = () => {
               <div className={styles.infoGroup}>
                 <div className={styles.topInfo}>
                   <div className={styles.isOutside}>
-                    {videoDetailData.isOutside ? '실외' : '실내'}
+                    {videoDetailData?.stadium?.isOutside ? '실외' : '실내'}
                   </div>
                   <div className={styles.isParking}>
-                    {videoDetailData.isParking ? '주차 가능' : '주차 불가능'}
+                    {videoDetailData?.stadium?.isParking
+                      ? '주차 가능'
+                      : '주차 불가능'}
                   </div>
                 </div>
 

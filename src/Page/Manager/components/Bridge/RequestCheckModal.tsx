@@ -135,7 +135,7 @@ const RequestCheckModal: React.FC<RequestCheckModalProps> = ({
 
       <RequestSuccessModal
         visible={isSuccessModalVisible}
-        onHide={() => setSuccessModalVisible(true)}
+        onHide={() => setSuccessModalVisible(false)}
       />
     </>
   );

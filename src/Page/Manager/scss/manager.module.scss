@@ -1,6 +1,13 @@
 .main {
+  position: absolute;
+  width: 100vw; /* 화면 전체 너비 */
+  max-width: none;
+  left: 0;
+
   .inputPwd {
-    margin-top: 10rem;
+    width: 30rem;
+
+    margin: 10rem auto 0 auto;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -44,33 +51,63 @@
   }
 
   .container {
-    width: 100%;
-
-    margin: 3rem 0;
+    width: 70%;
+    margin: 3rem auto 0 auto;
     padding: 1rem 0;
 
-    border: 1px solid var(--grey-color-grey-02);
+    border-radius: 8px;
+    // background-color: var(--color-grayscale-input-900);
+    text-align: center;
+
+    table {
+      width: 100%; /* 테이블 너비를 콘텐츠에 따라 자동 조정 */
+      margin: 0 auto; /* 중앙 정렬 */
+      border-collapse: collapse;
+
+      border: 1px solid var(--grey-color-grey-02);
+
+      th,
+      td {
+        width: 100%;
+        height: 50px;
+        text-align: center;
+        border: 1px solid #000;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      tr {
+        text-align: center;
+        border-bottom: 3px solid var(--grey-color-grey-01);
+      }
+
+      tbody > tr:nth-child(odd) {
+        background-color: var(--color-grayscale-input-800);
+      }
+    }
 
     .title {
       font-weight: 600;
       font-size: var(--font-size-xm);
     }
 
+    .des {
+      font-weight: 400;
+      font-size: var(--font-size-m);
+    }
+
     .line {
       display: flex;
       align-items: center;
       justify-content: space-between;
-
-      padding: 0 1rem;
-    }
-
-    .hr {
-      margin: 1rem 0;
-      border-top: 1px solid var(--grey-color-grey-02);
     }
 
     .noData {
-      text-align: center;
+      padding: 2rem;
+      font-size: var(--font-size-md);
+      color: var(--font-color-gray-400, #b0b0b0);
     }
   }
 }

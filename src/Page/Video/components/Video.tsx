@@ -52,9 +52,22 @@ export interface PrevSelectDataProps {
 }
 
 const Video = () => {
+  const { stadiumId: stadiumIdFromParams, videoId: videoIdFromParams } =
+    useParams<{
+      stadiumId: string;
+      videoId: string;
+    }>();
+
+  // 상태로 전달된 stadiumId 확인
+  // const stadiumIdFromState = location.state?.stadiumId;
+
+  // 상태나 파라미터 중 하나에서 stadiumId를 가져옴
+  const stadiumId = parseInt(stadiumIdFromParams!);
+  const videoId = parseInt(videoIdFromParams!);
+
   const {
-    stadiumId: paramStadiumId,
-    videoId: paramVideoId,
+    // stadiumId: stadiumId,
+    // videoId: videoId,
     month: paramMonth,
     day: paramDay,
     prevFieldId: paramField,
@@ -66,10 +79,6 @@ const Video = () => {
   const queryClient = useQueryClient();
 
   const location = useLocation();
-
-  const stadiumId = paramStadiumId || location.state.stadiumId;
-
-  const videoId = paramVideoId || location.state.videoId;
 
   const month = paramMonth || location.state.month;
   const day = paramDay || location.state.day;

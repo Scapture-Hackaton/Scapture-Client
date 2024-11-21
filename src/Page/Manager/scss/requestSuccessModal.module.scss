@@ -1,4 +1,20 @@
 #requestSuccessModal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  opacity: 0;
+  visibility: hidden;
+
+  display: flex;
+  flex-direction: column;
+
+  gap: 8px;
+  transition:
+    opacity 0.5s ease,
+    visibility 0.5s ease;
+
   z-index: 99;
   width: 320px;
 
@@ -6,32 +22,13 @@
 
   border: 0;
 
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-
-  transition: all 1s ease-in-out;
-  opacity: 0;
-
   border-radius: 14px;
 
   background: var(--color-grayscale-web-card);
 
-  &.fadeIn {
+  &.show {
     opacity: 1;
-    transform: scale(1);
-    transition:
-      opacity 1s ease-in-out,
-      transform 1s ease-in-out;
-  }
-
-  &.fadeOut {
-    opacity: 0;
-    transform: scale(0.95);
-    transition:
-      opacity 1s ease-in-out,
-      transform 1s ease-in-out;
+    visibility: visible;
   }
 
   .header {
