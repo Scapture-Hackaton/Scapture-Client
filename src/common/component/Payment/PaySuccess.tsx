@@ -52,6 +52,7 @@ const PaySuccess = () => {
     } else {
       navigate('/');
     }
+    localStorage.removeItem('payRedirect');
   };
 
   const confirm = () => {
@@ -62,6 +63,8 @@ const PaySuccess = () => {
     } else {
       navigate('/');
     }
+
+    localStorage.removeItem('payRedirect');
   };
 
   return (

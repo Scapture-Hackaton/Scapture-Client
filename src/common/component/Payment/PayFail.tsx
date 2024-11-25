@@ -13,14 +13,6 @@ const PayFail = () => {
   const navigate = useNavigate();
   const isLoginState = useRecoilValue<loginData>(loginDataAtom);
 
-  const goToMyPage = () => {
-    if (isLoginState.state) {
-      navigate('/myPage');
-    } else {
-      navigate('/');
-    }
-  };
-
   const confirm = () => {
     const redirect = localStorage.getItem('payRedirect');
 
@@ -29,6 +21,7 @@ const PayFail = () => {
     } else {
       navigate('/');
     }
+    localStorage.removeItem('payRedirect');
   };
 
   return (
@@ -41,8 +34,12 @@ const PayFail = () => {
           <div id={styles.des}>잠시 후 다시 시도해주세요.</div>
         </div>
         <div className={styles.btns}>
-          <div id={styles.goPage} onClick={() => goToMyPage()} />
-          <div id={styles.goPage} onClick={() => confirm()} />
+          <div id={styles.goPage} onClick={() => navigate('/')}>
+            홈으로 이동
+          </div>
+          <div id={styles.okay} onClick={() => confirm()}>
+            다시 결제하기
+          </div>
         </div>
       </div>
       <Footer></Footer>
