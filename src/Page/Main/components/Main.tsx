@@ -107,7 +107,6 @@ const Main = () => {
         imgsrc="https://scapture.co.kr/scapture_logo.png"
         url="https://scapture.co.kr"
       ></MetaTag>
-      {/* description 이걸로 변경 해야함 ->몸만 와서 운동만 하세요! 촬영, 편집, 업로드는 Scapture가 해드릴게요! */}
       <Header index={1} />
       <div className={styles.main}>
         <div className={styles.banner}>
