@@ -154,6 +154,8 @@ const Payments: React.FC<PaymentsProps> = ({
             setIsProcessing(true);
 
             try {
+              localStorage.setItem('payRedirect', window.location.href);
+
               const orderId = uuidv4();
               const reqData: PaymentRequestDto = {
                 orderId,
