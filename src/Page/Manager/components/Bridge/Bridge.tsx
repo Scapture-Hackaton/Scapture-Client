@@ -9,7 +9,7 @@ import FieldLocationIcon from '../../../../assets/Icon/stadiumIcon.svg';
 import calendarIcon from '../../../../assets/Icon/calendarIcon.svg';
 
 import Calendar from '../../../Stadium/components/Calendar';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import ScheduleList from './ScheduleList';
 import { useQuery } from '@tanstack/react-query';
 import { getStadiumDetail } from '../../../../apis/api/stadium.api';
@@ -17,7 +17,7 @@ import {
   StadiumDetail,
   StadiumFileds,
 } from '../../../../apis/dto/scapture.dto';
-import AlertModal from '../../../../common/component/AlertModal';
+// import AlertModal from '../../../../common/component/AlertModal';
 
 const Bridge = () => {
   const { stadiumId, fieldId } = useParams();
@@ -104,8 +104,13 @@ const Bridge = () => {
 
   const [isModalVisible, setModalVisible] = useState(true);
 
-  const handleCloseModal = () => {
-    setModalVisible(false);
+  // const handleCloseModal = () => {
+  //   setModalVisible(false);
+  // };
+
+  const navigate = useNavigate();
+  const goToStadium = () => {
+    navigate(`/stadium/${stadiumId}`);
   };
 
   return (
@@ -138,7 +143,7 @@ const Bridge = () => {
               <span>하이라이트 추출 요청</span> 해서 <span>알림톡</span> 으로
               받아보세요!
             </div>
-            <div className={styles.fieldNameBox}>
+            <div className={styles.fieldNameBox} onClick={() => goToStadium()}>
               <img src={Locationicon} alt="" width="20px" height="20px" />
               <div id={styles.fieldName}>{stadiumDetail.name}</div>
             </div>
@@ -193,9 +198,10 @@ const Bridge = () => {
           ></ScheduleList>
         ) : null}
       </div>
-      {isModalVisible && (
+      {/* {isModalVisible && (
         <AlertModal message="서비스 준비중입니다!" onClose={handleCloseModal} />
-      )}
+      )} */}
+
       <Footer></Footer>
     </div>
   );

@@ -66,7 +66,7 @@ const SelectBtn: React.FC<SelectProps> = ({
         <img src={dropDown} alt="" width="16px" height="16px"></img>
       </button>
       <ul>
-        {selectList.length <= 0
+        {selectList === null || selectList.length <= 0
           ? null
           : selectList.map((option, idx) => (
               <li key={idx}>

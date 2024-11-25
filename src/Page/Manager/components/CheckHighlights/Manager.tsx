@@ -1,12 +1,18 @@
 // import React from 'react';
 
 import { useState } from 'react';
-import styles from '../scss/manager.module.scss';
+import styles from '../../scss/manager.module.scss';
 import Highlights from './Highlights';
+import { useParams } from 'react-router-dom';
+import ScheduleHighlights from './ScheduleHighlights';
 
 const password = `${import.meta.env.VITE_MANAGER_PWD}`;
 
 const Manager = () => {
+  const { shceduleId: shceduleIdFromParams } = useParams<{
+    shceduleId: string;
+  }>();
+
   const [isPwd, setPwd] = useState<string>('');
   const [isChecked, setChecked] = useState<boolean>(false);
 
@@ -25,7 +31,13 @@ const Manager = () => {
   return (
     <div className={styles.main}>
       {isChecked ? (
-        <Highlights></Highlights>
+        shceduleIdFromParams ? (
+          <ScheduleHighlights
+            scheduleId={shceduleIdFromParams}
+          ></ScheduleHighlights>
+        ) : (
+          <Highlights></Highlights>
+        )
       ) : (
         <div className={styles.inputPwd}>
           <div className={styles.editDes}>

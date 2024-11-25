@@ -1,11 +1,14 @@
-import { forwardRef, Ref, useEffect, useRef, useState } from 'react';
+import { forwardRef, Ref, useEffect, useState } from 'react';
 // import { modalNotice } from '../functions/ModalFunction';
 
 import cancelIcon from '../../../assets/Icon/Cancel.svg';
 
 import { useQuery } from '@tanstack/react-query';
 import { getBananaCnt } from '../../../apis/api/user.api';
-import Payments from '../../../common/component/Payment/Payments';
+// import Payments from '../../../common/component/Payment/Payments';
+import { loginData, loginDataAtom } from '../../Header/Atom/atom';
+import { useRecoilValue } from 'recoil';
+import ChargeBanana from '../../MyPage/MyPage/components/ChargeBanana';
 
 interface ModalProps {
   styles: { [key: string]: string };
@@ -35,6 +38,8 @@ export const VideoModal = forwardRef<HTMLDialogElement, ModalProps>(
       }
     };
 
+    const isLoginState = useRecoilValue<loginData>(loginDataAtom);
+
     const { data: bananaCnt, refetch: refetchBananaCnt } = useQuery({
       queryKey: ['bananaCnt'],
       queryFn: () => getBananaCnt(),
@@ -45,7 +50,9 @@ export const VideoModal = forwardRef<HTMLDialogElement, ModalProps>(
         await refetchBananaCnt();
       };
 
-      refetchBanana();
+      if (isLoginState.state) {
+        refetchBanana();
+      }
     }, [videoDetail]);
 
     const [isCnt, setCnt] = useState(0);
@@ -56,34 +63,41 @@ export const VideoModal = forwardRef<HTMLDialogElement, ModalProps>(
       }
     }, [bananaCnt]);
 
-    const paymentModalRef = useRef<HTMLDivElement>(null);
+    // const paymentModalRef = useRef<HTMLDivElement>(null);
 
-    const [isPaymentModalOpen, setIsPaymentModalOpen] = useState(false);
+    // const [isPaymentModalOpen, setIsPaymentModalOpen] = useState(false);
 
-    const handlePaymentStart = () => {
-      setIsPaymentModalOpen(true);
-    };
+    // const handlePaymentStart = () => {
+    //   setIsPaymentModalOpen(true);
+    // };
 
-    const paymentModalClose = () => {
-      setIsPaymentModalOpen(false);
-    };
+    // const paymentModalClose = () => {
+    //   setIsPaymentModalOpen(false);
+    // };
 
     // 화면 밖 클릭 시 모달 닫기
-    useEffect(() => {
-      const handleOutsideClick = (event: MouseEvent) => {
-        if (
-          paymentModalRef.current &&
-          !paymentModalRef.current.contains(event.target as Node)
-        ) {
-          setIsPaymentModalOpen(false);
-        }
-      };
+    // useEffect(() => {
+    //   const handleOutsideClick = (event: MouseEvent) => {
+    //     if (
+    //       paymentModalRef.current &&
+    //       !paymentModalRef.current.contains(event.target as Node)
+    //     ) {
+    //       setIsPaymentModalOpen(false);
+    //     }
+    //   };
 
-      document.addEventListener('mousedown', handleOutsideClick);
-      return () => {
-        document.removeEventListener('mousedown', handleOutsideClick);
-      };
-    }, []);
+    //   document.addEventListener('mousedown', handleOutsideClick);
+    //   return () => {
+    //     document.removeEventListener('mousedown', handleOutsideClick);
+    //   };
+    // }, []);
+
+    // 버내너 충전 모달 관련
+    const [isOpen, setIsOpen] = useState(false);
+
+    const toggleModal = () => {
+      setIsOpen(!isOpen);
+    };
 
     return (
       <>
@@ -118,11 +132,17 @@ export const VideoModal = forwardRef<HTMLDialogElement, ModalProps>(
                 <button onClick={() => handleDownloadClick()}>사용하기</button>
               ) : (
                 <button
+                  // onClick={() => {
+                  //   if (ref && typeof ref !== 'function' && ref.current) {
+                  //     ref.current.close();
+                  //   }
+                  //   // handlePaymentStart();
+                  // }}
                   onClick={() => {
                     if (ref && typeof ref !== 'function' && ref.current) {
                       ref.current.close();
                     }
-                    handlePaymentStart();
+                    toggleModal();
                   }}
                 >
                   충전하기
@@ -131,14 +151,17 @@ export const VideoModal = forwardRef<HTMLDialogElement, ModalProps>(
             </div>
           </div>
         </dialog>
-        {isPaymentModalOpen && (
+        {/* 버내너 충전 모달 */}
+        {isOpen && <ChargeBanana toggleModal={toggleModal}></ChargeBanana>}
+        {/* {isPaymentModalOpen && (
           <Payments
             payValue={3_500}
             paymentModalClose={paymentModalClose}
             orderName="하이라이트 영상 1개"
-            banana={0}
+            type="HIGHLIGHT"
+            resource="0"
           />
-        )}
+        )} */}
       </>
     );
   },

@@ -1,4 +1,5 @@
-import { useEffect, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
+// import { useEffect, useRef, useState } from 'react';
 import { useLocation, useParams } from 'react-router-dom';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useRecoilValue } from 'recoil';
@@ -41,7 +42,7 @@ import { modalNotice } from '../functions/ModalFunction';
 
 // atom
 import { loginData, loginDataAtom } from '../../Header/Atom/atom';
-import VideoPlayer from '../../../common/component/VideoPlayer';
+// import VideoPlayer from '../../../common/component/VideoPlayer';
 import ClipBoard from '../../../common/component/ClipBoard';
 
 export interface PrevSelectDataProps {
@@ -350,12 +351,15 @@ const Video = () => {
                   <p>공유</p>
                 </li> */}
                 </ul>
-                <div
-                  id={styles.downLoadVideo}
-                  onClick={handelOpenDownloadModal}
-                >
-                  고화질 영상 다운로드
-                </div>
+                {!videoDetail.stadium.isDownloadable ? (
+                  <div
+                    id={styles.downLoadVideo}
+                    onClick={handelOpenDownloadModal}
+                  >
+                    고화질 영상 다운로드
+                  </div>
+                ) : null}
+
                 {/* <div id={styles.shareVideo} onClick={handleShareClick}>
                   <div className={styles.leftItem}>
                     <div id={styles.shareIcon}>

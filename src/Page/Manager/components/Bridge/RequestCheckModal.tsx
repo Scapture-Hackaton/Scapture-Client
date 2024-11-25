@@ -6,8 +6,9 @@ import stadiumIcon from '../../../../assets/Icon/stadiumIcon.svg';
 import clockIcon from '../../../../assets/Icon/Clock.svg';
 
 import styles from '../../scss/requestCheckModal.module.scss';
-import { postHighlight } from '../../../../apis/api/user.api';
+// import { postHighlight } from '../../../../apis/api/user.api';
 import RequestSuccessModal from './RequestSuccessModal';
+import Payments from '../../../../common/component/Payment/Payments';
 
 interface RequestCheckModalProps {
   scheduleId: number;
@@ -50,13 +51,38 @@ const RequestCheckModal: React.FC<RequestCheckModalProps> = ({
   const [isSuccessModalVisible, setSuccessModalVisible] = useState(false);
 
   const handleRequestClick = async () => {
-    await postHighlight(scheduleId);
+    // await postHighlight(scheduleId);
 
     // 현재 모달 닫기
     closeModal();
+    setIsPaymentModalOpen(true);
 
     // 성공 모달 표시
-    setSuccessModalVisible(true);
+    // setSuccessModalVisible(true);
+  };
+
+  const paymentModalRef = useRef<HTMLDivElement>(null);
+  const [isPaymentModalOpen, setIsPaymentModalOpen] = useState(false);
+
+  // 화면 밖 클릭 시 모달 닫기
+  useEffect(() => {
+    const handleOutsideClick = (event: MouseEvent) => {
+      if (
+        paymentModalRef.current &&
+        !paymentModalRef.current.contains(event.target as Node)
+      ) {
+        setIsPaymentModalOpen(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleOutsideClick);
+    return () => {
+      document.removeEventListener('mousedown', handleOutsideClick);
+    };
+  }, []);
+
+  const paymentModalClose = () => {
+    setIsPaymentModalOpen(false);
   };
 
   return (
@@ -137,6 +163,16 @@ const RequestCheckModal: React.FC<RequestCheckModalProps> = ({
         visible={isSuccessModalVisible}
         onHide={() => setSuccessModalVisible(false)}
       />
+
+      {isPaymentModalOpen && scheduleId && (
+        <Payments
+          payValue={1000}
+          paymentModalClose={paymentModalClose}
+          orderName="하이라이트 추출 요청"
+          type="HIGHLIGHT"
+          resource={`${scheduleId}`}
+        />
+      )}
     </>
   );
 };

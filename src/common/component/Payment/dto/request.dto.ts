@@ -1,5 +1,6 @@
 export interface PaymentRequestDto {
   orderId: string;
   amount: number;
-  banana: number;
+  type: string;
+  resource: string;
 }
