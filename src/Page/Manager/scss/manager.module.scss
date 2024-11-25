@@ -4,10 +4,12 @@
   max-width: none;
   left: 0;
 
+  padding-top: 10rem;
+
   .inputPwd {
     width: 30rem;
 
-    margin: 10rem auto 0 auto;
+    margin: 0 auto 0 auto;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -58,6 +60,13 @@
     border-radius: 8px;
     // background-color: var(--color-grayscale-input-900);
     text-align: center;
+
+    .headerTitle {
+      font-weight: 700;
+      font-size: var(--font-size-xl);
+
+      margin-bottom: 1rem;
+    }
 
     table {
       width: 100%; /* 테이블 너비를 콘텐츠에 따라 자동 조정 */

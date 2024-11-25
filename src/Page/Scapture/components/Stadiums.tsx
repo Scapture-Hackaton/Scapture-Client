@@ -23,7 +23,7 @@ const Stadiums: React.FC<StadiumsProps> = ({ stadiumData }) => {
 
   return (
     <>
-      {stadiumData == null ||
+      {stadiumData === null ||
       stadiumData.length <= 0 ||
       typeof stadiumData == 'undefined' ? (
         <div className={styles.noData}>

@@ -116,7 +116,8 @@ const ChargeBanana: React.FC<ChargeBananaProps> = ({ toggleModal }) => {
               ? `버내너 ${bananas[selectedButtonId - 1].quantity}개`
               : '버내너 0개'
           }
-          banana={selectedButtonId ? bananas[selectedButtonId - 1].quantity : 0}
+          type="BANANA"
+          resource={`${selectedButtonId ? bananas[selectedButtonId - 1].quantity : 0}`}
         />
       )}
     </>

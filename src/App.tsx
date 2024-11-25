@@ -18,7 +18,7 @@ import ScrollToTop from './utils/ScrollToTop';
 import ManageStadium from './Page/MyPage/Admin/components/Stadium/ManageStadium';
 import CreateStadium from './Page/MyPage/Admin/components/CreateStadium/CreateStadium';
 import PaySuccess from './common/component/Payment/PaySuccess';
-import Manager from './Page/Manager/components/Manager';
+import Manager from './Page/Manager/components/CheckHighlights/Manager';
 import Bridge from './Page/Manager/components/Bridge/Bridge';
 import PayFail from './common/component/Payment/PayFail';
 // import LoginCallBack from './Page/Header/test/LoginCallBack';
@@ -50,6 +50,7 @@ const App = () => {
 
           <Route path="/landing/:stadiumId/:fieldId" element={<Bridge />} />
           <Route path="/admin/highlights" element={<Manager />} />
+          <Route path="/admin/highlights/:shceduleId" element={<Manager />} />
 
           <Route path="/success" element={<PaySuccess />} />
           <Route path="/fail" element={<PayFail />} />

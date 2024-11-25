@@ -17,14 +17,16 @@ interface PaymentsProps {
   payValue: number;
   paymentModalClose: () => void;
   orderName: string;
-  banana: number;
+  type: string;
+  resource: string;
 }
 
 const Payments: React.FC<PaymentsProps> = ({
   payValue,
   paymentModalClose,
   orderName,
-  banana,
+  type,
+  resource,
 }) => {
   const paymentModalRef = useRef<HTMLDivElement>(null);
 
@@ -138,7 +140,9 @@ const Payments: React.FC<PaymentsProps> = ({
         </div>
         <div id={styles.productInfo}>
           <div className={styles.title}>상품 정보</div>
-          <div className={styles.orderName}>{orderName}</div>
+          <div className={styles.orderName}>
+            {orderName} - {payValue.toLocaleString()}원
+          </div>
         </div>
         {/* 결제 UI */}
         <div id="payment-method" />
@@ -160,7 +164,8 @@ const Payments: React.FC<PaymentsProps> = ({
               const reqData: PaymentRequestDto = {
                 orderId,
                 amount: amount.value,
-                banana,
+                type,
+                resource,
               };
 
               const res = await postTempReqPay(reqData);

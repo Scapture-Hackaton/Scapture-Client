@@ -12,3 +12,15 @@ export const getHighlightsForManager = async () => {
     };
   }
 };
+
+export const getHighlightsForManagerWithScheduleId = async () => {
+  try {
+    const res: CommonResponse = await defaultInstance.get(`/api/highlights`);
+
+    return res.data.data;
+  } catch (e: any) {
+    return {
+      status: e.response.status,
+    };
+  }
+};
