@@ -320,7 +320,7 @@ const Community = () => {
   return (
     <div className={styles.test}>
       <MetaTag
-        title="Scapture | 커뮤니티"
+        title="Scapture"
         description="스캡쳐 커뮤니티 페이지입니다."
         keywords="풋살,축구,하이라이트,영상,숏폼,운동,구장,예약"
         imgsrc="https://scapture.co.kr/scapture_logo.png"
