@@ -95,6 +95,13 @@
       tbody > tr:nth-child(odd) {
         background-color: var(--color-grayscale-input-800);
       }
+
+      .hyperLink {
+        cursor: pointer;
+        text-decoration: underline;
+
+        color: var(--primary-color-defualt-01);
+      }
     }
 
     .title {

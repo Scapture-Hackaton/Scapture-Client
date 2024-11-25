@@ -13,9 +13,13 @@ export const getHighlightsForManager = async () => {
   }
 };
 
-export const getHighlightsForManagerWithScheduleId = async () => {
+export const getHighlightsForManagerWithScheduleId = async (
+  scheduleId: string,
+) => {
   try {
-    const res: CommonResponse = await defaultInstance.get(`/api/highlights`);
+    const res: CommonResponse = await defaultInstance.get(
+      `/api/highlights/${scheduleId}`,
+    );
 
     return res.data.data;
   } catch (e: any) {
