@@ -3,6 +3,8 @@ import { getMainStadium } from '../../../apis/api/main.api';
 import { useNavigate } from 'react-router-dom';
 import { useEffect, useRef } from 'react';
 
+import MetaTag from '../../../utils/SEOMetaTag';
+
 import styles from '../scss/main.module.scss';
 
 // component
@@ -98,6 +100,14 @@ const Main = () => {
 
   return (
     <div className={styles.test}>
+      <MetaTag
+        title="Scapture"
+        description="스캡쳐 페이지입니다."
+        keywords="풋살,축구,하이라이트,영상,숏폼,운동,구장,예약"
+        imgsrc="https://scapture.co.kr/scapture_logo.png"
+        url="https://scapture.co.kr"
+      ></MetaTag>
+      {/* description 이걸로 변경 해야함 ->몸만 와서 운동만 하세요! 촬영, 편집, 업로드는 Scapture가 해드릴게요! */}
       <Header index={1} />
       <div className={styles.main}>
         <div className={styles.banner}>

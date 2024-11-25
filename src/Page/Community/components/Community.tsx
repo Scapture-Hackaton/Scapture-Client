@@ -38,7 +38,8 @@ import upArrow from '../../../assets/Icon/upArrow.svg';
 
 import { loginData, loginDataAtom } from '../../Header/Atom/atom';
 import { useRecoilValue } from 'recoil';
-import VideoPlayer from '../../../common/component/VideoPlayer';
+import MetaTag from '../../../utils/SEOMetaTag';
+// import VideoPlayer from '../../../common/component/VideoPlayer';
 // import VideoPlayer from '../../../common/component/VideoPlayer';
 
 const Community = () => {
@@ -318,6 +319,13 @@ const Community = () => {
 
   return (
     <div className={styles.test}>
+      <MetaTag
+        title="Scapture | 커뮤니티"
+        description="스캡쳐 커뮤니티 페이지입니다."
+        keywords="풋살,축구,하이라이트,영상,숏폼,운동,구장,예약"
+        imgsrc="https://scapture.co.kr/scapture_logo.png"
+        url="https://scapture.co.kr/community"
+      ></MetaTag>
       <Header index={3} />
       <div className={styles.community}>
         {isVideoDetailDataSuccess && videoDetailData ? (
