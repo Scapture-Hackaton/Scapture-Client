@@ -20,6 +20,7 @@ import CreateStadium from './Page/MyPage/Admin/components/CreateStadium/CreateSt
 import PaySuccess from './common/component/Payment/PaySuccess';
 import Manager from './Page/Manager/components/Manager';
 import Bridge from './Page/Manager/components/Bridge/Bridge';
+import PayFail from './common/component/Payment/PayFail';
 // import LoginCallBack from './Page/Header/test/LoginCallBack';
 
 const queryClient = new QueryClient();
@@ -51,6 +52,7 @@ const App = () => {
           <Route path="/admin/highlights" element={<Manager />} />
 
           <Route path="/success" element={<PaySuccess />} />
+          <Route path="/fail" element={<PayFail />} />
 
           {/* <Route path="/dev-ter" element={<DevTer />} /> */}
           {/* Login-API */}
