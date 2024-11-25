@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import styles from '../../scss/bridge.module.scss';
 import Header from '../../../Header/components/Header';
 import Footer from '../../../Footer/components/Footer';
@@ -201,6 +201,7 @@ const Bridge = () => {
       {isModalVisible && (
         <AlertModal message="서비스 준비중입니다!" onClose={handleCloseModal} />
       )}
+
       <Footer></Footer>
     </div>
   );

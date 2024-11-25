@@ -6,7 +6,7 @@ import { HighlightListsRes } from '../../dto/highlight.dto';
 import { LoginModal } from '../../../Header/components/LoginModal';
 import { loginData, loginDataAtom } from '../../../Header/Atom/atom';
 import { useRecoilValue } from 'recoil';
-// import { modalNotice } from '../../../../common/functions/ModalFunction';
+import { modalNotice } from '../../../../common/functions/ModalFunction';
 import RequestCheckModal from './RequestCheckModal';
 
 interface ScheduleListProps {
@@ -44,58 +44,59 @@ const ScheduleList: React.FC<ScheduleListProps> = ({
   const [selectedTime, setSelectedTime] = useState('');
   const [selectedScheduleId, setSelectedScheduleId] = useState(0);
 
-  // const openModal = () => {
-  //   setIsModalOpen(true);
-  // };
+  const openModal = () => {
+    setIsModalOpen(true);
+  };
   const closeModal = () => setIsModalOpen(false);
 
   return (
-    <div className={styles.listContainer}>
-      {highlightList && highlightList.length > 0 ? (
-        <>
-          {highlightList.map((item: any) => {
-            const [startTime, endTime] = item.hours.split('~');
-            return (
-              <div key={item.scheduleId} className={styles.itemBox}>
-                <div className={styles.date}>
-                  {isMonth.padStart(2, '0')}.{isDay.padStart(2, '0')}
+    <>
+      <div className={styles.listContainer}>
+        {highlightList && highlightList.length > 0 ? (
+          <>
+            {highlightList.map((item: any) => {
+              const [startTime, endTime] = item.hours.split('~');
+              return (
+                <div key={item.scheduleId} className={styles.itemBox}>
+                  <div className={styles.date}>
+                    {isMonth.padStart(2, '0')}.{isDay.padStart(2, '0')}
+                  </div>
+                  <div className={styles.time}>
+                    <span className={styles.startTime}>
+                      {startTime.padStart(2, '0')}
+                    </span>{' '}
+                    ~ {endTime}
+                  </div>
+                  <div
+                    onClick={() => {
+                      if (isLoginState.state) {
+                        setSelectedScheduleId(item.scheduleId);
+                        setSelectedTime(item.hours);
+                        openModal();
+                      } else {
+                        modalNotice(loginModalRef);
+                      }
+                    }}
+                    className={`${styles.btn} ${styles.disabled}`}
+                  >
+                    요청하기
+                  </div>
                 </div>
-                <div className={styles.time}>
-                  <span className={styles.startTime}>
-                    {startTime.padStart(2, '0')}
-                  </span>{' '}
-                  ~ {endTime}
-                </div>
-                <div
-                  // onClick={() => {
-                  //   if (isLoginState.state) {
-                  //     requestHighlight(item.scheduleId);
-                  //     setSelectedScheduleId(item.scheduleId);
-                  //     setSelectedTime(item.hours);
-                  //     openModal();
-                  //   } else {
-                  //     modalNotice(loginModalRef);
-                  //   }
-                  // }}
-                  className={`${styles.btn} ${styles.disabled}`}
-                >
-                  요청하기
-                </div>
-              </div>
-            );
-          })}
-        </>
-      ) : null}
-      <LoginModal modalRef={loginModalRef}></LoginModal>
-      <RequestCheckModal
-        scheduleId={selectedScheduleId}
-        isOpen={isModalOpen}
-        onClose={closeModal}
-        fieldName={fieldName}
-        formattedDate={formattedDate}
-        selectedTime={selectedTime}
-      />
-    </div>
+              );
+            })}
+          </>
+        ) : null}
+        <LoginModal modalRef={loginModalRef}></LoginModal>
+        <RequestCheckModal
+          scheduleId={selectedScheduleId}
+          isOpen={isModalOpen}
+          onClose={closeModal}
+          fieldName={fieldName}
+          formattedDate={formattedDate}
+          selectedTime={selectedTime}
+        />
+      </div>
+    </>
   );
 };
 
