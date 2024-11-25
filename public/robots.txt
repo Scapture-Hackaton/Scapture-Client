@@ -1,4 +1,4 @@
-ser-agent: *
-Disallow: 
+User-agent: *
+Allow: /
 
 Sitemap: https://scapture.co.kr/sitemap.xml
