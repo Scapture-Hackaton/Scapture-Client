@@ -1,5 +1,13 @@
 import { useEffect } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
+import Header from '../../../Page/Header/components/Header';
+import Footer from '../../../Page/Footer/components/Footer';
+
+import styles from '../../scss/paySuccess.module.scss';
+
+import SuccessIcon from '../../../assets/image/Success.svg';
+import { loginData, loginDataAtom } from '../../../Page/Header/Atom/atom';
+import { useRecoilValue } from 'recoil';
 
 const PaySuccess = () => {
   const navigate = useNavigate();
@@ -36,16 +44,45 @@ const PaySuccess = () => {
     confirm();
   }, []);
 
+  const isLoginState = useRecoilValue<loginData>(loginDataAtom);
+
+  const goToMyPage = () => {
+    if (isLoginState.state) {
+      navigate('/myPage');
+    } else {
+      navigate('/');
+    }
+  };
+
+  const confirm = () => {
+    const redirect = localStorage.getItem('payRedirect');
+
+    if (redirect) {
+      window.location.href = redirect;
+    } else {
+      navigate('/');
+    }
+  };
+
   return (
-    <div className="result wrapper">
-      <div className="box_section">
-        <h2>결제 성공</h2>
-        <p>{`주문번호: ${searchParams.get('orderId')}`}</p>
-        <p>{`결제 금액: ${Number(
-          searchParams.get('amount'),
-        ).toLocaleString()}원`}</p>
-        <p>{`paymentKey: ${searchParams.get('paymentKey')}`}</p>
+    <div className={styles.result}>
+      <Header index={0}></Header>
+      <div className={styles.box_section}>
+        <div className={styles.content}>
+          <img src={SuccessIcon} alt="" width="80px" height="80px"></img>
+          <div id={styles.title}>결제가 완료되었습니다!</div>
+          <div id={styles.des}>이제 하이라이트 영상을 간직할 수 있어요.</div>
+        </div>
+        <div className={styles.btns}>
+          <div id={styles.goPage} onClick={() => goToMyPage()}>
+            마이페이지로 이동
+          </div>
+          <div id={styles.okay} onClick={() => confirm()}>
+            확인
+          </div>
+        </div>
       </div>
+      <Footer></Footer>
     </div>
   );
 };

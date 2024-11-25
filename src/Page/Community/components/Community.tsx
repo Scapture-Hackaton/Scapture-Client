@@ -38,7 +38,7 @@ import upArrow from '../../../assets/Icon/upArrow.svg';
 
 import { loginData, loginDataAtom } from '../../Header/Atom/atom';
 import { useRecoilValue } from 'recoil';
-import VideoPlayer from '../../../common/component/VideoPlayer';
+// import VideoPlayer from '../../../common/component/VideoPlayer';
 // import VideoPlayer from '../../../common/component/VideoPlayer';
 
 const Community = () => {
