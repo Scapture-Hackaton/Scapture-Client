@@ -25,18 +25,18 @@ export const getBananaCnt = async () => {
 };
 
 // 하이라이트 요청
-export const postHighlight = async (scheduleId: number) => {
-  try {
-    const res: CommonResponse = await authInstance.post(
-      `/api/highlights/${scheduleId}`,
-    );
-    return res.data;
-  } catch (e: any) {
-    return {
-      status: e.response.status,
-    };
-  }
-};
+// export const postHighlight = async (scheduleId: number) => {
+//   try {
+//     const res: CommonResponse = await authInstance.post(
+//       `/api/highlights/${scheduleId}`,
+//     );
+//     return res.data;
+//   } catch (e: any) {
+//     return {
+//       status: e.response.status,
+//     };
+//   }
+// };
 
 // 결제 임시 요청
 export const postTempReqPay = async (req: PaymentRequestDto) => {
