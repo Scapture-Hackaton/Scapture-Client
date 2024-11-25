@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import styles from '../../scss/scheduleList.module.scss';
 import { useQuery } from '@tanstack/react-query';
 import { getStadiumDHours } from '../../../../apis/api/stadium.api';
@@ -34,11 +34,15 @@ const ScheduleList: React.FC<ScheduleListProps> = ({
 
   const formattedDate = getFormattedDate();
 
-  const { data: highlightList } = useQuery({
+  const { data: highlightList, refetch } = useQuery({
     queryKey: ['schedule', fieldId],
     queryFn: () => getStadiumDHours(fieldId, formattedDate),
     initialData: {} as HighlightListsRes[],
   });
+
+  useEffect(() => {
+    refetch();
+  }, [isDay]);
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedTime, setSelectedTime] = useState('');
