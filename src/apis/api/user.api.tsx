@@ -8,8 +8,15 @@ import { authInstance } from '../utils/instance';
 //버내너 개수 가져오기
 export const getBananaCnt = async () => {
   try {
-    const res: CommonResponse = await authInstance.get(`/api/user/bananas`);
-    return res.data;
+    const token = localStorage.getItem('TOKEN');
+    const type = localStorage.getItem('LoginType');
+
+    if (token && type) {
+      const res: CommonResponse = await authInstance.get(`/api/user/bananas`);
+      return res.data;
+    } else {
+      return null;
+    }
   } catch (e: any) {
     return {
       status: e.response.status,

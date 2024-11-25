@@ -6,6 +6,8 @@ import cancelIcon from '../../../assets/Icon/Cancel.svg';
 import { useQuery } from '@tanstack/react-query';
 import { getBananaCnt } from '../../../apis/api/user.api';
 import Payments from '../../../common/component/Payment/Payments';
+import { loginData, loginDataAtom } from '../../Header/Atom/atom';
+import { useRecoilValue } from 'recoil';
 
 interface ModalProps {
   styles: { [key: string]: string };
@@ -35,6 +37,8 @@ export const VideoModal = forwardRef<HTMLDialogElement, ModalProps>(
       }
     };
 
+    const isLoginState = useRecoilValue<loginData>(loginDataAtom);
+
     const { data: bananaCnt, refetch: refetchBananaCnt } = useQuery({
       queryKey: ['bananaCnt'],
       queryFn: () => getBananaCnt(),
@@ -45,7 +49,9 @@ export const VideoModal = forwardRef<HTMLDialogElement, ModalProps>(
         await refetchBananaCnt();
       };
 
-      refetchBanana();
+      if (isLoginState.state) {
+        refetchBanana();
+      }
     }, [videoDetail]);
 
     const [isCnt, setCnt] = useState(0);
