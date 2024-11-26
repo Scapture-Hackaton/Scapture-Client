@@ -1,0 +1,109 @@
+.test {
+  width: 100%;
+  max-width: 47.5rem;
+  margin: 0 auto;
+  padding-bottom: 3rem;
+  background-color: var(--color-grayscale-black-bg);
+  .container {
+    height: 55rem;
+    .titleContainer {
+      display: flex;
+      align-items: center;
+      border-bottom: 1px solid var(--GRAY-SCALE-Gray-700_DISABLE, #37383e);
+      margin-top: 0.5rem;
+      padding: 0 0 0.5rem 0;
+
+      .backButton {
+        margin-left: 0.5rem;
+        margin-right: auto;
+        width: 2rem;
+        height: 2rem;
+        cursor: pointer;
+      }
+      .title {
+        font-size: var(--font-size-xm);
+        font-family: var(--font-family-Regular);
+        font-weight: 700;
+        line-height: 160%;
+        font-style: normal;
+        text-align: center;
+        flex-grow: 1;
+      }
+    }
+    .textContainer {
+      padding: 1rem;
+
+      .mainText {
+        color: var(--white-color);
+        font-family: var(--font-family-Regular);
+        font-style: var(--font-size-l);
+        font-weight: 700;
+        line-height: 150%; /* 30px */
+        margin-bottom: 0.6rem;
+      }
+      .subText {
+        color: var(--font-color-gray-400);
+        font-family: var(--font-family-Regular);
+        font-size: var(--font-size-m);
+        font-style: normal;
+        font-weight: 500;
+        line-height: 160%; /* 22.4px */
+      }
+
+      .checkContainer {
+        display: flex;
+        flex-direction: column;
+        padding: 2rem 1rem;
+        gap: 0.5rem;
+        border-radius: 0.5rem;
+        background: var(--color-grayscale-card-900);
+        margin-top: 1rem;
+        .noticeContainer {
+          margin-top: 1.2rem;
+          height: 14rem;
+          padding: 0.8rem 0.6rem;
+          flex-direction: column;
+          gap: 0.5rem;
+          border-radius: 0.5rem;
+          background: var(--color-grayscale-input-800);
+          .noticeIcon {
+            width: 4rem;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            font-size: var(--font-size-s);
+            background: var(--color-ect-accent);
+            color: var(--white-color);
+            border-radius: 1rem;
+            text-align: center;
+          }
+          .noticeText {
+            color: var(--GRAY-SCALE-Gray-400, #c5c6cb);
+
+            /* BODY/14_medium */
+            font-family: var(--font-family-Regular);
+            font-size: var(--font-size-m);
+            font-style: normal;
+            font-weight: 500;
+            line-height: 160%; /* 22.4px */
+          }
+        }
+      }
+      .buttonContainer {
+        display: flex;
+        justify-content: flex-end;
+        .deleteButton {
+          display: flex;
+          width: 9rem;
+          height: 2.5rem;
+          justify-content: center;
+          align-items: center;
+          gap: 0.2rem;
+          border-radius: 0.3rem;
+          border: 1px solid var(--font-color-gray-400);
+          background: var(--color-grayscale-input-800);
+          margin-top: 1rem;
+        }
+      }
+    }
+  }
+}

@@ -1,5 +1,5 @@
 import Footer from '../../../Footer/components/Footer';
-import styles from '../scss/account.module.scss';
+import styles from '../scss/account-setting.module.scss';
 import Header from '../../../Header/components/Header';
 import Clock from '../image/Clock.svg';
 import { useNavigate } from 'react-router-dom';

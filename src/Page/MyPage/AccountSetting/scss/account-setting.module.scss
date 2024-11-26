@@ -12,11 +12,12 @@
       border-bottom: 1px solid var(--GRAY-SCALE-Gray-700_DISABLE, #37383e);
       padding: 0 0 0.5rem 1.7rem;
       margin-top: 0.5rem;
+      gap: 8rem;
 
       .backButton {
         width: 2rem;
         height: 2rem;
-        margin-right: 8rem;
+        cursor: pointer;
       }
       .title {
         font-size: var(--font-size-xm);
@@ -48,6 +49,7 @@
         font-style: normal;
         font-weight: 700;
         margin-left: 1rem;
+        cursor: pointer;
       }
       .line {
         border-bottom: 1px solid var(--GRAY-SCALE-Gray-700_DISABLE, #37383e);
@@ -62,6 +64,7 @@
         font-style: normal;
         font-weight: 700;
         margin-left: 1rem;
+        cursor: pointer;
       }
     }
   }
