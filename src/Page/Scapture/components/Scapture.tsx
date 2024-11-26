@@ -18,7 +18,7 @@ import { useQuery } from '@tanstack/react-query';
 import { getStadiumLocations } from '../../../apis/api/stadium.api';
 
 const Scapture = () => {
-  const [selectCity, setSelectCity] = useState(['경기도']);
+  const [selectCity, setSelectCity] = useState(['충청남도']);
   // const selectCity = ['강원도'];
   // const selectState: Record<string, string[]> = {
   //   서울시: [
@@ -85,7 +85,7 @@ const Scapture = () => {
   // };
 
   const [selectState, setSelectState] = useState<Record<string, string[]>>({
-    경기도: ['이천시'],
+    충청남도: ['계룡시'],
   });
   // 서울시: ['성북구', '강서구', '영등포구', '강남구', '노원구', '동대문구'],
   // { 강원도: ['원주시'], 경기도: ['이천시'] },

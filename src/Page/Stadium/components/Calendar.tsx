@@ -45,18 +45,33 @@ const Calendar: React.FC<SelectProps> = ({
 
   return (
     <div className={styles.calendar}>
-      {formattedDayList.map((day, idx) => (
-        <div
-          key={idx}
-          className={`${styles.block} ${
-            selectedDay === day.day ? styles.selected : ''
-          }`}
-          onClick={() => handleDayClick(idx)}
-        >
-          <div>{stadiumId === 75 ? parseInt(day.day) - 7 : day.day}</div>
-          <div>{day.weekday}</div>
-        </div>
-      ))}
+      {formattedDayList.map((day, idx) =>
+        stadiumId === 75 ? (
+          day.weekday === '토' || day.weekday === '일' ? (
+            <div
+              key={idx}
+              className={`${styles.block} ${
+                selectedDay === day.day ? styles.selected : ''
+              }`}
+              onClick={() => handleDayClick(idx)}
+            >
+              <div>{stadiumId === 75 ? parseInt(day.day) - 7 : day.day}</div>
+              <div>{day.weekday}</div>
+            </div>
+          ) : null
+        ) : (
+          <div
+            key={idx}
+            className={`${styles.block} ${
+              selectedDay === day.day ? styles.selected : ''
+            }`}
+            onClick={() => handleDayClick(idx)}
+          >
+            <div>{day.day}</div>
+            <div>{day.weekday}</div>
+          </div>
+        ),
+      )}
     </div>
   );
 };
