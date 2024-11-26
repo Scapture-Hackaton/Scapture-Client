@@ -25,8 +25,8 @@ import { PrevSelectDataProps } from '../../Video/components/Video';
 import calendarIcon from '../../../assets/Icon/calendarIcon.svg';
 import clockIcon from '../image/clockIcon.svg';
 import locationIcon from '../image/locationIcon.svg';
-import InfoIcon from '../../../assets/Icon/InfoIcon2.svg';
-import Payments from '../../../common/component/Payment/Payments';
+// import InfoIcon from '../../../assets/Icon/InfoIcon2.svg';
+// import Payments from '../../../common/component/Payment/Payments';
 
 // 현재 시간 구하는 함수
 const getCurrentTime = () => {
@@ -248,9 +248,9 @@ const SelectInfoBox: React.FC<SelectInfoBoxProps> = ({
   //   setIsPaymentModalOpen(true);
   // };
 
-  const paymentModalClose = () => {
-    setIsPaymentModalOpen(false);
-  };
+  // const paymentModalClose = () => {
+  //   setIsPaymentModalOpen(false);
+  // };
 
   // 화면 밖 클릭 시 모달 닫기
   useEffect(() => {
@@ -366,14 +366,14 @@ const SelectInfoBox: React.FC<SelectInfoBoxProps> = ({
           toVideo={toVideo}
         ></VideoList>
       ) : null}
-      {isPaymentModalOpen && (
+      {/* {isPaymentModalOpen && (
         <Payments
           payValue={3_500}
           paymentModalClose={paymentModalClose}
           orderName="영상"
-          banana={0}
+          type=''
         />
-      )}
+      )} */}
     </>
   );
 };
