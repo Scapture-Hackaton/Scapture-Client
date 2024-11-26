@@ -21,6 +21,8 @@ import PaySuccess from './common/component/Payment/PaySuccess';
 import Manager from './Page/Manager/components/CheckHighlights/Manager';
 import Bridge from './Page/Manager/components/Bridge/Bridge';
 import PayFail from './common/component/Payment/PayFail';
+import AccountSetting from './Page/MyPage/AccountSetting/components/AccountSetting';
+import AccountDelete from './Page/MyPage/AccountSetting/components/AccountDelete';
 // import LoginCallBack from './Page/Header/test/LoginCallBack';
 
 const queryClient = new QueryClient();
@@ -54,6 +56,8 @@ const App = () => {
 
           <Route path="/success" element={<PaySuccess />} />
           <Route path="/fail" element={<PayFail />} />
+          <Route path="/mypage/account" element={<AccountSetting />} />
+          <Route path="/mypage/account/delete" element={<AccountDelete />} />
 
           {/* <Route path="/dev-ter" element={<DevTer />} /> */}
           {/* Login-API */}

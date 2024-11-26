@@ -36,14 +36,14 @@ const UserInfo: React.FC<UserInfoProps> = ({
   };
 
   const toggleWithdraw = async () => {
-    await deleteUser();
+    // await deleteUser();
 
-    localStorage.removeItem('TOKEN');
-    localStorage.removeItem('LoginType');
-    setLoginState({ state: false });
-    resetUserData();
+    // localStorage.removeItem('TOKEN');
+    // localStorage.removeItem('LoginType');
+    // setLoginState({ state: false });
+    // resetUserData();
 
-    navigate('/');
+    navigate('/mypage/account');
   };
 
   // // 사용자의 소속팀 입력 값
