@@ -3,7 +3,7 @@ export interface Stadium {
   name: string;
   location: string;
   hours: string;
-  condition: string;
+  environment: string;
   // isOutside: boolean; // true: 실외 & false: 실외
   isParking: boolean;
   // parking: string;

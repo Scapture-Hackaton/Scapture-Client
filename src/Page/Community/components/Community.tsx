@@ -320,7 +320,7 @@ const Community = () => {
   return (
     <div className={styles.test}>
       <MetaTag
-        title="Scapture"
+        title="Scapture | 커뮤니티"
         description="스캡쳐 커뮤니티 페이지입니다."
         keywords="풋살,축구,하이라이트,영상,숏폼,운동,구장,예약"
         imgsrc="https://scapture.co.kr/scapture_logo.png"
@@ -405,9 +405,17 @@ const Community = () => {
 
               <div className={styles.infoGroup}>
                 <div className={styles.topInfo}>
-                  <div className={styles.isOutside}>
-                    {videoDetailData?.stadium?.isOutside ? '실외' : '실내'}
-                  </div>
+                  {videoDetailData?.stadium?.environment === 'OVERALL' ? (
+                    <>
+                      <div className={styles.isOutside}>실내</div>
+                      <div className={styles.isOutside}>실외</div>
+                    </>
+                  ) : videoDetailData?.stadium?.environment === 'INDOOR' ? (
+                    <div className={styles.isOutside}>실내</div>
+                  ) : (
+                    <div className={styles.isOutside}>실외</div>
+                  )}
+
                   <div className={styles.isParking}>
                     {videoDetailData?.stadium?.isParking
                       ? '주차 가능'
