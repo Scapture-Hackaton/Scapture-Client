@@ -115,12 +115,12 @@ const Stadium = () => {
 
               <div className={styles.infoGroup}>
                 <div className={styles.topInfo}>
-                  {stadiumDetail.condition === 'OVERALL' ? (
+                  {stadiumDetail.environment === 'OVERALL' ? (
                     <>
                       <div className={styles.isOutside}>실내</div>
                       <div className={styles.isOutside}>실외</div>
                     </>
-                  ) : stadiumDetail.condition === 'INDOOR' ? (
+                  ) : stadiumDetail.environment === 'INDOOR' ? (
                     <div className={styles.isOutside}>실내</div>
                   ) : (
                     <div className={styles.isOutside}>실외</div>

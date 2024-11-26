@@ -58,12 +58,12 @@ const Stadiums: React.FC<StadiumsProps> = ({ stadiumData }) => {
               <div className={styles.stadiumInfo}>
                 <div className={styles.stadium}>
                   <div className={styles.topInfo}>
-                    {stadium.condition === 'OVERALL' ? (
+                    {stadium.environment === 'OVERALL' ? (
                       <>
                         <div className={styles.isOutside}>실내</div>
                         <div className={styles.isOutside}>실외</div>
                       </>
-                    ) : stadium.condition === 'INDOOR' ? (
+                    ) : stadium.environment === 'INDOOR' ? (
                       <div className={styles.isOutside}>실내</div>
                     ) : (
                       <div className={styles.isOutside}>실외</div>

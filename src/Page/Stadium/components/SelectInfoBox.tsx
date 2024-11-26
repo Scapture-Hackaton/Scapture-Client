@@ -79,6 +79,7 @@ const SelectInfoBox: React.FC<SelectInfoBoxProps> = ({
   // 현재 날짜 추출
   const today = new Date();
   const weekAgo = new Date(today);
+
   weekAgo.setDate(today.getDate() - 7);
 
   // 요일 추출 함수
@@ -294,6 +295,7 @@ const SelectInfoBox: React.FC<SelectInfoBoxProps> = ({
                   dayList={dayList}
                   onOptionChange={handleDayChange}
                   isDay={isDay}
+                  stadiumId={stadiumId}
                 ></Calendar>
               </div>
 

@@ -229,12 +229,12 @@ const Main = () => {
                 <div className={styles.stadiumInfo}>
                   <div className={styles.stadium}>
                     <div className={styles.topInfo}>
-                      {mainData.randomStadium.condition === 'OVERALL' ? (
+                      {mainData.randomStadium.environment === 'OVERALL' ? (
                         <>
                           <div className={styles.isOutside}>실내</div>
                           <div className={styles.isOutside}>실외</div>
                         </>
-                      ) : mainData.randomStadium.condition === 'INDOOR' ? (
+                      ) : mainData.randomStadium.environment === 'INDOOR' ? (
                         <div className={styles.isOutside}>실내</div>
                       ) : (
                         <div className={styles.isOutside}>실외</div>

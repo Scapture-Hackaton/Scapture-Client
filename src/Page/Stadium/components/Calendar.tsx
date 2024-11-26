@@ -5,12 +5,14 @@ interface SelectProps {
   dayList: { day: string; weekday: string }[];
   onOptionChange: (option: any) => void;
   isDay: string;
+  stadiumId: number;
 }
 
 const Calendar: React.FC<SelectProps> = ({
   dayList,
   onOptionChange,
   isDay,
+  stadiumId,
 }) => {
   const formattedDayList = dayList.map(item => ({
     day: item.day.padStart(2, '0'),
@@ -51,7 +53,7 @@ const Calendar: React.FC<SelectProps> = ({
           }`}
           onClick={() => handleDayClick(idx)}
         >
-          <div>{day.day}</div>
+          <div>{stadiumId === 75 ? parseInt(day.day) - 7 : day.day}</div>
           <div>{day.weekday}</div>
         </div>
       ))}
