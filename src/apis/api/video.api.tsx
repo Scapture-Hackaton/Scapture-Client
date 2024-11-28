@@ -5,10 +5,14 @@ import { CommonResponse } from '../dto/common.response';
 import { authInstance } from '../utils/instance';
 
 // 영상 권한 부여
-export const checkAuthDownloadVideo = async (videoId: number) => {
+export const checkAuthDownloadVideo = async (
+  videoId: number,
+  banana: number,
+) => {
   try {
     const res: CommonResponse = await authInstance.post(
       `/api/videos/${videoId}/download`,
+      { banana: banana },
     );
 
     return res.data;

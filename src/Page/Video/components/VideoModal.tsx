@@ -13,7 +13,7 @@ import ChargeBanana from '../../MyPage/MyPage/components/ChargeBanana';
 interface ModalProps {
   styles: { [key: string]: string };
   ref: Ref<HTMLDialogElement>;
-  handleDownloadClick: () => Promise<void>;
+  handleDownloadClick: (banana: number) => Promise<void>;
   videoDetail: any;
 }
 // interface ModalCheckProps extends ModalProps {
@@ -118,7 +118,14 @@ export const VideoModal = forwardRef<HTMLDialogElement, ModalProps>(
             <div className={styles.text}>
               <div>영상을 다운로드 하기 위해서는</div>
               <div>
-                <span>3개</span>의 버내너가 필요해요
+                {videoDetail && videoDetail?.price ? (
+                  <span>
+                    {videoDetail.price.basic - videoDetail.price.discount}개
+                  </span>
+                ) : (
+                  <span>3개</span>
+                )}
+                의 버내너가 필요해요
               </div>
             </div>
 
@@ -128,8 +135,18 @@ export const VideoModal = forwardRef<HTMLDialogElement, ModalProps>(
                 <span>{isCnt}개</span>
               </div>
 
-              {isCnt >= 3 ? (
-                <button onClick={() => handleDownloadClick()}>사용하기</button>
+              {videoDetail &&
+              videoDetail?.price &&
+              isCnt >= videoDetail.price.basic - videoDetail.price.discount ? (
+                <button
+                  onClick={() =>
+                    handleDownloadClick(
+                      videoDetail.price.basic - videoDetail.price.discount,
+                    )
+                  }
+                >
+                  사용하기
+                </button>
               ) : (
                 <button
                   // onClick={() => {

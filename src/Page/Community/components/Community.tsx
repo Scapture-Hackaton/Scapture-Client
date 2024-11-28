@@ -248,9 +248,9 @@ const Community = () => {
   };
 
   // 다운로드 기능
-  const handleDownloadClick = async () => {
+  const handleDownloadClick = async (banana: number) => {
     try {
-      const authResponse = await checkAuthDownloadVideo(isVideoId);
+      const authResponse = await checkAuthDownloadVideo(isVideoId, banana);
 
       if (authResponse.status === 200 || authResponse.status === 409) {
         // const downloadResponse = await downloadVideo(isVideoId);
