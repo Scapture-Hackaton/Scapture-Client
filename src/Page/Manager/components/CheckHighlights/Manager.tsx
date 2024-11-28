@@ -5,6 +5,7 @@ import styles from '../../scss/manager.module.scss';
 import Highlights from './Highlights';
 import { useParams } from 'react-router-dom';
 import ScheduleHighlights from './ScheduleHighlights';
+import NaverVideoPlayer from '../../../../common/component/DRMPlayer/NaverVideoPlayer';
 
 const password = `${import.meta.env.VITE_MANAGER_PWD}`;
 
@@ -52,6 +53,10 @@ const Manager = () => {
           <div className={styles.button} onClick={() => checkPwd()}>
             확인
           </div>
+          <NaverVideoPlayer
+            videoSrc="https://d1yr3xnm7vncof.cloudfront.net/TriggerTest/triggerTest5"
+            contentId="triggerTest5"
+          ></NaverVideoPlayer>
         </div>
       )}
     </div>
