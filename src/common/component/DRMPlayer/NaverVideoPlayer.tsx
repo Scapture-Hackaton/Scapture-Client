@@ -254,6 +254,7 @@ const NaverVideoPlayer: React.FC<VideoPlayerProps> = ({
         playerRef.current.eme();
 
         const keySystems = getKeySystems(drmType, licenseUrl, base64Token);
+        console.log(keySystems);
 
         if (keySystems) {
           playerRef.current.src({
@@ -312,8 +313,9 @@ const NaverVideoPlayer: React.FC<VideoPlayerProps> = ({
         return {
           'com.widevine.alpha': {
             src: finalVideoSrc, //DRM Encryption 이 적용된 DRM 콘텐츠 재생 경로
-            licenseUri: licenseUrl + '/widevine', //DRM license 발급을 위한 경로
+            licenseUri: licenseUrl, //DRM license 발급을 위한 경로
             licenseRequestHeader: {
+              'Content-Type': 'application/json',
               'X-NCP-REGION_CODE': 'KR',
               'X-ncp-apigw-timestamp': timeStamp,
               'X-ncp-iam-access-key': pallyconAccessKey,
