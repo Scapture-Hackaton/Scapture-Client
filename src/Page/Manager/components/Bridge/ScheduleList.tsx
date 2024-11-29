@@ -81,7 +81,7 @@ const ScheduleList: React.FC<ScheduleListProps> = ({
                         modalNotice(loginModalRef);
                       }
                     }}
-                    className={`${styles.btn} ${styles.disabled}`}
+                    className={`${styles.btn}`}
                   >
                     요청하기
                   </div>
