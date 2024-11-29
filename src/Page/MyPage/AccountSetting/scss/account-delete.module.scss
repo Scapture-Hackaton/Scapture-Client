@@ -67,6 +67,7 @@
           display: flex;
           align-items: center;
           gap: 0.8rem;
+          cursor: pointer;
 
           input[type='checkbox'] {
             width: 20px;
@@ -146,6 +147,9 @@
           background: var(--color-grayscale-input-800);
           margin-top: 1rem;
           cursor: pointer;
+          &:hover {
+            border-color: #1a73e8;
+          }
         }
       }
     }

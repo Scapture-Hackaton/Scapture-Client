@@ -5,6 +5,7 @@ import Clock from '../image/Clock.svg';
 import { useState } from 'react';
 import Checkbox from './CheckBox';
 import AlertModal from '../../../../common/component/AlertModal';
+import { useNavigate } from 'react-router-dom';
 
 const AccountDelete = () => {
   const [isOpen, setOpen] = useState(false);
@@ -23,6 +24,7 @@ const AccountDelete = () => {
   const handleModal = () => {
     if (isOpen === true) {
       setOpen(false);
+      navigate('/');
     } else {
       setOpen(true);
     }
@@ -38,6 +40,7 @@ const AccountDelete = () => {
     '콘텐츠 불만',
     '기타',
   ];
+  const navigate = useNavigate();
 
   return (
     <div className={styles.test}>
