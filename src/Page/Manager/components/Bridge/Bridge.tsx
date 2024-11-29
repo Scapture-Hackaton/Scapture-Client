@@ -199,9 +199,14 @@ const Bridge = () => {
           ></ScheduleList>
         ) : null}
       </div>
-      {/* {isModalVisible && (
-        <AlertModal message="서비스 준비중입니다!" onClose={handleCloseModal} />
-      )} */}
+      {isModalVisible && (
+        <AlertModal
+          success={false}
+          title="서비스 준비중입니다!"
+          des=""
+          onClose={handleCloseModal}
+        />
+      )}
 
       <Footer></Footer>
     </div>
