@@ -4,11 +4,9 @@ import styles from '../scss/my-page.module.scss';
 import DefaultProfile from '../image/DefaultProfile.svg';
 
 import Clock from '../image/Clock.svg';
-import { useResetRecoilState, useSetRecoilState } from 'recoil';
-import { userDataAtom } from '../../Atom/atom';
+import { useSetRecoilState } from 'recoil';
 import { loginDataAtom } from '../../../Header/Atom/atom';
 import { useNavigate } from 'react-router-dom';
-import { deleteUser } from '../../../../apis/api/mypage.api';
 
 interface UserInfoProps {
   myProfileData: any;
@@ -22,30 +20,17 @@ const UserInfo: React.FC<UserInfoProps> = ({
   const navigate = useNavigate();
 
   const setLoginState = useSetRecoilState(loginDataAtom);
-  setLoginState({ state: false });
-  const resetUserData = useResetRecoilState(userDataAtom);
 
   const [logout, setLogout] = useState(false);
 
-  const toggleLogout = () => {
-    localStorage.removeItem('TOKEN');
-    localStorage.removeItem('LoginType');
-    setLoginState({ state: false });
-    resetUserData();
+  // const toggleWithdraw = async () => {
+  // await deleteUser();
 
-    navigate('/');
-  };
-
-  const toggleWithdraw = async () => {
-    await deleteUser();
-
-    localStorage.removeItem('TOKEN');
-    localStorage.removeItem('LoginType');
-    setLoginState({ state: false });
-    resetUserData();
-
-    navigate('/');
-  };
+  // localStorage.removeItem('TOKEN');
+  // localStorage.removeItem('LoginType');
+  // setLoginState({ state: false });
+  // resetUserData();
+  // };
 
   // // 사용자의 소속팀 입력 값
   // const [isInput, setInput] = useState('');
@@ -91,9 +76,6 @@ const UserInfo: React.FC<UserInfoProps> = ({
         {logout && (
           <div className={styles.dropDownContainer}>
             {/* 로그아웃/회원탈퇴 로직추가 */}
-            <div className={styles.dropDownItem} onClick={() => toggleLogout()}>
-              로그아웃
-            </div>
             <div
               className={styles.dropDownItem}
               onClick={() => changeUserInfo()}
@@ -103,9 +85,9 @@ const UserInfo: React.FC<UserInfoProps> = ({
 
             <div
               className={styles.dropDownItem}
-              onClick={() => toggleWithdraw()}
+              onClick={() => navigate('/mypage/account')}
             >
-              회원탈퇴
+              계정 설정
             </div>
           </div>
         )}
