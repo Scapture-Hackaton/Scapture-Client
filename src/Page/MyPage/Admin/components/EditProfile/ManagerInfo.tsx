@@ -39,7 +39,7 @@ const ManagerInfo: React.FC<ManagerInfoProps> = ({
   };
 
   const toggleWithdraw = async () => {
-    await deleteUser();
+    await deleteUser([]);
 
     localStorage.removeItem('TOKEN');
     localStorage.removeItem('LoginType');
