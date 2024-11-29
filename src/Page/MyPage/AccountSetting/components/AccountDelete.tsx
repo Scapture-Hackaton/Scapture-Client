@@ -6,6 +6,7 @@ import { useState } from 'react';
 import Checkbox from './CheckBox';
 
 const AccountDelete = () => {
+  const [open, setOpen] = useState(false);
   // 체크박스 상태 배열 생성
   const [checkedStates, setCheckedStates] = useState<boolean[]>(
     Array(8).fill(false),
@@ -16,6 +17,14 @@ const AccountDelete = () => {
     const updatedStates = [...checkedStates];
     updatedStates[index] = checked; // 해당 인덱스 상태만 변경
     setCheckedStates(updatedStates);
+  };
+
+  const handleModal = () => {
+    if (open === true) {
+      setOpen(false);
+    } else {
+      setOpen(true);
+    }
   };
 
   const reasons = [
@@ -71,7 +80,9 @@ const AccountDelete = () => {
             </div>
           </div>
           <div className={styles.buttonContainer}>
-            <div className={styles.deleteButton}>탈퇴하기</div>
+            <div className={styles.deleteButton} onClick={handleModal}>
+              탈퇴하기
+            </div>
           </div>
         </div>
       </div>
