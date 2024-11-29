@@ -35,16 +35,14 @@ const UserInfo: React.FC<UserInfoProps> = ({
     navigate('/');
   };
 
-  const toggleWithdraw = async () => {
-    await deleteUser();
+  // const toggleWithdraw = async () => {
+  // await deleteUser();
 
-    localStorage.removeItem('TOKEN');
-    localStorage.removeItem('LoginType');
-    setLoginState({ state: false });
-    resetUserData();
-
-    navigate('/');
-  };
+  // localStorage.removeItem('TOKEN');
+  // localStorage.removeItem('LoginType');
+  // setLoginState({ state: false });
+  // resetUserData();
+  // };
 
   // // 사용자의 소속팀 입력 값
   // const [isInput, setInput] = useState('');
@@ -90,9 +88,6 @@ const UserInfo: React.FC<UserInfoProps> = ({
         {logout && (
           <div className={styles.dropDownContainer}>
             {/* 로그아웃/회원탈퇴 로직추가 */}
-            <div className={styles.dropDownItem} onClick={() => toggleLogout()}>
-              로그아웃
-            </div>
             <div
               className={styles.dropDownItem}
               onClick={() => changeUserInfo()}
@@ -102,9 +97,9 @@ const UserInfo: React.FC<UserInfoProps> = ({
 
             <div
               className={styles.dropDownItem}
-              onClick={() => toggleWithdraw()}
+              onClick={() => navigate('/mypage/account')}
             >
-              회원탈퇴
+              계정 설정
             </div>
           </div>
         )}

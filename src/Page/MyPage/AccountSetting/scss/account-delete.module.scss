@@ -1,0 +1,157 @@
+.test {
+  width: 100%;
+  max-width: 47.5rem;
+  margin: 0 auto;
+  padding-bottom: 3rem;
+  background-color: var(--color-grayscale-black-bg);
+
+  .container {
+    height: 55rem;
+
+    .titleContainer {
+      display: flex;
+      align-items: center;
+      border-bottom: 1px solid var(--GRAY-SCALE-Gray-700_DISABLE, #37383e);
+      margin-top: 0.5rem;
+      padding: 0 0 0.5rem 0;
+
+      .backButton {
+        margin-left: 0.5rem;
+        margin-right: auto;
+        width: 2rem;
+        height: 2rem;
+        cursor: pointer;
+      }
+
+      .title {
+        font-size: var(--font-size-xm);
+        font-family: var(--font-family-Regular);
+        font-weight: 700;
+        line-height: 160%;
+        font-style: normal;
+        text-align: center;
+        flex-grow: 1;
+      }
+    }
+
+    .textContainer {
+      padding: 1rem;
+
+      .mainText {
+        color: var(--white-color);
+        font-family: var(--font-family-Regular);
+        font-size: var(--font-size-l);
+        font-weight: 700;
+        line-height: 150%;
+        margin-bottom: 0.6rem;
+      }
+
+      .subText {
+        color: var(--font-color-gray-400);
+        font-family: var(--font-family-Regular);
+        font-size: var(--font-size-m);
+        font-weight: 500;
+        line-height: 160%;
+      }
+
+      .checkContainer {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        padding: 2rem 1rem;
+        border-radius: 0.5rem;
+        background: var(--color-grayscale-card-900);
+        margin-top: 1rem;
+
+        .checkboxWrapper {
+          display: flex;
+          align-items: center;
+          gap: 0.8rem;
+          cursor: pointer;
+
+          input[type='checkbox'] {
+            width: 20px;
+            height: 20px;
+            appearance: none;
+            border: 2px solid #ccc;
+            border-radius: 4px;
+            cursor: pointer;
+            transition:
+              background-color 0.2s ease,
+              border-color 0.2s ease;
+
+            &:checked {
+              background-color: #007bff;
+              border-color: #007bff;
+
+              &::after {
+                content: '✔';
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                font-size: 16px;
+                color: white;
+              }
+            }
+
+            &:hover {
+              border-color: #1a73e8;
+            }
+          }
+
+          .label {
+            font-size: var(--font-size-m);
+            color: var(--font-color-gray-400);
+          }
+        }
+
+        .noticeContainer {
+          margin-top: 1.2rem;
+          padding: 0.8rem 0.6rem;
+          border-radius: 0.5rem;
+          background: var(--color-grayscale-input-800);
+
+          .noticeIcon {
+            width: 4rem;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            font-size: var(--font-size-s);
+            background: var(--color-ect-accent);
+            color: var(--white-color);
+            border-radius: 1rem;
+            text-align: center;
+          }
+
+          .noticeText {
+            color: var(--GRAY-SCALE-Gray-400, #c5c6cb);
+            font-family: var(--font-family-Regular);
+            font-size: var(--font-size-m);
+            font-weight: 500;
+            line-height: 160%;
+          }
+        }
+      }
+
+      .buttonContainer {
+        display: flex;
+        justify-content: flex-end;
+
+        .deleteButton {
+          display: flex;
+          width: 9rem;
+          height: 2.5rem;
+          justify-content: center;
+          align-items: center;
+          border-radius: 0.3rem;
+          border: 1px solid var(--font-color-gray-400);
+          background: var(--color-grayscale-input-800);
+          margin-top: 1rem;
+          cursor: pointer;
+          &:hover {
+            border-color: #1a73e8;
+          }
+        }
+      }
+    }
+  }
+}
