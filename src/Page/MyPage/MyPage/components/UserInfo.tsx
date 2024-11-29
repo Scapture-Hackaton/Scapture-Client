@@ -4,11 +4,9 @@ import styles from '../scss/my-page.module.scss';
 import DefaultProfile from '../image/DefaultProfile.svg';
 
 import Clock from '../image/Clock.svg';
-import { useResetRecoilState, useSetRecoilState } from 'recoil';
-import { userDataAtom } from '../../Atom/atom';
+import { useSetRecoilState } from 'recoil';
 import { loginDataAtom } from '../../../Header/Atom/atom';
 import { useNavigate } from 'react-router-dom';
-import { deleteUser } from '../../../../apis/api/mypage.api';
 
 interface UserInfoProps {
   myProfileData: any;
@@ -22,18 +20,8 @@ const UserInfo: React.FC<UserInfoProps> = ({
   const navigate = useNavigate();
 
   const setLoginState = useSetRecoilState(loginDataAtom);
-  const resetUserData = useResetRecoilState(userDataAtom);
 
   const [logout, setLogout] = useState(false);
-
-  const toggleLogout = () => {
-    localStorage.removeItem('TOKEN');
-    localStorage.removeItem('LoginType');
-    setLoginState({ state: false });
-    resetUserData();
-
-    navigate('/');
-  };
 
   // const toggleWithdraw = async () => {
   // await deleteUser();
