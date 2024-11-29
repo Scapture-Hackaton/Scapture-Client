@@ -3,13 +3,21 @@ import styles from '../scss/alertModal.module.scss';
 
 import cancelIcon from '../../assets/Icon/Cancel.svg';
 import SuccessIcon from '../../assets/image/successIcon.svg';
+import SuccessImg from '../../assets/image/Success.svg';
 
 interface AlertModalProps {
-  message: string;
+  success: boolean;
+  title: string;
+  des: string;
   onClose: () => void; // 부모 컴포넌트에서 닫기 제어
 }
 
-const AlertModal: React.FC<AlertModalProps> = ({ message, onClose }) => {
+const AlertModal: React.FC<AlertModalProps> = ({
+  success,
+  title,
+  des,
+  onClose,
+}) => {
   const dialogRef = useRef<HTMLDialogElement>(null);
   const [isOpen, setIsOpen] = useState(true); // 모달 상태 관리
 
@@ -58,15 +66,27 @@ const AlertModal: React.FC<AlertModalProps> = ({ message, onClose }) => {
         </div>
 
         <div className={styles.container}>
-          <img
-            src={SuccessIcon}
-            alt="Success"
-            width="80px"
-            height="80px"
-            loading="lazy"
-          />
+          {success ? (
+            <img
+              src={SuccessImg}
+              alt="Success"
+              width="80px"
+              height="80px"
+              loading="lazy"
+            />
+          ) : (
+            <img
+              src={SuccessIcon}
+              alt="Success"
+              width="80px"
+              height="80px"
+              loading="lazy"
+            />
+          )}
+
           <div className={styles.contents}>
-            <div className={styles.notice}>{message}</div>
+            <div className={styles.notice}>{title}</div>
+            <div className={styles.des}>{des}</div>
           </div>
         </div>
       </dialog>

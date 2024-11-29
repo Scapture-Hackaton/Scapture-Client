@@ -200,7 +200,12 @@ const Bridge = () => {
         ) : null}
       </div>
       {isModalVisible && (
-        <AlertModal message="서비스 준비중입니다!" onClose={handleCloseModal} />
+        <AlertModal
+          success={false}
+          title="서비스 준비중입니다!"
+          des="test"
+          onClose={handleCloseModal}
+        />
       )}
 
       <Footer></Footer>

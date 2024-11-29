@@ -57,14 +57,23 @@
     }
 
     .contents {
+      margin-bottom: 0.7rem;
       .notice {
         text-align: center;
-        margin: 1.7rem 0 0.7rem 0;
-        // margin-bottom: 30px;
+        margin-top: 1.7rem;
 
         color: var(--font-color-gray-100);
         font-weight: 700;
         font-size: var(--font-size-xm);
+      }
+
+      .des {
+        text-align: center;
+        margin-top: 0.7rem;
+
+        color: var(--font-color-gray-400);
+        font-weight: 500;
+        font-size: var(--font-size-m);
       }
     }
   }

@@ -39,7 +39,7 @@ const NaverVideoPlayer: React.FC<VideoPlayerProps> = ({
   const [finalVideoSrc, setFinalVideoSrc] = useState<string>(videoSrc);
   const [drmType, setDrmType] = useState<string | null>(null);
   const [base64Token, setBase64Token] = useState<string | null>(null);
-  const timeStamp = String(Date.now());
+  const [timeStamp, setTimeStamp] = useState(String(Date.now()));
 
   const licenseUrl = 'https://multi-drm.apigw.ntruss.com/api/v1/license';
 
@@ -161,6 +161,7 @@ const NaverVideoPlayer: React.FC<VideoPlayerProps> = ({
 
   useEffect(() => {
     checkDRM();
+    setTimeStamp(String(Date.now()));
   }, [videoSrc, contentId]);
 
   //   console.log(cipher);
@@ -184,13 +185,13 @@ const NaverVideoPlayer: React.FC<VideoPlayerProps> = ({
       );
 
       // Base64 URL-safe 변환
-      const base64Url = base64
-        .replace(/\+/g, '-') // '+'를 '-'로 변환
-        .replace(/\//g, '_') // '/'를 '_'로 변환
-        .replace(/=+$/, ''); // '=' 제거
+      //   const base64Url = base64
+      //     .replace(/\+/g, '-') // '+'를 '-'로 변환
+      //     .replace(/\//g, '_') // '/'를 '_'로 변환
+      //     .replace(/=+$/, ''); // '=' 제거
 
       // 상태 업데이트
-      setBase64Token(base64Url);
+      setBase64Token(base64);
     }
   }, [drmType, pallyconSiteId, contentId, userId]);
 
@@ -283,6 +284,8 @@ const NaverVideoPlayer: React.FC<VideoPlayerProps> = ({
     const method = 'GET'; // method
     const url = '/api/v2/channels?pageNo=1'; // url (include query string)
     const timestamp = timeStamp; // current timestamp (epoch)
+    console.log('signature ' + timeStamp);
+
     const accessKey = pallyconAccessKey; // access key id (from portal or Sub Account)
     const secretKey = pallyconSecretKey; // secret key (from portal or Sub Account)
 
@@ -310,6 +313,7 @@ const NaverVideoPlayer: React.FC<VideoPlayerProps> = ({
   ) => {
     switch (drmType) {
       case 'Widevine':
+        console.log('Widevine : ' + timeStamp);
         return {
           'com.widevine.alpha': {
             src: finalVideoSrc, //DRM Encryption 이 적용된 DRM 콘텐츠 재생 경로

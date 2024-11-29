@@ -11,7 +11,6 @@ const Highlights = () => {
     initialData: [] as HighlightsRes[], // 초기 데이터를 빈 배열로 설정
   });
 
-  console.log(highlights);
   const navigate = useNavigate();
 
   return (
