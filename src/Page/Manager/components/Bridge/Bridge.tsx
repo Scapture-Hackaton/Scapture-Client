@@ -203,7 +203,7 @@ const Bridge = () => {
         <AlertModal
           success={false}
           title="서비스 준비중입니다!"
-          des="test"
+          des=""
           onClose={handleCloseModal}
         />
       )}
