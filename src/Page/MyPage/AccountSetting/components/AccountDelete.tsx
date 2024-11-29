@@ -4,9 +4,10 @@ import Header from '../../../Header/components/Header';
 import Clock from '../image/Clock.svg';
 import { useState } from 'react';
 import Checkbox from './CheckBox';
+import AlertModal from '../../../../common/component/AlertModal';
 
 const AccountDelete = () => {
-  const [open, setOpen] = useState(false);
+  const [isOpen, setOpen] = useState(false);
   // 체크박스 상태 배열 생성
   const [checkedStates, setCheckedStates] = useState<boolean[]>(
     Array(8).fill(false),
@@ -20,7 +21,7 @@ const AccountDelete = () => {
   };
 
   const handleModal = () => {
-    if (open === true) {
+    if (isOpen === true) {
       setOpen(false);
     } else {
       setOpen(true);
@@ -83,6 +84,14 @@ const AccountDelete = () => {
             <div className={styles.deleteButton} onClick={handleModal}>
               탈퇴하기
             </div>
+            {isOpen && (
+              <AlertModal
+                success={true}
+                title="회원탈퇴가 정상적으로 진행되었습니다."
+                des="서비스를 이용해주셔서 감사합니다."
+                onClose={handleModal}
+              />
+            )}
           </div>
         </div>
       </div>
