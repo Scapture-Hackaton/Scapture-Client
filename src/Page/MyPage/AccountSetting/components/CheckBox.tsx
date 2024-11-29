@@ -1,20 +1,22 @@
 import React from 'react';
+import styles from '../scss/account-delete.module.scss';
 
 interface CheckboxProps {
   checked: boolean;
   onChange: (checked: boolean) => void;
-  children?: React.ReactNode;
+  children: React.ReactNode;
 }
 
-const Checkbox: React.FC<CheckboxProps> = ({ checked, onChange, children }) => {
+const Checkbox = ({ checked, onChange, children }: CheckboxProps) => {
   return (
-    <label>
+    <label className={styles.checkboxWrapper}>
       <input
         type="checkbox"
+        className={styles.checkbox}
         checked={checked}
-        onChange={({ target: { checked } }) => onChange(checked)}
+        onChange={e => onChange(e.target.checked)}
       />
-      {children}
+      <span className={styles.label}>{children}</span>
     </label>
   );
 };
