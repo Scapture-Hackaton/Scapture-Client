@@ -150,9 +150,11 @@ export const getSortVideo = async (
   }
 };
 
-export const deleteUser = async (): Promise<CommonResponse | undefined> => {
+export const deleteUser = async (
+  reasons: number[],
+): Promise<CommonResponse | undefined> => {
   try {
-    const res = await authInstance.delete(`/api/user`);
+    const res = await authInstance.delete(`/api/user`, { data: { reasons } });
     return res.data;
   } catch (error) {
     console.error('Error: ', error);

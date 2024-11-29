@@ -171,7 +171,7 @@ const Header: React.FC<HeaderProps> = ({ index }) => {
         </div>
 
         <div id={styles.login}>
-          {isLoginState && isProfile.name != 'undefined' ? (
+          {isLoginState.state && isProfile.name != 'undefined' ? (
             // <button
             //   onClick={() => {
             //     navigate('/mypage');

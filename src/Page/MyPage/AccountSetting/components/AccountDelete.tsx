@@ -6,8 +6,14 @@ import { useState } from 'react';
 import Checkbox from './CheckBox';
 import AlertModal from '../../../../common/component/AlertModal';
 import { useNavigate } from 'react-router-dom';
+import { deleteUser } from '../../../../apis/api/mypage.api';
+import { loginDataAtom } from '../../../Header/Atom/atom';
+import { userDataAtom } from '../../Atom/atom';
+import { useResetRecoilState, useSetRecoilState } from 'recoil';
 
 const AccountDelete = () => {
+  const setLoginState = useSetRecoilState(loginDataAtom);
+  const resetUserData = useResetRecoilState(userDataAtom);
   const [isOpen, setOpen] = useState(false);
   // 체크박스 상태 배열 생성
   const [checkedStates, setCheckedStates] = useState<boolean[]>(
@@ -21,10 +27,32 @@ const AccountDelete = () => {
     setCheckedStates(updatedStates);
   };
 
-  const handleModal = () => {
-    if (isOpen === true) {
+  const handleModal = async () => {
+    if (isOpen) {
       setOpen(false);
-      navigate('/');
+
+      // 삭제 이유 리스트
+      const selectedReasons = checkedStates
+        .map((checked, index) => (checked ? index : null))
+        .filter(value => value !== null) as number[];
+
+      if (selectedReasons.length === 0) {
+        alert('탈퇴 사유를 하나 이상 선택해주세요.');
+        return;
+      }
+
+      // API 호출
+      try {
+        const response = await deleteUser(selectedReasons);
+        if (response) {
+          setLoginState({ state: false });
+          resetUserData();
+          navigate('/'); // 메인 페이지로 이동
+        }
+      } catch (error) {
+        console.error('Error: ', error);
+        alert('회원탈퇴에 실패했습니다.');
+      }
     } else {
       setOpen(true);
     }
