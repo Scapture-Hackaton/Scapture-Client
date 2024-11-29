@@ -155,9 +155,9 @@ const Video = () => {
   };
 
   // 영상 다운로드 더블체크 (첫 다운로드)
-  const checkAuthDownLoadVideo = async () => {
+  const checkAuthDownLoadVideo = async (banana: number) => {
     try {
-      const authResponse = await checkAuthDownloadVideo(videoId);
+      const authResponse = await checkAuthDownloadVideo(videoId, banana);
       if (authResponse.status === 200) {
         downLoadVideo();
         await refetchVideoDetail();
@@ -174,8 +174,8 @@ const Video = () => {
   };
 
   // 처음 다운로드 하는 경우
-  const handleDownloadClick = async () => {
-    checkAuthDownLoadVideo();
+  const handleDownloadClick = async (banana: number) => {
+    await checkAuthDownLoadVideo(banana);
   };
 
   // useMutation 훅을 사용하여 좋아요/좋아요 취소 처리

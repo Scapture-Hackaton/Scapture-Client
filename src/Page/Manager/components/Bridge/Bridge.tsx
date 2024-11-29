@@ -17,7 +17,7 @@ import {
   StadiumDetail,
   StadiumFileds,
 } from '../../../../apis/dto/scapture.dto';
-import AlertModal from '../../../../common/component/AlertModal';
+// import AlertModal from '../../../../common/component/AlertModal';
 
 const Bridge = () => {
   const { stadiumId, fieldId } = useParams();
@@ -104,9 +104,9 @@ const Bridge = () => {
 
   const [isModalVisible, setModalVisible] = useState(true);
 
-  const handleCloseModal = () => {
-    setModalVisible(false);
-  };
+  // const handleCloseModal = () => {
+  //   setModalVisible(false);
+  // };
 
   const navigate = useNavigate();
   const goToStadium = () => {

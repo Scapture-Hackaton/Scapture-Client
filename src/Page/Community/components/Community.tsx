@@ -248,9 +248,9 @@ const Community = () => {
   };
 
   // 다운로드 기능
-  const handleDownloadClick = async () => {
+  const handleDownloadClick = async (banana: number) => {
     try {
-      const authResponse = await checkAuthDownloadVideo(isVideoId);
+      const authResponse = await checkAuthDownloadVideo(isVideoId, banana);
 
       if (authResponse.status === 200 || authResponse.status === 409) {
         // const downloadResponse = await downloadVideo(isVideoId);
@@ -322,7 +322,7 @@ const Community = () => {
       <MetaTag
         title="Scapture | 커뮤니티"
         description="스캡쳐 커뮤니티 페이지입니다."
-        keywords="풋살,축구,하이라이트,영상,숏폼,운동,구장,예약"
+        keywords="스캡쳐,풋살,축구,하이라이트,영상,숏폼,운동,구장,예약"
         imgsrc="https://scapture.co.kr/scapture_logo.png"
         url="https://scapture.co.kr/community"
       ></MetaTag>
