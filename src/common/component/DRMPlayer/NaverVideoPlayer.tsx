@@ -16,9 +16,9 @@ interface VideoPlayerProps {
   // licenseUrl: string; // PallyCon 라이선스 URL
 }
 
-const pallyconSecretKey = `${import.meta.env.VITE_NAVER_SITE_KEY}`;
-const pallyconAccessKey = `${import.meta.env.VITE_NAVER_ACCESS_KEY}`;
-const pallyconSiteId = `${import.meta.env.VITE_NAVER_SITE_ID}`;
+const naverSiteId = `${import.meta.env.VITE_NAVER_SITE_ID}`;
+const naverAccessKey = `${import.meta.env.VITE_NAVER_ACCESS_KEY}`;
+const naverSecretKey = `${import.meta.env.VITE_NAVER_SECRET_KEY}`;
 
 // const contentId = `${import.meta.env.VITE_CONTENT_ID}`;
 // const userId = `${import.meta.env.VITE_USER_ID}`;
@@ -70,6 +70,8 @@ const NaverVideoPlayer: React.FC<VideoPlayerProps> = ({
       // 지원하지 않는 브라우저의 경우
       setDrmType(null);
     }
+
+    console.log(finalVideoSrc);
 
     const config = [
       {
@@ -169,7 +171,7 @@ const NaverVideoPlayer: React.FC<VideoPlayerProps> = ({
   useEffect(() => {
     if (drmType) {
       const tokenData = {
-        siteId: pallyconSiteId,
+        siteId: naverSiteId,
         contentId,
         drmType: drmType?.toUpperCase(),
         responseFormat: 'ORIGINAL',
@@ -193,7 +195,7 @@ const NaverVideoPlayer: React.FC<VideoPlayerProps> = ({
       // 상태 업데이트
       setBase64Token(base64);
     }
-  }, [drmType, pallyconSiteId, contentId, userId]);
+  }, [drmType, naverSiteId, contentId, userId]);
 
   // DRM 유형에 따른 MIME 타입 반환
   const getMimeType = (drmType: string) => {
@@ -281,13 +283,13 @@ const NaverVideoPlayer: React.FC<VideoPlayerProps> = ({
   const makeSignature = () => {
     const space = ' '; // one space
     const newLine = '\n'; // new line
-    const method = 'GET'; // method
+    const method = 'POST'; // method
     const url = '/api/v2/channels?pageNo=1'; // url (include query string)
     const timestamp = timeStamp; // current timestamp (epoch)
     console.log('signature ' + timeStamp);
 
-    const accessKey = pallyconAccessKey; // access key id (from portal or Sub Account)
-    const secretKey = pallyconSecretKey; // secret key (from portal or Sub Account)
+    const accessKey = naverAccessKey; // access key id (from portal or Sub Account)
+    const secretKey = naverSecretKey; // secret key (from portal or Sub Account)
 
     const hmac = CryptoJS.algo.HMAC.create(CryptoJS.algo.SHA256, secretKey);
     hmac.update(method);
@@ -322,7 +324,7 @@ const NaverVideoPlayer: React.FC<VideoPlayerProps> = ({
               'Content-Type': 'application/json',
               'X-NCP-REGION_CODE': 'KR',
               'X-ncp-apigw-timestamp': timeStamp,
-              'X-ncp-iam-access-key': pallyconAccessKey,
+              'X-ncp-iam-access-key': naverAccessKey,
               'x-ncp-apigw-signature-v2': signature,
               'X-DRM-TOKEN': token,
             }, //One Click Multi DRM 상품 활용을 위한 apigw 필수 인증 및 X-DRM-TOKEN 헤더값
@@ -340,7 +342,7 @@ const NaverVideoPlayer: React.FC<VideoPlayerProps> = ({
       case 'FairPlay':
         return {
           'com.apple.fps.1_0': {
-            certificateUri: `https://license-global.pallycon.com/ri/fpsKeyManager.do?siteId=${pallyconSiteId}`, // 인증서 URL
+            certificateUri: `https://license-global.pallycon.com/ri/fpsKeyManager.do?siteId=${naverSiteId}`, // 인증서 URL
             licenseUri: licenseUrl,
             headers: {
               'pallycon-customdata-v2': token,

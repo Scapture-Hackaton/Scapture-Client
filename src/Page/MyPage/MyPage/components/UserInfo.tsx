@@ -22,6 +22,7 @@ const UserInfo: React.FC<UserInfoProps> = ({
   const navigate = useNavigate();
 
   const setLoginState = useSetRecoilState(loginDataAtom);
+  setLoginState({ state: false });
   const resetUserData = useResetRecoilState(userDataAtom);
 
   const [logout, setLogout] = useState(false);
