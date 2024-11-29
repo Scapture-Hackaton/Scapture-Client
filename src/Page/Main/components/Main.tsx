@@ -103,7 +103,7 @@ const Main = () => {
       <MetaTag
         title="Scapture"
         description="몸만 와서 운동만 하세요! 촬영, 편집, 업로드는 Scapture가 해드릴게요!"
-        keywords="풋살,축구,하이라이트,영상,숏폼,운동,구장,예약"
+        keywords="스캡쳐,풋살,축구,하이라이트,영상,숏폼,운동,구장,예약"
         imgsrc="https://scapture.co.kr/scapture_logo.png"
         url="https://scapture.co.kr"
       ></MetaTag>
