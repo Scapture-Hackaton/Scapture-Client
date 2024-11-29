@@ -113,21 +113,21 @@ const Main = () => {
           <img
             src={mainBanner}
             className={styles.mainBanner}
-            alt=""
+            alt="스캡쳐(Scapture) 메인 배너"
             width="450px"
             height="700px"
           />
           <img
             src={bannerCover}
             className={styles.bannerCover}
-            alt=""
+            alt="스캡쳐(Scapture) 배너 커버"
             width="450px"
             height="700px"
           />
           <img
             src={mainLogo}
             className={styles.mainLogo}
-            alt=""
+            alt="스캡쳐(Scapture) 메인 로고"
             width="400px"
             height="192px"
           />
@@ -148,7 +148,7 @@ const Main = () => {
             ref={backgrdoundRef}
             src={gradientBg}
             className={styles.gradientBg}
-            alt=""
+            alt="스캡쳐(Scapture) 배경"
             width="450px"
             height="1264px"
           ></img>
@@ -156,7 +156,7 @@ const Main = () => {
             <img
               src={mainIcon}
               loading="lazy"
-              alt=""
+              alt="스캡쳐(Scapture) 메인 아이콘"
               width="54px"
               height="54px"
             />
@@ -173,7 +173,7 @@ const Main = () => {
             src={iphoneMockup}
             className={styles.iphoneMockup}
             loading="lazy"
-            alt=""
+            alt="스캡쳐(Scapture) 아이폰 모킹"
           />
           {/* <img
             ref={iphoneScreenRef}
@@ -198,7 +198,7 @@ const Main = () => {
               <img
                 src={mainIcon}
                 loading="lazy"
-                alt=""
+                alt="스캡쳐(Scapture) 메인 아이콘"
                 width="54px"
                 height="54px"
               />
@@ -221,7 +221,7 @@ const Main = () => {
                         ? mainData?.randomStadium?.image
                         : testImg
                     }
-                    alt=""
+                    alt="스캡쳐(Scapture) 스타디움 이미지"
                     width="160px"
                     height="125px"
                   />
@@ -251,7 +251,12 @@ const Main = () => {
 
                     <div id={styles.info}>
                       <div className={styles.line}>
-                        <img src={location} alt="" width="16px" height="16px" />
+                        <img
+                          src={location}
+                          alt="스캡쳐(Scapture) 위치"
+                          width="16px"
+                          height="16px"
+                        />
                         <div className={styles.info}>
                           {mainData.randomStadium.location}
                         </div>
@@ -259,7 +264,12 @@ const Main = () => {
                       </div>
 
                       <div className={styles.line}>
-                        <img src={clock} alt="" width="16px" height="16px" />
+                        <img
+                          src={clock}
+                          alt="스캡쳐(Scapture) 정보"
+                          width="16px"
+                          height="16px"
+                        />
                         <span className={styles.info}>
                           {mainData.randomStadium.hours}
                         </span>
@@ -267,7 +277,12 @@ const Main = () => {
                       </div>
 
                       <div className={styles.line}>
-                        <img src={parking} alt="" width="16px" height="16px" />
+                        <img
+                          src={parking}
+                          alt="스캡쳐(Scapture) 주차"
+                          width="16px"
+                          height="16px"
+                        />
 
                         <span className={styles.info}>
                           {mainData?.randomStadium?.isParking
@@ -288,7 +303,12 @@ const Main = () => {
             >
               <div className={styles.stadium}>
                 <div className={styles.stadiumImage}>
-                  <img src={stadiumEx} alt="" width="180px" height="140px" />
+                  <img
+                    src={stadiumEx}
+                    alt="스캡쳐(Scapture) 스타디움 예시"
+                    width="180px"
+                    height="140px"
+                  />
                 </div>
                 <div className={styles.stadiumInfo}>
                   <div className={styles.stadium}>
@@ -310,19 +330,34 @@ const Main = () => {
 
                     <div id={styles.info}>
                       <div className={styles.line}>
-                        <img src={location} alt="" width="16px" height="16px" />
+                        <img
+                          src={location}
+                          alt="스캡쳐(Scapture) 위치"
+                          width="16px"
+                          height="16px"
+                        />
                         {/* <div className={styles.info}>{stadium.location}</div> */}
                         <div className={styles.info}>한성대학교</div>
                       </div>
 
                       <div className={styles.line}>
-                        <img src={clock} alt="" width="16px" height="16px" />
+                        <img
+                          src={clock}
+                          alt="스캡쳐(Scapture) 라인"
+                          width="16px"
+                          height="16px"
+                        />
                         {/* <span className={styles.info}>{stadium.hours}</span> */}
                         <span className={styles.info}>10:00:24:00</span>
                       </div>
 
                       <div className={styles.line}>
-                        <img src={parking} alt="" width="16px" height="16px" />
+                        <img
+                          src={parking}
+                          alt="스캡쳐(Scapture) 주차"
+                          width="16px"
+                          height="16px"
+                        />
 
                         {/* <span className={styles.info}>{stadium.parking}</span> */}
                         <span className={styles.info}>유료 주차</span>
@@ -339,7 +374,7 @@ const Main = () => {
               <img
                 src={mainIcon}
                 loading="lazy"
-                alt=""
+                alt="스캡쳐(Scapture) 메인 아이콘"
                 width="54px"
                 height="54px"
               />
@@ -358,7 +393,7 @@ const Main = () => {
                 src={videoTopGradient}
                 className={styles.videoTopGradient}
                 loading="lazy"
-                alt=""
+                alt="스캡쳐(Scapture) 비디오 탑 그라디언트"
               />
               {mainData != null && mainData.popular ? (
                 <div className={styles.group}>
@@ -373,7 +408,7 @@ const Main = () => {
                           : testImg
                       }
                       className={styles.mainImg}
-                      alt=""
+                      alt="스캡쳐(Scapture) 인기 영상 이미지"
                       width="266px"
                       height="150px"
                       loading="lazy"
@@ -382,7 +417,7 @@ const Main = () => {
                     <img
                       src={playBtnIcon}
                       className={styles.subImg}
-                      alt=""
+                      alt="스캡쳐(Scapture) 플레이 버튼 아이콘"
                       width="60px"
                       height="60px"
                       loading="lazy"
@@ -407,7 +442,7 @@ const Main = () => {
                     <img
                       src={testImg}
                       className={styles.mainImg}
-                      alt=""
+                      alt="스캡쳐(Scapture) 인기 영상 이미지"
                       width="266px"
                       height="150px"
                       loading="lazy"
@@ -415,7 +450,7 @@ const Main = () => {
                     <img
                       src={playBtnIcon}
                       className={styles.subImg}
-                      alt=""
+                      alt="스캡쳐(Scapture) 플레이 버튼 아이콘"
                       width="60px"
                       height="60px"
                       loading="lazy"
@@ -440,7 +475,7 @@ const Main = () => {
             <img
               src={mainIcon}
               loading="lazy"
-              alt=""
+              alt="스캡쳐(Scapture) 메인 아이콘"
               width="54px"
               height="54px"
             />
@@ -458,7 +493,12 @@ const Main = () => {
 
         <div className={styles.inquire}>
           <div className={styles.group}>
-            <img src={inqyireLogo} alt="" width="54px" height="54px" />
+            <img
+              src={inqyireLogo}
+              alt="스캡쳐(Scapture) 아이콘"
+              width="54px"
+              height="54px"
+            />
             <div className={styles.inquireTitle}>파트너 및 제휴 문의</div>
             <div className={styles.inquireSubTxt}>
               스캡쳐는 다양한 형태의 협업을 기대하고 있습니다.
