@@ -178,6 +178,8 @@ const NaverVideoPlayer: React.FC<VideoPlayerProps> = ({
         userId,
       };
 
+      console.log(tokenData);
+
       // JSON 데이터 문자열로 변환
       const jsonString = JSON.stringify(tokenData);
 
@@ -250,7 +252,8 @@ const NaverVideoPlayer: React.FC<VideoPlayerProps> = ({
       });
 
       playerRef.current.on('error', () => {
-        console.error('VideoJS Error:', playerRef.current.error());
+        const error = playerRef.current.error();
+        console.error('Video.js DRM Error:', error.message, error.code);
       });
 
       playerRef.current.ready(() => {
@@ -283,7 +286,7 @@ const NaverVideoPlayer: React.FC<VideoPlayerProps> = ({
   const makeSignature = () => {
     const space = ' '; // one space
     const newLine = '\n'; // new line
-    const method = 'POST'; // method
+    const method = 'GET'; // method
     const url = '/api/v2/channels?pageNo=1'; // url (include query string)
     const timestamp = timeStamp; // current timestamp (epoch)
     console.log('signature ' + timeStamp);
@@ -313,6 +316,8 @@ const NaverVideoPlayer: React.FC<VideoPlayerProps> = ({
     licenseUrl: string,
     token: string,
   ) => {
+    console.log(finalVideoSrc);
+
     switch (drmType) {
       case 'Widevine':
         console.log('Widevine : ' + timeStamp);
