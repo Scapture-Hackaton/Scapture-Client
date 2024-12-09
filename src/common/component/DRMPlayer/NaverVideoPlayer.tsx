@@ -36,7 +36,7 @@ const NaverVideoPlayer: React.FC<VideoPlayerProps> = ({
   //   drmType,
   // licenseUrl,
 }) => {
-  const [finalVideoSrc, setFinalVideoSrc] = useState<string>(videoSrc);
+  const [finalVideoSrc, setFinalVideoSrc] = useState<string | null>(null);
   const [drmType, setDrmType] = useState<string | null>(null);
   const [base64Token, setBase64Token] = useState<string | null>(null);
   const [timeStamp, setTimeStamp] = useState(String(Date.now()));
@@ -207,7 +207,7 @@ const NaverVideoPlayer: React.FC<VideoPlayerProps> = ({
   };
 
   useEffect(() => {
-    if (videoRef.current && drmType && base64Token) {
+    if (videoRef.current && drmType && base64Token && finalVideoSrc) {
       playerRef.current = videojs(videoRef.current, {
         autoplay: true, // 자동 재생 설정
         controls: true, // 플레이어 컨트롤 표시 설정
@@ -316,7 +316,7 @@ const NaverVideoPlayer: React.FC<VideoPlayerProps> = ({
     licenseUrl: string,
     token: string,
   ) => {
-    console.log(finalVideoSrc);
+    console.log(`video ${finalVideoSrc}`);
 
     switch (drmType) {
       case 'Widevine':

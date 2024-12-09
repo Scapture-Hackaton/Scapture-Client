@@ -1,5 +1,5 @@
 export interface HighlightListsRes {
   scheduleId: number;
   hours: string;
-  videoCount: number;
+  isRequest: boolean;
 }

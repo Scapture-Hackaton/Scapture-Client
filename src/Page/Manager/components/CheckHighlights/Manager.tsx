@@ -66,8 +66,8 @@ const Manager = () => {
             확인
           </div>
           <NaverVideoPlayer
-            videoSrc="https://d1yr3xnm7vncof.cloudfront.net/TriggerTest/triggerTest5"
-            contentId="triggerTest5"
+            videoSrc="https://d1yr3xnm7vncof.cloudfront.net/TriggerTest/triggerTest1"
+            contentId="triggerTest1"
           ></NaverVideoPlayer>
         </div>
       )}

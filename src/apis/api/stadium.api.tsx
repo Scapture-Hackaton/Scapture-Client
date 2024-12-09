@@ -124,3 +124,18 @@ export const getStadiumLocations = async () => {
     };
   }
 };
+
+// 하이라이트 스케줄 가져오기
+export const getHighlightsSchedule = async (fieldId: number, date: string) => {
+  try {
+    const res: CommonResponse = await authInstance.get(
+      `/api/highlights/landing/${fieldId}?date=${date}`,
+    );
+
+    return res.data.data;
+  } catch (e: any) {
+    return {
+      status: e.response.status,
+    };
+  }
+};
