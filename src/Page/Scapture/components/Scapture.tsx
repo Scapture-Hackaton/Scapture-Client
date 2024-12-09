@@ -16,6 +16,7 @@ import { Stadium } from '../../../apis/dto/scapture.dto';
 import Stadiums from './Stadiums';
 import { useQuery } from '@tanstack/react-query';
 import { getStadiumLocations } from '../../../apis/api/stadium.api';
+import MetaTag from '../../../utils/SEOMetaTag';
 
 const Scapture = () => {
   const [selectCity, setSelectCity] = useState(['서울시']);
@@ -176,6 +177,13 @@ const Scapture = () => {
 
   return (
     <div className={styles.test}>
+      <MetaTag
+        title="Scapture | 구장"
+        description="Scapture(스캡쳐)와 제휴한 구장에서 하이라이트 영상을 확인하세요."
+        keywords="풋살,축구,하이라이트,영상,숏폼,운동,구장,예약,천마,LBFS,스포츠,캡쳐,스캡쳐"
+        imgsrc="https://scapture.co.kr/scapture_logo.png"
+        url="https://scapture.co.kr/scaputre"
+      ></MetaTag>
       <Header index={2} />
       <div className={styles.scapture}>
         <div className={styles.banner}>
