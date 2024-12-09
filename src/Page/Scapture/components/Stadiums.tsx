@@ -23,19 +23,9 @@ const Stadiums: React.FC<StadiumsProps> = ({ stadiumData }) => {
 
   return (
     <>
-      {stadiumData === null ||
-      stadiumData.length <= 0 ||
-      typeof stadiumData == 'undefined' ? (
-        <div className={styles.noData}>
-          <img
-            src={noDataIcon}
-            alt="검색 결과가 없습니다."
-            width="180px"
-            height="180px"
-          />
-          <div>검색 결과가 없어요</div>
-        </div>
-      ) : (
+      {stadiumData &&
+      stadiumData?.length > 0 &&
+      typeof stadiumData !== 'undefined' ? (
         stadiumData.map(stadium => (
           <div
             className={styles.stadiumList}
@@ -100,6 +90,16 @@ const Stadiums: React.FC<StadiumsProps> = ({ stadiumData }) => {
             </div>
           </div>
         ))
+      ) : (
+        <div className={styles.noData}>
+          <img
+            src={noDataIcon}
+            alt="검색 결과가 없습니다."
+            width="180px"
+            height="180px"
+          />
+          <div>검색 결과가 없어요</div>
+        </div>
       )}
     </>
   );
