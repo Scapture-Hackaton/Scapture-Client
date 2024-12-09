@@ -11,8 +11,6 @@ const Highlights = () => {
     initialData: [] as HighlightsRes[], // 초기 데이터를 빈 배열로 설정
   });
 
-  console.log(highlights);
-
   const navigate = useNavigate();
 
   return (
@@ -32,7 +30,14 @@ const Highlights = () => {
         <tbody>
           {highlights && highlights.length > 0 ? (
             highlights.map((data: HighlightsRes, idx: number) => (
-              <tr className={`${styles.des} ${styles.line}`} key={idx}>
+              <tr
+                className={
+                  data.isExtracted
+                    ? `${styles.checked} ${styles.des} ${styles.line}`
+                    : `${styles.des} ${styles.line}`
+                }
+                key={idx}
+              >
                 <td>{data.stadiumName}</td>
                 <td>{data.fieldName}</td>
                 <td>{data.date}</td>

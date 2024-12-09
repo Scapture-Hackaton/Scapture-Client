@@ -92,7 +92,11 @@
         border-bottom: 3px solid var(--grey-color-grey-01);
       }
 
-      tbody > tr:nth-child(odd) {
+      // tbody > tr:nth-child(odd) {
+      //   background-color: var(--color-grayscale-input-800);
+      // }
+
+      tbody .checked {
         background-color: var(--color-grayscale-input-800);
       }
 
@@ -100,7 +104,8 @@
         cursor: pointer;
         text-decoration: underline;
 
-        color: var(--primary-color-defualt-01);
+        // color: var(--primary-color-defualt-01);
+        color: var(--color-ect-accent);
       }
     }
 
