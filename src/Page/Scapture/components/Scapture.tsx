@@ -113,6 +113,7 @@ const Scapture = () => {
         {},
       );
 
+      cities.unshift('전체 보기');
       setSelectCity(cities);
       setSelectState(states);
     }
@@ -126,7 +127,12 @@ const Scapture = () => {
 
   // 도시 선택시
   const handleCityChange = (city: string) => {
-    setCity(city);
+    if (city === '전체 보기') {
+      setCity('도시');
+    } else {
+      setCity(city);
+    }
+
     if (selectState) {
       // setState(selectState[city][0]); // City 변경 시 state 리스트 초기화
       setState('지역'); // City 변경 시 state 리스트 초기화
@@ -227,11 +233,13 @@ const Scapture = () => {
                   selectedOption={isCity}
                   onOptionChange={handleCityChange}
                 ></SelectBtn>
-                <SelectBtn
-                  selectList={selectState ? selectState[isCity] : []}
-                  selectedOption={isState}
-                  onOptionChange={handleStateChange}
-                ></SelectBtn>
+                {isCity === '도시' ? null : (
+                  <SelectBtn
+                    selectList={selectState ? selectState[isCity] : []}
+                    selectedOption={isState}
+                    onOptionChange={handleStateChange}
+                  ></SelectBtn>
+                )}
               </div>
             </div>
           </div>
