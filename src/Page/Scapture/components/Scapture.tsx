@@ -19,7 +19,7 @@ import { getStadiumLocations } from '../../../apis/api/stadium.api';
 import MetaTag from '../../../utils/SEOMetaTag';
 
 const Scapture = () => {
-  const [selectCity, setSelectCity] = useState(['서울시']);
+  const [selectCity, setSelectCity] = useState(null);
   // const selectCity = ['강원도'];
   // const selectState: Record<string, string[]> = {
   //   서울시: [
@@ -85,9 +85,10 @@ const Scapture = () => {
   //   ],
   // };
 
-  const [selectState, setSelectState] = useState<Record<string, string[]>>({
-    서울시: ['송파구'],
-  });
+  const [selectState, setSelectState] = useState<Record<
+    string,
+    string[]
+  > | null>(null);
   // 서울시: ['성북구', '강서구', '영등포구', '강남구', '노원구', '동대문구'],
   // { 강원도: ['원주시'], 경기도: ['이천시'] },
 
@@ -118,15 +119,18 @@ const Scapture = () => {
   }, [stadiumLocations]);
 
   // 선택된 도시에 따라 리스트 변경
-  const [isCity, setCity] = useState(selectCity[0]);
-  const [isState, setState] = useState(selectState[isCity][0]);
+  const [isCity, setCity] = useState('도시');
+  const [isState, setState] = useState('지역');
   // 리스트로 보여줄 데이터
   const [stadiumData, setStadiumData] = useState<Stadium[]>([]);
 
   // 도시 선택시
   const handleCityChange = (city: string) => {
     setCity(city);
-    setState(selectState[city][0]); // City 변경 시 state 리스트 초기화
+    if (selectState) {
+      // setState(selectState[city][0]); // City 변경 시 state 리스트 초기화
+      setState('지역'); // City 변경 시 state 리스트 초기화
+    }
   };
 
   // 지역 선택시
@@ -138,6 +142,7 @@ const Scapture = () => {
   useEffect(() => {
     const fetchInitialData = async () => {
       const data = await getStadiumList(isCity, isState);
+
       setStadiumData(data);
     };
 
@@ -223,7 +228,7 @@ const Scapture = () => {
                   onOptionChange={handleCityChange}
                 ></SelectBtn>
                 <SelectBtn
-                  selectList={selectState[isCity]}
+                  selectList={selectState ? selectState[isCity] : []}
                   selectedOption={isState}
                   onOptionChange={handleStateChange}
                 ></SelectBtn>
