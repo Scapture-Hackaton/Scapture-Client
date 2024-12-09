@@ -7,4 +7,5 @@ export interface HighlightsRes {
   scheduleId: number;
   username: string;
   phoneNumber: string;
+  isExtracted: boolean;
 }
