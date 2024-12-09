@@ -139,3 +139,17 @@ export const getHighlightsSchedule = async (fieldId: number, date: string) => {
     };
   }
 };
+
+export const getCalendarHaveVideo = async (fieldId: number) => {
+  try {
+    const res: CommonResponse = await defaultInstance.get(
+      `/api/fields/${fieldId}/schedule`,
+    );
+
+    return res.data.data;
+  } catch (e: any) {
+    return {
+      status: e.response.status,
+    };
+  }
+};
