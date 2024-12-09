@@ -77,7 +77,7 @@ const ScheduleList: React.FC<ScheduleListProps> = ({
                     </span>{' '}
                     ~ {endTime}
                   </div>
-                  {item.isRequest ? (
+                  {item.isRequested ? (
                     <div className={`${styles.btn} ${styles.disabled}`}>
                       요청완료
                     </div>
@@ -87,7 +87,7 @@ const ScheduleList: React.FC<ScheduleListProps> = ({
                         if (isLoginState.state) {
                           setSelectedScheduleId(item.scheduleId);
                           setSelectedTime(item.hours);
-                          setRequest(item.isRequest);
+                          setRequest(item.isRequested);
                           openModal();
                         } else {
                           modalNotice(loginModalRef);
