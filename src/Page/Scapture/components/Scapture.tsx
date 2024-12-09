@@ -127,7 +127,8 @@ const Scapture = () => {
   const handleCityChange = (city: string) => {
     setCity(city);
     if (selectState) {
-      setState(selectState[city][0]); // City 변경 시 state 리스트 초기화
+      // setState(selectState[city][0]); // City 변경 시 state 리스트 초기화
+      setState('지역'); // City 변경 시 state 리스트 초기화
     }
   };
 

@@ -11,6 +11,12 @@ export const getStadiumList = async (city: string, state: string) => {
       const res: CommonResponse = await defaultInstance.get(`/api/stadiums`);
 
       return res.data.data;
+    } else if (city !== '도시' && state === '지역') {
+      const res: CommonResponse = await defaultInstance.get(
+        `/api/stadiums?city=${city}`,
+      );
+
+      return res.data.data;
     } else {
       const res: CommonResponse = await defaultInstance.get(
         `/api/stadiums?city=${city}&state=${state}`,
