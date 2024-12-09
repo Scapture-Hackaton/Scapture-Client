@@ -295,7 +295,7 @@ const SelectInfoBox: React.FC<SelectInfoBoxProps> = ({
                   dayList={dayList}
                   onOptionChange={handleDayChange}
                   isDay={isDay}
-                  stadiumId={stadiumId}
+                  fieldId={selectedFieldId}
                 ></Calendar>
               </div>
 

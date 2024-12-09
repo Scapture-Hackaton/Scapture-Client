@@ -184,7 +184,8 @@ const Bridge = () => {
                   dayList={dayList}
                   onOptionChange={handleDayChange}
                   isDay={isDay}
-                  stadiumId={parseInt(stadiumId!)}
+                  // stadiumId={parseInt(stadiumId!)}
+                  fieldId={null}
                 ></Calendar>
               </div>
             </div>

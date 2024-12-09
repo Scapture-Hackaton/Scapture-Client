@@ -1,18 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import styles from '../scss/calendar.module.scss';
+import { getCalendarHaveVideo } from '../../../apis/api/stadium.api';
+import { useQuery } from '@tanstack/react-query';
 
 interface SelectProps {
   dayList: { day: string; weekday: string }[];
   onOptionChange: (option: any) => void;
   isDay: string;
-  stadiumId: number;
+  fieldId: number | null | undefined;
 }
 
 const Calendar: React.FC<SelectProps> = ({
   dayList,
   onOptionChange,
   isDay,
-  stadiumId,
+  fieldId,
 }) => {
   const formattedDayList = dayList.map(item => ({
     day: item.day.padStart(2, '0'),
@@ -43,35 +45,32 @@ const Calendar: React.FC<SelectProps> = ({
   }, [selectedDay]);
   // console.log(dayList);
 
+  // 각 날짜마다 스케쥴이 존재하는지 확인하는 리스트
+  const { data: haveVideoList } = useQuery({
+    queryKey: ['haveVideo', fieldId],
+    queryFn: () => getCalendarHaveVideo(fieldId!),
+    initialData: {} as [boolean],
+  });
+
   return (
     <div className={styles.calendar}>
-      {formattedDayList.map((day, idx) =>
-        stadiumId === 75 ? (
-          day.weekday === '토' || day.weekday === '일' ? (
-            <div
-              key={idx}
-              className={`${styles.block} ${
-                selectedDay === day.day ? styles.selected : ''
-              }`}
-              onClick={() => handleDayClick(idx)}
-            >
-              <div>{stadiumId === 75 ? parseInt(day.day) - 7 : day.day}</div>
-              <div>{day.weekday}</div>
-            </div>
-          ) : null
-        ) : (
-          <div
-            key={idx}
-            className={`${styles.block} ${
-              selectedDay === day.day ? styles.selected : ''
-            }`}
-            onClick={() => handleDayClick(idx)}
-          >
-            <div>{day.day}</div>
-            <div>{day.weekday}</div>
-          </div>
-        ),
-      )}
+      {formattedDayList.map((day, idx) => (
+        <div
+          key={idx}
+          className={`${styles.block} ${
+            selectedDay === day.day ? styles.selected : ''
+          }`}
+          onClick={() => handleDayClick(idx)}
+        >
+          <div className={styles.day}>{day.day}</div>
+          <div className={styles.weekday}>{day.weekday}</div>
+          {haveVideoList && haveVideoList[idx] ? (
+            <div className={styles.dot}></div>
+          ) : (
+            <div></div>
+          )}
+        </div>
+      ))}
     </div>
   );
 };

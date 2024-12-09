@@ -57,7 +57,7 @@ const ScheduleList: React.FC<ScheduleListProps> = ({
   };
   const closeModal = () => setIsModalOpen(false);
 
-  const [isRequest, setRequest] = useState<boolean | null>(null);
+  // const [isRequest, setRequest] = useState<boolean | null>(null);
 
   return (
     <>
@@ -87,7 +87,6 @@ const ScheduleList: React.FC<ScheduleListProps> = ({
                         if (isLoginState.state) {
                           setSelectedScheduleId(item.scheduleId);
                           setSelectedTime(item.hours);
-                          setRequest(item.isRequested);
                           openModal();
                         } else {
                           modalNotice(loginModalRef);
