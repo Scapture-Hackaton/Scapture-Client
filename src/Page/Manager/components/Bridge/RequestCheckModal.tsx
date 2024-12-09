@@ -17,6 +17,7 @@ interface RequestCheckModalProps {
   fieldName: string;
   formattedDate: string;
   selectedTime: string;
+  refetchData: () => void;
 }
 
 const RequestCheckModal: React.FC<RequestCheckModalProps> = ({
@@ -26,6 +27,7 @@ const RequestCheckModal: React.FC<RequestCheckModalProps> = ({
   fieldName,
   formattedDate,
   selectedTime,
+  refetchData,
 }) => {
   const dialogRef = useRef<HTMLDialogElement>(null);
 
@@ -56,6 +58,8 @@ const RequestCheckModal: React.FC<RequestCheckModalProps> = ({
     // 현재 모달 닫기
     closeModal();
     setIsPaymentModalOpen(true);
+
+    refetchData();
 
     // 성공 모달 표시
     // setSuccessModalVisible(true);

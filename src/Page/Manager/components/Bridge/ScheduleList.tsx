@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import styles from '../../scss/scheduleList.module.scss';
 import { useQuery } from '@tanstack/react-query';
-import { getStadiumDHours } from '../../../../apis/api/stadium.api';
+import { getHighlightsSchedule } from '../../../../apis/api/stadium.api';
 import { HighlightListsRes } from '../../dto/highlight.dto';
 import { LoginModal } from '../../../Header/components/LoginModal';
 import { loginData, loginDataAtom } from '../../../Header/Atom/atom';
@@ -36,13 +36,17 @@ const ScheduleList: React.FC<ScheduleListProps> = ({
 
   const { data: highlightList, refetch } = useQuery({
     queryKey: ['schedule', fieldId],
-    queryFn: () => getStadiumDHours(fieldId, formattedDate),
+    queryFn: () => getHighlightsSchedule(fieldId, formattedDate),
     initialData: {} as HighlightListsRes[],
   });
 
   useEffect(() => {
     refetch();
   }, [isDay]);
+
+  const refetchData = () => {
+    refetch();
+  };
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedTime, setSelectedTime] = useState('');
@@ -52,6 +56,8 @@ const ScheduleList: React.FC<ScheduleListProps> = ({
     setIsModalOpen(true);
   };
   const closeModal = () => setIsModalOpen(false);
+
+  const [isRequest, setRequest] = useState<boolean | null>(null);
 
   return (
     <>
@@ -71,20 +77,27 @@ const ScheduleList: React.FC<ScheduleListProps> = ({
                     </span>{' '}
                     ~ {endTime}
                   </div>
-                  <div
-                    onClick={() => {
-                      if (isLoginState.state) {
-                        setSelectedScheduleId(item.scheduleId);
-                        setSelectedTime(item.hours);
-                        openModal();
-                      } else {
-                        modalNotice(loginModalRef);
-                      }
-                    }}
-                    className={`${styles.btn}`}
-                  >
-                    요청하기
-                  </div>
+                  {item.isRequest ? (
+                    <div className={`${styles.btn} ${styles.disabled}`}>
+                      요청완료
+                    </div>
+                  ) : (
+                    <div
+                      onClick={() => {
+                        if (isLoginState.state) {
+                          setSelectedScheduleId(item.scheduleId);
+                          setSelectedTime(item.hours);
+                          setRequest(item.isRequest);
+                          openModal();
+                        } else {
+                          modalNotice(loginModalRef);
+                        }
+                      }}
+                      className={`${styles.btn}`}
+                    >
+                      요청하기
+                    </div>
+                  )}
                 </div>
               );
             })}
@@ -98,6 +111,7 @@ const ScheduleList: React.FC<ScheduleListProps> = ({
           fieldName={fieldName}
           formattedDate={formattedDate}
           selectedTime={selectedTime}
+          refetchData={refetchData}
         />
       </div>
     </>
