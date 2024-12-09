@@ -29,6 +29,17 @@ const Manager = () => {
     }
   };
 
+  // 엔터를 눌렀을 경우에도 댓글 작성이 가능하도록
+  const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') {
+      if (isPwd === password) {
+        setChecked(true);
+      } else {
+        setPwd('');
+      }
+    }
+  };
+
   return (
     <div className={styles.main}>
       {isChecked ? (
@@ -48,6 +59,7 @@ const Manager = () => {
               name="name"
               placeholder="비밀번호 입력"
               onChange={handleChange}
+              onKeyPress={handleKeyPress}
             ></input>
           </div>
           <div className={styles.button} onClick={() => checkPwd()}>
