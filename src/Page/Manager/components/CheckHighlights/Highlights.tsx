@@ -11,6 +11,8 @@ const Highlights = () => {
     initialData: [] as HighlightsRes[], // 초기 데이터를 빈 배열로 설정
   });
 
+  console.log(highlights);
+
   const navigate = useNavigate();
 
   return (
@@ -24,6 +26,7 @@ const Highlights = () => {
             <th>경기 날짜</th>
             <th>경기 시간</th>
             <th>Schedule-Id</th>
+            <th>하이라이트 추출 여부</th>
           </tr>
         </thead>
         <tbody>
@@ -44,6 +47,7 @@ const Highlights = () => {
                     {data.scheduleId}
                   </div>
                 </td>
+                <td>{data.isExtracted ? <div>O</div> : <div>X</div>}</td>
               </tr>
             ))
           ) : (
