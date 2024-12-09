@@ -3,7 +3,7 @@ import styles from '../scss/scapture.module.scss';
 import dropDown from '../../../assets/Icon/dropDown.svg';
 
 interface SelectProps {
-  selectList: string[];
+  selectList: string[] | null;
   selectedOption: string;
   onOptionChange: (option: string) => void;
 }
@@ -66,9 +66,8 @@ const SelectBtn: React.FC<SelectProps> = ({
         <img src={dropDown} alt="" width="16px" height="16px"></img>
       </button>
       <ul>
-        {selectList === null || selectList.length <= 0
-          ? null
-          : selectList.map((option, idx) => (
+        {selectList && selectList.length > 0
+          ? selectList.map((option, idx) => (
               <li key={idx}>
                 <button
                   type="button"
@@ -78,7 +77,8 @@ const SelectBtn: React.FC<SelectProps> = ({
                   <p>{option}</p>
                 </button>
               </li>
-            ))}
+            ))
+          : null}
       </ul>
     </div>
   );

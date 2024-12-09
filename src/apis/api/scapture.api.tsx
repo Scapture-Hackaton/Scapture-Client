@@ -7,11 +7,17 @@ import { defaultInstance } from '../utils/instance';
 // Stadium 리스트 조회
 export const getStadiumList = async (city: string, state: string) => {
   try {
-    const res: CommonResponse = await defaultInstance.get(
-      `/api/stadiums?city=${city}&state=${state}`,
-    );
+    if (city === '도시' && state === '지역') {
+      const res: CommonResponse = await defaultInstance.get(`/api/stadiums`);
 
-    return res.data.data;
+      return res.data.data;
+    } else {
+      const res: CommonResponse = await defaultInstance.get(
+        `/api/stadiums?city=${city}&state=${state}`,
+      );
+
+      return res.data.data;
+    }
   } catch (e: any) {
     return {
       status: e.response.status,
