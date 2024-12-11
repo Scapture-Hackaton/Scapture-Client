@@ -30,6 +30,9 @@
 
         .beforeBtn,
         .nextBtn {
+          width: 12px;
+          height: 18px;
+
           position: absolute;
           top: 50%;
           transform: translateY(-50%);
