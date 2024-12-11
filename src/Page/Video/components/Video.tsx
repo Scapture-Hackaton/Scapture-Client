@@ -320,8 +320,8 @@ const Video = () => {
                   <img
                     src={beforeBtn}
                     alt=""
-                    width="6px"
-                    height="12px"
+                    width="12px"
+                    height="18px"
                     className={styles.beforeBtn}
                     onClick={() => nextVideo(videoDetail.videos.beforeVideo)}
                   />
@@ -339,8 +339,8 @@ const Video = () => {
                   <img
                     src={nextBtn}
                     alt=""
-                    width="6px"
-                    height="12px"
+                    width="12px"
+                    height="18px"
                     onClick={() => nextVideo(videoDetail.videos.afterVideo)}
                     className={styles.nextBtn}
                   />
