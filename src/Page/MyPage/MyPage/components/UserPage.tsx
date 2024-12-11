@@ -320,12 +320,13 @@ const UserPage = () => {
                       className={styles.videoCard}
                       key={item.videoId}
                       onClick={() => {
-                        navigate('/video', {
-                          state: {
-                            videoId: item.videoId,
-                            stadiumId: item.stadiumId,
-                          },
-                        });
+                        const splitDate = item.date.split('.');
+                        const month = splitDate[1];
+                        const day = splitDate[2];
+
+                        navigate(
+                          `/video/${item.stadiumId}/${item.videoId}/${item.scheduleId}/${month}/${day}/${item.fieldName}`,
+                        );
                       }}
                     >
                       {/* <div className={styles.thumbnail}></div> */}

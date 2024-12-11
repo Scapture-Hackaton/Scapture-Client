@@ -9,17 +9,54 @@
     // 1
     .videoContainer {
       background: var(--color-grayscale-web-card);
+      height: 439.5px;
+      // height: 440px;
+      // width: 100%;
 
       .video {
+        position: relative;
         width: 100%;
         height: 255px;
-        // background: rgba(37, 37, 37, 1);
+        background: rgba(37, 37, 37, 1);
         border-radius: 1px;
 
         video {
           width: 100%;
-          height: 100%;
+          height: 255px;
           object-fit: cover;
+
+          background-color: black;
+        }
+
+        .beforeBtn,
+        .nextBtn {
+          position: absolute;
+          top: 50%;
+          transform: translateY(-50%);
+          background: none;
+          border: none;
+          cursor: pointer;
+          z-index: 2;
+        }
+
+        .beforeBtn {
+          left: 10px;
+        }
+
+        .nextBtn {
+          right: 10px;
+        }
+
+        .beforeBtn:hover,
+        .nextBtn:hover {
+          filter: invert(60%) sepia(46%) saturate(732%) hue-rotate(193deg)
+            brightness(103%) contrast(101%); /* hover 색상 */
+        }
+
+        .beforeBtn:active,
+        .nextBtn:active {
+          filter: invert(27%) sepia(98%) saturate(3911%) hue-rotate(223deg)
+            brightness(96%) contrast(93%);
         }
       }
 

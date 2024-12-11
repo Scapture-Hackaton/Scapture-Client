@@ -63,4 +63,9 @@ export interface VideoDetail {
     isOutside: boolean; // true: 실외 & false: 실내
     isFree: boolean;
   };
+
+  videos: {
+    beforeVideo: number;
+    afterVideo: number;
+  };
 }

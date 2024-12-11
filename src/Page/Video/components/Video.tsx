@@ -1,6 +1,6 @@
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 // import { useEffect, useRef, useState } from 'react';
-import { useLocation, useParams } from 'react-router-dom';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useRecoilValue } from 'recoil';
 
@@ -33,6 +33,8 @@ import modal from '../scss/video-modal.module.scss';
 
 // svg
 import share from '../image/ShareIcon.svg';
+import beforeBtn from '../image/beforeBtn.svg';
+import nextBtn from '../image/nextBtn.svg';
 
 // dto
 import { StadiumDetail, VideoDetail } from '../../../apis/dto/scapture.dto';
@@ -53,6 +55,8 @@ export interface PrevSelectDataProps {
 }
 
 const Video = () => {
+  const navigate = useNavigate();
+
   const { stadiumId: stadiumIdFromParams, videoId: videoIdFromParams } =
     useParams<{
       stadiumId: string;
@@ -292,75 +296,111 @@ const Video = () => {
       });
   };
 
+  // 다음 영상으로 이동
+  const nextVideo = (changeVideoId: number) => {
+    navigate(
+      `/video/${stadiumId}/${changeVideoId}/${prevScheduleId}/${month}/${day}/${prevFieldId}`,
+    ); // URL 변경 (새로고침 없이)
+  };
+
+  // URL이 변경되면 useEffect로 데이터를 새로 로드
+  useEffect(() => {
+    refetchVideoDetail(); // React Query로 새로운 videoId의 데이터 가져오기
+  }, [videoId]); // currentVideoId가 변경될 때마다 실행
+
   return (
     <div className={styles.test}>
       <Header index={2} />
       <div className={styles.community}>
-        {isVideoDetailSuccess && videoDetail && videoDetail.video ? (
-          <div className={styles.videoContainer}>
-            <div className={styles.video}>
-              <video
-                id="videoPlayer"
-                controls
-                controlsList="nodownload"
-                src={videoDetail.video}
-                onContextMenu={e => e.preventDefault()}
-              ></video>
-              {/* <VideoPlayer
+        <div className={styles.videoContainer}>
+          {isVideoDetailSuccess && videoDetail && videoDetail.video ? (
+            <>
+              <div className={styles.video}>
+                {videoDetail.videos.beforeVideo ? (
+                  <img
+                    src={beforeBtn}
+                    alt=""
+                    width="6px"
+                    height="12px"
+                    className={styles.beforeBtn}
+                    onClick={() => nextVideo(videoDetail.videos.beforeVideo)}
+                  />
+                ) : null}
+
+                <video
+                  id="videoPlayer"
+                  controls
+                  controlsList="nodownload"
+                  src={videoDetail.video}
+                  onContextMenu={e => e.preventDefault()}
+                ></video>
+
+                {videoDetail.videos.afterVideo ? (
+                  <img
+                    src={nextBtn}
+                    alt=""
+                    width="6px"
+                    height="12px"
+                    onClick={() => nextVideo(videoDetail.videos.afterVideo)}
+                    className={styles.nextBtn}
+                  />
+                ) : null}
+
+                {/* <VideoPlayer
                 videoSrc={videoDetail.video}
                 contentId={videoDetail.fileName}
               ></VideoPlayer> */}
-            </div>
-            <div className={styles.shareVideo}>
-              <div className={styles.shareDes}>
-                <div id={styles.shareImg}>
-                  <img src={share} alt="" />
+              </div>
+              <div className={styles.shareVideo}>
+                <div className={styles.shareDes}>
+                  <div id={styles.shareImg}>
+                    <img src={share} alt="" />
+                  </div>
+                  <div id={styles.des}>
+                    편집된 영상을
+                    <br />
+                    바로 공유할 수 있는 기회!
+                  </div>
                 </div>
-                <div id={styles.des}>
-                  편집된 영상을
-                  <br />
-                  바로 공유할 수 있는 기회!
+                <div id={styles.shareVideo} onClick={handleShareClick}>
+                  영상 공유하기
                 </div>
               </div>
-              <div id={styles.shareVideo} onClick={handleShareClick}>
-                영상 공유하기
-              </div>
-            </div>
-            <div className={styles.group}>
-              <div className={styles.title}>{videoDetail.name}</div>
-              <div className={styles.videoOpt}>
-                <ul className={styles.icons}>
-                  <Heart
-                    id={videoId}
-                    isLiked={videoDetail.isLiked}
-                    likeCount={videoDetail.likeCount}
-                    onToggleLike={handleToggleLike}
-                  />
+              <div className={styles.group}>
+                <div className={styles.title}>{videoDetail.name}</div>
+                <div className={styles.videoOpt}>
+                  <ul className={styles.icons}>
+                    <Heart
+                      id={videoId}
+                      isLiked={videoDetail.isLiked}
+                      likeCount={videoDetail.likeCount}
+                      onToggleLike={handleToggleLike}
+                    />
 
-                  <BookMark
-                    stored={videoDetail.isStored}
-                    onToggleStore={handleToggleStore}
-                  ></BookMark>
+                    <BookMark
+                      stored={videoDetail.isStored}
+                      onToggleStore={handleToggleStore}
+                    ></BookMark>
 
-                  {/* <li onClick={handelOpenDownloadModal}>
+                    {/* <li onClick={handelOpenDownloadModal}>
                   <img src={download} alt="" width="20px" height="20px"></img>
                   <p>다운로드</p>
                 </li> */}
-                  {/* <li>
+                    {/* <li>
                   <img src={share} alt="" width="20px" height="20px"></img>
                   <p>공유</p>
                 </li> */}
-                </ul>
-                {videoDetail.stadium.isDownloadable ? (
-                  <div
-                    id={styles.downLoadVideo}
-                    onClick={handelOpenDownloadModal}
-                  >
-                    고화질 영상 다운로드
-                  </div>
-                ) : null}
+                  </ul>
+                  {videoDetail.stadium.isDownloadable ? (
+                    <div
+                      id={styles.downLoadVideo}
+                      onClick={handelOpenDownloadModal}
+                    >
+                      고화질 영상 다운로드
+                    </div>
+                  ) : null}
 
-                {/* <div id={styles.shareVideo} onClick={handleShareClick}>
+                  {/* <div id={styles.shareVideo} onClick={handleShareClick}>
                   <div className={styles.leftItem}>
                     <div id={styles.shareIcon}>
                       <img src={share} alt="" width="52px" height="52px" />
@@ -376,13 +416,13 @@ const Video = () => {
                     <img src={RightArrow} alt="" width="24px" height="24px" />
                   </div>
                 </div> */}
+                </div>
               </div>
-            </div>
-          </div>
-        ) : (
-          <></>
-        )}
-
+            </>
+          ) : (
+            <></>
+          )}
+        </div>
         <SelectInfoBox
           stadiumDetail={stadiumDetail}
           stadiumId={stadiumId}
