@@ -14,7 +14,7 @@ const Highlights = () => {
   const navigate = useNavigate();
 
   return (
-    <div className={styles.container}>
+    <>
       <div className={styles.headerTitle}>하이라이트 추출 요청 내역</div>
       <table>
         <thead>
@@ -64,7 +64,7 @@ const Highlights = () => {
           )}
         </tbody>
       </table>
-    </div>
+    </>
   );
 };
 

@@ -2,17 +2,20 @@
 
 import { useState } from 'react';
 import styles from '../../scss/manager.module.scss';
-import Highlights from './Highlights';
 import { useParams } from 'react-router-dom';
 import ScheduleHighlights from './ScheduleHighlights';
 import NaverVideoPlayer from '../../../../common/component/DRMPlayer/NaverVideoPlayer';
+import ManagerOptPage from './ManagerOptPage';
+import UserDetailInfo from './UserDetailInfo';
 
 const password = `${import.meta.env.VITE_MANAGER_PWD}`;
 
 const Manager = () => {
-  const { shceduleId: shceduleIdFromParams } = useParams<{
-    shceduleId: string;
-  }>();
+  const { shceduleId: shceduleIdFromParams, userId: userIdFromParams } =
+    useParams<{
+      shceduleId: string;
+      userId: string;
+    }>();
 
   const [isPwd, setPwd] = useState<string>('');
   const [isChecked, setChecked] = useState<boolean>(false);
@@ -40,16 +43,24 @@ const Manager = () => {
     }
   };
 
+  const checkParams = () => {
+    if (shceduleIdFromParams) {
+      return (
+        <ScheduleHighlights
+          scheduleId={shceduleIdFromParams}
+        ></ScheduleHighlights>
+      );
+    } else if (userIdFromParams) {
+      return <UserDetailInfo userId={userIdFromParams}></UserDetailInfo>;
+    } else {
+      return <ManagerOptPage></ManagerOptPage>;
+    }
+  };
+
   return (
     <div className={styles.main}>
       {isChecked ? (
-        shceduleIdFromParams ? (
-          <ScheduleHighlights
-            scheduleId={shceduleIdFromParams}
-          ></ScheduleHighlights>
-        ) : (
-          <Highlights></Highlights>
-        )
+        checkParams()
       ) : (
         <div className={styles.inputPwd}>
           <div className={styles.editDes}>
