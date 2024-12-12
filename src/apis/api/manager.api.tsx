@@ -28,3 +28,46 @@ export const getHighlightsForManagerWithScheduleId = async (
     };
   }
 };
+
+export const getUserForManager = async (userName: string) => {
+  try {
+    const res: CommonResponse = await defaultInstance.get(
+      `/api/user/search?name=${userName}`,
+    );
+
+    return res.data.data;
+  } catch (e: any) {
+    return {
+      status: e.response.status,
+    };
+  }
+};
+
+export const getUserDetailForManager = async (userId: string) => {
+  try {
+    const res: CommonResponse = await defaultInstance.get(
+      `/api/user/${userId}/detail`,
+    );
+
+    return res.data.data;
+  } catch (e: any) {
+    return {
+      status: e.response.status,
+    };
+  }
+};
+
+export const giveUserBananas = async (userId: string, balance: string) => {
+  try {
+    const res: CommonResponse = await defaultInstance.post(
+      `/api/user/${userId}/bananas`,
+      { balance },
+    );
+
+    return res.data.data;
+  } catch (e: any) {
+    return {
+      status: e.response.status,
+    };
+  }
+};

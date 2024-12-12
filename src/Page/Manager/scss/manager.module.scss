@@ -9,7 +9,7 @@
   .inputPwd {
     width: 30rem;
 
-    margin: 0 auto 0 auto;
+    margin: 0 auto 2rem auto;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -61,6 +61,26 @@
     // background-color: var(--color-grayscale-input-900);
     text-align: center;
 
+    .header {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      margin-bottom: 6rem;
+
+      .item {
+        margin: 0 0.5rem;
+        padding: 1rem 1rem;
+
+        border-radius: 10px;
+        cursor: pointer;
+      }
+
+      .selected {
+        background-color: var(--color-grayscale-card-900);
+      }
+    }
+
     .headerTitle {
       font-weight: 700;
       font-size: var(--font-size-xl);
@@ -107,6 +127,12 @@
 
         // color: var(--primary-color-defualt-01);
         color: var(--color-ect-accent);
+      }
+
+      .btn {
+        padding: 0.5rem 0.7rem;
+        border-radius: 10px;
+        background-color: var(--primary-color-defualt-01);
       }
     }
 
