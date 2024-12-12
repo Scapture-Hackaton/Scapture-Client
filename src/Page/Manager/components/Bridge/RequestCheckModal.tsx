@@ -4,6 +4,7 @@ import cancelIcon from '../../../../assets/Icon/Cancel.svg';
 import dateIcon from '../../../../assets/Icon/dateIcon.svg';
 import stadiumIcon from '../../../../assets/Icon/stadiumIcon.svg';
 import clockIcon from '../../../../assets/Icon/Clock.svg';
+import CoinIcon from '../../../../assets/Icon/CoinIcon.svg';
 
 import styles from '../../scss/requestCheckModal.module.scss';
 // import { postHighlight } from '../../../../apis/api/user.api';
@@ -112,8 +113,12 @@ const RequestCheckModal: React.FC<RequestCheckModalProps> = ({
         </div>
         <div className={styles.contents}>
           <div className={styles.notice}>오늘 경기 하이라이트 추출하기</div>
-          <div className={styles.noticeDes}>알림톡을 통해 추출된 영상을</div>
-          <div className={styles.noticeDes}>쉽게 확인하실 수 있어요!</div>
+          <div className={styles.noticeDes}>
+            <span>24시간</span> 이내로 알림톡이 발송될 예정입니다.
+          </div>
+          <div className={styles.noticeDes}>
+            링크를 통해 영상을 쉽게 확인하실 수 있어요!
+          </div>
           <ul className={styles.info}>
             <li className={styles.line}>
               <img
@@ -146,7 +151,20 @@ const RequestCheckModal: React.FC<RequestCheckModalProps> = ({
               />
               <div>{selectedTime}</div>
             </li>
+            <li className={styles.line}>
+              <img
+                src={CoinIcon}
+                alt=""
+                width="20px"
+                height="20px"
+                loading="lazy"
+              />
+              <div>1,000원</div>
+            </li>
           </ul>
+        </div>
+        <div className={styles.footDes}>
+          요청자는 <span>더 저렴하게 영상을 다운로드</span> 할 수 있습니다!
         </div>
         <div className={styles.footer}>
           <div
