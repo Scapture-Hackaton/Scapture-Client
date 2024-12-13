@@ -43,6 +43,8 @@ const NaverVideoPlayer: React.FC<VideoPlayerProps> = ({
 
   const licenseUrl = 'https://multi-drm.apigw.ntruss.com/api/v1/license';
 
+  console.log(`content id = ${contentId}`);
+
   const videoRef = useRef<HTMLVideoElement | null>(null);
   const playerRef = useRef<any>(null);
 
@@ -172,10 +174,10 @@ const NaverVideoPlayer: React.FC<VideoPlayerProps> = ({
     if (drmType) {
       const tokenData = {
         siteId: naverSiteId,
-        contentId,
+        contentId: contentId,
         drmType: drmType?.toUpperCase(),
-        responseFormat: 'ORIGINAL',
-        userId,
+        responseFormat: 'original',
+        userId: userId,
       };
 
       console.log(tokenData);
@@ -184,9 +186,10 @@ const NaverVideoPlayer: React.FC<VideoPlayerProps> = ({
       const jsonString = JSON.stringify(tokenData);
 
       // Base64 인코딩
-      const base64 = CryptoJS.enc.Base64.stringify(
-        CryptoJS.enc.Utf8.parse(jsonString),
-      );
+      // const base64 = CryptoJS.enc.Base64.stringify(
+      //   CryptoJS.enc.Utf8.parse(jsonString),
+      // );
+      const base64 = btoa(jsonString);
 
       // Base64 URL-safe 변환
       //   const base64Url = base64
@@ -286,8 +289,8 @@ const NaverVideoPlayer: React.FC<VideoPlayerProps> = ({
   const makeSignature = () => {
     const space = ' '; // one space
     const newLine = '\n'; // new line
-    const method = 'GET'; // method
-    const url = '/api/v2/channels?pageNo=1'; // url (include query string)
+    const method = 'POST'; // method
+    const url = '/api/v1/license'; // url (include query string)
     const timestamp = timeStamp; // current timestamp (epoch)
     console.log('signature ' + timeStamp);
 
