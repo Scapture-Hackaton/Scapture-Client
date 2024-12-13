@@ -308,6 +308,8 @@ const Video = () => {
     refetchVideoDetail(); // React Query로 새로운 videoId의 데이터 가져오기
   }, [videoId]); // currentVideoId가 변경될 때마다 실행
 
+  console.log(videoDetail);
+
   return (
     <div className={styles.test}>
       <Header index={2} />
@@ -331,7 +333,10 @@ const Video = () => {
                   id="videoPlayer"
                   controls
                   controlsList="nodownload"
-                  src={videoDetail.video}
+                  src={videoDetail.video.replace(
+                    'd1yr3xnm7vncof.cloudfront.net',
+                    'd1f9epsweambhy.cloudfront.net',
+                  )}
                   onContextMenu={e => e.preventDefault()}
                 ></video>
 
