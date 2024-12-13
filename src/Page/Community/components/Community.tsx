@@ -316,6 +316,7 @@ const Community = () => {
   //     url: 'https://scaptrue.co.kr',
   //   });
   // };
+  console.log(videoDetailData);
 
   return (
     <div className={styles.test}>
@@ -340,7 +341,10 @@ const Community = () => {
               <div className={styles.video}>
                 <video
                   id="videoPlayer"
-                  src={videoDetailData.video}
+                  src={videoDetailData.video.replace(
+                    'd1yr3xnm7vncof.cloudfront.net',
+                    'd1f9epsweambhy.cloudfront.net',
+                  )}
                   controls
                   controlsList="nodownload"
                   onContextMenu={e => e.preventDefault()}
