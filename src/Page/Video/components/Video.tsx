@@ -44,7 +44,7 @@ import { modalNotice } from '../functions/ModalFunction';
 
 // atom
 import { loginData, loginDataAtom } from '../../Header/Atom/atom';
-// import VideoPlayer from '../../../common/component/VideoPlayer';
+import VideoPlayer from '../../../common/component/VideoPlayer';
 import ClipBoard from '../../../common/component/ClipBoard';
 
 export interface PrevSelectDataProps {
@@ -327,7 +327,7 @@ const Video = () => {
                   />
                 ) : null}
 
-                <video
+                {/* <video
                   id="videoPlayer"
                   controls
                   controlsList="nodownload"
@@ -336,7 +336,12 @@ const Video = () => {
                     'd1f9epsweambhy.cloudfront.net',
                   )}
                   onContextMenu={e => e.preventDefault()}
-                ></video>
+                ></video> */}
+
+                <VideoPlayer
+                  videoSrc={videoDetail.video}
+                  contentId={videoDetail.fileName}
+                ></VideoPlayer>
 
                 {videoDetail.videos.afterVideo ? (
                   <img
@@ -348,11 +353,6 @@ const Video = () => {
                     className={styles.nextBtn}
                   />
                 ) : null}
-
-                {/* <VideoPlayer
-                videoSrc={videoDetail.video}
-                contentId={videoDetail.fileName}
-              ></VideoPlayer> */}
               </div>
               <div className={styles.shareVideo}>
                 <div className={styles.shareDes}>
