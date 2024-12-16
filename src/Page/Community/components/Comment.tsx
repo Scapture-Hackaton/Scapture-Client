@@ -190,6 +190,7 @@ const Comment: React.FC<CommentProps> = ({ videoId }) => {
   // 신고 버튼 시 알림창 (신고 기능 추가 예정)
   const handleReportComment = (commentId: number) => {
     window.confirm('댓글을 신고하시겠습니까?');
+    console.log(commentId);
   };
 
   const handleToggleDropdown = (commentId: number) => {
