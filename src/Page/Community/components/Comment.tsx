@@ -165,6 +165,12 @@ const Comment: React.FC<CommentProps> = ({ videoId }) => {
     setComments(!isComments);
   };
 
+  const [isDropdownVisible, setDropdownVisible] = useState<number | null>(null);
+
+  const handleToggleDropdown = (commentId: number) => {
+    setDropdownVisible(prev => (prev === commentId ? null : commentId));
+  };
+
   // video가 변경되면 댓글 더보기로 변경
   useEffect(() => {
     setComments(false);
@@ -235,8 +241,20 @@ const Comment: React.FC<CommentProps> = ({ videoId }) => {
                   onToggleLike={handleToggleLike}
                 />
               </div>
-              <div>
-                <img src={moreIcon} alt="" width="16px" height="16px" />
+              <div className={styles.moreIconContainer}>
+                <img
+                  onClick={() => handleToggleDropdown(comment.commentId)}
+                  src={moreIcon}
+                  alt=""
+                  width="16px"
+                  height="16px"
+                />
+                {isDropdownVisible === comment.commentId && (
+                  <div className={styles.dropdownMenu}>
+                    <button>삭제하기</button>
+                    <button>신고하기</button>
+                  </div>
+                )}
               </div>
             </div>
           ))}

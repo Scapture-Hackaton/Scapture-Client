@@ -376,6 +376,35 @@
                 font-size: var(--font-size-m);
               }
             }
+            .moreIconContainer {
+              position: relative;
+              cursor: pointer;
+
+              .dropdownMenu {
+                position: absolute;
+                top: 20px; // 드롭다운 위치 조정
+                right: 0;
+                background-color: #333; // 드롭다운 배경색
+                border-radius: 5px;
+                box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+                z-index: 10;
+
+                button {
+                  display: block;
+                  width: 100px;
+                  color: #fff;
+                  background: none;
+                  border: none;
+                  padding: 8px 10px;
+                  text-align: left;
+                  cursor: pointer;
+
+                  &:hover {
+                    background-color: #444;
+                  }
+                }
+              }
+            }
 
             .heartGroup {
               width: 41px;
