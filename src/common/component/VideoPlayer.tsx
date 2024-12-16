@@ -7,6 +7,7 @@ import 'videojs-contrib-eme';
 import CryptoJS from 'crypto-js';
 import 'videojs-contrib-quality-levels';
 import 'videojs-http-source-selector';
+// import '@videojs/http-streaming';
 import { v4 as uuidv4 } from 'uuid';
 
 interface VideoPlayerProps {
@@ -267,6 +268,8 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({
         key_rotation: false,
       };
 
+      // console.log(drmType);
+
       setBase64Token(
         CryptoJS.enc.Base64.stringify(
           CryptoJS.enc.Utf8.parse(JSON.stringify(tokenData)),
@@ -310,18 +313,22 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({
           // qualitySelector: true, // 화질 선택 컨트롤 활성화
         },
         preload: 'auto',
-        sources: [
-          {
-            src: finalVideoSrc,
-            type: getMimeType(drmType),
-          },
-        ],
+        // sources: [
+        //   {
+        //     src: finalVideoSrc,
+        //     type: getMimeType(drmType),
+        //   },
+        // ],
         html5: {
-          nativeAudioTracks: false,
-          nativeVideoTracks: false,
-          hls: {
-            overrideNative: true,
-          },
+          // nativeAudioTracks: false,
+          // nativeVideoTracks: false,
+          // nativeHls: true,
+          // hls: {
+          //   overrideNative: true,
+          // },
+          // vhs: {
+          //   withCredentials: true,
+          // },
         },
       });
 
@@ -335,26 +342,31 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({
         }
       });
 
-      playerRef.current.on('error', () => {
-        console.error('VideoJS Error:', playerRef.current.error());
-      });
-
       playerRef.current.ready(() => {
-        playerRef.current.eme();
-
         const keySystems = getKeySystems(drmType, licenseUrl, base64Token);
 
+        // console.log(base64Token);
+        // console.log(finalVideoSrc);
+
         if (keySystems) {
+          playerRef.current.eme();
+
           playerRef.current.src({
             src: finalVideoSrc,
             type: getMimeType(drmType), // MIME 타입 설정
             keySystems,
           });
+          // console.log(finalVideoSrc);
+          // console.log(getMimeType(drmType));
+          // console.log(keySystems);
 
           playerRef.current.httpSourceSelector();
         } else {
           console.error('지원되지 않는 DRM 유형');
         }
+      });
+      playerRef.current.on('error', () => {
+        console.error('Video.js Error:', playerRef.current.error());
       });
     }
 
@@ -364,6 +376,52 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({
       }
     };
   }, [drmType, base64Token]);
+
+  const base64DecodeUint8Array = (input: any) => {
+    const raw = window.atob(input);
+    const rawLength = raw.length;
+    const array = new Uint8Array(new ArrayBuffer(rawLength));
+
+    for (let i = 0; i < rawLength; i++) array[i] = raw.charCodeAt(i);
+
+    return array;
+  };
+
+  const base64EncodeUint8Array = (input: any) => {
+    const keyStr =
+      'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=';
+    let output = '';
+    let chr1, chr2, chr3, enc1, enc2, enc3, enc4;
+    let i = 0;
+
+    while (i < input.length) {
+      chr1 = input[i++];
+      chr2 = i < input.length ? input[i++] : Number.NaN;
+      chr3 = i < input.length ? input[i++] : Number.NaN;
+
+      enc1 = chr1 >> 2;
+      enc2 = ((chr1 & 3) << 4) | (chr2 >> 4);
+      enc3 = ((chr2 & 15) << 2) | (chr3 >> 6);
+      enc4 = chr3 & 63;
+
+      if (isNaN(chr2)) {
+        enc3 = enc4 = 64;
+      } else if (isNaN(chr3)) {
+        enc4 = 64;
+      }
+      output +=
+        keyStr.charAt(enc1) +
+        keyStr.charAt(enc2) +
+        keyStr.charAt(enc3) +
+        keyStr.charAt(enc4);
+    }
+    return output;
+  };
+
+  const arrayToString = (array: any) => {
+    const uint16array: any = new Uint16Array(array.buffer);
+    return String.fromCharCode.apply(null, uint16array);
+  };
 
   // DRM 유형에 따른 키 시스템 설정
   const getKeySystems = (
@@ -393,11 +451,58 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({
         };
       case 'FairPlay':
         return {
+          // 'com.apple.fps.1_0': {
+          //   certificateUri: `https://license-global.pallycon.com/ri/fpsKeyManager.do?siteId=${pallyconSiteId}`, // 인증서 URL
+          //   licenseUri: licenseUrl,
+          //   licenseHeaders: {
+          //     'pallycon-customdata-v2': token,
+          //   },
+          // },
           'com.apple.fps.1_0': {
-            certificateUri: `https://license-global.pallycon.com/ri/fpsKeyManager.do?siteId=${pallyconSiteId}`, // 인증서 URL
-            licenseUri: licenseUrl,
-            headers: {
-              'pallycon-customdata-v2': token,
+            getCertificate: (_emeOptions: any, callback: any) => {
+              videojs.xhr(
+                {
+                  url: `https://license-global.pallycon.com/ri/fpsKeyManager.do?siteId=${pallyconSiteId}`,
+                  method: 'GET',
+                },
+                (err, _response: any, responseBody) => {
+                  if (err) {
+                    callback(err);
+                    return;
+                  }
+                  callback(null, base64DecodeUint8Array(responseBody));
+                },
+              );
+            },
+            getContentId: (_emeOptions: any, initData: any) => {
+              const contentId = arrayToString(initData);
+              return contentId.substring(contentId.indexOf('skd://') + 6);
+            },
+            getLicense: (
+              _emeOptions: any,
+              _contentId: any,
+              keyMessage: any,
+              callback: any,
+            ) => {
+              videojs.xhr(
+                {
+                  url: licenseUrl,
+                  method: 'POST',
+                  responseType: 'text',
+                  body: 'spc=' + base64EncodeUint8Array(keyMessage),
+                  headers: {
+                    'Content-type': 'application/x-www-form-urlencoded',
+                    'pallycon-customdata-v2': token,
+                  },
+                },
+                (err, _response: any, responseBody) => {
+                  if (err) {
+                    callback(err);
+                    return;
+                  }
+                  callback(null, base64DecodeUint8Array(responseBody));
+                },
+              );
             },
           },
         };

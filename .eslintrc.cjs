@@ -45,7 +45,7 @@ module.exports = {
         vars: 'all',
         args: 'after-used',
         ignoreRestSiblings: true,
-        varsIgnorePattern: '^set[A-Z].*$', // set으로 시작하는 변수 무시
+        varsIgnorePattern: ['^set[A-Z].*$', '^_.*$'], // set으로 시작하는 변수 무시
       },
     ],
     'react-hooks/exhaustive-deps': [
