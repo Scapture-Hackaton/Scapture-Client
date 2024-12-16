@@ -34,45 +34,50 @@ const VideoList: React.FC<VideoListProps> = ({ scheduleId, toVideo }) => {
   // };
 
   return (
-    <div className={styles.videoList}>
-      {videos && videos.length > 0 ? (
-        videos.map((video: ScheduleVideo) => (
-          <div
-            className={styles.videoContainer}
-            key={video.videoId}
-            onClick={() => toVideo(video.videoId)}
-          >
-            <div className={styles.video}>
-              <img
-                src={video.image}
-                alt={video.name}
-                width="410px"
-                height="230"
-              />
-            </div>
-            <div className={styles.description}>
-              <div className={styles.title}>{video.name}</div>
-              <div className={styles.subDes}>
-                <div>{video.stadiumName}</div>
-                <div>
-                  {video.date} | {video.hours}
+    <>
+      <div className={styles.downloadAllBtn}>
+        <div className={styles.downloadTitle}> 풀경기 영상 전체 다운로드</div>
+      </div>
+      <div className={styles.videoList}>
+        {videos && videos.length > 0 ? (
+          videos.map((video: ScheduleVideo) => (
+            <div
+              className={styles.videoContainer}
+              key={video.videoId}
+              onClick={() => toVideo(video.videoId)}
+            >
+              <div className={styles.video}>
+                <img
+                  src={video.image}
+                  alt={video.name}
+                  width="410px"
+                  height="230"
+                />
+              </div>
+              <div className={styles.description}>
+                <div className={styles.title}>{video.name}</div>
+                <div className={styles.subDes}>
+                  <div>{video.stadiumName}</div>
+                  <div>
+                    {video.date} | {video.hours}
+                  </div>
                 </div>
               </div>
             </div>
+          ))
+        ) : (
+          <div className={styles.noData}>
+            <img
+              src={noDataIcon}
+              alt="검색 결과가 없습니다."
+              width="180px"
+              height="180px"
+            />
+            <div>검색 결과가 없어요</div>
           </div>
-        ))
-      ) : (
-        <div className={styles.noData}>
-          <img
-            src={noDataIcon}
-            alt="검색 결과가 없습니다."
-            width="180px"
-            height="180px"
-          />
-          <div>검색 결과가 없어요</div>
-        </div>
-      )}
-    </div>
+        )}
+      </div>
+    </>
   );
 };
 

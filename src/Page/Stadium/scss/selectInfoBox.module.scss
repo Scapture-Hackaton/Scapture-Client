@@ -335,6 +335,23 @@
     }
   }
 }
+.downloadAllBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 38px;
+  max-width: 500px; /* 버튼의 최대 너비 지정 */
+  width: 90%;
+  margin: 20px auto; /* 상하 여백은 유지, 좌우는 자동으로 가운데 정렬 */
+  padding: 0 1rem;
+
+  cursor: pointer;
+
+  background-color: var(--primary-color-defualt-01);
+  font-weight: 500;
+  font-size: var(--font-size-xm);
+  border-radius: 5px;
+}
 
 .videoList {
   // width: 100%;
