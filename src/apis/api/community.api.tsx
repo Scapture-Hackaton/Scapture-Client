@@ -120,3 +120,18 @@ export const unLikeVideo = async (videoId: number) => {
     };
   }
 };
+
+//댓글 삭제
+export const deleteComment = async (commentId: number) => {
+  try {
+    const res: CommonResponse = await authInstance.delete(
+      `/api/comments/${commentId}`,
+    );
+
+    return res.data;
+  } catch (e: any) {
+    return {
+      status: e.response.status,
+    };
+  }
+};
