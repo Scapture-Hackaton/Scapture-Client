@@ -436,6 +436,7 @@
           line-height: 160%; /* 19.2px */
         }
       }
+
       .bananaContainer {
         width: 90%;
         height: 283px;
@@ -684,6 +685,12 @@
 
           opacity: 0.5;
         }
+      }
+      .AdContainer {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 24px;
       }
 
       .saveContainer {

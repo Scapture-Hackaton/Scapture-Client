@@ -40,6 +40,7 @@ import SubscribeModal from './SubscribeModal';
 import EditProfile from './EditProfile';
 import UserInfo from './UserInfo';
 import ChargeBanana from './ChargeBanana';
+import ScaptureLogo from '../image/AdTemp.svg';
 
 // import { userDataAtom } from '../../Atom/atom';
 // import { userData } from '../../dto/atom.interface';
@@ -243,16 +244,6 @@ const UserPage = () => {
               ></UserInfo>
             )}
 
-            {/* 비구독 배너 비구독일때 제거 필요 */}
-            {myProfileData && myProfileData?.data?.isSubscribe ? null : (
-              <div className={styles.banner} onClick={toggleModal2}>
-                <div className={styles.mainTitle}>구독혜택 구경하기</div>
-                <div className={styles.subTitle}>
-                  구독시 받을 수 있는 혜택을 살펴보세요!
-                </div>
-              </div>
-            )}
-
             <div className={styles.bananaContainer}>
               <div className={styles.mainTitle}>버내너 관리</div>
               <div className={styles.subTitle}>
@@ -311,6 +302,11 @@ const UserPage = () => {
                 <div className={styles.noDetail}>자세히 보기</div>
               )}
             </div>
+
+            <div className={styles.AdContainer}>
+              <img src={ScaptureLogo} />
+            </div>
+
             <div className={styles.saveContainer}>
               <div className={styles.title}>저장한 영상</div>
               {storeVideoList?.data ? (
