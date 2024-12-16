@@ -20,13 +20,14 @@ const useAuth = (
       resToken(code, type);
       //임시 recoil 적용 본래라면 login.api에 있어야하지만 Hook이 되기 때문에 우선 보류
       setLoginState(prev => ({ ...prev, state: true }));
-    } else {
-      // console.error(
-      //   'Error: In this WEB drop the Code from this social Login.please, retry to Login.',
-      // );
-
-      setLoginState(prev => ({ ...prev, state: false }));
     }
+    // else {
+    //   // console.error(
+    //   //   'Error: In this WEB drop the Code from this social Login.please, retry to Login.',
+    //   // );
+
+    //   setLoginState(prev => ({ ...prev, state: false }));
+    // }
   }, [location, resToken, type]);
 };
 

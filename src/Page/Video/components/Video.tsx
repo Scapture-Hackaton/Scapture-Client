@@ -137,9 +137,12 @@ const Video = () => {
     // fetch(`${videoDetail.video}/MP4/${videoDetail.fileName}.mp4`, {
     //   method: 'GET',
     // })
-    fetch(`${videoDetail.video}`, {
-      method: 'GET',
-    })
+    fetch(
+      `${videoDetail.video.replace('https://d1yr3xnm7vncof.cloudfront.net', 'https://scapture-video.s3.ap-northeast-2.amazonaws.com')}`,
+      {
+        method: 'GET',
+      },
+    )
       .then(response => response.blob())
       .then(blob => {
         const url = window.URL.createObjectURL(blob);
