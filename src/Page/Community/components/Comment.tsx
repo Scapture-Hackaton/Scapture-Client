@@ -22,6 +22,7 @@ import { userDataAtom } from '../../MyPage/Atom/atom';
 import { userData } from '../../MyPage/dto/atom.interface';
 import { useRecoilValue } from 'recoil';
 import { loginData, loginDataAtom } from '../../Header/Atom/atom';
+import { deleteComment } from '../../../apis/api/community.api';
 
 interface CommentProps {
   videoId: number;
@@ -167,6 +168,30 @@ const Comment: React.FC<CommentProps> = ({ videoId }) => {
 
   const [isDropdownVisible, setDropdownVisible] = useState<number | null>(null);
 
+  // 댓글 삭제 Mutation
+  const deleteCommentMutation = useMutation({
+    mutationFn: deleteComment,
+    onSuccess: () => {
+      // 댓글 목록을 새로고침
+      queryClient.invalidateQueries({ queryKey: ['comments', videoId] });
+    },
+    onError: () => {
+      alert('댓글 삭제에 실패했습니다.');
+    },
+  });
+
+  // 삭제 버튼 클릭 시 실행
+  const handleDeleteComment = (commentId: number) => {
+    if (window.confirm('댓글을 삭제하시겠습니까?')) {
+      deleteCommentMutation.mutate(commentId);
+    }
+  };
+
+  // 신고 버튼 시 알림창 (신고 기능 추가 예정)
+  const handleAlert = () => {
+    window.confirm('댓글을 신고하시겠습니까?');
+  };
+
   const handleToggleDropdown = (commentId: number) => {
     setDropdownVisible(prev => (prev === commentId ? null : commentId));
   };
@@ -251,8 +276,14 @@ const Comment: React.FC<CommentProps> = ({ videoId }) => {
                 />
                 {isDropdownVisible === comment.commentId && (
                   <div className={styles.dropdownMenu}>
-                    <button>삭제하기</button>
-                    <button>신고하기</button>
+                    {comment.name === isProfile.name ? ( // 내 댓글인지 확인
+                      <button
+                        onClick={() => handleDeleteComment(comment.commentId)}
+                      >
+                        삭제하기
+                      </button>
+                    ) : null}
+                    <button onClick={handleAlert}>신고하기</button>
                   </div>
                 )}
               </div>
