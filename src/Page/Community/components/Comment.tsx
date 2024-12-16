@@ -188,7 +188,7 @@ const Comment: React.FC<CommentProps> = ({ videoId }) => {
   };
 
   // 신고 버튼 시 알림창 (신고 기능 추가 예정)
-  const handleAlert = () => {
+  const handleReportComment = (commentId: number) => {
     window.confirm('댓글을 신고하시겠습니까?');
   };
 
@@ -277,13 +277,25 @@ const Comment: React.FC<CommentProps> = ({ videoId }) => {
                 {isDropdownVisible === comment.commentId && (
                   <div className={styles.dropdownMenu}>
                     {comment.name === isProfile.name ? ( // 내 댓글인지 확인
+                      <>
+                        <button
+                          onClick={() => handleDeleteComment(comment.commentId)}
+                        >
+                          삭제하기
+                        </button>
+                        <button
+                          onClick={() => handleReportComment(comment.commentId)}
+                        >
+                          신고하기
+                        </button>
+                      </>
+                    ) : (
                       <button
-                        onClick={() => handleDeleteComment(comment.commentId)}
+                        onClick={() => handleReportComment(comment.commentId)}
                       >
-                        삭제하기
+                        신고하기
                       </button>
-                    ) : null}
-                    <button onClick={handleAlert}>신고하기</button>
+                    )}
                   </div>
                 )}
               </div>
