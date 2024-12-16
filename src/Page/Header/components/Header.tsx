@@ -31,6 +31,7 @@ const Header: React.FC<HeaderProps> = ({ index }) => {
   //localStorage
   const loginType = localStorage.getItem('LoginType');
   const TOKEN = localStorage.getItem('TOKEN');
+
   // const name = localStorage.getItem('name');
 
   //DOM
@@ -51,6 +52,17 @@ const Header: React.FC<HeaderProps> = ({ index }) => {
   };
 
   const resetUserData = useResetRecoilState(userDataAtom);
+
+  useEffect(() => {
+    const token = localStorage.getItem('TOKEN');
+    const type = localStorage.getItem('LoginType');
+
+    if (token && type) {
+      setLoginState({
+        state: true,
+      });
+    }
+  }, []);
 
   useEffect(() => {
     let isMounted = true; // 컴포넌트가 마운트된 상태인지 확인하는 플래그
@@ -171,7 +183,7 @@ const Header: React.FC<HeaderProps> = ({ index }) => {
         </div>
 
         <div id={styles.login}>
-          {isLoginState.state && isProfile.name != 'undefined' ? (
+          {isLoginState.state ? (
             // <button
             //   onClick={() => {
             //     navigate('/mypage');
