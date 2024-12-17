@@ -1,12 +1,12 @@
 import React from 'react';
 import styles from '../scss/selectInfoBox.module.scss';
-
+import { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { getVideoScheduled } from '../../../apis/api/stadium.api';
 import { ScheduleVideo } from '../../../apis/dto/scapture.dto';
 // import { useNavigate } from 'react-router-dom';
 
-import noDataIcon from '../../../assets/Icon/noDataIcon.svg';
+import noDataIcon from '../../Video/image/tooltip.svg';
 
 interface VideoListProps {
   scheduleId: number | null;
@@ -15,6 +15,8 @@ interface VideoListProps {
 }
 
 const VideoList: React.FC<VideoListProps> = ({ scheduleId, toVideo }) => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   // Fetch video data with react-query
   const { data: videos } = useQuery<ScheduleVideo[]>({
     queryKey: ['videoScheduled', scheduleId],
@@ -36,7 +38,12 @@ const VideoList: React.FC<VideoListProps> = ({ scheduleId, toVideo }) => {
   return (
     <>
       <div className={styles.downloadAllBtn}>
-        <div className={styles.downloadTitle}> 풀경기 영상 전체 다운로드</div>
+        <div
+          className={styles.downloadTitle}
+          onClick={() => setIsModalOpen(true)}
+        >
+          풀경기 영상 전체 다운로드
+        </div>
       </div>
       <div className={styles.videoList}>
         {videos && videos.length > 0 ? (
@@ -77,6 +84,28 @@ const VideoList: React.FC<VideoListProps> = ({ scheduleId, toVideo }) => {
           </div>
         )}
       </div>
+      {isModalOpen && (
+        <div className={styles.modalOverlay}>
+          <div className={styles.modalContainer}>
+            <div className={styles.modalContent}>
+              <div>
+                이 경기의 풀영상을 <br></br>
+                <div className={styles.textContainer}>
+                  <p className={styles.blueText}>모두 다운로드</p> 하고 싶다면?
+                </div>
+              </div>
+              <button className={styles.downloadButton}>
+                고화질 풀경기 영상 전체 다운로드
+              </button>
+              <div className={styles.noticeText}>
+                <img src={noDataIcon} className={styles.icon} />
+                대용량 영상 다운로드시, PC 또는 안정적인 환경에서 다운로드
+                권장드립니다.
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </>
   );
 };
