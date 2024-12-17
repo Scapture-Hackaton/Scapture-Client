@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { getVideoScheduled } from '../../../apis/api/stadium.api';
 import { ScheduleVideo } from '../../../apis/dto/scapture.dto';
+
 // import { useNavigate } from 'react-router-dom';
 
 import noDataIcon from '../../Video/image/tooltip.svg';
@@ -16,6 +17,7 @@ interface VideoListProps {
 
 const VideoList: React.FC<VideoListProps> = ({ scheduleId, toVideo }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isSecondModalOpen, setIsSecondModalOpen] = useState(false); // 두 번째 모달 상태
 
   // Fetch video data with react-query
   const { data: videos } = useQuery<ScheduleVideo[]>({
@@ -28,6 +30,11 @@ const VideoList: React.FC<VideoListProps> = ({ scheduleId, toVideo }) => {
     },
     enabled: scheduleId !== null,
   });
+
+  const handleFirstModalClose = () => {
+    setIsModalOpen(false); // 첫 번째 모달 닫기
+    setIsSecondModalOpen(true); // 두 번째 모달 열기
+  };
 
   // const navigate = useNavigate();
 
@@ -89,12 +96,15 @@ const VideoList: React.FC<VideoListProps> = ({ scheduleId, toVideo }) => {
           <div className={styles.modalContainer}>
             <div className={styles.modalContent}>
               <div>
-                이 경기의 풀영상을 <br></br>
+                이 경기의 풀영상을 <br />
                 <div className={styles.textContainer}>
                   <p className={styles.blueText}>모두 다운로드</p> 하고 싶다면?
                 </div>
               </div>
-              <button className={styles.downloadButton}>
+              <button
+                className={styles.downloadButton}
+                onClick={handleFirstModalClose} // 버튼 클릭 시 두 번째 모달 열기
+              >
                 고화질 풀경기 영상 전체 다운로드
               </button>
               <div className={styles.noticeText}>
@@ -106,6 +116,15 @@ const VideoList: React.FC<VideoListProps> = ({ scheduleId, toVideo }) => {
           </div>
         </div>
       )}
+
+      {/* {isSecondModalOpen && (
+        <VideoModal
+          styles={modal}
+          ref={modalRef}
+          handleDownloadClick={handleDownloadClick}
+          videoDetail={videoDetail}
+        />
+      )} */}
     </>
   );
 };
