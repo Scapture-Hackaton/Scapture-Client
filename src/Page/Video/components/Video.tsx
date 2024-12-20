@@ -399,7 +399,7 @@ const Video = () => {
                       id={styles.downLoadVideo}
                       onClick={handelOpenDownloadModal}
                     >
-                      고화질 영상 다운로드
+                      영상 다운로드
                     </div>
                   ) : null}
 
