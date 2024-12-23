@@ -2,6 +2,7 @@ import { forwardRef, Ref, useEffect, useState } from 'react';
 // import { modalNotice } from '../functions/ModalFunction';
 
 import cancelIcon from '../../../assets/Icon/Cancel.svg';
+import scaptureAD from '../image/scaptureAD.svg';
 
 import styles from '../scss/video-modal.module.scss';
 
@@ -186,7 +187,15 @@ export const VideoModal = forwardRef<HTMLDialogElement, ModalProps>(
               ></img>
             </div>
             <div className={styles.contents}>
-              <div className={styles.video}></div>
+              <div className={styles.video}>
+                <img
+                  src={scaptureAD}
+                  alt=""
+                  width="300px"
+                  height="250px"
+                  loading="lazy"
+                />
+              </div>
               <div className={styles.text}>
                 <div>영상을 다운로드 하기 위해서는</div>
                 <div>
@@ -201,11 +210,15 @@ export const VideoModal = forwardRef<HTMLDialogElement, ModalProps>(
                 </div>
 
                 {isCnt >= 25 ? (
-                  <button onClick={() => handleDownloadClick(25)}>
+                  <div
+                    className={styles.btn}
+                    onClick={() => handleDownloadClick(25)}
+                  >
                     사용하기
-                  </button>
+                  </div>
                 ) : (
-                  <button
+                  <div
+                    className={styles.btn}
                     onClick={() => {
                       if (ref && typeof ref !== 'function' && ref.current) {
                         ref.current.close();
@@ -214,7 +227,7 @@ export const VideoModal = forwardRef<HTMLDialogElement, ModalProps>(
                     }}
                   >
                     충전하기
-                  </button>
+                  </div>
                 )}
               </div>
             </div>
