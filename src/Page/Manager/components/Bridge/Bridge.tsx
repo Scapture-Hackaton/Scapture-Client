@@ -17,6 +17,8 @@ import {
   StadiumDetail,
   StadiumFileds,
 } from '../../../../apis/dto/scapture.dto';
+import { useRecoilValue } from 'recoil';
+import { loginData, loginDataAtom } from '../../../Header/Atom/atom';
 // import AlertModal from '../../../../common/component/AlertModal';
 
 const Bridge = () => {
@@ -113,6 +115,8 @@ const Bridge = () => {
     navigate(`/stadium/${stadiumId}`);
   };
 
+  const isLoginState = useRecoilValue<loginData>(loginDataAtom);
+
   return (
     <div className={styles.main}>
       <Header index={0} />
@@ -152,14 +156,16 @@ const Bridge = () => {
             <img src={FieldLocationIcon} alt="" />
             <div>{fieldName}</div>
           </div>
-          <div className={styles.alertBox}>
-            <div className={styles.wrapper}>
-              <div id={styles.notice}>Notice</div>
-              <div className={styles.noticeText}>
-                <span>로그인 이후</span> 영상 요청하기가 가능합니다.
+          {!isLoginState.state ? (
+            <div className={styles.alertBox}>
+              <div className={styles.wrapper}>
+                <div id={styles.notice}>Notice</div>
+                <div className={styles.noticeText}>
+                  <span>로그인 이후</span> 영상 요청하기가 가능합니다.
+                </div>
               </div>
             </div>
-          </div>
+          ) : null}
         </div>
 
         <div className={styles.highlightContainer}>
