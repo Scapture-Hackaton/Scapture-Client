@@ -365,9 +365,12 @@ const SelectInfoBox: React.FC<SelectInfoBoxProps> = ({
 
       {isStadiumHourList && isStadiumHourList.length > 0 ? (
         <>
-          <DownloadOriginalVideo
-            scheduleId={isScheduleId}
-          ></DownloadOriginalVideo>
+          {isScheduleId !== null ? (
+            <DownloadOriginalVideo
+              scheduleId={isScheduleId}
+            ></DownloadOriginalVideo>
+          ) : null}
+
           <VideoList
             scheduleId={isScheduleId}
             stadiumId={stadiumId}

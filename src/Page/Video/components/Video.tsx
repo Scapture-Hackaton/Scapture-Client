@@ -29,7 +29,6 @@ import SelectInfoBox from '../../Stadium/components/SelectInfoBox';
 
 // scss
 import styles from '../scss/video.module.scss';
-import modal from '../scss/video-modal.module.scss';
 
 // svg
 import share from '../image/ShareIcon.svg';
@@ -402,23 +401,6 @@ const Video = () => {
                       영상 다운로드
                     </div>
                   ) : null}
-
-                  {/* <div id={styles.shareVideo} onClick={handleShareClick}>
-                  <div className={styles.leftItem}>
-                    <div id={styles.shareIcon}>
-                      <img src={share} alt="" width="52px" height="52px" />
-                    </div>
-                    <div id={styles.text}>
-                      <div id={styles.subTxt}>
-                        편집된 영상을 바로 공유할 수 있는 기회!
-                      </div>
-                      <div id={styles.title}>영상 공유하기</div>
-                    </div>
-                  </div>
-                  <div id={styles.rightArrowIcon}>
-                    <img src={RightArrow} alt="" width="24px" height="24px" />
-                  </div>
-                </div> */}
                 </div>
               </div>
             </>
@@ -439,10 +421,10 @@ const Video = () => {
         </div> */}
 
         <VideoModal
-          styles={modal}
           ref={modalRef}
           handleDownloadClick={handleDownloadClick}
           videoDetail={videoDetail}
+          type="highlight"
         />
         <LoginModal modalRef={loginModalRef}></LoginModal>
       </div>

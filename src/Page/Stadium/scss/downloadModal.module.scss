@@ -1,19 +1,25 @@
 .downloadAllBtn {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 38px;
-  max-width: 500px; /* 버튼의 최대 너비 지정 */
-  width: 90%;
-  margin: 20px auto; /* 상하 여백은 유지, 좌우는 자동으로 가운데 정렬 */
-  padding: 0 1rem;
+  width: 100%;
+  padding: 1.5rem 1rem 0 1rem;
 
   cursor: pointer;
 
-  background-color: var(--primary-color-defualt-01);
-  font-weight: 500;
-  font-size: var(--font-size-xm);
-  border-radius: 5px;
+  background-color: var(--color-grayscale-black-bg);
+
+  .downloadTitle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-weight: 500;
+    font-size: var(--font-size-xm);
+
+    height: 38px;
+    max-width: 500px; /* 버튼의 최대 너비 지정 */
+
+    background-color: var(--primary-color-defualt-01);
+    border-radius: 5px;
+  }
 }
 
 .modalOverlay {

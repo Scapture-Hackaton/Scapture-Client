@@ -1,9 +1,17 @@
 import React, { useEffect, useRef, useState } from 'react';
 import styles from '../scss/downloadModal.module.scss';
 import noDataIcon from '../../Video/image/tooltip.svg';
-import { getOriginalVideos } from '../../../apis/api/video.api';
+import {
+  checkAuthDownloadVideo,
+  getOriginalVideos,
+} from '../../../apis/api/video.api';
 import { useQuery } from '@tanstack/react-query';
 import { OriginalVideos } from '../../../apis/dto/video.dto';
+import { VideoModal } from '../../Video/components/VideoModal';
+import { useRecoilValue } from 'recoil';
+import { loginData, loginDataAtom } from '../../Header/Atom/atom';
+import { modalNotice } from '../../Video/functions/ModalFunction';
+import { LoginModal } from '../../Header/components/LoginModal';
 
 interface DownloadOriginalVideoProps {
   scheduleId: number | null;
@@ -12,22 +20,18 @@ interface DownloadOriginalVideoProps {
 const DownloadOriginalVideo: React.FC<DownloadOriginalVideoProps> = ({
   scheduleId,
 }) => {
-  //   const videoUrls = [
-  //     'https://scapture-video.s3.ap-northeast-2.amazonaws.com/%EC%B2%9C%EB%A7%88_%ED%92%8B%EC%82%B4%ED%8C%8C%ED%81%AC/4%EA%B5%AC%EC%9E%A5/4121/original/%EC%B2%9C%EB%A7%88_%ED%92%8B%EC%82%B4%ED%8C%8C%ED%81%AC_4%EA%B5%AC%EC%9E%A5_1.mp4',
-  //     'https://scapture-video.s3.ap-northeast-2.amazonaws.com/%EC%B2%9C%EB%A7%88_%ED%92%8B%EC%82%B4%ED%8C%8C%ED%81%AC/4%EA%B5%AC%EC%9E%A5/4121/original/%EC%B2%9C%EB%A7%88_%ED%92%8B%EC%82%B4%ED%8C%8C%ED%81%AC_4%EA%B5%AC%EC%9E%A5_2.mp4',
-  //     'https://scapture-video.s3.ap-northeast-2.amazonaws.com/%EC%B2%9C%EB%A7%88_%ED%92%8B%EC%82%B4%ED%8C%8C%ED%81%AC/4%EA%B5%AC%EC%9E%A5/4121/original/%EC%B2%9C%EB%A7%88_%ED%92%8B%EC%82%B4%ED%8C%8C%ED%81%AC_4%EA%B5%AC%EC%9E%A5_3.mp4',
-  //   ];
-
+  // 영상 다운로드 확인 모달
   const modalRef = useRef<HTMLDivElement>(null);
 
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  //   const [isDownloading, setIsDownloading] = useState(false);
-  //   const [progress, setProgress] = useState(0);
+  // 로그인 모달
+  const loginModalRef = useRef<HTMLDialogElement>(null);
 
-  const handleCheckDownload = () => {
-    downloadVideo();
-    setIsModalOpen(false); // 첫 번째 모달 닫기
-  };
+  const isLoginState = useRecoilValue<loginData>(loginDataAtom);
+
+  // 버내너 사용하기 모달
+  const videoModalRef = useRef<HTMLDialogElement>(null);
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const { data: originalVideos } = useQuery({
     queryKey: ['stadiumDetail', scheduleId],
@@ -79,6 +83,43 @@ const DownloadOriginalVideo: React.FC<DownloadOriginalVideoProps> = ({
     }
   };
 
+  // 영상 다운로드 더블체크 (첫 다운로드)
+  const checkAuthDownLoadVideo = async (banana: number) => {
+    try {
+      // 첫 번째 모달 닫기
+      setIsModalOpen(false);
+
+      const authResponse = await checkAuthDownloadVideo(videoId, banana);
+      if (authResponse.status === 200) {
+        downloadVideo();
+      } else if (authResponse.status === 402) {
+        alert('버내너가 부족합니다!');
+      } else if (authResponse.status === 404 || authResponse.status === 400) {
+        modalNotice(loginModalRef);
+      }
+    } catch (error) {
+      console.error('비디오 다운로드 중 오류가 발생했습니다.', error);
+    } finally {
+      videoModalRef.current?.close(); // 다운로드 완료 후 모달 닫기
+    }
+  };
+
+  // 처음 다운로드 하는 경우
+  const handleDownloadClick = async (banana: number) => {
+    await checkAuthDownLoadVideo(banana);
+  };
+
+  const handelOpenDownloadModal = () => {
+    const token = localStorage.getItem('TOKEN');
+    const type = localStorage.getItem('LoginType');
+
+    if (isLoginState.state || (token && type)) {
+      modalNotice(videoModalRef);
+    } else {
+      modalNotice(loginModalRef);
+    }
+  };
+
   return (
     <>
       <div
@@ -99,7 +140,7 @@ const DownloadOriginalVideo: React.FC<DownloadOriginalVideoProps> = ({
               </div>
               <button
                 className={styles.downloadButton}
-                onClick={handleCheckDownload} // 버튼 클릭 시 다운로드 실행
+                onClick={handelOpenDownloadModal} // 버튼 클릭 시 다운로드 실행
               >
                 고화질 풀경기 영상 전체 다운로드
               </button>
@@ -112,6 +153,13 @@ const DownloadOriginalVideo: React.FC<DownloadOriginalVideoProps> = ({
           </div>
         </div>
       )}
+      <LoginModal modalRef={loginModalRef}></LoginModal>
+      <VideoModal
+        ref={videoModalRef}
+        handleDownloadClick={handleDownloadClick}
+        videoDetail={null}
+        type="original"
+      />
     </>
   );
 };
