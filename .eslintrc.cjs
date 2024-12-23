@@ -33,6 +33,8 @@ module.exports = {
       { allowConstantExport: true },
     ],
 
+    'no-constant-condition': ['error', { checkLoops: 'allExceptWhileTrue' }],
+
     // 'react-hooks/exhaustive-deps': [
     //   'warn',
     //   {

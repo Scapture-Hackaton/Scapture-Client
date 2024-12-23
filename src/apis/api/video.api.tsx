@@ -71,3 +71,19 @@ export const unStoreVideo = async (videoId: number) => {
     };
   }
 };
+
+// 원본 영상들 가져오기
+export const getOriginalVideos = async (scheduleId: number) => {
+  try {
+    const res: CommonResponse = await authInstance.get(
+      `/api/originals/${scheduleId}`,
+    );
+
+    return res.data.data;
+  } catch (e: any) {
+    console.log(e);
+    return {
+      status: e.response.status,
+    };
+  }
+};

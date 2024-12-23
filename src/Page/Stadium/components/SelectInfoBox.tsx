@@ -25,6 +25,8 @@ import { PrevSelectDataProps } from '../../Video/components/Video';
 import calendarIcon from '../../../assets/Icon/calendarIcon.svg';
 import clockIcon from '../image/clockIcon.svg';
 import locationIcon from '../image/locationIcon.svg';
+import DownloadOriginalVideo from './DownloadOriginalVideo';
+
 // import InfoIcon from '../../../assets/Icon/InfoIcon2.svg';
 // import Payments from '../../../common/component/Payment/Payments';
 
@@ -362,11 +364,16 @@ const SelectInfoBox: React.FC<SelectInfoBoxProps> = ({
       ) : null} */}
 
       {isStadiumHourList && isStadiumHourList.length > 0 ? (
-        <VideoList
-          scheduleId={isScheduleId}
-          stadiumId={stadiumId}
-          toVideo={toVideo}
-        ></VideoList>
+        <>
+          <DownloadOriginalVideo
+            scheduleId={isScheduleId}
+          ></DownloadOriginalVideo>
+          <VideoList
+            scheduleId={isScheduleId}
+            stadiumId={stadiumId}
+            toVideo={toVideo}
+          ></VideoList>
+        </>
       ) : null}
       {/* {isPaymentModalOpen && (
         <Payments
