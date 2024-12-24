@@ -25,6 +25,7 @@ import { PrevSelectDataProps } from '../../Video/components/Video';
 import calendarIcon from '../../../assets/Icon/calendarIcon.svg';
 import clockIcon from '../image/clockIcon.svg';
 import locationIcon from '../image/locationIcon.svg';
+
 // import InfoIcon from '../../../assets/Icon/InfoIcon2.svg';
 // import Payments from '../../../common/component/Payment/Payments';
 

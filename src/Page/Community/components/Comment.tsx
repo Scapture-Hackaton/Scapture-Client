@@ -4,7 +4,7 @@ import styles from '../scss/community.module.scss';
 // import testCircle from '../image/testCircle.png';
 // import fullHeart from '../image/fullHeart.png';
 // import emptyHeart from '../image/emptyHeart.png';
-// import sendImg from '../image/sendImg.png';
+import sendImg from '../image/sendImg.svg';
 import testImg from '../image/testImg.png';
 import moreIcon from '../image/moreIcon.svg';
 
@@ -82,6 +82,15 @@ const Comment: React.FC<CommentProps> = ({ videoId }) => {
     }
   };
 
+  // const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+  //   setInput(e.target.value);
+
+  //   // 동적 높이 조정
+  //   const textarea = e.target;
+  //   textarea.style.height = 'auto'; // 높이 초기화
+  //   textarea.style.height = `${textarea.scrollHeight}px`; // 내용에 맞게 높이 조정
+  // };
+
   // 엔터를 눌렀을 경우에도 댓글 작성이 가능하도록
   const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
@@ -93,6 +102,20 @@ const Comment: React.FC<CommentProps> = ({ videoId }) => {
       }
     }
   };
+
+  // 줄바꿈 및 키보드 이벤트 처리
+  // const handleKeyPress = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+  //   if (e.key === 'Enter' && !e.shiftKey) {
+  //     e.preventDefault(); // 기본 동작(줄바꿈) 방지
+
+  //     if (isInput.trim()) {
+  //       sendComment(); // 댓글 작성
+  //     } else {
+  //       setInput(''); // 입력 초기화
+  //       modalRef.current?.showModal(); // 로그인 모달 표시
+  //     }
+  //   }
+  // };
 
   // 일정 위치로 스크롤을 내렸을 경우 맨위로 이동하는 버튼 생성
   const handleScroll = () => {
@@ -247,7 +270,22 @@ const Comment: React.FC<CommentProps> = ({ videoId }) => {
                 value={isInput}
                 onKeyPress={handleKeyPress}
               />
-              {/* <img src={sendImg} alt="" onClick={sendComment} /> */}
+              {/* <textarea
+                placeholder="댓글을 달아주세요"
+                onChange={handleChange}
+                value={isInput}
+                onKeyDown={handleKeyPress} // onKeyPress를 사용하지 않음
+                rows={1}
+                wrap="hard"
+              /> */}
+              <img
+                src={sendImg}
+                alt=""
+                onClick={sendComment}
+                width="28px"
+                height="28px"
+                className={styles.sendImg}
+              />
             </div>
           </div>
           {(commentsData.data ?? []).map((comment: CommentData) => (

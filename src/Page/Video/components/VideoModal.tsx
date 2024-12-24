@@ -2,6 +2,9 @@ import { forwardRef, Ref, useEffect, useState } from 'react';
 // import { modalNotice } from '../functions/ModalFunction';
 
 import cancelIcon from '../../../assets/Icon/Cancel.svg';
+import scaptureAD from '../image/scaptureAD.svg';
+
+import styles from '../scss/video-modal.module.scss';
 
 import { useQuery } from '@tanstack/react-query';
 import { getBananaCnt } from '../../../apis/api/user.api';
@@ -11,17 +14,17 @@ import { useRecoilValue } from 'recoil';
 import ChargeBanana from '../../MyPage/MyPage/components/ChargeBanana';
 
 interface ModalProps {
-  styles: { [key: string]: string };
   ref: Ref<HTMLDialogElement>;
   handleDownloadClick: (banana: number) => Promise<void>;
-  videoDetail: any;
+  videoDetail: any | null;
+  type: string;
 }
 // interface ModalCheckProps extends ModalProps {
 //   extendRef: React.RefObject<HTMLDialogElement>;
 // }
 
 export const VideoModal = forwardRef<HTMLDialogElement, ModalProps>(
-  ({ styles, handleDownloadClick, videoDetail }, ref) => {
+  ({ type, handleDownloadClick, videoDetail }, ref) => {
     const closeModal = () => {
       // ref가 MutableRefObject이면 current 속성에 접근하고, 함수 형태이면 호출하여 사용
       if (ref && typeof ref !== 'function' && ref.current) {
@@ -101,73 +104,136 @@ export const VideoModal = forwardRef<HTMLDialogElement, ModalProps>(
 
     return (
       <>
-        <dialog ref={ref} id={styles.videoModal} onClick={handleDialogClick}>
-          <div className={styles.header}>
-            <div></div>
-            <p>영상 다운로드</p>
-            <img
-              src={cancelIcon}
-              alt=""
-              width="24px"
-              height="24px"
-              onClick={closeModal}
-            ></img>
-          </div>
-          <div className={styles.contents}>
-            <div className={styles.video}></div>
-            <div className={styles.text}>
-              <div>영상을 다운로드 하기 위해서는</div>
-              <div>
-                {videoDetail && videoDetail?.price ? (
-                  <span>
-                    {videoDetail.price.basic - videoDetail.price.discount}개
-                  </span>
-                ) : (
-                  <span>3개</span>
-                )}
-                의 버내너가 필요해요
-              </div>
+        {type === 'highlight' ? (
+          <dialog ref={ref} id={styles.videoModal} onClick={handleDialogClick}>
+            <div className={styles.header}>
+              <div></div>
+              <p>영상 다운로드</p>
+              <img
+                src={cancelIcon}
+                alt=""
+                width="24px"
+                height="24px"
+                onClick={closeModal}
+              ></img>
             </div>
-
-            <div className={styles.group}>
-              <div>
-                보유한 버내너
-                <span>{isCnt}개</span>
+            <div className={styles.contents}>
+              <div className={styles.video}></div>
+              <div className={styles.text}>
+                <div>영상을 다운로드 하기 위해서는</div>
+                <div>
+                  {videoDetail && videoDetail?.price ? (
+                    <span>
+                      {videoDetail.price.basic - videoDetail.price.discount}개
+                    </span>
+                  ) : (
+                    <span>3개</span>
+                  )}
+                  의 버내너가 필요해요
+                </div>
               </div>
 
-              {videoDetail &&
-              videoDetail?.price &&
-              isCnt >= videoDetail.price.basic - videoDetail.price.discount ? (
-                <button
-                  onClick={() =>
-                    handleDownloadClick(
-                      videoDetail.price.basic - videoDetail.price.discount,
-                    )
-                  }
-                >
-                  사용하기
-                </button>
-              ) : (
-                <button
-                  // onClick={() => {
-                  //   if (ref && typeof ref !== 'function' && ref.current) {
-                  //     ref.current.close();
-                  //   }
-                  //   // handlePaymentStart();
-                  // }}
-                  onClick={() => {
-                    if (ref && typeof ref !== 'function' && ref.current) {
-                      ref.current.close();
+              <div className={styles.group}>
+                <div>
+                  보유한 버내너
+                  <span>{isCnt}개</span>
+                </div>
+
+                {videoDetail &&
+                videoDetail?.price &&
+                isCnt >=
+                  videoDetail.price.basic - videoDetail.price.discount ? (
+                  <button
+                    onClick={() =>
+                      handleDownloadClick(
+                        videoDetail.price.basic - videoDetail.price.discount,
+                      )
                     }
-                    toggleModal();
-                  }}
-                >
-                  충전하기
-                </button>
-              )}
+                  >
+                    사용하기
+                  </button>
+                ) : (
+                  <button
+                    // onClick={() => {
+                    //   if (ref && typeof ref !== 'function' && ref.current) {
+                    //     ref.current.close();
+                    //   }
+                    //   // handlePaymentStart();
+                    // }}
+                    onClick={() => {
+                      if (ref && typeof ref !== 'function' && ref.current) {
+                        ref.current.close();
+                      }
+                      toggleModal();
+                    }}
+                  >
+                    충전하기
+                  </button>
+                )}
+              </div>
             </div>
-          </div>
-        </dialog>
+          </dialog>
+        ) : (
+          <dialog ref={ref} id={styles.videoModal} onClick={handleDialogClick}>
+            <div className={styles.header}>
+              <div></div>
+              <p>영상 다운로드</p>
+              <img
+                src={cancelIcon}
+                alt=""
+                width="24px"
+                height="24px"
+                onClick={closeModal}
+              ></img>
+            </div>
+            <div className={styles.contents}>
+              <div className={styles.video}>
+                <img
+                  src={scaptureAD}
+                  alt=""
+                  width="300px"
+                  height="250px"
+                  loading="lazy"
+                />
+              </div>
+              <div className={styles.text}>
+                <div>영상을 다운로드 하기 위해서는</div>
+                <div>
+                  <span>25</span>개 의 버내너가 필요해요
+                </div>
+              </div>
+
+              <div className={styles.group}>
+                <div>
+                  보유한 버내너
+                  <span>{isCnt}개</span>
+                </div>
+
+                {isCnt >= 25 ? (
+                  <div
+                    className={styles.btn}
+                    onClick={() => handleDownloadClick(25)}
+                  >
+                    사용하기
+                  </div>
+                ) : (
+                  <div
+                    className={styles.btn}
+                    onClick={() => {
+                      if (ref && typeof ref !== 'function' && ref.current) {
+                        ref.current.close();
+                      }
+                      toggleModal();
+                    }}
+                  >
+                    충전하기
+                  </div>
+                )}
+              </div>
+            </div>
+          </dialog>
+        )}
+
         {/* 버내너 충전 모달 */}
         {isOpen && <ChargeBanana toggleModal={toggleModal}></ChargeBanana>}
         {/* {isPaymentModalOpen && (

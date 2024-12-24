@@ -3,7 +3,7 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import Header from '../../Header/components/Header';
 import Footer from '../../Footer/components/Footer';
 import styles from '../scss/community.module.scss';
-import modal from '../../Video/scss/video-modal.module.scss';
+
 import Comment from './Comment';
 
 // import download from '../../../assets/Icon/downLoadIcon.svg';
@@ -479,10 +479,10 @@ const Community = () => {
       <Footer />
 
       <VideoModal
-        styles={modal}
         ref={modalRef}
         handleDownloadClick={handleDownloadClick}
         videoDetail={videoDetailData}
+        type="highlight"
       />
       <LoginModal modalRef={loginModalRef}></LoginModal>
     </div>

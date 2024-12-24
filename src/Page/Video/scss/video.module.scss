@@ -9,7 +9,8 @@
     // 1
     .videoContainer {
       background: var(--color-grayscale-web-card);
-      height: 439.5px;
+      height: 450px;
+      border-bottom: 1px solid #37383e;
       // height: 440px;
       // width: 100%;
 
@@ -69,10 +70,11 @@
         justify-content: space-between;
 
         padding: 1rem;
-        background-color: var(--color-grayscale-black-bg);
+        // background-color: var(--color-grayscale-black-bg);
+        border-top: 1px solid #37383e;
 
         .shareDes {
-          height: 52px;
+          // height: 52px;
 
           display: flex;
           align-items: center;
@@ -113,7 +115,7 @@
           justify-content: center;
 
           height: 38px;
-          padding: 0 2rem;
+          padding: 0 1rem;
 
           cursor: pointer;
 
@@ -216,7 +218,7 @@
 
             height: 38px;
 
-            padding: 0 1rem;
+            padding: 0 2rem;
 
             cursor: pointer;
 

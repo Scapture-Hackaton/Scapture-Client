@@ -1,6 +1,5 @@
 #videoModal {
   width: 320px;
-  max-height: 346px;
 
   position: fixed;
   top: 50%;
@@ -37,8 +36,8 @@
 
   .contents {
     .video {
-      width: 280px;
-      height: 120px;
+      width: 300px;
+      height: 250px;
 
       background-color: var(--black-color);
       border-radius: 8px;
@@ -92,7 +91,13 @@
         }
       }
 
-      button {
+      .btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        cursor: pointer;
+
         width: 84px;
         height: 38px;
 
