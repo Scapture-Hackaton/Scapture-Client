@@ -24,6 +24,26 @@ export const checkAuthDownloadVideo = async (
   }
 };
 
+// 원본 영상 권한 부여
+export const checkAuthDownloadOriginal = async (
+  scheduleId: number,
+  banana: number,
+) => {
+  try {
+    const res: CommonResponse = await authInstance.post(
+      `/api/originals/${scheduleId}/download`,
+      { banana: banana },
+    );
+
+    return res.data;
+  } catch (e: any) {
+    console.log(e);
+    return {
+      status: e.response.status,
+    };
+  }
+};
+
 // 영상 권한 확인
 // export const downloadVideo = async (videoId: number) => {
 //   try {

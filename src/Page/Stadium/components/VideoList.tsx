@@ -3,11 +3,15 @@ import styles from '../scss/selectInfoBox.module.scss';
 
 import { useQuery } from '@tanstack/react-query';
 import { getVideoScheduled } from '../../../apis/api/stadium.api';
-import { ScheduleVideo } from '../../../apis/dto/scapture.dto';
+import {
+  ScheduleVideo,
+  ScheduleVideosDTO,
+} from '../../../apis/dto/scapture.dto';
 
 // import { useNavigate } from 'react-router-dom';
 
 import noDataIcon from '../../../../src/assets/Icon/noDataIcon.svg';
+import DownloadOriginalVideo from './DownloadOriginalVideo';
 
 interface VideoListProps {
   scheduleId: number | null;
@@ -17,7 +21,7 @@ interface VideoListProps {
 
 const VideoList: React.FC<VideoListProps> = ({ scheduleId, toVideo }) => {
   // Fetch video data with react-query
-  const { data: videos } = useQuery<ScheduleVideo[]>({
+  const { data: videos, refetch } = useQuery<ScheduleVideosDTO>({
     queryKey: ['videoScheduled', scheduleId],
     queryFn: () => {
       if (scheduleId !== null) {
@@ -34,11 +38,22 @@ const VideoList: React.FC<VideoListProps> = ({ scheduleId, toVideo }) => {
   //   navigate('/video', { state: { videoId, stadiumId } });
   // };
 
+  const refetchData = async () => {
+    await refetch();
+  };
+
   return (
     <>
+      {scheduleId !== null ? (
+        <DownloadOriginalVideo
+          isDownload={videos?.isDownload}
+          scheduleId={scheduleId}
+          refetchData={refetchData}
+        ></DownloadOriginalVideo>
+      ) : null}
       <div className={styles.videoList}>
-        {videos && videos.length > 0 ? (
-          videos.map((video: ScheduleVideo) => (
+        {videos?.videos && videos?.videos?.length > 0 ? (
+          videos?.videos?.map((video: ScheduleVideo) => (
             <div
               className={styles.videoContainer}
               key={video.videoId}

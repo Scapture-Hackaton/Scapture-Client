@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import styles from '../scss/downloadModal.module.scss';
 import noDataIcon from '../../Video/image/tooltip.svg';
 import {
-  checkAuthDownloadVideo,
+  checkAuthDownloadOriginal,
   getOriginalVideos,
 } from '../../../apis/api/video.api';
 import { useQuery } from '@tanstack/react-query';
@@ -15,10 +15,14 @@ import { LoginModal } from '../../Header/components/LoginModal';
 
 interface DownloadOriginalVideoProps {
   scheduleId: number | null;
+  isDownload: boolean | undefined;
+  refetchData: () => void;
 }
 
 const DownloadOriginalVideo: React.FC<DownloadOriginalVideoProps> = ({
   scheduleId,
+  isDownload,
+  refetchData,
 }) => {
   // 영상 다운로드 확인 모달
   const modalRef = useRef<HTMLDivElement>(null);
@@ -63,6 +67,8 @@ const DownloadOriginalVideo: React.FC<DownloadOriginalVideoProps> = ({
   }, []);
 
   const downloadVideo = async () => {
+    setIsModalOpen(false);
+
     const delay = (ms: number) =>
       new Promise(resolve => setTimeout(resolve, ms));
 
@@ -89,9 +95,10 @@ const DownloadOriginalVideo: React.FC<DownloadOriginalVideoProps> = ({
       // 첫 번째 모달 닫기
       setIsModalOpen(false);
 
-      const authResponse = await checkAuthDownloadVideo(videoId, banana);
-      if (authResponse.status === 200) {
+      const authResponse = await checkAuthDownloadOriginal(scheduleId!, banana);
+      if (authResponse.status === 200 || authResponse.status === 409) {
         downloadVideo();
+        refetchData();
       } else if (authResponse.status === 402) {
         alert('버내너가 부족합니다!');
       } else if (authResponse.status === 404 || authResponse.status === 400) {
@@ -114,7 +121,11 @@ const DownloadOriginalVideo: React.FC<DownloadOriginalVideoProps> = ({
     const type = localStorage.getItem('LoginType');
 
     if (isLoginState.state || (token && type)) {
-      modalNotice(videoModalRef);
+      if (isDownload) {
+        downloadVideo();
+      } else {
+        modalNotice(videoModalRef);
+      }
     } else {
       modalNotice(loginModalRef);
     }

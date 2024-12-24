@@ -55,9 +55,10 @@ export const getStadiumDHours = async (fieldId: number, date: string) => {
 // 특정 운영 시간의 video 조회
 export const getVideoScheduled = async (scheduleId: number) => {
   try {
-    const res: CommonResponse = await defaultInstance.get(
+    const res: CommonResponse = await authInstance.get(
       `/api/videos/${scheduleId}`,
     );
+
     return res.data.data;
   } catch (e: any) {
     return {

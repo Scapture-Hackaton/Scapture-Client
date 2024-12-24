@@ -38,6 +38,11 @@ export interface StadiumHoursData {
   videoCount: number;
 }
 
+export interface ScheduleVideosDTO {
+  isDownload: boolean;
+  videos: ScheduleVideo[];
+}
+
 export interface ScheduleVideo {
   videoId: number;
   name: string;
