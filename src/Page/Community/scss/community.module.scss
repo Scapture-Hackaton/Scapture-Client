@@ -313,7 +313,7 @@
 
             .inputGroup {
               width: 100%;
-              height: 38px;
+              // height: 38px;
 
               background: var(--font-color-gray-700);
               border-radius: 5px;
@@ -321,6 +321,7 @@
 
               display: flex;
               align-items: center;
+              padding: 0.5rem;
 
               input {
                 width: 100%;
@@ -329,6 +330,26 @@
                 color: white;
 
                 margin: 0 1rem;
+              }
+
+              textarea {
+                width: 100%;
+
+                font-weight: 500;
+                font-size: var(--font-size-m);
+                color: white;
+
+                margin: 0 1rem 0 0.3rem;
+                resize: none; /* 사용자 크기 조정 방지 */
+                overflow: hidden; /* 스크롤 숨김 */
+                background: var(--font-color-gray-700);
+              }
+
+              .sendImg {
+                margin-right: 0.3rem;
+                align-self: flex-end;
+
+                cursor: pointer;
               }
             }
           }
