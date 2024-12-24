@@ -353,21 +353,7 @@ const Video = () => {
                   />
                 ) : null}
               </div>
-              <div className={styles.shareVideo}>
-                <div className={styles.shareDes}>
-                  <div id={styles.shareImg}>
-                    <img src={share} alt="" />
-                  </div>
-                  <div id={styles.des}>
-                    편집된 영상을
-                    <br />
-                    바로 공유할 수 있는 기회!
-                  </div>
-                </div>
-                <div id={styles.shareVideo} onClick={handleShareClick}>
-                  영상 공유하기
-                </div>
-              </div>
+
               <div className={styles.group}>
                 <div className={styles.title}>{videoDetail.name}</div>
                 <div className={styles.videoOpt}>
@@ -401,6 +387,21 @@ const Video = () => {
                       영상 다운로드
                     </div>
                   ) : null}
+                </div>
+              </div>
+              <div className={styles.shareVideo}>
+                <div className={styles.shareDes}>
+                  <div id={styles.shareImg}>
+                    <img src={share} alt="" />
+                  </div>
+                  <div id={styles.des}>
+                    편집된 영상을
+                    <br />
+                    바로 공유할 수 있는 기회!
+                  </div>
+                </div>
+                <div id={styles.shareVideo} onClick={handleShareClick}>
+                  영상 공유하기
                 </div>
               </div>
             </>

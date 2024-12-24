@@ -4,7 +4,7 @@ import styles from '../scss/community.module.scss';
 // import testCircle from '../image/testCircle.png';
 // import fullHeart from '../image/fullHeart.png';
 // import emptyHeart from '../image/emptyHeart.png';
-// import sendImg from '../image/sendImg.png';
+import sendImg from '../image/sendImg.svg';
 import testImg from '../image/testImg.png';
 import moreIcon from '../image/moreIcon.svg';
 
@@ -247,7 +247,14 @@ const Comment: React.FC<CommentProps> = ({ videoId }) => {
                 value={isInput}
                 onKeyPress={handleKeyPress}
               />
-              {/* <img src={sendImg} alt="" onClick={sendComment} /> */}
+              <img
+                src={sendImg}
+                alt=""
+                onClick={sendComment}
+                width="28px"
+                height="28px"
+                className={styles.sendImg}
+              />
             </div>
           </div>
           {(commentsData.data ?? []).map((comment: CommentData) => (
