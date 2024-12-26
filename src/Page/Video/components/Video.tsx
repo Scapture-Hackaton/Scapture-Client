@@ -379,7 +379,8 @@ const Video = () => {
                   <p>공유</p>
                 </li> */}
                   </ul>
-                  {videoDetail.stadium.isDownloadable ? (
+                  {videoDetail?.stadium.isDownloadable &&
+                  videoDetail?.isDownloadable ? (
                     <div
                       id={styles.downLoadVideo}
                       onClick={handelOpenDownloadModal}
