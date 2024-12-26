@@ -32,6 +32,7 @@ import { VideoModal } from '../../Video/components/VideoModal';
 import locationImg from '../../../assets/Icon/location.svg';
 import clock from '../../../assets/Icon/Clock.svg';
 import parking from '../../../assets/Icon/parking.svg';
+import noDataIcon from '../../../assets/Icon/noDataIcon.svg';
 
 import dropDown from '../../../assets/Icon/dropDown.svg';
 import upArrow from '../../../assets/Icon/upArrow.svg';
@@ -465,7 +466,15 @@ const Community = () => {
             </div>
           </>
         ) : (
-          <></>
+          <div className={styles.noData}>
+            <img
+              src={noDataIcon}
+              alt="영상이 없습니다."
+              width="141px"
+              height="180px"
+            />
+            <div>영상이 존재하지 않습니다.</div>
+          </div>
         )}
 
         <PopularVideoList videos={popularVideoData} changeVideo={changeVideo} />
