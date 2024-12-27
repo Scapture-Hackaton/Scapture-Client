@@ -34,6 +34,7 @@ import styles from '../scss/video.module.scss';
 import share from '../image/ShareIcon.svg';
 import beforeBtn from '../image/beforeBtn.svg';
 import nextBtn from '../image/nextBtn.svg';
+import downloadIcon from '../image/downloadIcon.svg';
 
 // dto
 import { StadiumDetail, VideoDetail } from '../../../apis/dto/scapture.dto';
@@ -385,7 +386,13 @@ const Video = () => {
                       id={styles.downLoadVideo}
                       onClick={handelOpenDownloadModal}
                     >
-                      영상 다운로드
+                      <img
+                        src={downloadIcon}
+                        alt=""
+                        width="20px"
+                        height="20px"
+                      />
+                      <div>영상 다운로드</div>
                     </div>
                   ) : null}
                 </div>
