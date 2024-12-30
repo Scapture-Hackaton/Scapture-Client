@@ -13,6 +13,8 @@ import { loginData, loginDataAtom } from '../../Header/Atom/atom';
 import { useRecoilValue } from 'recoil';
 import ChargeBanana from '../../MyPage/MyPage/components/ChargeBanana';
 
+import ScaptureLogoImg from '../image/AdTemp.svg';
+
 interface ModalProps {
   ref: Ref<HTMLDialogElement>;
   handleDownloadClick: (banana: number) => Promise<void>;
@@ -118,7 +120,14 @@ export const VideoModal = forwardRef<HTMLDialogElement, ModalProps>(
               ></img>
             </div>
             <div className={styles.contents}>
-              <div className={styles.video}></div>
+              <div className={styles.video}>
+                <img
+                  src={ScaptureLogoImg}
+                  alt=""
+                  width="300px"
+                  height="250px"
+                />
+              </div>
               <div className={styles.text}>
                 <div>영상을 다운로드 하기 위해서는</div>
                 <div>
@@ -144,6 +153,7 @@ export const VideoModal = forwardRef<HTMLDialogElement, ModalProps>(
                 isCnt >=
                   videoDetail.price.basic - videoDetail.price.discount ? (
                   <button
+                    className={styles.btn}
                     onClick={() =>
                       handleDownloadClick(
                         videoDetail.price.basic - videoDetail.price.discount,
@@ -160,6 +170,7 @@ export const VideoModal = forwardRef<HTMLDialogElement, ModalProps>(
                     //   }
                     //   // handlePaymentStart();
                     // }}
+                    className={styles.btn}
                     onClick={() => {
                       if (ref && typeof ref !== 'function' && ref.current) {
                         ref.current.close();
