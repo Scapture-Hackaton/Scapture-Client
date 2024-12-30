@@ -247,12 +247,12 @@ const UserPage = () => {
             <div className={styles.bananaContainer}>
               <div className={styles.mainTitle}>버내너 관리</div>
               <div className={styles.subTitle}>
-                보유한 갯수만큼 영상을 다운받을 수 있어요
+                보유한 개수만큼 영상을 다운받을 수 있어요
               </div>
               <div className={styles.countContainer}>
                 <img className={styles.img} src={Banana} alt=""></img>
                 <div className={styles.presentContainer}>
-                  <div className={styles.present}>현재 버내너 보유갯수</div>
+                  <div className={styles.present}>현재 버내너 보유개수</div>
                   <div className={styles.count}>
                     {bananaData?.data?.balance || bananaData?.data?.balance == 0
                       ? bananaData?.data?.balance.toString().padStart(2, '0')

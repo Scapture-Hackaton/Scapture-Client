@@ -110,9 +110,9 @@ const UserInfo: React.FC<UserInfoProps> = ({
         <div className={styles.profile}>
           <div className={styles.subscribe}>
             {myProfileData && myProfileData?.data?.isSubscribe ? (
-              <div className={styles.sub}>구독</div>
+              <div className={styles.sub}>일반 회원</div>
             ) : (
-              <div className={styles.noSub}>비구독</div>
+              <div className={styles.noSub}>일반 회원</div>
             )}
 
             <div className={styles.date}>
