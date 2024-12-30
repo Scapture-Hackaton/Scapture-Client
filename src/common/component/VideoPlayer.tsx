@@ -336,10 +336,24 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({
       const qualityLevels = playerRef.current.qualityLevels();
 
       // 가장 높은 화질을 기본 설정
+      // qualityLevels.on('addqualitylevel', () => {
+      //   for (let i = 0; i < qualityLevels.length; i++) {
+      //     qualityLevels[i].enabled = true; // 모든 품질 레벨을 활성화
+      //   }
+      // });
       qualityLevels.on('addqualitylevel', () => {
+        let highestQuality = 0;
+
+        // 가장 높은 화질 찾기
         for (let i = 0; i < qualityLevels.length; i++) {
-          qualityLevels[i].enabled = true; // 모든 품질 레벨을 활성화
+          if (qualityLevels[i].height > qualityLevels[highestQuality].height) {
+            highestQuality = i;
+          }
+          qualityLevels[i].enabled = false; // 모든 품질 레벨 비활성화
         }
+
+        // 가장 높은 화질 활성화
+        qualityLevels[highestQuality].enabled = true;
       });
 
       playerRef.current.ready(() => {
