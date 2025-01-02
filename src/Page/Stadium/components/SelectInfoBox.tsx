@@ -98,10 +98,16 @@ const SelectInfoBox: React.FC<SelectInfoBoxProps> = ({
     const currentDate = new Date(startDate);
 
     while (currentDate <= endDate) {
+      const year = currentDate.getFullYear(); // 연도
       const month = currentDate.getMonth() + 1; // 월 (0부터 시작하므로 +1)
       const day = currentDate.getDate(); // 일
       const weekday = getDayOfWeek(currentDate); // 요일
-      dayList.push({ month: `${month}`, day: `${day}`, weekday }); // 월, 일, 요일 저장
+      dayList.push({
+        year: `${year}`,
+        month: `${month}`,
+        day: `${day}`,
+        weekday,
+      }); // 연도, 월, 일, 요일 저장
       currentDate.setDate(currentDate.getDate() + 1);
     }
 
@@ -169,12 +175,20 @@ const SelectInfoBox: React.FC<SelectInfoBoxProps> = ({
   );
   const selectedFieldId = selectedField?.fieldId;
 
+  // 선택된 날짜 리스트에서 연도를 가져오기
+  const selectedDayInfo = dayList.find(
+    dayInfo => dayInfo.month === isMonth && dayInfo.day === isDay,
+  );
+
+  const selectedYear = selectedDayInfo
+    ? parseInt(selectedDayInfo.year)
+    : today.getFullYear();
+
   const selectedDate = new Date(
-    today.getFullYear(),
+    selectedYear,
     parseInt(isMonth) - 1,
     parseInt(isDay) + 1,
   );
-
   const formattedDate = selectedDate.toISOString().split('T')[0];
 
   // 운영시간 리스트
