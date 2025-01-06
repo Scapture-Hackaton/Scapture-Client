@@ -65,7 +65,7 @@ const Footer = () => {
             <div>통신판매업신고번호 : 제 2024-서울관악-1789호</div>
             <div>대표자명 : 최용석</div>
             <div>연락처 : 010-9254-8684</div>
-            <div>이메일 : contact@s-capture.com</div>
+            <div>이메일 : scapture0526@gmail.com</div>
             <div>주소 : 서울특별시 서울특별시 관악구 봉천로545, 501호</div>
           </div>
 
