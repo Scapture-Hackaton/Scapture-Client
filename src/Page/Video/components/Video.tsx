@@ -421,6 +421,7 @@ const Video = () => {
           stadiumDetail={stadiumDetail}
           stadiumId={stadiumId}
           prevSelectDataProps={prevSelectDataProps}
+          isDownloadableOriginVideo={videoDetail?.isDownloadable}
         ></SelectInfoBox>
 
         {/* <div className={styles.paging}>

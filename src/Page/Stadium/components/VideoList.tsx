@@ -17,9 +17,14 @@ interface VideoListProps {
   scheduleId: number | null;
   stadiumId: number;
   toVideo: (videoId: number) => void;
+  isDownloadableOriginVideo: boolean;
 }
 
-const VideoList: React.FC<VideoListProps> = ({ scheduleId, toVideo }) => {
+const VideoList: React.FC<VideoListProps> = ({
+  scheduleId,
+  toVideo,
+  isDownloadableOriginVideo,
+}) => {
   // Fetch video data with react-query
   const { data: videos, refetch } = useQuery<ScheduleVideosDTO>({
     queryKey: ['videoScheduled', scheduleId],
@@ -44,7 +49,7 @@ const VideoList: React.FC<VideoListProps> = ({ scheduleId, toVideo }) => {
 
   return (
     <>
-      {scheduleId !== null ? (
+      {scheduleId !== null && isDownloadableOriginVideo ? (
         <DownloadOriginalVideo
           isDownload={videos?.isDownload}
           scheduleId={scheduleId}

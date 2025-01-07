@@ -70,12 +70,14 @@ interface SelectInfoBoxProps {
   stadiumDetail: StadiumDetail;
   stadiumId: number;
   prevSelectDataProps: PrevSelectDataProps | null;
+  isDownloadableOriginVideo: boolean;
 }
 
 const SelectInfoBox: React.FC<SelectInfoBoxProps> = ({
   stadiumDetail,
   stadiumId,
   prevSelectDataProps,
+  isDownloadableOriginVideo,
 }) => {
   // 현재 날짜 추출
   const today = new Date();
@@ -381,6 +383,7 @@ const SelectInfoBox: React.FC<SelectInfoBoxProps> = ({
           scheduleId={isScheduleId}
           stadiumId={stadiumId}
           toVideo={toVideo}
+          isDownloadableOriginVideo={isDownloadableOriginVideo}
         ></VideoList>
       ) : null}
       {/* {isPaymentModalOpen && (
