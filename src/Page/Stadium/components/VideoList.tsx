@@ -17,7 +17,7 @@ interface VideoListProps {
   scheduleId: number | null;
   stadiumId: number;
   toVideo: (videoId: number) => void;
-  isDownloadableOriginVideo: boolean;
+  isDownloadableOriginVideo: boolean | null;
 }
 
 const VideoList: React.FC<VideoListProps> = ({
