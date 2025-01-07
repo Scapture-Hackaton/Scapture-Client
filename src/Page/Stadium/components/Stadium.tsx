@@ -149,6 +149,7 @@ const Stadium = () => {
           stadiumDetail={stadiumDetail}
           stadiumId={stadiumId}
           prevSelectDataProps={null}
+          isDownloadableOriginVideo={null}
         ></SelectInfoBox>
       </div>
       <Footer />

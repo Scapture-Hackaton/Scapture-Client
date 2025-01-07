@@ -70,7 +70,7 @@ interface SelectInfoBoxProps {
   stadiumDetail: StadiumDetail;
   stadiumId: number;
   prevSelectDataProps: PrevSelectDataProps | null;
-  isDownloadableOriginVideo: boolean;
+  isDownloadableOriginVideo: boolean | null;
 }
 
 const SelectInfoBox: React.FC<SelectInfoBoxProps> = ({
