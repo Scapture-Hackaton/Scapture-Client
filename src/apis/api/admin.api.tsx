@@ -163,10 +163,7 @@ export const deleteField = async (
 };
 
 // 녹화 시작 (post)
-export const startRecording = async (
-  fieldId: number,
-  time: number,
-): Promise<CommonResponse | undefined> => {
+export const startRecording = async (fieldId: number, time: number) => {
   try {
     const res = await authInstance.post(
       `/api/records/${fieldId}/start?time=${time}`,

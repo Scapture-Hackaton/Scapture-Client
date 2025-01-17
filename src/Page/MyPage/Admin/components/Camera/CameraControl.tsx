@@ -234,11 +234,17 @@ const CameraControl: React.FC<CameraControlProps> = ({ fields }) => {
       : `${minutes.toString().padStart(2, '0')} : ${seconds.toString().padStart(2, '0')}`;
   };
 
-  const checkAndStartRecording = () => {
+  const checkAndStartRecording = async () => {
     if (selectedFieldId != null && selectedTime !== null) {
-      startRecording(selectedFieldId, selectedTime);
-      setActive(!isActive);
-      startTimer();
+      const res = await startRecording(selectedFieldId, selectedTime);
+      console.log(res);
+
+      if (res?.status === 403) {
+        confirm('이미 녹화가 진행중입니다!');
+      } else {
+        setActive(!isActive);
+        startTimer();
+      }
     }
   };
 
@@ -326,7 +332,7 @@ const CameraControl: React.FC<CameraControlProps> = ({ fields }) => {
             <div id={styles.recordBtn} className={styles.recording}>
               {formatTime(timer)} 녹화중
             </div>
-            <div
+            {/* <div
               id={styles.recordBtn}
               className={styles.stopRecord}
               onClick={() => {
@@ -343,7 +349,7 @@ const CameraControl: React.FC<CameraControlProps> = ({ fields }) => {
               }}
             >
               녹화 강제 종료
-            </div>
+            </div> */}
           </>
         ) : isActive ? (
           <div
