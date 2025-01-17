@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styles from '../scss/selectInfoBox.module.scss';
 
 import { useQuery } from '@tanstack/react-query';
