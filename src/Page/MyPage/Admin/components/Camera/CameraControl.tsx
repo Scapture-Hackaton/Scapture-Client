@@ -237,10 +237,9 @@ const CameraControl: React.FC<CameraControlProps> = ({ fields }) => {
   const checkAndStartRecording = async () => {
     if (selectedFieldId != null && selectedTime !== null) {
       const res = await startRecording(selectedFieldId, selectedTime);
-      console.log(res);
 
-      if (res?.status === 403) {
-        confirm('이미 녹화가 진행중입니다!');
+      if (res?.status === 403 || res === undefined) {
+        alert('이미 녹화가 진행중입니다!');
       } else {
         setActive(!isActive);
         startTimer();
