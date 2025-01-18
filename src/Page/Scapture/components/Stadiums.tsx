@@ -81,7 +81,7 @@ const Stadiums: React.FC<StadiumsProps> = ({ stadiumData }) => {
                       <img src={parking} alt="" width="16px" height="16px" />
 
                       <span className={styles.info}>
-                        {stadium?.isFree ? '무료 주차징' : '유료 주차장'}
+                        {stadium?.isFree ? '무료 주차장' : '유료 주차장'}
                       </span>
                     </div>
                   </div>
