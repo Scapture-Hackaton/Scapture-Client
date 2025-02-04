@@ -129,6 +129,22 @@
         color: var(--color-ect-accent);
       }
 
+      .doneHighlight {
+        cursor: pointer;
+        // text-decoration: underline;
+
+        // color: var(--primary-color-defualt-01);
+        // color: var(--font-color-lemon-500);
+      }
+
+      .haveToHighlight {
+        cursor: pointer;
+        // text-decoration: underline;
+
+        // color: var(--primary-color-defualt-01);
+        color: var(--font-color-lemon-500);
+      }
+
       .btn {
         padding: 0.5rem 0.7rem;
         border-radius: 10px;
