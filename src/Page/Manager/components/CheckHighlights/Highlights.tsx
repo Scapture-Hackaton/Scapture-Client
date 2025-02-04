@@ -13,6 +13,10 @@ const Highlights = () => {
 
   const navigate = useNavigate();
 
+  const moveOriginal = (scheduleId: number) => {
+    navigate(`/admin/originals/${scheduleId}`);
+  };
+
   return (
     <>
       <div className={styles.headerTitle}>하이라이트 추출 요청 내역</div>
@@ -52,7 +56,23 @@ const Highlights = () => {
                     {data.scheduleId}
                   </div>
                 </td>
-                <td>{data.isExtracted ? <div>O</div> : <div>X</div>}</td>
+                <td>
+                  {data.isExtracted ? (
+                    <div
+                      className={styles.doneHighlight}
+                      onClick={() => moveOriginal(data.scheduleId)}
+                    >
+                      O
+                    </div>
+                  ) : (
+                    <div
+                      className={styles.haveToHighlight}
+                      onClick={() => moveOriginal(data.scheduleId)}
+                    >
+                      X
+                    </div>
+                  )}
+                </td>
               </tr>
             ))
           ) : (

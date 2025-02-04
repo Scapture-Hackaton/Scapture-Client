@@ -29,6 +29,22 @@ export const getHighlightsForManagerWithScheduleId = async (
   }
 };
 
+export const getOriginalsForManagerWithScheduleId = async (
+  scheduleId: string,
+) => {
+  try {
+    const res: CommonResponse = await defaultInstance.get(
+      `/api/originals/${scheduleId}`,
+    );
+
+    return res.data.data;
+  } catch (e: any) {
+    return {
+      status: e.response.status,
+    };
+  }
+};
+
 export const getUserForManager = async (userName: string) => {
   try {
     const res: CommonResponse = await defaultInstance.get(

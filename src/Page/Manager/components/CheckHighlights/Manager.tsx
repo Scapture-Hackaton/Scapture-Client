@@ -6,6 +6,7 @@ import { useParams } from 'react-router-dom';
 import ScheduleHighlights from './ScheduleHighlights';
 import ManagerOptPage from './ManagerOptPage';
 import UserDetailInfo from './UserDetailInfo';
+import CheckOriginalVideos from './CheckOriginalVideos';
 
 const password = `${import.meta.env.VITE_MANAGER_PWD}`;
 
@@ -44,11 +45,11 @@ const Manager = () => {
 
   const checkParams = () => {
     if (shceduleIdFromParams) {
-      return (
-        <ScheduleHighlights
-          scheduleId={shceduleIdFromParams}
-        ></ScheduleHighlights>
-      );
+      if (window.location.pathname.includes('originals')) {
+        return <CheckOriginalVideos scheduleId={shceduleIdFromParams} />;
+      } else if (window.location.pathname.includes('highlights')) {
+        return <ScheduleHighlights scheduleId={shceduleIdFromParams} />;
+      }
     } else if (userIdFromParams) {
       return <UserDetailInfo userId={userIdFromParams}></UserDetailInfo>;
     } else {

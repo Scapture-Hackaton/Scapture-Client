@@ -9,3 +9,8 @@ export interface HighlightsRes {
   phoneNumber: string;
   isExtracted: boolean;
 }
+
+export interface OriginalsRes {
+  name: string;
+  url: string;
+}

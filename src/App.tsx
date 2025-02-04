@@ -53,6 +53,7 @@ const App = () => {
           <Route path="/landing/:stadiumId/:fieldId" element={<Bridge />} />
           <Route path="/admin" element={<Manager />} />
           <Route path="/admin/highlights/:shceduleId" element={<Manager />} />
+          <Route path="/admin/originals/:shceduleId" element={<Manager />} />
           <Route path="/admin/user/:userId" element={<Manager />} />
 
           <Route path="/success" element={<PaySuccess />} />
