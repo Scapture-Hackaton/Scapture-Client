@@ -149,7 +149,9 @@ const Bridge = () => {
             </div>
             <div className={styles.fieldNameBox} onClick={() => goToStadium()}>
               <img src={Locationicon} alt="" width="20px" height="20px" />
-              <div id={styles.fieldName}>{stadiumDetail.name}</div>
+              <div id={styles.fieldName}>
+                {stadiumDetail.name} {fieldName}
+              </div>
             </div>
           </div>
           <div className={styles.locationBox}>
