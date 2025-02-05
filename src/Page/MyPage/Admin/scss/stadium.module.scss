@@ -306,6 +306,53 @@
           color: var(--font-color-gray-400);
         }
       }
+
+      .recordedList {
+        margin: 1rem 0 1rem 0;
+
+        .recordedItem {
+          width: 100%;
+          padding: 1.5rem 1rem;
+          margin-bottom: 1rem;
+
+          border-radius: 12px;
+
+          background: var(--color-grayscale-web-card);
+
+          cursor: pointer;
+
+          .recordedTitle {
+            color: var(--font-color-gray-100);
+            font-size: var(--font-size-xm);
+            font-weight: 500;
+
+            margin-bottom: 0.7rem;
+          }
+
+          .recordedInfo {
+            padding: 0.7rem;
+
+            background: var(--color-grayscale-input-800);
+
+            border-radius: 8px;
+
+            .recordedInfoItem {
+              display: flex;
+              align-items: center;
+
+              padding: 0.2rem 0;
+
+              img {
+                margin-right: 0.3rem;
+              }
+
+              div {
+                font-size: var(--font-size-m);
+              }
+            }
+          }
+        }
+      }
     }
 
     .fieldSection {

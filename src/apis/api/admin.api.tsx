@@ -186,3 +186,15 @@ export const stopRecording = async (
     console.error('Error: ', error);
   }
 };
+
+export const getRecordedList = async (
+  fieldId: number,
+): Promise<CommonResponse | undefined> => {
+  try {
+    const res = await authInstance.post(`/api/schedules/${fieldId}/list`);
+
+    return res.data;
+  } catch (error) {
+    console.error('Error: ', error);
+  }
+};

@@ -8,11 +8,17 @@ import { FieldDto } from '../Stadium/dto/field.dto';
 
 import infoIcon from '../../../../../assets/Icon/infoIcon.svg';
 import noDataIcon from '../../../../../assets/Icon/noDataIcon.svg';
+import DateIcon from '../../../../../assets/Icon/dateIcon.svg';
+import StadiumIcon from '../../../../../assets/Icon/stadiumIcon.svg';
+import Clock from '../../../../../assets/Icon/Clock.svg';
+
 import {
+  getRecordedList,
   startRecording,
   stopRecording,
 } from '../../../../../apis/api/admin.api';
 import RecordCheckModal from '../modal/RecordCheckModal';
+import { RecordedList } from '../dto/recordInfo.dto';
 
 interface CameraControlProps {
   fields: FieldDto[];
@@ -32,10 +38,19 @@ const CameraControl: React.FC<CameraControlProps> = ({ fields }) => {
 
   const [selectedField, setSelectedField] = useState<string | null>(null);
   const [selectedFieldId, setSelectedFieldId] = useState<number | null>(null);
+  const [recordedList, setRecordedList] = useState<RecordedList[]>([]); // 녹화 목록 상태
 
-  const selectField = (fieldId: number, fieldName: string) => {
+  const selectField = async (fieldId: number, fieldName: string) => {
     setSelectedField(fieldName);
     setSelectedFieldId(fieldId);
+
+    // fieldId 선택 시 녹화 목록 호출
+    const recordings = await getRecordedList(fieldId);
+    console.log(recordings);
+
+    if (recordings) {
+      setRecordedList(recordings.data);
+    }
   };
 
   const [selectedTime, setSelectedTime] = useState<number | null>(null);
@@ -252,6 +267,14 @@ const CameraControl: React.FC<CameraControlProps> = ({ fields }) => {
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => setIsModalOpen(false);
 
+  // 녹화된 영상 / 녹화본 전환을 위한 코드
+  const [isList, setList] = useState(true);
+  const [recordedSchedule, setRecordedSchedule] = useState<number | null>(null);
+  const [recordedDetail, setrecordedDetail] = useState('');
+  const changeRecordedList = () => {
+    setList(!isList);
+  };
+
   return (
     <div className={styles.cameraFrame}>
       <div className={styles.cameraTitle}>
@@ -363,21 +386,52 @@ const CameraControl: React.FC<CameraControlProps> = ({ fields }) => {
         )}
       </div>
 
-      <div className={styles.cameraTitle}>
-        <div id={styles.expain}>
-          <div id={styles.title}>녹화된 영상</div>
-          <div id={styles.subTitle}>현재까지 녹화된 영상이에요</div>
+      {isList ? (
+        <>
+          <div className={styles.cameraTitle}>
+            <div id={styles.expain}>
+              <div id={styles.title}>녹화된 영상</div>
+              <div id={styles.subTitle}>현재까지 녹화된 영상이에요</div>
+            </div>
+          </div>
+
+          <div className={styles.recordedList}>
+            <div
+              className={styles.recordedItem}
+              onClick={() => changeRecordedList()}
+            >
+              <div className={styles.recordedTitle}>촬영본</div>
+              <div className={styles.recordedInfo}>
+                <div className={styles.recordedInfoItem}>
+                  <img src={DateIcon} alt="" width="20px" height="20px"></img>
+                  <div>0000.00.00</div>
+                </div>
+                <div className={styles.recordedInfoItem}>
+                  <img
+                    src={StadiumIcon}
+                    alt=""
+                    width="20px"
+                    height="20px"
+                  ></img>
+                  <div>선택 구역명</div>
+                </div>
+                <div className={styles.recordedInfoItem}>
+                  <img src={Clock} alt="" width="20px" height="20px"></img>
+                  <div>00:00~00:00</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </>
+      ) : (
+        <div>
+          <div>
+            <img></img>
+            <div>녹화본</div>
+          </div>
+          <div></div>
         </div>
-      </div>
-      <div className={styles.noData}>
-        <img
-          src={noDataIcon}
-          alt="검색 결과가 없습니다."
-          width="180px"
-          height="180px"
-        />
-        <div>녹화된 영상이 없어요</div>
-      </div>
+      )}
 
       <RecordCheckModal
         isOpen={isModalOpen}
