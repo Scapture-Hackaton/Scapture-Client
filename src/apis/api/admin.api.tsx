@@ -191,7 +191,7 @@ export const getRecordedList = async (
   fieldId: number,
 ): Promise<CommonResponse | undefined> => {
   try {
-    const res = await authInstance.post(`/api/schedules/${fieldId}/list`);
+    const res = await authInstance.get(`/api/schedules/${fieldId}/list`);
 
     return res.data;
   } catch (error) {

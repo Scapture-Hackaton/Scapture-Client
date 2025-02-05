@@ -10,3 +10,9 @@ export interface RecordedList {
   fieldName: string;
   hours: string;
 }
+
+export interface OriginalVideoItemDto {
+  name: string;
+  url: string;
+  imageUrl: string;
+}
