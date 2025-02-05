@@ -8,11 +8,19 @@ import { FieldDto } from '../Stadium/dto/field.dto';
 
 import infoIcon from '../../../../../assets/Icon/infoIcon.svg';
 import noDataIcon from '../../../../../assets/Icon/noDataIcon.svg';
+import DateIcon from '../../../../../assets/Icon/dateIcon.svg';
+import StadiumIcon from '../../../../../assets/Icon/stadiumIcon.svg';
+import Clock from '../../../../../assets/Icon/Clock.svg';
+import LeftArr from '../../../image/LeftArr.svg';
+
 import {
+  getRecordedList,
   startRecording,
   stopRecording,
 } from '../../../../../apis/api/admin.api';
 import RecordCheckModal from '../modal/RecordCheckModal';
+import { OriginalVideoItemDto, RecordedList } from '../dto/recordInfo.dto';
+import { getOriginalsForManagerWithScheduleId } from '../../../../../apis/api/manager.api';
 
 interface CameraControlProps {
   fields: FieldDto[];
@@ -32,10 +40,18 @@ const CameraControl: React.FC<CameraControlProps> = ({ fields }) => {
 
   const [selectedField, setSelectedField] = useState<string | null>(null);
   const [selectedFieldId, setSelectedFieldId] = useState<number | null>(null);
+  const [recordedList, setRecordedList] = useState<RecordedList[]>([]); // 녹화 목록 상태
 
-  const selectField = (fieldId: number, fieldName: string) => {
+  const selectField = async (fieldId: number, fieldName: string) => {
     setSelectedField(fieldName);
     setSelectedFieldId(fieldId);
+
+    // fieldId 선택 시 녹화 목록 호출
+    const recordings = await getRecordedList(fieldId);
+
+    if (recordings) {
+      setRecordedList(recordings.data);
+    }
   };
 
   const [selectedTime, setSelectedTime] = useState<number | null>(null);
@@ -252,6 +268,54 @@ const CameraControl: React.FC<CameraControlProps> = ({ fields }) => {
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => setIsModalOpen(false);
 
+  // 녹화된 영상 / 녹화본 전환을 위한 코드
+  const [isList, setList] = useState(true);
+  const [recordedDetail, setrecordedDetail] = useState<RecordedList | null>(
+    null,
+  );
+  const [originalVideos, setOriginalVideos] = useState<
+    OriginalVideoItemDto[] | null
+  >(null);
+  const changeRecordedList = async (item: RecordedList | null) => {
+    setList(!isList);
+
+    if (item && item.scheduleId) {
+      const res = await getOriginalsForManagerWithScheduleId(
+        item.scheduleId.toString(),
+      );
+
+      setrecordedDetail(item);
+
+      setOriginalVideos(res);
+    }
+  };
+
+  // 영상 다운로드 로직
+  const downLoadVideo = (item: OriginalVideoItemDto, idx: number) => {
+    fetch(item.url, {
+      method: 'GET',
+    })
+      // fetch(`${videoDetail.video}`, {
+      //   method: 'GET',
+      // })
+      .then(response => response.blob())
+      .then(blob => {
+        const url = window.URL.createObjectURL(blob);
+        const link = document.createElement('a');
+
+        link.setAttribute('href', url);
+        link.setAttribute('download', `${idx}번_카메라_원본영상.mp4`);
+
+        document.body.appendChild(link);
+
+        link.click();
+
+        link.parentNode?.removeChild(link);
+
+        window.URL.revokeObjectURL(url);
+      });
+  };
+
   return (
     <div className={styles.cameraFrame}>
       <div className={styles.cameraTitle}>
@@ -363,21 +427,138 @@ const CameraControl: React.FC<CameraControlProps> = ({ fields }) => {
         )}
       </div>
 
-      <div className={styles.cameraTitle}>
-        <div id={styles.expain}>
-          <div id={styles.title}>녹화된 영상</div>
-          <div id={styles.subTitle}>현재까지 녹화된 영상이에요</div>
+      {isList ? (
+        <>
+          <div className={styles.cameraTitle}>
+            <div id={styles.expain}>
+              <div id={styles.title}>녹화된 영상</div>
+              <div id={styles.subTitle}>현재까지 녹화된 영상이에요</div>
+            </div>
+          </div>
+
+          <div className={styles.recordedList}>
+            {recordedList && recordedList.length > 0 ? (
+              recordedList.map((item: RecordedList) => {
+                return (
+                  <div
+                    className={styles.recordedItem}
+                    onClick={() => changeRecordedList(item)}
+                    key={item.scheduleId}
+                  >
+                    <div className={styles.recordedTitle}>{item.name}</div>
+                    <div className={styles.recordedInfo}>
+                      <div className={styles.recordedInfoItem}>
+                        <img
+                          src={DateIcon}
+                          alt=""
+                          width="20px"
+                          height="20px"
+                        ></img>
+                        <div>{item.date}</div>
+                      </div>
+                      <div className={styles.recordedInfoItem}>
+                        <img
+                          src={StadiumIcon}
+                          alt=""
+                          width="20px"
+                          height="20px"
+                        ></img>
+                        <div>{item.fieldName}</div>
+                      </div>
+                      <div className={styles.recordedInfoItem}>
+                        <img
+                          src={Clock}
+                          alt=""
+                          width="20px"
+                          height="20px"
+                        ></img>
+                        <div>{item.hours}</div>
+                      </div>
+                    </div>
+                  </div>
+                );
+              })
+            ) : (
+              <></>
+            )}
+          </div>
+        </>
+      ) : (
+        <div className={styles.recordedContainer}>
+          <div className={styles.itemInfo}>
+            <img
+              onClick={() => changeRecordedList(null)}
+              src={LeftArr}
+              alt=""
+              width="14px"
+              height="24px"
+            ></img>
+            <div>녹화본</div>
+          </div>
+          <div className={styles.originalVideoList}>
+            {originalVideos && recordedDetail ? (
+              <div className={styles.videoGrid}>
+                {originalVideos.map(
+                  (item: OriginalVideoItemDto, idx: number) => (
+                    <div
+                      className={styles.videoCard}
+                      key={idx}
+                      onClick={() => downLoadVideo(item, idx + 1)}
+                    >
+                      {/* <div className={styles.thumbnail}></div> */}
+                      <img
+                        className={styles.thumbnail}
+                        src={item.imageUrl}
+                        alt=""
+                        width="199px"
+                        height="112px"
+                      />
+                      <div className={styles.videoInfo}>
+                        <div className={styles.videoTitle}>
+                          {idx + 1}번 카메라
+                        </div>
+                        <div className={styles.videoDetails}>
+                          <div className={styles.videoField}>
+                            {recordedDetail.fieldName}
+                          </div>
+                          <div className={styles.videoTime}>
+                            {recordedDetail.date} | {recordedDetail.hours}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  ),
+                )}
+              </div>
+            ) : (
+              <>
+                <div className={styles.noReserve}>
+                  <img
+                    src={noDataIcon}
+                    className={styles.img}
+                    width="168px"
+                    height="108px"
+                  ></img>
+                  <div className={styles.title}>아직 저장된 영상이 없어요</div>
+                </div>
+              </>
+            )}
+
+            {/* <ReactPaginate
+              previousLabel={'<'}
+              nextLabel={'>'}
+              pageCount={pageCount} //몇개 페이지 보여줄건지
+              pageRangeDisplayed={10} // 페이지 주변에 표시될 번호 범위
+              // onPageChange={handlePageClick}
+              containerClassName={styles.pagination} /// 전체컨테이너
+              activeClassName={styles.active} // 활성화 페이지 번호에 적용
+              pageClassName={styles.pageNumber} //각 페이지 번호에 적용
+              previousClassName={styles.button} // 이전버튼 적용
+              nextClassName={styles.button} //다음버튼 적용
+            /> */}
+          </div>
         </div>
-      </div>
-      <div className={styles.noData}>
-        <img
-          src={noDataIcon}
-          alt="검색 결과가 없습니다."
-          width="180px"
-          height="180px"
-        />
-        <div>녹화된 영상이 없어요</div>
-      </div>
+      )}
 
       <RecordCheckModal
         isOpen={isModalOpen}

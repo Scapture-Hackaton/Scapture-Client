@@ -306,6 +306,170 @@
           color: var(--font-color-gray-400);
         }
       }
+
+      .recordedList {
+        margin: 1rem 0 1rem 0;
+
+        .recordedItem {
+          width: 100%;
+          padding: 1.5rem 1rem;
+          margin-bottom: 1rem;
+
+          border-radius: 12px;
+
+          background: var(--color-grayscale-web-card);
+
+          cursor: pointer;
+
+          .recordedTitle {
+            color: var(--font-color-gray-100);
+            font-size: var(--font-size-xm);
+            font-weight: 500;
+
+            margin-bottom: 0.7rem;
+          }
+
+          .recordedInfo {
+            padding: 0.7rem;
+
+            background: var(--color-grayscale-input-800);
+
+            border-radius: 8px;
+
+            .recordedInfoItem {
+              display: flex;
+              align-items: center;
+
+              padding: 0.2rem 0;
+
+              img {
+                margin-right: 0.3rem;
+              }
+
+              div {
+                font-size: var(--font-size-m);
+              }
+            }
+          }
+        }
+      }
+
+      .recordedContainer {
+        .itemInfo {
+          display: flex;
+          align-items: center;
+
+          padding: 0 1rem;
+
+          img {
+            width: 14px;
+            height: 24px;
+
+            margin-right: 1rem;
+
+            cursor: pointer;
+          }
+
+          div {
+            color: var(--font-color-gray-100);
+            font-size: var(--font-size-l);
+          }
+        }
+
+        .originalVideoList {
+          width: 100%;
+          margin: 1.3rem auto 0 auto;
+          padding-bottom: 4rem;
+
+          .noReserve {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+
+            margin: 3rem 0;
+
+            img {
+              width: 168px;
+              height: 108px;
+
+              object-fit: cover;
+            }
+
+            .title {
+              margin-top: 2rem;
+              color: var(--font-color-gray-400);
+              font-weight: 500;
+              font-size: var(--font-size-sl);
+            }
+          }
+
+          .videoGrid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            margin-bottom: 12px;
+
+            .videoCard {
+              border-radius: 8px;
+              display: flex;
+              flex-direction: column;
+
+              cursor: pointer;
+
+              .thumbnail {
+                // width: 199px;
+                width: 100%;
+                height: 112px;
+                background-color: #444;
+                border-radius: 8px;
+                margin-bottom: 8px;
+
+                object-fit: cover;
+              }
+
+              .videoInfo {
+                .videoTitle {
+                  color: var(--GRAY-SCALE-Gray-100, #f9fafe);
+
+                  /* SUBTITLE/16_bold */
+                  font-family: Pretendard;
+                  font-size: 16px;
+                  font-style: normal;
+                  font-weight: 700;
+                  line-height: 160%; /* 25.6px */
+                }
+
+                .videoDetails {
+                  display: flex;
+                  flex-direction: column;
+                  .videoField {
+                    color: var(--grayscale-gray-600-iconsubtext, #75777f);
+
+                    /* BODY/12_bold */
+                    font-family: Pretendard;
+                    font-size: 12px;
+                    font-style: normal;
+                    font-weight: 700;
+                    line-height: 160%; /* 19.2px */
+                  }
+
+                  .videoTime {
+                    color: var(--grayscale-gray-600-iconsubtext, #75777f);
+
+                    /* BODY/12_bold */
+                    font-family: Pretendard;
+                    font-size: 12px;
+                    font-style: normal;
+                    font-weight: 700;
+                    line-height: 160%; /* 19.2px */
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
     }
 
     .fieldSection {
