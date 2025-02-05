@@ -46,6 +46,7 @@ const CameraControl: React.FC<CameraControlProps> = ({ fields }) => {
     setSelectedField(fieldName);
     setSelectedFieldId(fieldId);
 
+    setList(true);
     // fieldId 선택 시 녹화 목록 호출
     const recordings = await getRecordedList(fieldId);
 
